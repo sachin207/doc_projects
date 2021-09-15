@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0" name="SimpleFlow" type="Cartridge">
+	<description><![CDATA[This cartridge illustrates the simple flow that transforms an input external message to internal message and then transforms the internal message to an output external message.
+
+To run,
+
+1) Select the Message Flow 'SimpleFlow' in Simulator.
+2) Open a sample file from the 'sample' directory (under the cartridge directory), in the 'Input' text area.
+3) Click 'Submit'.
+
+The consolidated output will be displayed in the Output pane. 
+
+]]></description>
+	<version>1.0</version>
+	<folder name="Messages" type="FolderElement">
+		<internalmessage name="OrderIM" type="InternalMessage">
+			<version>1.0</version>
+			<normalizedformat>
+				<fields>
+					<field xsi:type="InternalMessageSectionType">
+						<name>Records</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<fields>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Account Number</name>
+								<type>String</type>
+								<notnull>true</notnull>
+								<length>100</length>
+							</field>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Order Type</name>
+								<type>String</type>
+								<notnull>true</notnull>
+								<length>100</length>
+							</field>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Symbol</name>
+								<type>String</type>
+								<notnull>true</notnull>
+								<length>100</length>
+							</field>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Price</name>
+								<type>Double</type>
+								<notnull>true</notnull>
+							</field>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Quantity</name>
+								<type>Integer</type>
+								<notnull>true</notnull>
+							</field>
+							<field xsi:type="InternalMessageFieldType">
+								<name>Trade Date</name>
+								<type>DateOnly</type>
+								<notnull>true</notnull>
+							</field>
+						</fields>
+					</field>
+				</fields>
+			</normalizedformat>
+			<validationrules name="Default" type="ValidationRules">
+				<fieldvalidation>
+					<name>E1</name>
+					<fieldname>Records.Trade Date</fieldname>
+					<formula><![CDATA[LessEqual(Records.Trade_Date, Today());]]></formula>
+					<severity>error</severity>
+					<cascade>true</cascade>
+					<error-code>E1</error-code>
+					<actionmessage><![CDATA["Trade Date " + Records.Trade_Date + " is in the future."]]></actionmessage>
+				</fieldvalidation>
+			</validationrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.internal.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</internalmessage>
+		<externalmessage xsi:type="ASCIIDelimitedFormat" type="ASCIIDelimitedFormat" version="4.0" rulename="OrderCSV" formattype="ASCIIDelimitedFormat" >
+			<standard>ASCII Delimited</standard>
+			<version>1.0</version>
+			<asciidelimitedfields>
+				<batchmode>true</batchmode>
+				<delimiter><![CDATA[,]]></delimiter>
+				<contains-header>false</contains-header>
+				<contains-trailer>false</contains-trailer>
+				<headerfields>
+				</headerfields>
+				<datafields>
+					<field xsi:type="ASCIIDelimitedSectionType">
+						<name>Records</name>
+						<datatype>Section</datatype>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<fields>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Account Number</name>
+								<datatype>String</datatype>
+								<required>true</required>
+							</field>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Order Type</name>
+								<datatype>String</datatype>
+								<required>true</required>
+							</field>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Symbol</name>
+								<datatype>String</datatype>
+								<required>true</required>
+							</field>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Price</name>
+								<datatype>Double</datatype>
+								<required>true</required>
+							</field>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Quantity</name>
+								<datatype>Integer</datatype>
+								<required>true</required>
+							</field>
+							<field xsi:type="ASCIIDelimitedFieldType">
+								<name>Trade Date</name>
+								<datatype>DateOnly</datatype>
+								<required>false</required>
+								<dateformat>yyyyMMdd</dateformat>
+							</field>
+						</fields>
+					</field>
+				</datafields>
+				<trailerfields>
+				</trailerfields>
+			</asciidelimitedfields>
+			<validationrules name="Default">
+				<hdrvalidationrules>
+					<fieldvalidations>
+					</fieldvalidations>
+				</hdrvalidationrules>
+				<datavalidationrules>
+					<fieldvalidations>
+						<fieldvalidation>
+							<name>E1</name>
+							<fieldname>Records.Order Type</fieldname>
+							<formula><![CDATA[In(Records.Order_Type, "BUY", "SELL")]]></formula>
+							<severity>error</severity>
+							<cascade>true</cascade>
+							<error-code>E1</error-code>
+							<actionmessage><![CDATA["Invalid value " + Records.Order_Type + ". Allowed values are 'BUY' or 'SELL'."]]></actionmessage>
+						</fieldvalidation>
+						<fieldvalidation>
+							<name>E2</name>
+							<fieldname>Records.Symbol</fieldname>
+							<formula><![CDATA[Length(Records.Symbol)<5]]></formula>
+							<severity>error</severity>
+							<cascade>true</cascade>
+							<error-code>E2</error-code>
+							<actionmessage><![CDATA["Invalid Symbol " + Records.Symbol + ".  Should be less than 5 characters."]]></actionmessage>
+						</fieldvalidation>
+					</fieldvalidations>
+				</datavalidationrules>
+				<tlrvalidationrules>
+					<fieldvalidations>
+					</fieldvalidations>
+				</tlrvalidationrules>
+			</validationrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.external.ordercsv"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar asciirt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</externalmessage>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="Mappings" type="FolderElement">
+		<messagemapping rulename="OrderCSVToOrderIM" type="MessageMapping">
+			<source>OrderCSV</source>
+			<destination>OrderIM</destination>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>Records</source-field>
+						<destination-field>Records</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Account Number</source-field>
+						<destination-field>Records.Account Number</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[If(Records.Order_Type == "BUY", "B", "S")]]></source-field>
+						<destination-field>Records.Order Type</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Symbol</source-field>
+						<destination-field>Records.Symbol</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Price</source-field>
+						<destination-field>Records.Price</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Quantity</source-field>
+						<destination-field>Records.Quantity</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[If(IsNull(Records.Trade_Date), Today(), Records.Trade_Date);]]></source-field>
+						<destination-field>Records.Trade Date</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.mapping"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messagemapping>
+		<messagemapping rulename="OrderIMToOrderCSV" type="MessageMapping">
+			<source>OrderIM</source>
+			<destination>OrderCSV</destination>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>Records.Account Number</source-field>
+						<destination-field>Records.Account Number</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Order Type</source-field>
+						<destination-field>Records.Order Type</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Symbol</source-field>
+						<destination-field>Records.Symbol</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Price</source-field>
+						<destination-field>Records.Price</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Quantity</source-field>
+						<destination-field>Records.Quantity</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>Records.Trade Date</source-field>
+						<destination-field>Records.Trade Date</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.mapping"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messagemapping>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messageflow name="SimpleFlow" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>Required</transaction>
+		<message-flow-ports>
+			<port name="outdevice">
+				<protocol>rmiprotocol</protocol>
+				<device>outdevice</device>
+			</port>
+		</message-flow-ports>
+		<variables>
+			<fields>
+				<field>
+					<name>RawIn</name>
+					<type>Binary</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>OrderCSVInObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>OrderCSV</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>OrderIMObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>OrderIM</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>OrderCSVOutObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>OrderCSV</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>RawOut</name>
+					<type>Binary</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<flowelement name="Start1" uid="6e082e67-ad01-4a64-87cc-0bc29118ddba" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="181" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="04274e97-730e-44eb-ac02-e4119fa25037" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="177" y="575"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="9935f704-e402-44e8-b74c-b7ebc9dcbf91" type="Parse" xsi:type="Parse" >
+			<label>Parse OrderCSV</label>
+			<description><![CDATA[]]></description>
+			<in>RawIn</in>
+			<out>OrderCSVInObj</out>
+			<message>OrderCSV</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="181" y="106"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Validate1" uid="324bc11f-3152-4afb-90d1-1bf8582cfa03" type="Validate" xsi:type="Validate" >
+			<label>Validate OrderCSV</label>
+			<in>OrderCSVInObj</in>
+			<message>OrderCSV</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="180" y="189"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Serialize1" uid="eecbdbd7-338e-4dfd-ac6d-fba39fa4f4bc" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize OrderCSV</label>
+			<in>OrderCSVOutObj</in>
+			<out>RawOut</out>
+			<message>OrderCSV</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="178" y="507"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Mapping1" uid="0b2b230d-afb2-4f5e-91ca-7a5ae42f9b67" type="Mapping" xsi:type="Mapping" >
+			<label>OrderCSV To OrderIM</label>
+			<description><![CDATA[]]></description>
+			<in>OrderCSVInObj</in>
+			<out>OrderIMObj</out>
+			<messagemapping>="OrderCSVToOrderIM"</messagemapping>
+			<create-destination>true</create-destination>
+			<visual>
+				<position x="179" y="271"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Mapping2" uid="95dfb4c8-bc8a-4cfb-a3ad-6ce205d2368d" type="Mapping" xsi:type="Mapping" >
+			<label>OrderIM To OrderCSV</label>
+			<in>OrderIMObj</in>
+			<out>OrderCSVOutObj</out>
+			<messagemapping>OrderIMToOrderCSV</messagemapping>
+			<create-destination>true</create-destination>
+			<visual>
+				<position x="178" y="425"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="6ea54b42-3b9e-4edd-b993-d3771c896e01" type="Custom" xsi:type="Custom" >
+			<label>Custom</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def recordsSec = OrderIMObj.Records;
+for (def i=0; i < recordsSec.$size; ++i) {
+	def recordsElm = recordsSec[i];
+	recordsElm.Account_Number = "A/X." + recordsElm.Account_Number;
+}]]></code>
+			<visual>
+				<position x="178" y="348"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="2dfc1dc0-2622-4cf1-a736-aa935870533f" type="Custom" xsi:type="Custom" >
+			<label>Custom</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[error("This is a error log")]]></code>
+			<visual>
+				<position x="317" y="90"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom3" uid="a95de1c6-0448-4f0d-813a-ac977b5abe4c" type="Custom" xsi:type="Custom" >
+			<label>Custom</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[info("OUTPUT:???")]]></code>
+			<visual>
+				<position x="332" y="342"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="9935f704-e402-44e8-b74c-b7ebc9dcbf91" portindex="1"/>
+			<inputport uid="324bc11f-3152-4afb-90d1-1bf8582cfa03" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+			<note>
+				<value>OrderCSVObj</value>
+				<visual>
+					<location x="36" y="-2"/>
+				</visual>
+			</note>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="324bc11f-3152-4afb-90d1-1bf8582cfa03" portindex="1"/>
+			<inputport uid="0b2b230d-afb2-4f5e-91ca-7a5ae42f9b67" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+			<note>
+				<value>OrderCSVObj</value>
+				<visual>
+					<location x="37" y="-2"/>
+				</visual>
+			</note>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="95dfb4c8-bc8a-4cfb-a3ad-6ce205d2368d" portindex="1"/>
+			<inputport uid="eecbdbd7-338e-4dfd-ac6d-fba39fa4f4bc" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+			<note>
+				<value>OrderCSVOutObj</value>
+				<visual>
+					<location x="45" y="-1"/>
+				</visual>
+			</note>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="0b2b230d-afb2-4f5e-91ca-7a5ae42f9b67" portindex="1"/>
+			<inputport uid="6ea54b42-3b9e-4edd-b993-d3771c896e01" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+			<note>
+				<value>OrderIMObj</value>
+				<visual>
+					<location x="32" y="-3"/>
+				</visual>
+			</note>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6ea54b42-3b9e-4edd-b993-d3771c896e01" portindex="1"/>
+			<inputport uid="95dfb4c8-bc8a-4cfb-a3ad-6ce205d2368d" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6e082e67-ad01-4a64-87cc-0bc29118ddba" portindex="0"/>
+			<inputport uid="2dfc1dc0-2622-4cf1-a736-aa935870533f" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="2dfc1dc0-2622-4cf1-a736-aa935870533f" portindex="1"/>
+			<inputport uid="9935f704-e402-44e8-b74c-b7ebc9dcbf91" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="eecbdbd7-338e-4dfd-ac6d-fba39fa4f4bc" portindex="1"/>
+			<inputport uid="a95de1c6-0448-4f0d-813a-ac977b5abe4c" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a95de1c6-0448-4f0d-813a-ac977b5abe4c" portindex="1"/>
+			<inputport uid="04274e97-730e-44eb-ac02-e4119fa25037" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="140" y="25" width="221" height="564"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+							<property name="Webservice" value=""/>
+						</propertymap>
+					</value>
+				</property>
+				<property name="codegen.cpp.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Thu Feb 23 14:12:06 IST 2006"/>
+						<property name="Author" value="Krish"/>
+						<property name="Title" value="SimpleFlow"/>
+						<property name="Client Id" value="volante"/>
+						<property name="Last Author" value="krishnan"/>
+						<property name="Last Save Time" value="Tue Jun 12 06:50:27 EDT 2012"/>
+						<property name="Designer Build" value="1206"/>
+						<property name="Revision Number" value="51"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+									<property name="Java/EJB">
+										<value>
+											<propertymap>
+												<property name="assembly">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.AssemblyInfo">
+																	<property name="name" value="F:\Volante\Cartridges\MessageFlow\SimpleFlow\java\SimpleFlow.jar"/>
+																	<property name="type" value="assembly"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+												<property name="DEPENDENCY">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.ModuleInfo">
+																	<property name="name" value="F:\Volante\lib\runtime\asciirt.jar"/>
+																	<property name="type" value="DEPENDENCY"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+											</propertymap>
+										</value>
+									</property>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="F:\Volante\Cartridges\MessageFlow\SimpleFlow\SimpleFlow.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="false"/>
+						<property name="isOSGI" value="false"/>
+						<property name="isEJB" value="false"/>
+						<property name="isWebSphere" value="false"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="false"/>
+						<property name="isWebLogic" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isOrion" value="false"/>
+						<property name="isLocal" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isGeronimo" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.externalclasses">
+				<value>
+					<propertylist>
+						<value>
+							<propertymap>
+								<property name="main" value="true"/>
+								<property name="filename" value="custom\Main2.cpp"/>
+							</propertymap>
+						</value>
+					</propertylist>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>SimpleFlow/SimpleFlow</selected-element>
+	</workspace>
+</cartridge>
+

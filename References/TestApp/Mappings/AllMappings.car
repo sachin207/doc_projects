@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge version="4.0" name="AllMappings" type="Cartridge">
+	<version>1.0</version>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Messages\AllMessages.car</relative-path>
+			<absolute-path>F:\Volante\Cartridges\References\TestApp\Messages\AllMessages.car</absolute-path>
+		</reference>
+	</references>
+	<messagemapping rulename="InvoiceInToInvoiceNO" type="MessageMapping">
+		<source>InvoiceIn</source>
+		<destination>InvoiceNO</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>ClientID</source-field>
+					<destination-field>ClientID</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>InvoiceDate</source-field>
+					<destination-field>InvoiceDate</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Records.ItemID</source-field>
+					<destination-field>Item.ItemID</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Records.Qty</source-field>
+					<destination-field>Item.Qty</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Records.Price</source-field>
+					<destination-field>Item.Price</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[Records.Qty * Records.Price]]></source-field>
+					<destination-field>Item.Cost</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+				<property name="codegen.cpp.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="F:\Volante\Cartridges\References\TestApp\Mappings\AllMappings.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isOrion" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Bala"/>
+						<property name="Creation Time" value="Mon May 16 12:36:21 IST 2005"/>
+						<property name="Client Id" value="volante"/>
+						<property name="Last Author" value="krish"/>
+						<property name="Last Save Time" value="Thu Jul 15 10:57:46 IST 2010"/>
+						<property name="Designer Build" value="1151"/>
+						<property name="Revision Number" value="140"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>AllMappings</selected-element>
+	</workspace>
+</cartridge>
+

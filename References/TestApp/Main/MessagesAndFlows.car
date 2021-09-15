@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.1" name="MessagesAndFlows" type="Cartridge">
+	<description><![CDATA[This cartridge illustrates how to include cartridge references to other cartridges.
+
+To run,
+
+1) Select the Message Flow 'MessageInAndNOOutTestFlow' in Simulator.
+2) Open a sample file from the 'sample' directory (under the cartridge directory), in the 'Input' text area.
+3) Click 'Submit'.
+
+The consolidated output will be displayed in the Output pane.
+
+
+]]></description>
+	<version>1.0</version>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Mappings\AllMappings.car</relative-path>
+			<absolute-path>F:\Volante\Cartridges\References\TestApp\Mappings\AllMappings.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="MessageFlows" type="FolderElement">
+		<messageflow name="MessageInAndNOOutTestFlow" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>Required</transaction>
+			<variables>
+				<fields>
+					<field>
+						<name>RawIn</name>
+						<type>Binary</type>
+						<notnull>false</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>InvoiceInObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>InvoiceIn</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>TransformExceptionObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>InvoiceNOObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>InvoiceNO</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>ExceptionMessage</name>
+						<type>Binary</type>
+						<notnull>false</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<flowelement name="Start1" uid="a320bcf3-7ca7-496b-aa46-95eccc9e7f7e" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="135" y="38"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="cc9b8896-bc8d-4e8e-b2c6-3446a8523002" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="135" y="395"/>
+					<line-color>#008000</line-color>
+					<text-color>#000000</text-color>
+					<fill-color>#F0F0FF</fill-color>
+				</visual>
+			</flowelement>
+			<flowelement name="Sequence1" uid="27af6adb-bb4a-46d7-81d9-ae05b02e1a88" type="Sequence" xsi:type="Sequence" >
+				<label>Handle Input</label>
+				<messageflow name="" type="MessageFlow">
+					<flowelement name="Transform2" uid="e91461eb-a78b-41a1-8ac5-2cec77572c6a" type="Mapping" xsi:type="Mapping" >
+						<label>InvoiceIn to InvoiceNO</label>
+						<in>InvoiceInObj</in>
+						<out>InvoiceNOObj</out>
+						<messagemapping>InvoiceInToInvoiceNO</messagemapping>
+						<create-destination>true</create-destination>
+						<visual>
+							<position x="62" y="204"/>
+							<line-color>#FFA200</line-color>
+							<fill-color>#FFFFCC</fill-color>
+						</visual>
+					</flowelement>
+					<flowelement name="Parse2" uid="189687e3-a2d8-4f62-8c66-86b91974f854" type="Parse" xsi:type="Parse" >
+						<label>Parse InvoiceIn</label>
+						<in>RawIn</in>
+						<out>InvoiceInObj</out>
+						<message>InvoiceIn</message>
+						<cascade-exceptions>false</cascade-exceptions>
+						<visual>
+							<position x="63" y="50"/>
+						</visual>
+					</flowelement>
+					<flowelement name="Validate1" uid="5cb797a5-4e1e-49f9-8b5b-76c4577f7dc4" type="Validate" xsi:type="Validate" >
+						<label>Validate InvoiceIn</label>
+						<in>InvoiceInObj</in>
+						<message>InvoiceIn</message>
+						<cascade-exceptions>false</cascade-exceptions>
+						<visual>
+							<position x="63" y="127"/>
+						</visual>
+					</flowelement>
+					<link type="Default" xsi:type="Default">
+						<outputport uid="189687e3-a2d8-4f62-8c66-86b91974f854" portindex="1"/>
+						<inputport uid="5cb797a5-4e1e-49f9-8b5b-76c4577f7dc4" portindex="0"/>
+						<edge-type>DIRECT</edge-type>
+						<note>
+							<value>InvoiceInObj</value>
+							<visual>
+								<location x="-3" y="-3"/>
+							</visual>
+						</note>
+					</link>
+					<link type="Default" xsi:type="Default">
+						<outputport uid="5cb797a5-4e1e-49f9-8b5b-76c4577f7dc4" portindex="1"/>
+						<inputport uid="e91461eb-a78b-41a1-8ac5-2cec77572c6a" portindex="0"/>
+						<edge-type>DIRECT</edge-type>
+						<note>
+							<value>InvoiceInObj</value>
+							<visual>
+								<location x="-2" y="-3"/>
+							</visual>
+						</note>
+					</link>
+					<visual>
+						<bounds x="26" y="25" width="76" height="211"/>
+					</visual>
+				</messageflow>
+				<visual>
+					<position x="133" y="212"/>
+				</visual>
+				<property name="showbody" value="true"/>
+			</flowelement>
+			<flowelement name="Serialize1" uid="59f0df0a-9dbb-4365-926e-575e509abbff" type="Serialize" xsi:type="Serialize" >
+				<label>Serialize TransformException</label>
+				<in>TransformExceptionObj</in>
+				<out>ExceptionMessage</out>
+				<message>TransformException</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<visual>
+					<position x="296" y="264"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="a320bcf3-7ca7-496b-aa46-95eccc9e7f7e" portindex="0"/>
+				<inputport uid="27af6adb-bb4a-46d7-81d9-ae05b02e1a88" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+				<note>
+					<value>RawIn</value>
+					<visual>
+						<location x="20" y="-1"/>
+					</visual>
+				</note>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="27af6adb-bb4a-46d7-81d9-ae05b02e1a88" portindex="1"/>
+				<inputport uid="cc9b8896-bc8d-4e8e-b2c6-3446a8523002" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+				<note>
+					<value>InvoiceNOObj</value>
+					<visual>
+						<location x="-1" y="-4"/>
+					</visual>
+				</note>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="59f0df0a-9dbb-4365-926e-575e509abbff" portindex="1"/>
+				<inputport uid="cc9b8896-bc8d-4e8e-b2c6-3446a8523002" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+				<note>
+					<value>ExceptionMessage</value>
+					<visual>
+						<location x="-1" y="-8"/>
+					</visual>
+				</note>
+			</link>
+			<link type="Exception" xsi:type="Exception">
+				<message>TransformException</message>
+				<out>TransformExceptionObj</out>
+				<cascade-exceptions>false</cascade-exceptions>
+				<outputport uid="27af6adb-bb4a-46d7-81d9-ae05b02e1a88" portindex="2"/>
+				<inputport uid="59f0df0a-9dbb-4365-926e-575e509abbff" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+				<note>
+					<value>TransformExceptionObj</value>
+					<visual>
+						<location x="61" y="-10"/>
+					</visual>
+				</note>
+			</link>
+			<visual>
+				<bounds x="76" y="24" width="280" height="385"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+					<property name="codegen.cpp.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+									<property name="Java/EJB">
+										<value>
+											<propertymap>
+												<property name="assembly">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.AssemblyInfo">
+																	<property name="name" value="F:\Volante\Cartridges\References\TestApp\Main\java\MessagesAndFlows.jar"/>
+																	<property name="type" value="assembly"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+											</propertymap>
+										</value>
+									</property>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="F:\Volante\Cartridges\References\TestApp\Main\MessagesAndFlows.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isOrion" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Bala"/>
+						<property name="Creation Time" value="Mon May 16 12:36:21 IST 2005"/>
+						<property name="Client Id" value="volante"/>
+						<property name="Last Author" value="krishnan"/>
+						<property name="Last Save Time" value="Wed Dec 26 10:37:05 IST 2012"/>
+						<property name="Designer Build" value="1252"/>
+						<property name="Revision Number" value="138"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>MessagesAndFlows</selected-element>
+	</workspace>
+</cartridge>
+

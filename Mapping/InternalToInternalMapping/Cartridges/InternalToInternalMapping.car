@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge version="3.4.0" name="InternalToInternalMapping" type="Cartridge">
+	<description><![CDATA[This Cartridge Illustrates mapping between internal messages.
+
+
+To run,
+
+1) Select the Mapping 'GoodsIssuedNoteToGoodsReceivedNote' in Simulator.
+2) Open a sample file from the 'sample' directory (under the cartridge directory), in the 'Input' text area.
+3) Click 'Submit'.
+
+The consolidated output will be displayed in the Output pane.
+
+
+
+]]></description>
+	<version>1.0</version>
+	<folder name="Messages" type="FolderElement">
+		<internalmessage name="GoodsIssuedNote" type="InternalMessage">
+			<version>1.0</version>
+			<normalizedformat>
+				<fields>
+					<field>
+						<name>GIN</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<fields>
+							<field>
+								<name>NO</name>
+								<type>Integer</type>
+							</field>
+							<field>
+								<name>ReceivedDate</name>
+								<type>DateTime</type>
+							</field>
+							<field>
+								<name>IssuedDate</name>
+								<type>DateTime</type>
+							</field>
+							<field>
+								<name>FromDept</name>
+								<type>String</type>
+								<length>100</length>
+							</field>
+							<field>
+								<name>ToDept</name>
+								<type>String</type>
+								<length>100</length>
+							</field>
+							<field>
+								<name>Product</name>
+								<type>Section</type>
+								<minoccurs>0</minoccurs>
+								<maxoccurs>-1</maxoccurs>
+								<fields>
+									<field>
+										<name>ID</name>
+										<type>String</type>
+										<length>100</length>
+									</field>
+									<field>
+										<name>RequestedQty</name>
+										<type>Double</type>
+									</field>
+									<field>
+										<name>IssuedQty</name>
+										<type>Double</type>
+									</field>
+								</fields>
+							</field>
+						</fields>
+					</field>
+				</fields>
+			</normalizedformat>
+			<validationrules name="Default" type="ValidationRules">
+			</validationrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.goodsissuednote"/>
+								<property name="Jar Name" value="InternalToInternalMapping.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</internalmessage>
+		<internalmessage name="GoodsReceivedNote" type="InternalMessage">
+			<version>1.0</version>
+			<normalizedformat>
+				<fields>
+					<field>
+						<name>GRN</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<fields>
+							<field>
+								<name>GRNNO</name>
+								<type>Integer</type>
+							</field>
+							<field>
+								<name>GINNO</name>
+								<type>Integer</type>
+							</field>
+							<field>
+								<name>RequestDate</name>
+								<type>DateTime</type>
+							</field>
+							<field>
+								<name>ReceivedDate</name>
+								<type>DateTime</type>
+							</field>
+							<field>
+								<name>FromDept</name>
+								<type>String</type>
+								<length>100</length>
+							</field>
+							<field>
+								<name>ToDept</name>
+								<type>String</type>
+								<length>100</length>
+							</field>
+							<field>
+								<name>Product</name>
+								<type>Section</type>
+								<minoccurs>0</minoccurs>
+								<maxoccurs>-1</maxoccurs>
+								<fields>
+									<field>
+										<name>ID</name>
+										<type>String</type>
+										<length>100</length>
+									</field>
+									<field>
+										<name>RequestedQty</name>
+										<type>Double</type>
+									</field>
+									<field>
+										<name>ReceivedQty</name>
+										<type>Double</type>
+									</field>
+								</fields>
+							</field>
+						</fields>
+					</field>
+				</fields>
+			</normalizedformat>
+			<validationrules name="Default" type="ValidationRules">
+			</validationrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.goodsreceivednote"/>
+								<property name="Jar Name" value="InternalToInternalMapping.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</internalmessage>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="Mappings" type="FolderElement">
+		<messagemapping rulename="GoodsIssuedNoteToGoodsReceivedNote" type="MessageMapping">
+			<source>GoodsIssuedNote</source>
+			<destination>GoodsReceivedNote</destination>
+			<normalizedobjectmappingrules>
+				<normalizedobjectmappings>
+					<mapping type="formula">
+						<sourcenormalizedfield><![CDATA[GIN.NO + 1000]]></sourcenormalizedfield>
+						<destinationormalizedfield>GRN.GRNNO</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.NO</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.GINNO</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.ReceivedDate</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.RequestDate</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.IssuedDate</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.ReceivedDate</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.FromDept</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.FromDept</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.ToDept</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.ToDept</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.Product</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.Product</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.Product.ID</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.Product.ID</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.Product.RequestedQty</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.Product.RequestedQty</destinationormalizedfield>
+					</mapping>
+					<mapping type="one2one">
+						<sourcenormalizedfield>GIN.Product.IssuedQty</sourcenormalizedfield>
+						<destinationormalizedfield>GRN.Product.ReceivedQty</destinationormalizedfield>
+					</mapping>
+				</normalizedobjectmappings>
+			</normalizedobjectmappingrules>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.mapping"/>
+								<property name="Jar Name" value="InternalToInternalMapping.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messagemapping>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Ajay"/>
+						<property name="Creation Time" value="Thu Sep 09 16:50:54 IST 2004"/>
+						<property name="LastAuthor" value="Bala"/>
+						<property name="Last Author" value="Sunil"/>
+						<property name="Last Save Time" value="Tue Jul 17 11:33:35 GMT+05:30 2007"/>
+						<property name="Designer Build" value="946"/>
+						<property name="Revision Number" value="18"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isOrion" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isRemote" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isLocal" value="true"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>InternalToInternalMapping</selected-element>
+	</workspace>
+</cartridge>
+

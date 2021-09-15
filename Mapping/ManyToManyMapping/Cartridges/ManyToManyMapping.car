@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.4.0" name="MultiExternalToExternalMapping" type="Cartridge" id="cdab6853-1372-4761-bd91-630739a4c7b7">
+	<description><![CDATA[Illustrates mapping between multiple instances of source message to multiple message instances of destination message
+
+To run,
+
+1) Select the Mapping 'InvoiceInToInvoiceOut' in Simulator.
+2) Open a sample file from the 'sample' directory (under the cartridge directory), in the 'Input' text area.
+3) Click 'Submit'.
+
+The consolidated output will be displayed in the Output pane.
+]]></description>
+	<version>1.0</version>
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="InvoiceIn" version="1.0" type="External Message">
+			</service>
+			<service name="InvoiceInIM" version="1.0" type="Internal Message">
+			</service>
+			<service name="MultipleSourceToMultipleDestination" version="1.0" type="Mapping">
+			</service>
+		</summary>
+	</private>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.4.0" rulename="InvoiceIn" formattype="XMLFormat" id="5ccab458-1ef8-4cc1-abda-7588bc6c7d50" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields id="fdd17542-3889-421b-953c-19e9097a2d36">
+			<xml-options>
+				<batch>false</batch>
+				<root-tag>Root</root-tag>
+				<header-tag>Header</header-tag>
+				<record-tag>Root</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<enable-external-entities>false</enable-external-entities>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+					<flatten-named-group>false</flatten-named-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+			</entity-references>
+			<doc-type-decl>&lt;!DOCTYPE {0} SYSTEM "{1}"&gt;</doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<headerfields>
+				<model>sequence</model>
+				<field xsi:type="XMLFieldType">
+					<name>ClientID</name>
+					<datatype>String</datatype>
+					<required>true</required>
+					<xmltype>string</xmltype>
+					<node-type>element</node-type>
+				</field>
+				<field xsi:type="XMLFieldType">
+					<name>InvoiceDate</name>
+					<datatype>DateTime</datatype>
+					<required>true</required>
+					<dateformat>yyyyMMdd-HH:mm:ss.SSS</dateformat>
+					<xmltype>dateTime</xmltype>
+					<node-type>element</node-type>
+				</field>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+				<field xsi:type="XMLSectionType">
+					<name>Records</name>
+					<datatype>Section</datatype>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLFieldType">
+							<name>ItemID</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>Qty</name>
+							<datatype>Integer</datatype>
+							<required>true</required>
+							<xmltype>int</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>Price</name>
+							<datatype>Double</datatype>
+							<required>true</required>
+							<xmltype>double</xmltype>
+							<node-type>element</node-type>
+						</field>
+					</fields>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default" type="FieldsValidationRules" id="db6f922f-c228-4488-88fa-b7fa9bb04b6f">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<internalmessage name="InvoiceInIM" type="InternalMessage" id="a4723599-c8d0-4794-b15a-0e3170105d58">
+		<version>1.0</version>
+		<normalizedformat id="9a666d00-0b5f-40ef-a81d-edaad347152c">
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>ClientID</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>InvoiceDate</name>
+					<type>DateTime</type>
+					<notnull>true</notnull>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>Records</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>ItemID</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Qty</name>
+							<type>Integer</type>
+							<notnull>true</notnull>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Price</name>
+							<type>Double</type>
+							<notnull>true</notnull>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules" id="00754931-c6f7-48e6-a1a3-9a4ee2d4afe3">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<messagemapping rulename="MultipleSourceToMultipleDestination" type="MessageMapping" id="517fda1f-0565-4cfb-9d3c-f18bbe3e7219">
+		<source-format id="028d333d-ccaf-4df2-8ede-6743b43a297c">
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>In</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>InvoiceIn</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</source-format>
+		<destination-format id="a19ee93d-242a-432f-a53e-5596c8056849">
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>out</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>InvoiceInIM</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</destination-format>
+		<mappingrules id="3aaf5a67-927c-4dcf-8cd6-42313ae92fc3">
+			<mappings>
+				<mapping type="one2one">
+					<source-field>In.Header.ClientID</source-field>
+					<destination-field>out.ClientID</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>In.Header.InvoiceDate</source-field>
+					<destination-field>out.InvoiceDate</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>In.Data.Records.ItemID</source-field>
+					<destination-field>out.Records.ItemID</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>In.Data.Records.Qty</source-field>
+					<destination-field>out.Records.Qty</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>In.Data.Records.Price</source-field>
+					<destination-field>out.Records.Price</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Bala"/>
+						<property name="Client Id" value="swarnalatha@volantetech.net"/>
+						<property name="Creation Time" value="Mon May 16 12:36:21 IST 2005"/>
+						<property name="Designer Build" value="2570"/>
+						<property name="Last Author" value="swarnalatha"/>
+						<property name="Last Save Time" value="Tue Sep 14 11:32:35 IST 2021"/>
+						<property name="Revision Number" value="197"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="additionalTestClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="true"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="false"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</cartridge>
+

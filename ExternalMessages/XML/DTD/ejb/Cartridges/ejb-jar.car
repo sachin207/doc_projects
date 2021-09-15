@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.0" name="ejb-jar" type="Cartridge">
+	<description><![CDATA[This cartridge illustrates an XML message by importing a DTD in Message mode.
+
+To run,
+
+1) Select the Message 'ejb_jar' in Simulator.
+2) Open a sample file from the 'sample' directory (under the cartridge directory), in the 'Input' text area.
+3) Click 'Submit'.
+
+The consolidated output will be displayed in the Output pane. ]]></description>
+	<version>1.0</version>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="5.0" rulename="ejb_jar" formattype="XMLFormat" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<dtd><![CDATA[ejb-jar.dtd]]></dtd>
+				<batch>false</batch>
+				<root-tag>ejbdtd</root-tag>
+				<record-tag>ejbdtd</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+				<entity-reference>ejb-jar.dtd</entity-reference>
+			</entity-references>
+			<doc-type-decl>&lt;!DOCTYPE {0} SYSTEM "{1}"&gt;</doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+				<field xsi:type="XMLSectionType">
+					<name>ejbbody</name>
+					<datatype>Section</datatype>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLSectionType">
+							<name>ejb-jar</name>
+							<datatype>Section</datatype>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>-1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<model>sequence</model>
+								<field xsi:type="XMLFieldType">
+									<name>description</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>display-name</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>small-icon</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>large-icon</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+								</field>
+								<field xsi:type="XMLSectionType">
+									<name>enterprise-beans</name>
+									<datatype>Section</datatype>
+									<minoccurs>1</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<node-type>element</node-type>
+									<fields>
+										<model>sequence</model>
+										<field xsi:type="XMLSectionType">
+											<name>enterprise-beansGroup1</name>
+											<datatype>Section</datatype>
+											<minoccurs>0</minoccurs>
+											<maxoccurs>-1</maxoccurs>
+											<node-type>group</node-type>
+											<fields>
+												<model>choice</model>
+												<field xsi:type="XMLSectionType">
+													<name>session</name>
+													<datatype>Section</datatype>
+													<minoccurs>0</minoccurs>
+													<maxoccurs>-1</maxoccurs>
+													<node-type>element</node-type>
+													<fields>
+														<model>sequence</model>
+														<field xsi:type="XMLFieldType">
+															<name>description</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>display-name</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>small-icon</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>large-icon</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>ejb-name</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>home</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>remote</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>ejb-class</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>session-type</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>transaction-type</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>env-entry</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLFieldType">
+																	<name>description</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>env-entry-name</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>env-entry-type</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>env-entry-value</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>ejb-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLFieldType">
+																	<name>description</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>ejb-ref-name</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>ejb-ref-type</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>home</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>remote</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>ejb-link</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>security-role-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLFieldType">
+																	<name>description</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>role-name</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>role-link</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>resource-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLFieldType">
+																	<name>description</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>res-ref-name</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>res-type</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>res-auth</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+															</fields>
+														</field>
+													</fields>
+												</field>
+												<field xsi:type="XMLSectionType">
+													<name>entity</name>
+													<datatype>Section</datatype>
+													<minoccurs>0</minoccurs>
+													<maxoccurs>-1</maxoccurs>
+													<node-type>element</node-type>
+													<fields>
+														<model>sequence</model>
+														<field xsi:type="XMLFieldType">
+															<name>description</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>display-name</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>small-icon</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>large-icon</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>ejb-name</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>home</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>remote</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>ejb-class</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>persistence-type</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>prim-key-class</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>reentrant</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>cmp-field</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLFieldType">
+																	<name>description</name>
+																	<datatype>String</datatype>
+																	<required>false</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+																<field xsi:type="XMLFieldType">
+																	<name>field-name</name>
+																	<datatype>String</datatype>
+																	<required>true</required>
+																	<xmltype>string</xmltype>
+																	<node-type>element</node-type>
+																</field>
+															</fields>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>primkey-field</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>env-entry</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<ref>ejbbody.ejb-jar.enterprise-beans.enterprise-beansGroup1.session.env-entry</ref>
+																<model>sequence</model>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>ejb-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<ref>ejbbody.ejb-jar.enterprise-beans.enterprise-beansGroup1.session.ejb-ref</ref>
+																<model>sequence</model>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>security-role-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<ref>ejbbody.ejb-jar.enterprise-beans.enterprise-beansGroup1.session.security-role-ref</ref>
+																<model>sequence</model>
+															</fields>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>resource-ref</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<ref>ejbbody.ejb-jar.enterprise-beans.enterprise-beansGroup1.session.resource-ref</ref>
+																<model>sequence</model>
+															</fields>
+														</field>
+													</fields>
+												</field>
+											</fields>
+										</field>
+									</fields>
+								</field>
+								<field xsi:type="XMLSectionType">
+									<name>assembly-descriptor</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<node-type>element</node-type>
+									<fields>
+										<model>sequence</model>
+										<field xsi:type="XMLSectionType">
+											<name>security-role</name>
+											<datatype>Section</datatype>
+											<minoccurs>0</minoccurs>
+											<maxoccurs>-1</maxoccurs>
+											<node-type>element</node-type>
+											<fields>
+												<model>sequence</model>
+												<field xsi:type="XMLFieldType">
+													<name>description</name>
+													<datatype>String</datatype>
+													<required>false</required>
+													<xmltype>string</xmltype>
+													<node-type>element</node-type>
+												</field>
+												<field xsi:type="XMLFieldType">
+													<name>role-name</name>
+													<datatype>String</datatype>
+													<required>true</required>
+													<xmltype>string</xmltype>
+													<node-type>element</node-type>
+												</field>
+											</fields>
+										</field>
+										<field xsi:type="XMLSectionType">
+											<name>method-permission</name>
+											<datatype>Section</datatype>
+											<minoccurs>0</minoccurs>
+											<maxoccurs>-1</maxoccurs>
+											<node-type>element</node-type>
+											<fields>
+												<model>sequence</model>
+												<field xsi:type="XMLFieldType">
+													<name>description</name>
+													<datatype>String</datatype>
+													<required>false</required>
+													<xmltype>string</xmltype>
+													<node-type>element</node-type>
+												</field>
+												<field xsi:type="XMLSectionType">
+													<name>role-name</name>
+													<datatype>Section</datatype>
+													<minoccurs>1</minoccurs>
+													<maxoccurs>-1</maxoccurs>
+													<node-type>element</node-type>
+													<fields>
+														<model>sequence</model>
+														<field xsi:type="XMLFieldType">
+															<name>Value</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>value</node-type>
+														</field>
+													</fields>
+												</field>
+												<field xsi:type="XMLSectionType">
+													<name>method</name>
+													<datatype>Section</datatype>
+													<minoccurs>1</minoccurs>
+													<maxoccurs>-1</maxoccurs>
+													<node-type>element</node-type>
+													<fields>
+														<model>sequence</model>
+														<field xsi:type="XMLFieldType">
+															<name>description</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>ejb-name</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>method-intf</name>
+															<datatype>String</datatype>
+															<required>false</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLFieldType">
+															<name>method-name</name>
+															<datatype>String</datatype>
+															<required>true</required>
+															<xmltype>string</xmltype>
+															<node-type>element</node-type>
+														</field>
+														<field xsi:type="XMLSectionType">
+															<name>method-params</name>
+															<datatype>Section</datatype>
+															<minoccurs>0</minoccurs>
+															<maxoccurs>-1</maxoccurs>
+															<node-type>element</node-type>
+															<fields>
+																<model>sequence</model>
+																<field xsi:type="XMLSectionType">
+																	<name>method-param</name>
+																	<datatype>Section</datatype>
+																	<minoccurs>0</minoccurs>
+																	<maxoccurs>-1</maxoccurs>
+																	<node-type>element</node-type>
+																	<fields>
+																		<model>sequence</model>
+																		<field xsi:type="XMLFieldType">
+																			<name>Value</name>
+																			<datatype>String</datatype>
+																			<required>true</required>
+																			<xmltype>string</xmltype>
+																			<node-type>value</node-type>
+																		</field>
+																	</fields>
+																</field>
+															</fields>
+														</field>
+													</fields>
+												</field>
+											</fields>
+										</field>
+										<field xsi:type="XMLSectionType">
+											<name>container-transaction</name>
+											<datatype>Section</datatype>
+											<minoccurs>0</minoccurs>
+											<maxoccurs>-1</maxoccurs>
+											<node-type>element</node-type>
+											<fields>
+												<model>sequence</model>
+												<field xsi:type="XMLFieldType">
+													<name>description</name>
+													<datatype>String</datatype>
+													<required>false</required>
+													<xmltype>string</xmltype>
+													<node-type>element</node-type>
+												</field>
+												<field xsi:type="XMLSectionType">
+													<name>method</name>
+													<datatype>Section</datatype>
+													<minoccurs>1</minoccurs>
+													<maxoccurs>-1</maxoccurs>
+													<node-type>element</node-type>
+													<fields>
+														<ref>ejbbody.ejb-jar.assembly-descriptor.method-permission.method</ref>
+														<model>sequence</model>
+													</fields>
+												</field>
+												<field xsi:type="XMLFieldType">
+													<name>trans-attribute</name>
+													<datatype>String</datatype>
+													<required>true</required>
+													<xmltype>string</xmltype>
+													<node-type>element</node-type>
+												</field>
+											</fields>
+										</field>
+									</fields>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>ejb-client-jar</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+								</field>
+							</fields>
+						</field>
+					</fields>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+									<property name="Java/EJB">
+										<value>
+											<propertymap>
+												<property name="assembly">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.AssemblyInfo">
+																	<property name="groupId" value="com.volantetech.volante.cartridge"/>
+																	<property name="name" value="C:\ProgramData\Volante\Volante-May24-Outbox-Prog-Split\Cartridges\ExternalMessages\XML\DTD\ejb\java\ejb-jar.jar"/>
+																	<property name="artifactId" value="cartridge-ejb-jar"/>
+																	<property name="type" value="assembly"/>
+																	<property name="version" value="1.0"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+												<property name="DEPENDENCY">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.ModuleInfo">
+																	<property name="groupId" value="com.volantetech.volante"/>
+																	<property name="name" value="C:\Program Files (x86)\Releases\Volante-Jun05-Prog-Split\lib\runtime\xmlrt.jar"/>
+																	<property name="artifactId" value="volante-xml"/>
+																	<property name="type" value="DEPENDENCY"/>
+																	<property name="version" value="5.0.0"/>
+																</propertymap>
+															</value>
+															<value>
+																<propertymap type="com.tplus.transform.design.ModuleInfo">
+																	<property name="groupId" value="com.volantetech.volante"/>
+																	<property name="name" value="C:\Program Files (x86)\Releases\Volante-Jun05-Prog-Split\lib\runtime\transformrt.jar"/>
+																	<property name="artifactId" value="volante-core"/>
+																	<property name="type" value="DEPENDENCY"/>
+																	<property name="version" value="5.0.0"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+											</propertymap>
+										</value>
+									</property>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="C:\ProgramData\Volante\Volante-May24-Outbox-Prog-Split\Cartridges\ExternalMessages\XML\DTD\ejb\ejb-jar.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Jan 03 10:20:22 IST 2006"/>
+						<property name="Author" value="Krish"/>
+						<property name="Title" value="ejb-jar"/>
+						<property name="Client Id" value="swarna@volantetech.com"/>
+						<property name="Last Author" value="user"/>
+						<property name="Last Save Time" value="Thu Jun 06 14:51:39 IST 2013"/>
+						<property name="Designer Build" value="1400"/>
+						<property name="Revision Number" value="5"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>ejb-jar</selected-element>
+	</workspace>
+</cartridge>
+

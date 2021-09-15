@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.1" name="PurchaseOrder" type="Cartridge">
+	<version>1.0</version>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="4.1" rulename="PurchaseOrder" formattype="XMLFormat" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<xsd><![CDATA[PurchaseOrder.xsd]]></xsd>
+				<batch>false</batch>
+				<root-tag>purchaseOrder</root-tag>
+				<record-tag>purchaseOrder</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+				<entity-reference>PurchaseOrder.xsd</entity-reference>
+			</entity-references>
+			<doc-type-decl></doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<namespaces>
+				<namespace value="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi" root="true"/>
+				<namespace value="http://volante.com" prefix="targetnamespace" root="true"/>
+			</namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+				<field xsi:type="XMLFieldType">
+					<name>orderDate</name>
+					<datatype>ISODate</datatype>
+					<required>false</required>
+					<dateformat>%Y-%M-%D%z</dateformat>
+					<xmltype>date</xmltype>
+					<node-type>attribute</node-type>
+					<field-attributes>
+						<field-attribute name="xmlType">date</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLSectionType">
+					<name>shipTo</name>
+					<datatype>Section</datatype>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLFieldType">
+							<name>country</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<defaultvalue><![CDATA[US]]></defaultvalue>
+							<xmltype>NMTOKEN</xmltype>
+							<node-type>attribute</node-type>
+							<fixed-value>true</fixed-value>
+							<field-attributes>
+								<field-attribute name="xmlType">NMTOKEN</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>name</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>street</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>city</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>state</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>zip</name>
+							<datatype>BigDecimal</datatype>
+							<required>true</required>
+							<xmltype>decimal</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">decimal</field-attribute>
+							</field-attributes>
+						</field>
+					</fields>
+					<field-attributes>
+						<field-attribute name="xmlType">USAddress</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLSectionType">
+					<name>billTo</name>
+					<datatype>Section</datatype>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLFieldType">
+							<name>country</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<defaultvalue><![CDATA[US]]></defaultvalue>
+							<xmltype>NMTOKEN</xmltype>
+							<node-type>attribute</node-type>
+							<fixed-value>true</fixed-value>
+							<field-attributes>
+								<field-attribute name="xmlType">NMTOKEN</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>name</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>street</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>city</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>state</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>zip</name>
+							<datatype>BigDecimal</datatype>
+							<required>true</required>
+							<xmltype>decimal</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">decimal</field-attribute>
+							</field-attributes>
+						</field>
+					</fields>
+					<field-attributes>
+						<field-attribute name="xmlType">USAddress</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLFieldType">
+					<name>comment</name>
+					<datatype>String</datatype>
+					<required>false</required>
+					<xmltype>string</xmltype>
+					<node-type>element</node-type>
+					<field-attributes>
+						<field-attribute name="xmlType">string</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLSectionType">
+					<name>items</name>
+					<datatype>Section</datatype>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLSectionType">
+							<name>item</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>-1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<model>sequence</model>
+								<field xsi:type="XMLFieldType">
+									<name>partNum</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xmltype>string</xmltype>
+									<node-type>attribute</node-type>
+									<facets>
+										<pattern value="\d{3}-[A-Z]{2}"/>
+									</facets>
+									<field-attributes>
+										<field-attribute name="xmlType">SKU</field-attribute>
+									</field-attributes>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>productName</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+									<field-attributes>
+										<field-attribute name="xmlType">string</field-attribute>
+									</field-attributes>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>quantity</name>
+									<datatype>BigInteger</datatype>
+									<required>true</required>
+									<xmltype>positiveInteger</xmltype>
+									<node-type>element</node-type>
+									<facets>
+										<maxExclusive value="100"/>
+									</facets>
+									<field-attributes>
+										<field-attribute name="xmlType"></field-attribute>
+									</field-attributes>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>USPrice</name>
+									<datatype>BigDecimal</datatype>
+									<required>true</required>
+									<xmltype>decimal</xmltype>
+									<node-type>element</node-type>
+									<field-attributes>
+										<field-attribute name="xmlType">decimal</field-attribute>
+									</field-attributes>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>comment</name>
+									<datatype>String</datatype>
+									<required>false</required>
+									<xmltype>string</xmltype>
+									<node-type>element</node-type>
+									<field-attributes>
+										<field-attribute name="xmlType">string</field-attribute>
+									</field-attributes>
+								</field>
+								<field xsi:type="XMLFieldType">
+									<name>shipDate</name>
+									<datatype>ISODate</datatype>
+									<required>false</required>
+									<dateformat>%Y-%M-%D%z</dateformat>
+									<xmltype>date</xmltype>
+									<node-type>element</node-type>
+									<field-attributes>
+										<field-attribute name="xmlType">date</field-attribute>
+									</field-attributes>
+								</field>
+							</fields>
+						</field>
+					</fields>
+					<field-attributes>
+						<field-attribute name="xmlType">Items</field-attribute>
+					</field-attributes>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.xml"/>
+							<property name="Jar Name" value="PurchaseOrder.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<messageflow name="test" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>obj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>PurchaseOrder</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<flowelement name="Start1" uid="31eadd55-693a-4ae1-a7af-bfad532a99e8" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="392" y="51"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="667afee6-25e5-4d51-b0ca-ae74a62f1470" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="393" y="273"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="b8b2299e-faba-4eb8-acd6-f10f8da99a50" type="Parse" xsi:type="Parse" >
+			<label>Parse</label>
+			<description><![CDATA[]]></description>
+			<in>rawIn</in>
+			<out>obj</out>
+			<message>PurchaseOrder</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="392" y="109"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Serialize1" uid="f72f9332-b6a4-43bb-8fe6-93003b42fd55" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize</label>
+			<description><![CDATA[]]></description>
+			<in>obj</in>
+			<out>rawOut</out>
+			<options>
+				<option name="line.separator"></option>
+			</options>
+			<message>PurchaseOrder</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="399" y="191"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b8b2299e-faba-4eb8-acd6-f10f8da99a50" portindex="1"/>
+			<inputport uid="f72f9332-b6a4-43bb-8fe6-93003b42fd55" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f72f9332-b6a4-43bb-8fe6-93003b42fd55" portindex="1"/>
+			<inputport uid="667afee6-25e5-4d51-b0ca-ae74a62f1470" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="31eadd55-693a-4ae1-a7af-bfad532a99e8" portindex="0"/>
+			<inputport uid="b8b2299e-faba-4eb8-acd6-f10f8da99a50" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="360" y="37" width="70" height="250"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="F:\Volante\Cartridges\ExternalMessages\XML\XSD\PurchaseOrder\PurchaseOrder.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Fri Jul 29 16:34:38 GMT+05:30 2005"/>
+						<property name="Author" value="Krishnan"/>
+						<property name="LastAuthor" value="Krish"/>
+						<property name="Client Id" value="volante"/>
+						<property name="Last Author" value="krishnan"/>
+						<property name="Last Save Time" value="Thu Jan 17 17:12:35 IST 2013"/>
+						<property name="Designer Build" value="1256"/>
+						<property name="Revision Number" value="63"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isOrion" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isGeronimo" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>PurchaseOrder/test</selected-element>
+	</workspace>
+</cartridge>
+

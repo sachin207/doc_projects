@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge version="3.2.0" name="TypeSubstitution" type="Cartridge">
+	<version>1.0</version>
+	<externalmessage type="XMLFormat" version="3.2.0" rulename="InternationalPO" formattype="XMLFormat">
+		<standard-name>http://www.example.com/IPO</standard-name>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<xsd><![CDATA[ustaxexemptpo.xsd]]></xsd>
+				<batch>false</batch>
+				<root-tag namespace="http://www.example.com/IPO">purchaseOrder</root-tag>
+				<record-tag namespace="http://www.example.com/IPO">purchaseOrder</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+				<entity-reference>ustaxexemptpo.xsd</entity-reference>
+				<entity-reference>ipo.xsd</entity-reference>
+				<entity-reference>address.xsd</entity-reference>
+			</entity-references>
+			<doc-type-decl></doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<namespaces>
+				<namespace value="http://www.example.com/IPO" prefix="ipo" root="true"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi" root="true"/>
+			</namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<type-substitution>true</type-substitution>
+				<model>choice</model>
+				<field>
+					<name>type</name>
+					<datatype>String</datatype>
+					<required>false</required>
+					<defaultvalue><![CDATA[{http://www.example.com/IPO}PurchaseOrderType]]></defaultvalue>
+					<xml-name namespace="http://www.w3.org/2001/XMLSchema-instance">type</xml-name>
+					<xmltype>QName</xmltype>
+					<node-type>attribute</node-type>
+				</field>
+				<field>
+					<name>PurchaseOrderType</name>
+					<datatype>Section</datatype>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<xml-name namespace="http://www.example.com/IPO">PurchaseOrderType</xml-name>
+					<node-type>group</node-type>
+					<fields>
+						<model>sequence</model>
+						<field>
+							<name>orderDate</name>
+							<datatype>ISODate</datatype>
+							<required>false</required>
+							<dateformat>%Y-%M-%D%z</dateformat>
+							<xmltype>date</xmltype>
+							<node-type>attribute</node-type>
+						</field>
+						<field>
+							<name>shipTo</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<type-substitution>true</type-substitution>
+								<model>choice</model>
+								<field>
+									<name>type</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xml-name namespace="http://www.w3.org/2001/XMLSchema-instance">type</xml-name>
+									<xmltype>QName</xmltype>
+									<node-type>attribute</node-type>
+								</field>
+								<field>
+									<name>UKAddress</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<xml-name namespace="http://www.example.com/IPO">UKAddress</xml-name>
+									<node-type>group</node-type>
+									<fields>
+										<model>sequence</model>
+										<field>
+											<name>name</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>street</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>city</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>exportCode</name>
+											<datatype>BigInteger</datatype>
+											<required>false</required>
+											<defaultvalue><![CDATA[1]]></defaultvalue>
+											<xmltype>positiveInteger</xmltype>
+											<node-type>attribute</node-type>
+											<fixed-value>true</fixed-value>
+										</field>
+										<field>
+											<name>postcode</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+											<facets>
+												<pattern value="[A-Z]{2}\d\s\d[A-Z]{2}"/>
+												<length value="7"/>
+											</facets>
+										</field>
+									</fields>
+								</field>
+								<field>
+									<name>USAddress</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<xml-name namespace="http://www.example.com/IPO">USAddress</xml-name>
+									<node-type>group</node-type>
+									<fields>
+										<model>sequence</model>
+										<field>
+											<name>name</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>street</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>city</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>state</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+											<facets>
+												<enumeration value="AK"/>
+												<enumeration value="AL"/>
+												<enumeration value="AR"/>
+												<enumeration value="PA"/>
+												<enumeration value="MA"/>
+											</facets>
+										</field>
+										<field>
+											<name>zip</name>
+											<datatype>BigInteger</datatype>
+											<required>true</required>
+											<xmltype>positiveInteger</xmltype>
+											<node-type>element</node-type>
+										</field>
+									</fields>
+								</field>
+							</fields>
+						</field>
+						<field>
+							<name>billTo</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<type-substitution>true</type-substitution>
+								<model>choice</model>
+								<field>
+									<name>type</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xml-name namespace="http://www.w3.org/2001/XMLSchema-instance">type</xml-name>
+									<xmltype>QName</xmltype>
+									<node-type>attribute</node-type>
+								</field>
+								<field>
+									<name>UKAddress</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<xml-name namespace="http://www.example.com/IPO">UKAddress</xml-name>
+									<node-type>group</node-type>
+									<fields>
+										<model>sequence</model>
+										<field>
+											<name>name</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>street</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>city</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>exportCode</name>
+											<datatype>BigInteger</datatype>
+											<required>false</required>
+											<defaultvalue><![CDATA[1]]></defaultvalue>
+											<xmltype>positiveInteger</xmltype>
+											<node-type>attribute</node-type>
+											<fixed-value>true</fixed-value>
+										</field>
+										<field>
+											<name>postcode</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+											<facets>
+												<pattern value="[A-Z]{2}\d\s\d[A-Z]{2}"/>
+												<length value="7"/>
+											</facets>
+										</field>
+									</fields>
+								</field>
+								<field>
+									<name>USAddress</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>1</maxoccurs>
+									<xml-name namespace="http://www.example.com/IPO">USAddress</xml-name>
+									<node-type>group</node-type>
+									<fields>
+										<model>sequence</model>
+										<field>
+											<name>name</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>street</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>city</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>state</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+											<facets>
+												<enumeration value="AK"/>
+												<enumeration value="AL"/>
+												<enumeration value="AR"/>
+												<enumeration value="PA"/>
+												<enumeration value="MA"/>
+											</facets>
+										</field>
+										<field>
+											<name>zip</name>
+											<datatype>BigInteger</datatype>
+											<required>true</required>
+											<xmltype>positiveInteger</xmltype>
+											<node-type>element</node-type>
+										</field>
+									</fields>
+								</field>
+							</fields>
+						</field>
+						<field>
+							<name>comment</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xml-name namespace="http://www.example.com/IPO">comment</xml-name>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field>
+							<name>items</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<model>sequence</model>
+								<field>
+									<name>item</name>
+									<datatype>Section</datatype>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>-1</maxoccurs>
+									<node-type>element</node-type>
+									<fields>
+										<model>sequence</model>
+										<field>
+											<name>partNum</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>attribute</node-type>
+											<facets>
+												<pattern value="\d{3}-[A-Z]{2}"/>
+											</facets>
+										</field>
+										<field>
+											<name>productName</name>
+											<datatype>String</datatype>
+											<required>true</required>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>quantity</name>
+											<datatype>BigInteger</datatype>
+											<required>true</required>
+											<xmltype>positiveInteger</xmltype>
+											<node-type>element</node-type>
+											<facets>
+												<maxExclusive value="100"/>
+											</facets>
+										</field>
+										<field>
+											<name>USPrice</name>
+											<datatype>BigDecimal</datatype>
+											<required>true</required>
+											<xmltype>decimal</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>comment</name>
+											<datatype>String</datatype>
+											<required>false</required>
+											<xml-name namespace="http://www.example.com/IPO">comment</xml-name>
+											<xmltype>string</xmltype>
+											<node-type>element</node-type>
+										</field>
+										<field>
+											<name>shipDate</name>
+											<datatype>ISODate</datatype>
+											<required>false</required>
+											<dateformat>%Y-%M-%D%z</dateformat>
+											<xmltype>date</xmltype>
+											<node-type>element</node-type>
+										</field>
+									</fields>
+								</field>
+							</fields>
+						</field>
+					</fields>
+				</field>
+				<field>
+					<name>USTaxExemptPurchaseOrderType</name>
+					<datatype>Section</datatype>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<xml-name namespace="http://www.example.com/IPO">USTaxExemptPurchaseOrderType</xml-name>
+					<node-type>group</node-type>
+					<fields>
+						<model>sequence</model>
+						<field>
+							<name>orderDate</name>
+							<datatype>ISODate</datatype>
+							<required>false</required>
+							<dateformat>%Y-%M-%D%z</dateformat>
+							<xmltype>date</xmltype>
+							<node-type>attribute</node-type>
+						</field>
+						<field>
+							<name>shipTo</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<ref>PurchaseOrderType.shipTo</ref>
+								<type-substitution>true</type-substitution>
+								<model>choice</model>
+							</fields>
+						</field>
+						<field>
+							<name>billTo</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<ref>PurchaseOrderType.billTo</ref>
+								<type-substitution>true</type-substitution>
+								<model>choice</model>
+							</fields>
+						</field>
+						<field>
+							<name>comment</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xml-name namespace="http://www.example.com/IPO">comment</xml-name>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field>
+							<name>items</name>
+							<datatype>Section</datatype>
+							<minoccurs>1</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<ref>PurchaseOrderType.items</ref>
+								<model>sequence</model>
+							</fields>
+						</field>
+						<field>
+							<name>taxExemptId</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+					</fields>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules>
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.xml"/>
+							<property name="Jar Name" value="TypeSubstitution.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jan 18 11:39:42 IST 2006"/>
+						<property name="Author" value="Krish"/>
+						<property name="Title" value="TypeSubstitution"/>
+						<property name="Last Author" value="Krish"/>
+						<property name="Last Save Time" value="Wed May 31 12:12:26 IST 2006"/>
+						<property name="Designer Build" value="800"/>
+						<property name="Revision Number" value="11"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="generatejars">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="generatedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isOrion" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isRemote" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isLocal" value="true"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</cartridge>
+

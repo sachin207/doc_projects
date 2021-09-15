@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InvoiceIn>
+	<Header>
+		<ClientID>CLNT01</ClientID>
+		<InvoiceDate>20061230-17:50:42.437</InvoiceDate>
+	</Header>
+	<Data>
+		<Records>
+			<ItemID>ITM01</ItemID>
+			<Qty>11</Qty>
+			<Price>100.5</Price>
+		</Records>
+		<Records>
+			<ItemID>ITM02</ItemID>
+			<Qty>15</Qty>
+			<Price>500.0</Price>
+		</Records>
+	</Data>
+	<Trailer></Trailer>
+</InvoiceIn>

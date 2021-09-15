@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="SimpleFlow" type="VolanteProject" id="da4800e4-a631-407c-ace2-4f9890bef8b7">
+	<version>1.0</version>
+	<folder-set root="." id="e9cce3bb-54af-4af5-9be8-4fb0a80f22ac">
+	</folder-set>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="swarnalatha"/>
+						<property name="Client Id" value="swarnalatha@volantetech.net"/>
+						<property name="Creation Time" value="Tue Sep 14 11:20:35 IST 2021"/>
+						<property name="Designer Build" value="2570"/>
+						<property name="Last Author" value="swarnalatha"/>
+						<property name="Last Save Time" value="Tue Sep 14 11:20:45 IST 2021"/>
+						<property name="Revision Number" value="4"/>
+						<property name="Title" value="SimpleFlow"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</project>
+

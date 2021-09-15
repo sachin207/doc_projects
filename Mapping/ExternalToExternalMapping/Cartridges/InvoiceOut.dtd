@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT InvoiceOut (Records*)>
+<!ELEMENT Records (ItemID, Qty, Price, Cost)>
+<!ELEMENT ItemID (#PCDATA)>
+<!ELEMENT Qty (#PCDATA)>
+<!ELEMENT Price (#PCDATA)>
+<!ELEMENT Cost (#PCDATA)>
+

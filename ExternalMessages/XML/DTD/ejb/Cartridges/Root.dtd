@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT Root (Header,Record,Trailer)>
+<!ELEMENT Header (HDR1)>
+<!ELEMENT HDR1 (#PCDATA)>
+<!ELEMENT Trailer (TRL1)>
+<!ELEMENT TRL1 (#PCDATA)>
+<!ELEMENT Record (A, B)>
+<!ELEMENT A (#PCDATA)>
+<!ELEMENT B (#PCDATA)>
+

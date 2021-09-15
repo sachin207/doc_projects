@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ejb" type="VolanteProject" id="58109d64-021b-4b21-9fc1-577ab340d4b4">
+	<version>1.0</version>
+	<folder-set root="." id="bfb6826f-5ffb-4af5-b54c-203c485ab40d">
+	</folder-set>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="swarnalatha"/>
+						<property name="Client Id" value="swarnalatha@volantetech.net"/>
+						<property name="Creation Time" value="Tue Sep 14 11:14:32 IST 2021"/>
+						<property name="Designer Build" value="2570"/>
+						<property name="Last Author" value="swarnalatha"/>
+						<property name="Last Save Time" value="Tue Sep 14 11:14:38 IST 2021"/>
+						<property name="Revision Number" value="4"/>
+						<property name="Title" value="ejb"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</project>
+

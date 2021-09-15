@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ejbdtd>
+	<ejbbody>
+<ejb-jar>
+<description>InputXML</description>
+<display-name>InputXML</display-name>
+<enterprise-beans>
+<session>
+<display-name>com.tplus.transform.runtime.bean.InputFormatRemote</display-name>
+<ejb-name>InputXML</ejb-name>
+<home>com.tplus.transform.runtime.bean.InputFormatHome</home>
+<remote>com.tplus.transform.runtime.bean.InputFormatRemote</remote>
+<ejb-class>NestingInputXMLInputFormatBean</ejb-class>
+<session-type>Stateless</session-type>
+<transaction-type>Container</transaction-type>
+</session>
+</enterprise-beans>
+<assembly-descriptor>
+<container-transaction>
+<description>No Description</description>
+<method>
+<description>No Description</description>
+<ejb-name>InputXML</ejb-name>
+<method-intf>Remote</method-intf>
+<method-name>*</method-name>
+</method>
+<trans-attribute>Required</trans-attribute>
+</container-transaction>
+</assembly-descriptor>
+</ejb-jar>
+	</ejbbody>
+</ejbdtd>
+
