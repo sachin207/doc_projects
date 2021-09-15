@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.0-SNAPSHOT" name="FormulaFunction" type="Cartridge" id="d8ad6c39-8bcc-4446-bae6-9d79dbe73e93">
+	<description><![CDATA[This Cartridge illustrates user-defined functions that use the formula language for implementation of the function operation.
+
+It defines functions min(), secSumDouble1() and secSumDouble2() and uses them in the 'Validation Rules' node of the external message 'TestMessage'.
+
+To run,
+a) Select the message 'TestMessage' in Simulator.
+b) Select 'Parse and Validation' as required output.
+c) Open a file from the 'sample' sub-directory under the cartridge directory.
+d) Click 'Submit'.
+
+The message will be parsed and validated. Validation errors will be displayed in case of invalid sample.]]></description>
+	<version>1.0</version>
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="OrderMessage" version="1.0" type="External Message">
+			</service>
+			<function name="min"/>
+			<function name="secSumDouble1"/>
+			<function name="secSumDouble2"/>
+		</summary>
+	</private>
+	<resources type="Resources" id="1dc9ac3c-8481-4a72-8a0f-651d1d34afea">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+			<resourcefield>
+				<name>FLD3_VALUE</name>
+				<type>String</type>
+				<value><![CDATA[10]]></value>
+			</resourcefield>
+		</resourcefields>
+	</resources>
+	<folder name="Function Definitions" type="FunctionDefFolder" id="d7af164e-0332-435f-9376-43879138005d">
+		<FormulaFunctionDef name="min" type="FormulaFunctionDef" id="fba26955-4659-47b8-8142-5e7073f796e0">
+			<description>min of value</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>v1</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>v2</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<Code><![CDATA[return v1 < v2 ? v1 : v2;]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="secSumDouble1" type="FormulaFunctionDef" id="102b3b36-d0f0-4eb2-be30-9dfce44693fd">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Section</type>
+				</parameterfield>
+				<parameterfield>
+					<name>fieldName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Double</ReturnType>
+			<Code><![CDATA[def sum = 0.0;
+foreach($elm in section) {
+	if(!isNull($elm, fieldName)) {
+		sum += getDouble($elm, fieldName);
+	}
+}
+
+return sum;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="secSumDouble2" type="FormulaFunctionDef" id="acbfc1c9-8bdc-4f25-955d-4ce5d73a428d">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>fieldName</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Double</ReturnType>
+			<Code><![CDATA[def sum = 0.0;
+foreach($elm in section) {
+	if(!isNull($elm.fieldName)) {
+		sum += $elm.fieldName;
+	}
+}
+return sum;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.0-SNAPSHOT" rulename="OrderMessage" formattype="XMLFormat" id="48106587-b3db-4938-ae72-e483d5f75cfb" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields id="fbcabd7d-12c4-4a90-b529-e3afd716d684">
+			<xml-options>
+				<batch>false</batch>
+				<root-tag>order</root-tag>
+				<record-tag>order</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<enable-external-entities>false</enable-external-entities>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+					<flatten-named-group>false</flatten-named-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+			</entity-references>
+			<doc-type-decl>&lt;!DOCTYPE {0} SYSTEM "{1}"&gt;</doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+				<field xsi:type="XMLSectionType">
+					<name>Records</name>
+					<datatype>Section</datatype>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLFieldType">
+							<name>Fld2</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>Fld3</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>IntFld</name>
+							<datatype>Integer</datatype>
+							<required>true</required>
+							<xmltype>int</xmltype>
+							<node-type>element</node-type>
+						</field>
+					</fields>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default" type="FieldsValidationRules" id="7a8f08e8-c11b-4a14-8ee3-0216e9938c2e">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>E2</name>
+						<formula><![CDATA[min(5,6) == 5]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E2</error-code>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E3</name>
+						<formula><![CDATA[min("A", "B") == "A"]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E3</error-code>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E4</name>
+						<formula><![CDATA[min(Now(), now()) == now()]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E4</error-code>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E5</name>
+						<formula><![CDATA[secSumDouble1(Records, "IntFld") == 300.0]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E5</error-code>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E6</name>
+						<formula><![CDATA[secSumDouble2(Records, "IntFld") == 300.0]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E6</error-code>
+					</fieldvalidation>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="Krish"/>
+						<property name="Client Id" value="sachin.jaiswal@volantetech.com"/>
+						<property name="Creation Time" value="Sat Apr 22 11:15:41 IST 2006"/>
+						<property name="Designer Build" value="2025"/>
+						<property name="Last Author" value="sachin.jaiswal"/>
+						<property name="Last Save Time" value="Wed Sep 15 19:51:55 IST 2021"/>
+						<property name="Revision Number" value="80"/>
+						<property name="Title" value="testfuns"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.csharp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.csharp.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="CSharp Namespace" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="false"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.testfuncs"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</cartridge>
+

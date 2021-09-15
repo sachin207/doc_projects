@@ -1,0 +1,9 @@
+<Address>
+	<Name>324324324</Name>
+	<AddressElem>
+		<StreetName>Test Street</StreetName>
+		<Addr1>Test Addr1</Addr1>
+		<Addr2>Test Addr2</Addr2>
+		<CityCountryZip>city,country,zip</CityCountryZip>
+	</AddressElem>
+</Address>

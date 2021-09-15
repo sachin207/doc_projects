@@ -1,0 +1,11 @@
+<EmployeeIM>
+	<EmployeeNumber>123565</EmployeeNumber>
+	<Address>
+		<StreetName>Test Street NAme</StreetName>
+		<Addr1>Test Addr1</Addr1>
+		<Addr2>Test Addr2</Addr2>
+		<City>Test City</City>
+		<Country>Test country</Country>
+		<Zip>345345</Zip>
+	</Address>
+</EmployeeIM>

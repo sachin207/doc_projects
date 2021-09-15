@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.1" name="MappingFunction" type="Cartridge">
+	<description><![CDATA[This is a sample cartridge for implementing a function using mapping.
+
+Both EmployeeIM and CompanyIM are mapped to Address internal message. EmployeeIM and CompanyIM are different but share a similar Address section. To reuse the mapping, the function - mapAddressToIM has been defined. The mapping in this function is defined with EmployeeIM as a template but can be used for any message with a similar Address structure that satisfy the mapping since the parameters have been defined as Any type in the General tab. This function is used in both CompanyIMToAddress and EmployeeIMToAddress mappings.
+
+The function -mapFromAddressIM and mappings - AddressToEmployeeIM and AddressToCompanyIM highlight the reverse mappings.]]></description>
+	<version>1.0</version>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="mapToAddress" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>SrcAddr1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>EmployeeIM.Address</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DestAddr1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>Address.AddressElem</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>SrcAddr1</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>EmployeeIM.Address</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>DestAddr1</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>Address.AddressElem</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.StreetName</source-field>
+						<destination-field>DestAddr1.StreetName</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.Addr1</source-field>
+						<destination-field>DestAddr1.Addr1</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.Addr2</source-field>
+						<destination-field>DestAddr1.Addr2</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SrcAddr1.City + "," + SrcAddr1.Country + "," + SrcAddr1.Zip]]></source-field>
+						<destination-field>DestAddr1.CityCountryZip</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapFromAddress" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>SrcAddr</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>Address.AddressElem</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DestAddr</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>EmployeeIM.Address</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>SrcAddr</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>Address.AddressElem</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>DestAddr</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>EmployeeIM.Address</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>SrcAddr</source-field>
+						<destination-field>DestAddr</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr.StreetName</source-field>
+						<destination-field>DestAddr.StreetName</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr.Addr1</source-field>
+						<destination-field>DestAddr.Addr1</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr.Addr2</source-field>
+						<destination-field>DestAddr.Addr2</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[LeftStr(SrcAddr.CityCountryZip,",");]]></source-field>
+						<destination-field>DestAddr.City</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def index1 = FindFirst(SrcAddr.CityCountryZip,",");
+def index2 = FindLast(SrcAddr.CityCountryZip,",");
+
+Mid(SrcAddr.CityCountryZip,index1+1,index2-index1-1);]]></source-field>
+						<destination-field>DestAddr.Country</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[Mid(SrcAddr.CityCountryZip,FindLast(SrcAddr.CityCountryZip,",")+1);]]></source-field>
+						<destination-field>DestAddr.Zip</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapToAddressUntyped" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>SrcAddr1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>EmployeeIM.Address</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DestAddr1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>Address.AddressElem</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>SrcAddr1</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>EmployeeIM.Address</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>DestAddr1</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>Address.AddressElem</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.StreetName</source-field>
+						<destination-field>DestAddr1.StreetName</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.Addr1</source-field>
+						<destination-field>DestAddr1.Addr1</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>SrcAddr1.Addr2</source-field>
+						<destination-field>DestAddr1.Addr2</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SrcAddr1.City + "," + SrcAddr1.Country + "," + SrcAddr1.Zip]]></source-field>
+						<destination-field>DestAddr1.CityCountryZip</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<internalmessage name="Address" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>Name</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>AddressElem</name>
+					<type>Section</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>StreetName</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>0</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr1</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>0</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr2</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>0</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>CityCountryZip</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>0</length>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<internalmessage name="EmployeeIM" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>EmployeeNumber</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>Address</name>
+					<type>Section</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>StreetName</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr1</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr2</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>City</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Country</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Zip</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<internalmessage name="CompanyIM" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>CompanyName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>NumberOfEmployees</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>CompanyAddress</name>
+					<type>Section</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>StreetName</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr1</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Addr2</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>City</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Country</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>Zip</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<internalmessage name="EmployeeAddressIM" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>Name</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>Address</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageSectionType">
+							<name>Permanent</name>
+							<type>Section</type>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<fields>
+								<field xsi:type="InternalMessageFieldType">
+									<name>StreetName</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr1</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr2</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>City</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Country</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Zip</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+							</fields>
+						</field>
+						<field xsi:type="InternalMessageSectionType">
+							<name>Work</name>
+							<type>Section</type>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<fields>
+								<field xsi:type="InternalMessageFieldType">
+									<name>StreetName</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr1</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr2</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>City</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Country</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Zip</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+							</fields>
+						</field>
+						<field xsi:type="InternalMessageSectionType">
+							<name>Current</name>
+							<type>Section</type>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>1</maxoccurs>
+							<fields>
+								<field xsi:type="InternalMessageFieldType">
+									<name>StreetName</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr1</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Addr2</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>City</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Country</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Zip</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+							</fields>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<messagemapping rulename="CompanyIMToAddress" type="MessageMapping">
+		<source>CompanyIM</source>
+		<destination>Address</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>CompanyName</source-field>
+					<destination-field>Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[mapToAddress(CompanyAddress,self.AddressElem);]]></source-field>
+					<destination-field>AddressElem</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="AddressToEmployeeIM" type="MessageMapping">
+		<source>Address</source>
+		<destination>EmployeeIM</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>Name</source-field>
+					<destination-field>EmployeeNumber</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[mapFromAddress(AddressElem,self.Address);]]></source-field>
+					<destination-field>Address</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="AddressToCompanyIM" type="MessageMapping">
+		<source>Address</source>
+		<destination>CompanyIM</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>Name</source-field>
+					<destination-field>CompanyName</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[" "]]></source-field>
+					<destination-field>NumberOfEmployees</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[mapFromAddress(AddressElem,self.CompanyAddress);]]></source-field>
+					<destination-field>CompanyAddress</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="EmployeeIMToAddress" type="MessageMapping">
+		<source>EmployeeIM</source>
+		<destination>Address</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>EmployeeNumber</source-field>
+					<destination-field>Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[mapToAddress(Address,self.AddressElem);]]></source-field>
+					<destination-field>AddressElem</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="EmployeeAddressIMToAddress" type="MessageMapping">
+		<source>EmployeeAddressIM</source>
+		<destination>Address</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>Name</source-field>
+					<destination-field>Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[def addressToMap = "Work";
+mapToAddressUntyped(Address[0].GetSection(addressToMap),self.AddressElem);]]></source-field>
+					<destination-field>AddressElem</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messageflow name="Test" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>Binary</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>add</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Address</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>emp</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>EmployeeIM</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>Binary</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<flowelement name="Start1" uid="3754d8d4-f9a3-4a90-8cb4-bf46689a4804" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="344" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="8937d7aa-662c-488e-95bb-9f6e5f30465e" type="Parse" xsi:type="Parse" >
+			<label>Parse</label>
+			<description><![CDATA[]]></description>
+			<in>rawIn</in>
+			<out>add</out>
+			<message>Address</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="344" y="101"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Mapping1" uid="bc98b1d9-08c8-4bf0-be20-4bdcffec764c" type="Mapping" xsi:type="Mapping" >
+			<label>Mapping</label>
+			<description><![CDATA[]]></description>
+			<in>add</in>
+			<out>emp</out>
+			<messagemapping>AddressToEmployeeIM</messagemapping>
+			<create-destination>true</create-destination>
+			<visual>
+				<position x="344" y="172"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Serialize1" uid="a4748534-a3cf-424d-a114-c8715fb1a785" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize</label>
+			<description><![CDATA[]]></description>
+			<in>emp</in>
+			<out>rawOut</out>
+			<message>EmployeeIM</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="343" y="243"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="2b602d61-6b4a-46fb-9c37-46d1ed268b4b" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="343" y="305"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="3754d8d4-f9a3-4a90-8cb4-bf46689a4804" portindex="0"/>
+			<inputport uid="8937d7aa-662c-488e-95bb-9f6e5f30465e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8937d7aa-662c-488e-95bb-9f6e5f30465e" portindex="1"/>
+			<inputport uid="bc98b1d9-08c8-4bf0-be20-4bdcffec764c" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="bc98b1d9-08c8-4bf0-be20-4bdcffec764c" portindex="1"/>
+			<inputport uid="a4748534-a3cf-424d-a114-c8715fb1a785" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a4748534-a3cf-424d-a114-c8715fb1a785" portindex="1"/>
+			<inputport uid="2b602d61-6b4a-46fb-9c37-46d1ed268b4b" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="312" y="25" width="65" height="294"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Jun 14 14:24:12 IST 2010"/>
+						<property name="Author" value="Badhri"/>
+						<property name="Title" value="TestMappingFunction"/>
+						<property name="Client Id" value="volante"/>
+						<property name="Last Author" value="krishnan"/>
+						<property name="Last Save Time" value="Wed Oct 31 09:25:03 IST 2012"/>
+						<property name="Designer Build" value="1232"/>
+						<property name="Revision Number" value="288"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+									<property name="Java/EJB">
+										<value>
+											<propertymap>
+												<property name="assembly">
+													<value>
+														<propertylist>
+															<value>
+																<propertymap type="com.tplus.transform.design.AssemblyInfo">
+																	<property name="name" value="F:\Volante\Cartridges\Functions\Type Mapping\MappingImpl\java\MappingFunction.jar"/>
+																	<property name="type" value="assembly"/>
+																</propertymap>
+															</value>
+														</propertylist>
+													</value>
+												</property>
+											</propertymap>
+										</value>
+									</property>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="F:\Volante\Cartridges\Functions\Type Mapping\MappingImpl\MappingFunction.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isEJB" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isOrion" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="true"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element>MappingFunction/Function Definitions/mapFromAddress</selected-element>
+		<breakpoints>
+			<breakpoint>
+				<location position="">MappingFunction/Function Definitions/mapToAddress</location>
+			</breakpoint>
+			<breakpoint>
+				<location position="EmployeeNumber">MappingFunction/AddressToEmployeeIM/Mapping Rules</location>
+			</breakpoint>
+			<breakpoint>
+				<location position="Address">MappingFunction/AddressToEmployeeIM/Mapping Rules</location>
+			</breakpoint>
+			<breakpoint>
+				<location position="">MappingFunction/Function Definitions/mapFromAddress</location>
+			</breakpoint>
+		</breakpoints>
+	</workspace>
+</cartridge>
+

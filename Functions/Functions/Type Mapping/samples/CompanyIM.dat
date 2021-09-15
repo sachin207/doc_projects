@@ -1,0 +1,12 @@
+<CompanyIM>
+	<CompanyName>TestCompany</CompanyName>
+	<NumberOfEmployees>100</NumberOfEmployees>
+	<CompanyAddress>
+		<StreetName>Street Name</StreetName>
+		<Addr1>Addr1</Addr1>
+		<Addr2>Addr2</Addr2>
+		<City>City</City>
+		<Country>Country</Country>
+		<Zip>123456</Zip>
+	</CompanyAddress>
+</CompanyIM>
