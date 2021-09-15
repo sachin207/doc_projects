@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.0" name="SimpleFlow" type="Cartridge">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.0-SNAPSHOT" name="SimpleFlow" type="Cartridge" id="2a1c41de-a76c-4354-b9de-5726d82e8f02">
 	<description><![CDATA[This cartridge illustrates the simple flow that transforms an input external message to internal message and then transforms the internal message to an output external message.
 
 To run,
@@ -12,10 +12,25 @@ The consolidated output will be displayed in the Output pane.
 
 ]]></description>
 	<version>1.0</version>
-	<folder name="Messages" type="FolderElement">
-		<internalmessage name="OrderIM" type="InternalMessage">
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="OrderIM" version="1.0" type="Internal Message">
+			</service>
+			<service name="OrderCSV" version="1.0" type="External Message">
+			</service>
+			<service name="OrderCSVToOrderIM" version="1.0" type="Mapping">
+			</service>
+			<service name="OrderIMToOrderCSV" version="1.0" type="Mapping">
+			</service>
+			<service name="SimpleFlow" version="1.0" type="Message Flow">
+			</service>
+		</summary>
+	</private>
+	<folder name="Messages" type="FolderElement" id="0b2e6e4f-4d7f-4a07-b3f7-7a3980becd72">
+		<internalmessage name="OrderIM" type="InternalMessage" id="d697bf36-2815-4369-8f58-975d634c1d32">
 			<version>1.0</version>
-			<normalizedformat>
+			<normalizedformat id="e13e97b6-47a2-4419-aabd-098fa62c941d">
 				<fields>
 					<field xsi:type="InternalMessageSectionType">
 						<name>Records</name>
@@ -60,7 +75,7 @@ The consolidated output will be displayed in the Output pane.
 					</field>
 				</fields>
 			</normalizedformat>
-			<validationrules name="Default" type="ValidationRules">
+			<validationrules name="Default" type="ValidationRules" id="e4fdc8bf-881d-40b0-8bf4-7be9c7c80fdc">
 				<fieldvalidation>
 					<name>E1</name>
 					<fieldname>Records.Trade Date</fieldname>
@@ -86,10 +101,10 @@ The consolidated output will be displayed in the Output pane.
 				</propertymap>
 			</elementproperties>
 		</internalmessage>
-		<externalmessage xsi:type="ASCIIDelimitedFormat" type="ASCIIDelimitedFormat" version="4.0" rulename="OrderCSV" formattype="ASCIIDelimitedFormat" >
+		<externalmessage xsi:type="ASCIIDelimitedFormat" type="ASCIIDelimitedFormat" version="6.5.0-SNAPSHOT" rulename="OrderCSV" formattype="ASCIIDelimitedFormat" id="983a9982-9cb5-47fe-85ad-a33ccb37afd0" >
 			<standard>ASCII Delimited</standard>
 			<version>1.0</version>
-			<asciidelimitedfields>
+			<asciidelimitedfields id="b7386eff-7152-4543-a142-fc84426ce4de">
 				<batchmode>true</batchmode>
 				<delimiter><![CDATA[,]]></delimiter>
 				<contains-header>false</contains-header>
@@ -140,7 +155,7 @@ The consolidated output will be displayed in the Output pane.
 				<trailerfields>
 				</trailerfields>
 			</asciidelimitedfields>
-			<validationrules name="Default">
+			<validationrules name="Default" type="FieldsValidationRules" id="d7357fd6-2606-4a07-913d-128f197cd2e8">
 				<hdrvalidationrules>
 					<fieldvalidations>
 					</fieldvalidations>
@@ -192,11 +207,11 @@ The consolidated output will be displayed in the Output pane.
 			</propertymap>
 		</elementproperties>
 	</folder>
-	<folder name="Mappings" type="FolderElement">
-		<messagemapping rulename="OrderCSVToOrderIM" type="MessageMapping">
+	<folder name="Mappings" type="FolderElement" id="27fccddd-4021-494c-a690-8b7065f3500e">
+		<messagemapping rulename="OrderCSVToOrderIM" type="MessageMapping" id="6f9653d4-3b9e-4de9-9056-5f835be72c92">
 			<source>OrderCSV</source>
 			<destination>OrderIM</destination>
-			<mappingrules>
+			<mappingrules id="a69d3902-8d14-4199-bf60-6d7c93470982">
 				<mappings>
 					<mapping type="one2one">
 						<source-field>Records</source-field>
@@ -243,10 +258,10 @@ The consolidated output will be displayed in the Output pane.
 				</propertymap>
 			</elementproperties>
 		</messagemapping>
-		<messagemapping rulename="OrderIMToOrderCSV" type="MessageMapping">
+		<messagemapping rulename="OrderIMToOrderCSV" type="MessageMapping" id="be8c28f4-2aee-40de-9efc-54b3f1425872">
 			<source>OrderIM</source>
 			<destination>OrderCSV</destination>
-			<mappingrules>
+			<mappingrules id="c5969d48-af58-4161-a19c-4ad5389f22bd">
 				<mappings>
 					<mapping type="one2one">
 						<source-field>Records.Account Number</source-field>
@@ -294,7 +309,7 @@ The consolidated output will be displayed in the Output pane.
 			</propertymap>
 		</elementproperties>
 	</folder>
-	<messageflow name="SimpleFlow" type="MessageFlow">
+	<messageflow name="SimpleFlow" type="MessageFlow" id="1d699165-30e0-47be-a9ef-d66a280bc09e">
 		<version>1.0</version>
 		<transaction>Required</transaction>
 		<message-flow-ports>
@@ -303,7 +318,7 @@ The consolidated output will be displayed in the Output pane.
 				<device>outdevice</device>
 			</port>
 		</message-flow-ports>
-		<variables>
+		<variables id="2a9a42a7-b49b-4635-b210-0ebd7dc4babd">
 			<fields>
 				<field>
 					<name>RawIn</name>
@@ -440,7 +455,7 @@ for (def i=0; i < recordsSec.$size; ++i) {
 				<position x="332" y="342"/>
 			</visual>
 		</flowelement>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="ffb895fe-73fa-4775-9f1a-3c5ada407e25">
 			<outputport uid="9935f704-e402-44e8-b74c-b7ebc9dcbf91" portindex="1"/>
 			<inputport uid="324bc11f-3152-4afb-90d1-1bf8582cfa03" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -451,7 +466,7 @@ for (def i=0; i < recordsSec.$size; ++i) {
 				</visual>
 			</note>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="0dd467c0-fdee-4c21-b7d6-03a3cf9d4934">
 			<outputport uid="324bc11f-3152-4afb-90d1-1bf8582cfa03" portindex="1"/>
 			<inputport uid="0b2b230d-afb2-4f5e-91ca-7a5ae42f9b67" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -462,7 +477,7 @@ for (def i=0; i < recordsSec.$size; ++i) {
 				</visual>
 			</note>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="321f76db-1710-4257-878b-72dc11af385e">
 			<outputport uid="95dfb4c8-bc8a-4cfb-a3ad-6ce205d2368d" portindex="1"/>
 			<inputport uid="eecbdbd7-338e-4dfd-ac6d-fba39fa4f4bc" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -473,7 +488,7 @@ for (def i=0; i < recordsSec.$size; ++i) {
 				</visual>
 			</note>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="9127a093-b7ab-4675-8902-3b822ec4b210">
 			<outputport uid="0b2b230d-afb2-4f5e-91ca-7a5ae42f9b67" portindex="1"/>
 			<inputport uid="6ea54b42-3b9e-4edd-b993-d3771c896e01" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -484,27 +499,27 @@ for (def i=0; i < recordsSec.$size; ++i) {
 				</visual>
 			</note>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="ad44c4e1-5b9a-4070-a07e-fb7efd11644f">
 			<outputport uid="6ea54b42-3b9e-4edd-b993-d3771c896e01" portindex="1"/>
 			<inputport uid="95dfb4c8-bc8a-4cfb-a3ad-6ce205d2368d" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="5ff6e2b6-9999-4384-9fcb-5589c2d97a07">
 			<outputport uid="6e082e67-ad01-4a64-87cc-0bc29118ddba" portindex="0"/>
 			<inputport uid="2dfc1dc0-2622-4cf1-a736-aa935870533f" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="7e6911d8-528a-440e-920c-a6ea8def1f8d">
 			<outputport uid="2dfc1dc0-2622-4cf1-a736-aa935870533f" portindex="1"/>
 			<inputport uid="9935f704-e402-44e8-b74c-b7ebc9dcbf91" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="c01222c0-8abb-4652-ac1f-f488691b417e">
 			<outputport uid="eecbdbd7-338e-4dfd-ac6d-fba39fa4f4bc" portindex="1"/>
 			<inputport uid="a95de1c6-0448-4f0d-813a-ac977b5abe4c" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="5fce97f2-0594-4bbe-8290-d0015a358e8a">
 			<outputport uid="a95de1c6-0448-4f0d-813a-ac977b5abe4c" portindex="1"/>
 			<inputport uid="04274e97-730e-44eb-ac02-e4119fa25037" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -537,119 +552,22 @@ for (def i=0; i < recordsSec.$size; ++i) {
 	</messageflow>
 	<elementproperties>
 		<propertymap>
-			<property name="DOCUMENT_PROPERTIES">
-				<value>
-					<propertymap>
-						<property name="Creation Time" value="Thu Feb 23 14:12:06 IST 2006"/>
-						<property name="Author" value="Krish"/>
-						<property name="Title" value="SimpleFlow"/>
-						<property name="Client Id" value="volante"/>
-						<property name="Last Author" value="krishnan"/>
-						<property name="Last Save Time" value="Tue Jun 12 06:50:27 EDT 2012"/>
-						<property name="Designer Build" value="1206"/>
-						<property name="Revision Number" value="51"/>
-					</propertymap>
-				</value>
-			</property>
 			<property name="CARTRIDGE_INFO">
 				<value>
 					<propertymap type="com.tplus.transform.design.CartridgeInfo">
-						<property name="GeneratedFiles">
-							<value>
-								<propertymap>
-									<property name="Java/EJB">
-										<value>
-											<propertymap>
-												<property name="assembly">
-													<value>
-														<propertylist>
-															<value>
-																<propertymap type="com.tplus.transform.design.AssemblyInfo">
-																	<property name="name" value="F:\Volante\Cartridges\MessageFlow\SimpleFlow\java\SimpleFlow.jar"/>
-																	<property name="type" value="assembly"/>
-																</propertymap>
-															</value>
-														</propertylist>
-													</value>
-												</property>
-												<property name="DEPENDENCY">
-													<value>
-														<propertylist>
-															<value>
-																<propertymap type="com.tplus.transform.design.ModuleInfo">
-																	<property name="name" value="F:\Volante\lib\runtime\asciirt.jar"/>
-																	<property name="type" value="DEPENDENCY"/>
-																</propertymap>
-															</value>
-														</propertylist>
-													</value>
-												</property>
-											</propertymap>
-										</value>
-									</property>
-								</propertymap>
-							</value>
-						</property>
-						<property name="cartridgefilename" value="F:\Volante\Cartridges\MessageFlow\SimpleFlow\SimpleFlow.car"/>
 					</propertymap>
 				</value>
 			</property>
-			<property name="codegen.java.options">
-				<value>
-					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
-						<property name="isJBoss" value="false"/>
-						<property name="isOSGI" value="false"/>
-						<property name="isEJB" value="false"/>
-						<property name="isWebSphere" value="false"/>
-						<property name="isVolante" value="true"/>
-						<property name="isRemote" value="false"/>
-						<property name="isWebLogic" value="false"/>
-						<property name="isWLEVS" value="false"/>
-						<property name="resource-references">
-							<value>
-								<propertylist>
-								</propertylist>
-							</value>
-						</property>
-						<property name="isGenerateALSB" value="false"/>
-						<property name="isOrion" value="false"/>
-						<property name="isLocal" value="false"/>
-						<property name="isGenerateJNDILinks" value="true"/>
-						<property name="isGeronimo" value="false"/>
-						<property name="isGenerateEAR" value="false"/>
-						<property name="ejb-jndi-prefix" value=""/>
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.java.properties">
-				<value>
-					<propertymap type="com.tplus.transform.design.PropertiesDef">
-						<property name="Max Class Length" value="150"/>
-						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.cpp.settings">
+			<property name="DOCUMENT_PROPERTIES">
 				<value>
 					<propertymap>
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.cpp.externalclasses">
-				<value>
-					<propertylist>
-						<value>
-							<propertymap>
-								<property name="main" value="true"/>
-								<property name="filename" value="custom\Main2.cpp"/>
-							</propertymap>
-						</value>
-					</propertylist>
-				</value>
-			</property>
-			<property name="codegen.cpp.bindings">
-				<value>
-					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+						<property name="Author" value="Krish"/>
+						<property name="Creation Time" value="Thu Feb 23 14:12:06 IST 2006"/>
+						<property name="Designer Build" value="2690"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Wed Sep 15 09:10:07 UTC 2021"/>
+						<property name="Revision Number" value="52"/>
+						<property name="Title" value="SimpleFlow"/>
 					</propertymap>
 				</value>
 			</property>
@@ -662,6 +580,30 @@ for (def i=0; i < recordsSec.$size; ++i) {
 								</propertylist>
 							</value>
 						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.externalclasses">
+				<value>
+					<propertylist>
+						<value>
+							<propertymap>
+								<property name="main" value="true"/>
+								<property name="filename" value="custom/Main2.cpp"/>
+							</propertymap>
+						</value>
+					</propertylist>
+				</value>
+			</property>
+			<property name="codegen.cpp.settings">
+				<value>
+					<propertymap>
 					</propertymap>
 				</value>
 			</property>
@@ -679,10 +621,44 @@ for (def i=0; i < recordsSec.$size; ++i) {
 					</propertymap>
 				</value>
 			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isEJB" value="false"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="false"/>
+						<property name="isLocal" value="false"/>
+						<property name="isOSGI" value="false"/>
+						<property name="isRemote" value="false"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="false"/>
+						<property name="isWebSphere" value="false"/>
+						<property name="isWildFly" value="false"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
 		</propertymap>
 	</elementproperties>
-	<workspace>
-		<selected-element>SimpleFlow/SimpleFlow</selected-element>
-	</workspace>
 </cartridge>
 
