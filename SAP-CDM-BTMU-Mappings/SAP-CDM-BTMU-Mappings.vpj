@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="SAP-CDM-BTMU-Mappings" type="VolanteProject">
+	<version>1.0</version>
+	<folder-set root=".">
+	</folder-set>
+</project>
+

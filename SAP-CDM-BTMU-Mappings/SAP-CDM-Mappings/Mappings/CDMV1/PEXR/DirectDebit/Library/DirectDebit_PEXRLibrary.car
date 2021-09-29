@@ -1,0 +1,1888 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="DirectDebit_PEXRLibrary" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="PEXR200nToCDMV1_CustomerDirectDebitInitiation_MapFlowBase" version="1.0" type="Message Flow">
+			</service>
+			<function name="ValidateRepeatingSection"/>
+			<function name="ValidateCodesInE2IDB02"/>
+			<function name="GetValidateCodesInE2IDB02ErrMsg"/>
+			<function name="VerifyDate"/>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="ComputeRequestedDate"/>
+			<function name="getLookUpCode"/>
+			<function name="GetName"/>
+			<function name="GetNameFromObj"/>
+			<function name="GetPmtInfId"/>
+			<function name="getProprietaryCode"/>
+			<function name="GetE1EDKA1InstancesBasedOnQuals"/>
+			<function name="IDOCToCDMGroupHeader"/>
+			<function name="IsBranch8100To8300Or1306"/>
+			<function name="MapAccountExceptType"/>
+			<function name="MapAcctNatureCdWhenCtryIs_US_ZA_JP"/>
+			<function name="MapAcctNaturePrtry"/>
+			<function name="MapFinInstnId"/>
+			<function name="MapParty"/>
+			<function name="MapParty"/>
+			<function name="proprietaryPurposeCodesTable"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SetAccount"/>
+			<function name="SetBranchID"/>
+			<function name="SetBranchIDAndName"/>
+			<function name="SetChargeBearer"/>
+			<function name="SetChargesAcctAgtFinInstID"/>
+			<function name="SetDocuNum"/>
+			<function name="SetInstructedAmount"/>
+			<function name="SetPartyPvtOtherID"/>
+			<function name="SetPartyOrgOtherID"/>
+			<function name="SetPartyOtherID"/>
+			<function name="SetPstlAdr"/>
+			<function name="SetRfrdDocAmount"/>
+			<function name="SetRltdRmtInf"/>
+			<function name="SetStrd"/>
+			<function name="UpdateClrSysId"/>
+			<function name="GetPurpCdFromDesc"/>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="updateCtrlSumAndNbOfTxs"/>
+			<function name="updateISOCreditTransfer"/>
+			<function name="updateISODirectDebit"/>
+			<function name="updateCDMCreditTransfer"/>
+			<function name="updateCDMDirectDebit"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+			<function name="getValidationList"/>
+			<function name="getCallBacksOfGivenType"/>
+			<function name="computeAmount"/>
+			<function name="validateFiltering"/>
+			<function name="getThreshold"/>
+			<function name="ApplyDiffOnMapperParams"/>
+			<function name="AddElmsInSrcSecToDestSec"/>
+			<function name="ApplyFilteringSideDiff"/>
+			<function name="RemoveExcProperty"/>
+			<function name="getRecordCount"/>
+			<function name="mapPEXR200nToDirectDebitCDMV1"/>
+			<function name="mapPEXR2003SpecificToDirectDebitCDMV1"/>
+			<function name="mapPEXR2003SpecificToDirectDebitCDMV1Complete"/>
+			<function name="MapDirDebCrdtrAcctNature"/>
+			<function name="MapDirDebCdtrAcctNaturePrtry"/>
+			<function name="MapDirDebDbtrAcctNature"/>
+			<function name="MapDirDebDbtrAcct_AcctNaturePrtry"/>
+			<function name="MapDirDebAcctNature"/>
+			<function name="SetDirDebCdtrOtherID"/>
+			<function name="SetDirDebDbtrOtherID"/>
+			<function name="SetDirDebUltmtCdtrOtherID"/>
+			<function name="SetDirDebUltmtDbtrOtherID"/>
+			<function name="dirDebproprietaryPurposeCodesTable"/>
+			<function name="getDirDebProprietaryCode"/>
+			<function name="mapPEXR2003MandateRelatedInformation"/>
+			<function name="mapPEXR2003CreditorSchemeIdentification"/>
+			<function name="mapPEXR2003AmendmentInfoDets"/>
+			<function name="SetDirDebOtherIDInCdtrAndUltmtCdtr"/>
+			<function name="SetDirectDebitMapperParams"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\PEXR\PEXRMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\PEXR\PEXRMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\PEXRLibrary\Common_PEXRLibrary.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\PEXR\PEXRLibrary\Common_PEXRLibrary.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Library\PopulateComputableFields\PopulateComputableFields.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\PopulateComputableFields\PopulateComputableFields.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Library\GenericMapper\GenericMapper.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\GenericMapper\GenericMapper.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="mapPEXR200nToDirectDebitCDMV1" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2001Plain</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>destObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2001Plain</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>destObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[IDOCToCDMGroupHeader (self.destObj.Data.GroupHeader, srcObj.Data.IDOC[0].Control[0])]]></source-field>
+						<destination-field>destObj.Data.GroupHeader</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[GetPmtInfId (srcObj.Data.IDOC.E2IDKU3, srcObj.Data.IDOC.E2EDKA1, srcObj.Data.IDOC.E2IDB02)]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.PaymentInformationIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA["DD"]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.PaymentMethod</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[ComputeRequestedDate (srcObj.Data.IDOC.E2EDK03, "018")
+
+// Spec reference - XML000111]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.RequestedCollectionDate</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapParty (srcObj.Data.IDOC.E2EDKA1, $value, "BE");
+SetDirDebCdtrOtherID (srcObj.Data.IDOC.E2EDKA1, srcObj.Data.IDOC.E2IDB02, srcObj.Data.IDOC.E2IDKU3, srcObj.Data.IDOC.E2IDT01, $value);]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.Creditor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapAccountExceptType (srcObj.Data.IDOC, $value, "BB");
+MapDirDebCrdtrAcctNature (srcObj.Data.IDOC.E2IDB02, srcObj.Data.IDOC.E2IDKU3, $value, "BB");]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.CreditorAccount</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapFinInstnId (srcObj.Data.IDOC.E2IDB02, $value, "BB")]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.CreditorAgent.FinancialInstitutionIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetBranchIDAndName (srcObj.Data.IDOC.E2IDB02, $value, "BB")]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.CreditorAgent.BranchIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapParty (srcObj.Data.IDOC.E2EDKA1, $value, "ZE");
+SetDirDebUltmtCdtrOtherID (srcObj.Data.IDOC.E2EDKA1, srcObj.Data.IDOC.E2IDB02, srcObj.Data.IDOC.E2IDKU3, $value);]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.UltimateCreditor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[srcObj.Data.IDOC.E2IDKU4.FCAGKNTO
+
+// Spec reference - XML000271]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.ChargesAccount.Identification.Other.Identification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[srcObj.Data.IDOC.E2IDKU4.FCAGWAER
+
+// Spec reference - XML000279]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.ChargesAccount.Currency</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetChargesAcctAgtFinInstID (srcObj.Data.IDOC.E2IDKU4, $value)]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.ChargesAccountAgent.FinancialInstitutionIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def fldIndex = GetFieldIndex (srcObj.Data.IDOC[0], "E2EDK12");
+if (fldIndex != -1)
+	Set (SetDocuNum (srcObj.Data.IDOC[0].GetSection (fldIndex), ["011"]));
+
+// Spec Reference - XML000366]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentIdentification.InstructionIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetDocuNum (srcObj.Data.IDOC.E2EDK02, ["022", "029"])
+
+// Spec reference - XML000367]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentIdentification.EndToEndIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[(srcObj.Data.IDOC.E2IDKU3.PAIRZAWE == "U")? ("HIGH"): "NORM"; // Spec reference - XML000369]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentTypeInformation.InstructionPriority</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (In (srcObj.Data.IDOC.E2IDKU3.PAIRZAWE, "B"))
+	Set ("NURG");
+else if (In (srcObj.Data.IDOC.E2IDKU3.PAIRZAWE, "F"))
+	Set ("URGP");
+else if (In (srcObj.Data.IDOC.E2IDKU3.PAIRZAWE, "T"))
+	Set ("BKTR");
+else if (In (srcObj.Data.IDOC.E2IDKU3.PAIRZAWE, "V"))
+	Set ("SEPA");
+
+// Spec reference - XML000371]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentTypeInformation.ServiceLevel.Code</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (srcObj.Data.IDOC.E2IDKU3.EXTPAYM.IsNotNull()) { // Spec reference - XML000374
+	def extpaym = srcObj.Data.IDOC.E2IDKU3.EXTPAYM;
+	if (srcObj.Data.IDOC.E2IDKU3.PAIRZAWE == "B") {
+		if (In (extpaym, "CCD", "CCP"))
+			Set ("CCD");
+		else if (extpaym == "CTX")
+			Set ("CTX");
+		else if (In (extpaym, "PPD", "PPP"))
+			Set ("PPD");
+		else {
+			def E2IDB02_BB = srcObj.Data.IDOC.E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"BB\"");
+			if (E2IDB02_BB.length() != 0) {
+				if ((E2IDB02_BB[0].FIIBLAND == "AT") && (extpaym  == "AT1"))
+					Set ("83");
+				else if ((E2IDB02_BB[0].FIIBLAND == "AT") && (extpaym  == "AT2"))
+					Set ("82");
+				else if ((E2IDB02_BB[0].FIIBLAND == "DE") && (extpaym  == "XDD"))
+					Set ("04");
+				else if ((E2IDB02_BB[0].FIIBLAND == "FR") && (extpaym  == "FR2"))
+					Set ("08");
+				else if ((E2IDB02_BB[0].FIIBLAND == "FR") && (extpaym  == "XDD"))
+					Set ("85");
+				else if ((E2IDB02_BB[0].FIIBLAND == "FR") && (extpaym  == "ABX"))
+					Set ("60");
+				else if ((E2IDB02_BB[0].FIIBLAND == "IT") && (extpaym  == "ABX"))
+					Set ("RIBA");
+				else if ((E2IDB02_BB[0].FIIBLAND == "IT") && (extpaym  == "XDD"))
+					Set ("RIBV");
+				else if ((E2IDB02_BB[0].FIIBLAND == "IT") && (extpaym  == "UDD"))
+					Set ("RIBO");
+				else if (In (E2IDB02_BB[0].FIIBLAND, "DE", "FI", "NO", "SE")) {
+					if (extpaym  == "B2B")
+						Set ("B2B");
+					else if (extpaym  == "B2C")
+						Set ("CORE");
+				}
+			}
+		}
+	}
+	else if ((srcObj.Data.IDOC.E2IDKU3.PAIRZAWE == "Q") && (extpaym.trim().length() == 0)) {
+		def E2IDB02_BA = srcObj.Data.IDOC.E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"BA\"");
+		if ((E2IDB02_BA.length() > 0) && (E2IDB02_BA[0].FIIBLAND == "US"))
+			Set ("IAT");
+	}
+}]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentTypeInformation.LocalInstrument.Code</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetInstructedAmount (srcObj.Data.IDOC.E2IDKU5.E2IDKU5, $value)]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.InstructedAmount</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetChargeBearer (srcObj.Data.IDOC.E2IDKU4)]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.ChargeBearer</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDB02_Qual = srcObj.Data.IDOC.E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"BA\"");
+def E2EDKA1_Qual = srcObj.Data.IDOC.E2EDKA1.SecFilter ("$filterObj.PARVW == \"AG\"");
+
+// Spec reference - XML000384
+
+if ((E2IDB02_Qual.length() != 0) && E2IDB02_Qual[0].FIIBRANCH.IsNotNull() &&
+	(IsBranch8100To8300Or1306 (E2IDB02_Qual[0].FIIBRANCH) == false) && 
+		(E2EDKA1_Qual.length() != 0) && E2EDKA1_Qual[0].TELBX.IsNotNull())
+	Set (E2EDKA1_Qual[0].TELBX);]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction.MandateRelatedInformation.MandateIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapFinInstnId (srcObj.Data.IDOC.E2IDB02, $value, "BA")]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.DebtorAgent.FinancialInstitutionIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetBranchID (srcObj.Data.IDOC.E2IDB02, $value, "BA")]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.DebtorAgent.BranchIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapParty (srcObj.Data.IDOC.E2EDKA1, $value, "AG");
+SetDirDebDbtrOtherID (srcObj.Data.IDOC.E2EDKA1, $value, "AG");]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.Debtor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapAccountExceptType (srcObj.Data.IDOC, $value, "BA");
+MapDirDebDbtrAcctNature (srcObj.Data.IDOC.E2IDB02, srcObj.Data.IDOC.E2IDKU3, $value, "BA");]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.DebtorAccount</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MapParty (srcObj.Data.IDOC.E2EDKA1, $value, "ZA");
+SetDirDebUltmtDbtrOtherID (srcObj.Data.IDOC.E2EDKA1, $value, "ZA");]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.UltimateDebtor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if ((srcObj.Data.IDOC.E2IDT01.length() > 0) && (srcObj.Data.IDOC.E2IDT01.TXTVW == "007") && srcObj.Data.IDOC.E2IDT01.TXT01.IsNotNull())
+	Set (srcObj.Data.IDOC.E2IDT01.TXT01); // Spec reference - XML000745]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.InstructionForCreditorAgent</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def purpCode = GetPurpCdFromDesc (srcObj.Data.IDOC.E2IDKU3);
+if (purpCode.length() != 0)
+	Set (purpCode);]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.Purpose.Code</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDB02_Qual = srcObj.Data.IDOC.E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"BB\"");
+if ((E2IDB02_Qual.length() > 0) && srcObj.Data.IDOC.E2IDKU3.EXTPAYM.IsNotNull()) 
+	Set (getDirDebProprietaryCode (E2IDB02_Qual[0].FIIBLAND, srcObj.Data.IDOC.E2IDKU3.PAIRZAWE, srcObj.Data.IDOC.E2IDKU3.EXTPAYM));]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.Purpose.Proprietary</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetRltdRmtInf (srcObj.Data.IDOC[0], $value, "ZA", "AG")
+
+// Spec reference - XML000907]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.RelatedRemittanceInformation</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[foreach (def e2IDBW1 in srcObj.Data.IDOC.E2IDBW1) {
+	def str;
+	if (e2IDBW1.E2IDBW1[0].INPWTXT1.IsNotNull()) {
+		if (e2IDBW1.E2IDBW1[0].INPWTXT2.IsNotNull())
+			str = e2IDBW1.E2IDBW1[0].INPWTXT1 + e2IDBW1.E2IDBW1[0].INPWTXT2;
+		else
+			str = e2IDBW1.E2IDBW1[0].INPWTXT1;
+	}
+	if (str != null)
+		$value.SecAddElement().Value = str;
+}]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.RemittanceInformation.Unstructured</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[SetStrd (srcObj.Data.IDOC[0], $value)]]></source-field>
+						<destination-field>destObj.Data.PaymentInformation.DirectDebitTransactionInformation.RemittanceInformation.Structured</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapPEXR2003SpecificToDirectDebitCDMV1" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>paymentTypeInformation</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.PaymentTypeInformation</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>transacPaymentTypeInformation</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentTypeInformation</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>directDebitTransaction</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>debtor</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.Debtor</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>ultimateDebtor</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.UltimateDebtor</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>ultimateCreditor</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.UltimateCreditor</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Purpose</name>
+					<type>DataObject</type>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.Purpose</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2003Plain</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>paymentTypeInformation</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.PaymentTypeInformation</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>transacPaymentTypeInformation</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.PaymentTypeInformation</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>directDebitTransaction</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>debtor</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.Debtor</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>ultimateDebtor</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.UltimateDebtor</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>ultimateCreditor</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.UltimateCreditor</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>Purpose</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.Purpose</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDS01_Act = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+
+// Spec reference - XML000105
+
+if ((E2IDS01_Act.length() > 0) && In (E2IDS01_Act[0].B2B, "B2B", "CORE"))
+	Set (E2IDS01_Act[0].B2B);]]></source-field>
+						<destination-field>paymentTypeInformation.LocalInstrument.Code</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def e2idtra = srcObj.Data.IDOC.E2IDTRA;
+if ((e2idtra.length() > 0) && In (e2idtra[0].SEQ_TYPE, "OOFF", "FRST", "RCUR", "FNAL"))
+	Set (e2idtra[0].SEQ_TYPE); // Spec reference - XML000376]]></source-field>
+						<destination-field>transacPaymentTypeInformation.SequenceType</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def e2idtra = srcObj.Data.IDOC.E2IDTRA;
+if ((e2idtra.length() != 0) && e2idtra[0].CATEGORY_PURPOSE_CODE.IsNotNull())
+	Set (e2idtra[0].CATEGORY_PURPOSE_CODE);]]></source-field>
+						<destination-field>transacPaymentTypeInformation.CategoryPurpose.Code</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[mapPEXR2003MandateRelatedInformation (srcObj, $value);
+mapPEXR2003CreditorSchemeIdentification (srcObj, $value.CreditorSchemeIdentification);]]></source-field>
+						<destination-field>directDebitTransaction</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDS01_Qual = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+if ((E2IDS01_Qual.length() > 0) && E2IDS01_Qual[0].DEBTOR_IDENTIFICATION.IsNotNull())
+	SetPartyOrgOtherID ($value, E2IDS01_Qual[0].DEBTOR_IDENTIFICATION, "CUST", true); // Spec reference - XML000762, XML000764]]></source-field>
+						<destination-field>debtor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDS01_ACT = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+if ((E2IDS01_ACT.length() > 0) && E2IDS01_ACT[0].ULTIMATE_DEBTOR_ID.IsNotNull()) {
+	if (E2IDS01_ACT[0].	B2B == "B2B") 
+		SetPartyOrgOtherID ($value, E2IDS01_ACT[0].ULTIMATE_DEBTOR_ID, "CUST", true);
+	else if (E2IDS01_ACT[0].B2B == "CORE") {
+		if ($value.length() > 0)
+			$value[0].Identification.SecRemoveAllElements(); // May have been created from PEXR2001/2002/2003 mappings*/
+		SetPartyPvtOtherID ($value, E2IDS01_ACT[0].ULTIMATE_DEBTOR_ID, "CUST", true);
+	}
+}]]></source-field>
+						<destination-field>ultimateDebtor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDS01_ACT = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+if ((E2IDS01_ACT.length() > 0) && E2IDS01_ACT[0].ULTIMATE_CREDITOR_ID.IsNotNull()) {
+	def othr = $value.SecAddOrGetElement().Identification.SecAddOrGetElement().OrganisationIdentification.SecAddOrGetElement().Other.SecAddElement();
+	othr.Identification = E2IDS01_ACT[0].ULTIMATE_CREDITOR_ID;
+}]]></source-field>
+						<destination-field>ultimateCreditor</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[def e2idb02 = srcObj.Data.IDOC.E2IDB02;
+def e2idku3 = srcObj.Data.IDOC.E2IDKU3;
+def e2idtra = srcObj.Data.IDOC.E2IDTRA;
+
+def e2idb02_BA = e2idb02.Secfilter ("$filterObj.FIIQUALI == \"BA\"");
+def e2idb02_BB = e2idb02.Secfilter ("$filterObj.FIIQUALI == \"BB\"");
+
+if ((e2idku3.length() > 0) && (e2idku3[0].EXTPAYM == "PAT") && (e2idtra.length() > 0) &&
+		(e2idb02_BA.length() != 0) && (e2idb02_BA[0].FIIBLAND == "KR") &&
+			(e2idb02_BB.length() != 0) && (e2idb02_BB[0].FIIBLAND == "KR")) {
+	// Spec reference - XML000847
+
+	if (In (e2idtra[0].PURPOSE_CODE, "SALA", "PENS"))
+		Set (e2idtra[0].PURPOSE_CODE);
+	else if (In (e2idtra[0].CATEGORY_PURPOSE_CODE, "SALA", "PENS"))
+		Set (e2idtra[0].CATEGORY_PURPOSE_CODE);
+}]]></source-field>
+						<destination-field>Purpose.Code</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapPEXR2003SpecificToDirectDebitCDMV1Complete" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>destObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def paymInf = destObj.Data.PaymentInformation[0];
+def dirDebTransInfo = paymInf.DirectDebitTransactionInformation[0];
+
+def payTypInfo = paymInf.PaymentTypeInformation.SecAddOrGetElement();
+def dirDebTrans = dirDebTransInfo.DirectDebitTransaction.SecAddOrGetElement();
+def purpose = dirDebTransInfo.Purpose.SecAddOrGetElement();
+def transacPayTypInfo = dirDebTransInfo.PaymentTypeInformation.SecAddOrGetElement();
+
+mapPEXR2003SpecificToDirectDebitCDMV1 (srcObj, payTypInfo, transacPayTypInfo, dirDebTrans, 
+			dirDebTransInfo.Debtor, dirDebTransInfo.UltimateDebtor, dirDebTransInfo.UltimateCreditor, purpose);
+
+SecRemoveEmpty (payTypInfo);
+SecRemoveEmpty(dirDebTrans);
+SecRemoveEmpty(purpose);
+SecRemoveEmpty (transacPayTypInfo);
+
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapDirDebCrdtrAcctNature" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Acct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.CreditorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"$$Qual__TOKEN\"");
+
+if (E2IDB02_Qual.length() != 0) {
+	def mapped = MapDirDebAcctNature (E2IDB02_Qual[0], Acct);
+	if (!mapped)
+		MapDirDebCdtrAcctNaturePrtry (E2IDB02_Qual[0], Acct);
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapDirDebCdtrAcctNaturePrtry" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02_Qual</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DbtrAcct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[// Spec reference - XML000478
+def val;
+if ((In (E2IDB02_Qual.FIIBLAND, "BR", "ES", "FR", "IT", "PT") && E2IDB02_Qual.FIIBKONT.IsNotNull()) ||
+		((E2IDB02_Qual.FIIBLAND == "ZA") && In (E2IDB02_Qual.FIIBKONT, "03", "04", "06")) ||
+			((E2IDB02_Qual.FIIBLAND == "MX") && In (E2IDB02_Qual.FIIBKONT, "CI", "CM")) ||
+				(E2IDB02_Qual.FIIBKONT == "CB")) {
+	val = E2IDB02_Qual.FIIBKONT ;
+}
+else if (E2IDB02_Qual.FIIBLAND == "JP") {
+	if (E2IDB02_Qual.FIIBKONT == "04")
+		val = "MOMA";
+	else if (E2IDB02_Qual.FIIBKONT == "09")
+		val = "OTHER";
+}
+
+if (val != null)
+	DbtrAcct.SecAddOrGetElement().Type.SecAddOrGetElement().Proprietary = val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapDirDebDbtrAcctNature" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Acct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.CreditorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"$$Qual__TOKEN\"");
+
+if (E2IDB02_Qual.length() != 0) {
+	def mapped = MapDirDebAcctNature (E2IDB02_Qual[0], Acct);
+	if (!mapped)
+		MapDirDebDbtrAcct_AcctNaturePrtry (E2IDB02_Qual[0], Acct);
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapDirDebDbtrAcct_AcctNaturePrtry" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02_Qual</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DbtrAcct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[// Spec reference - XML000799
+
+if ((In (E2IDB02_Qual.FIIBLAND, "BR", "ES", "FR", "IT", "PT") && E2IDB02_Qual.FIIBKONT.IsNotNull()) ||
+		((E2IDB02_Qual.FIIBLAND == "JP") && In (E2IDB02_Qual.FIIBKONT, "04", "09")) ||
+			((E2IDB02_Qual.FIIBLAND == "ZA") && In (E2IDB02_Qual.FIIBKONT, "03", "04", "06")) ||
+				((E2IDB02_Qual.FIIBLAND == "MX") && In (E2IDB02_Qual.FIIBKONT, "CI", "CM")) ||
+						(E2IDB02_Qual.FIIBKONT == "CB")) {
+	DbtrAcct.SecAddOrGetElement().Type.SecAddOrGetElement().Proprietary = E2IDB02_Qual.FIIBKONT ;
+}
+
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapDirDebAcctNature" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Acct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.CreditorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[// Spec reference - XML000696
+if (In (E2IDB02.FIIBLAND, "US", "ZA", "JP"))
+	MapAcctNatureCdWhenCtryIs_US_ZA_JP (E2IDB02	, Acct);
+else {
+	def val;
+	if (E2IDB02.FIIBKONT == "CC")
+		val = "CACC";
+	else if (In (E2IDB02.FIIBKONT, "CA", "CE"))
+		val = "SVGS";
+	else if (E2IDB02.FIIBKONT == "CS")
+		val = "SLRY";
+			
+	if (val != null) {
+		Acct.SecAddOrGetElement().Type.SecAddOrGetElement().Code = val;
+		return true;
+	}
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirDebCdtrOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDT01</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDT01</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[SetDirDebOtherIDInCdtrAndUltmtCdtr (E2EDKA1, E2IDB02, E2IDKU3, party, "BE");
+
+def E2IDB02_Qual = E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"BA\"");
+if ((E2IDKU3.length() > 0) && In (E2IDKU3[0].PAIRZAWE, "B", "V") && (E2IDT01.length() > 0) && 
+			(E2IDT01[0].TXTVW == "DDRF") && E2IDT01[0].TXT01.IsNotNull() && In (E2IDB02_Qual[0].FIIBLAND, "IT", "FR") && (E2IDB02_Qual.length() != 0))
+	SetPartyOrgOtherID (party, E2IDT01[0].TXT01, "CUST", true); // Spec reference - XML000129 & XML000131
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirDebDbtrOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2EDKA1_Qual = E2EDKA1.Secfilter ("$filterObj.PARVW == \"$$Qual__TOKEN\"");
+if (E2EDKA1_Qual.length() != 0) {
+	if (E2EDKA1_Qual[0].PARTN.IsNotNull())
+		SetPartyOrgOtherID (party, E2EDKA1_Qual[0].PARTN, "CUST", true); // Spec reference - XML000819, XML000821
+	if (E2EDKA1_Qual[0].LIFNR.IsNotNull())
+		SetPartyOrgOtherID (party, E2EDKA1_Qual[0].LIFNR, "BANK", true); // Spec reference - XML000762, XML000764
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirDebUltmtCdtrOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[SetDirDebOtherIDInCdtrAndUltmtCdtr (E2EDKA1, E2IDB02, E2IDKU3, party, "ZE");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirDebUltmtDbtrOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2EDKA1_Qual = E2EDKA1.Secfilter ("$filterObj.PARVW == \"$$Qual__TOKEN\"");
+if (E2EDKA1_Qual.length() != 0) {
+	if (E2EDKA1_Qual[0].PARTN.IsNotNull())
+		SetPartyOrgOtherID (party, E2EDKA1_Qual[0].PARTN, "CUST", true); // Spec reference - XML000819, XML000821
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="dirDebproprietaryPurposeCodesTable" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+			</parameterfields>
+			<ReturnType>DataObject</ReturnType>
+			<Code><![CDATA[def proprietaryCodes = 
+{
+	Codes: [
+		{FIIBLAND: "AU", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "CN", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "FJ", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "HK", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "ID", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "IN", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "JP", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "KH", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "KR", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "MO", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "MY", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},		
+		{FIIBLAND: "NZ", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "PH", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "SG", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "TH", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "TW", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "VN", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},		
+		{FIIBLAND: "AU", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "CN", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "FJ", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "HK", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "ID", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "IN", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "JP", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "KH", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "KR", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "MO", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "MY", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},				
+		{FIIBLAND: "NZ", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "PH", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "SG", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "TH", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "TW", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "VN", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},		
+		{FIIBLAND: "TH", PAIRZAWE: "B", EXTPAYM: "BDR", Code: "BDR"},		
+		{FIIBLAND: "AT", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "BE", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "BG", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "CH", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "CY", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "CZ", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "DE", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "DK", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "EE", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "ES", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "FI", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "FR", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "GB", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "GR", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "HR", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "HU", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "IE", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "IS", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "IT", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "LT", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "LU", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "LV", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "NL", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "NO", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "PL", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "PT", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "RO", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "SE", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "SI", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},
+		{FIIBLAND: "SK", PAIRZAWE: "B", EXTPAYM: "FDD", Code: "FDD"},		
+		{FIIBLAND: "AT", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "BE", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "BG", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "CH", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "CY", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "CZ", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "DE", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "DK", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "EE", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "ES", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "FI", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "FR", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "GB", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "GR", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "HR", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "HU", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "IE", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "IS", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},		
+		{FIIBLAND: "IT", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "LT", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "LU", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "LV", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "NL", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "NO", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "PL", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "PT", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "RO", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "SE", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "SI", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},
+		{FIIBLAND: "SK", PAIRZAWE: "B", EXTPAYM: "LDD", Code: "LDD"},		
+		{FIIBLAND: "MX", PAIRZAWE: "B", EXTPAYM: "I94", Code: "I94"},
+		{FIIBLAND: "MX", PAIRZAWE: "B", EXTPAYM: "I95", Code: "I95"},		
+		{FIIBLAND: "UY", PAIRZAWE: "B", EXTPAYM: "IA4", Code: "IA4"}
+	]
+};
+
+return proprietaryCodes;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getDirDebProprietaryCode" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>FIIBLAND</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>PAIRZAWE</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>EXTPAYM</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def codesSec = dirDebproprietaryPurposeCodesTable().getSection ("Codes");
+return getLookUpCode (codesSec, FIIBLAND, PAIRZAWE, EXTPAYM);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapPEXR2003MandateRelatedInformation" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>dirDebTrans</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2003Plain</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>dirDebTrans</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[def E2IDS01_Act = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+def mndtRelInfSec = self.dirDebTrans.MandateRelatedInformation;
+if (E2IDS01_Act.length() != 0) {
+	if (mndtRelInfSec.length() > 0) // May be created by mapping common to PEXR2003/2002/2001
+		mndtRelInfSec.SecRemoveAllElements();
+
+	def mndtRelInfElm = mndtRelInfSec.SecAddOrGetElement();
+	if (E2IDS01_Act[0].MANDATE_ID.IsNotNull())
+		mndtRelInfElm.MandateIdentification = E2IDS01_Act[0].MANDATE_ID; // Spec reference - XML000384
+	
+	if (E2IDS01_Act[0].SIGN_DATE.IsNotNull()) {// Spec reference - XML000385
+		def inputDate = ToISODate (ParseDate (E2IDS01_Act[0].SIGN_DATE, "yyyyMMdd"));
+		def dateTZRemoved = ParseISODate (FormatISODate (inputDate, "%Y-%M-%D"), "%Y-%M-%D");
+		mndtRelInfElm.DateOfSignature = dateTZRemoved;
+	}
+	
+	def amndIndPresent = (E2IDS01_Act[0].AMEND_IND == "X");
+	if (amndIndPresent) // Spec reference - XML000386
+		mndtRelInfElm.AmendmentIndicator = true;
+
+	def E2IDS01_Orig = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ORIG\"");
+	if ((E2IDS01_Orig.length() != 0) && amndIndPresent) {
+		def amndInfoDetElm = mndtRelInfElm.AmendmentInformationDetails.SecAddElement();
+		mapPEXR2003AmendmentInfoDets (E2IDS01_Orig[0], amndInfoDetElm);
+		SecRemoveEmpty (amndInfoDetElm);
+	}
+	SecRemoveEmpty (mndtRelInfElm);
+}
+
+// Spec reference - XML000599	
+def e2idds1 = srcObj.Data.IDOC.E2IDDS1;
+if ((e2idds1.length() > 0) && e2idds1[0].DIGITAL_SIGNATURE.IsNotNull())
+	mndtRelInfSec.SecAddOrGetElement().ElectronicSignature  = e2idds1[0].DIGITAL_SIGNATURE;]]></source-field>
+						<destination-field>dirDebTrans</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapPEXR2003CreditorSchemeIdentification" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>creditorSchemeIdentification</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction.CreditorSchemeIdentification</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2003Plain</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>creditorSchemeIdentification</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction.CreditorSchemeIdentification</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[SetPstlAdr (srcObj.Data.IDOC.E2IDAD1, $value, "QUALF", "CRE", "STREET1", "STREET2", "PFORT", "CITY1", "PSTL2", "POSTAL_CODE", "REGIO", "COUNTRY_KEY");
+// Spec reference - XML000615, XML000612, XML000611, XML000614, XML000613
+
+def name = GetName (srcObj.Data.IDOC.E2IDAD1, "QUALF", "CRE", "NAME1", "NAME2");
+if (name != null)
+	$value.SecAddOrGetElement().ContactDetails.SecAddElement().Name = name; // Spec reference - XML000640
+	
+def E2IDAD1_Qual = srcObj.Data.IDOC.E2IDAD1.Secfilter ("$filterObj.QUALF == \"CRE\"");
+if (E2IDAD1_Qual.length() != 0) {
+	if (E2IDAD1_Qual[0].TELF1.IsNotNull())
+		$value.SecAddOrGetElement().ContactDetails.SecAddOrGetElement().PhoneNumber = E2IDAD1_Qual[0].TELF1; // Spec reference - XML000641
+	if (E2IDAD1_Qual[0].TELFX.IsNotNull())
+		$value.SecAddOrGetElement().ContactDetails.SecAddOrGetElement().FaxNumber = E2IDAD1_Qual[0].TELFX; // Spec reference - XML000643
+}
+
+
+def E2IDS01_Act = srcObj.Data.IDOC.E2IDS01.SecFilter ("$filterObj.QUALIFIER == \"ACT\"");
+
+if (E2IDS01_Act.length() > 0) {
+	if (E2IDS01_Act[0].CREDITOR_ID.IsNotNull()) {
+		def othr = $value.SecAddOrGetElement().Identification.SecAddOrGetElement().OrganisationIdentification.SecAddOrGetElement().Other.SecAddOrGetElement();
+		othr.Identification = E2IDS01_Act[0].CREDITOR_ID; // Spec reference - XML000620
+		othr.SchemeName.SecAddElement().Code = "CUST"; // Spec reference - XML000622
+	}
+	
+	name = GetNameFromObj (E2IDS01_Act[0], "CREDITOR_NAME1", "CREDITOR_NAME2");
+	if (name.length() != 0)
+		$value.SecAddOrGetElement().Name = name;
+}]]></source-field>
+						<destination-field>creditorSchemeIdentification</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapPEXR2003AmendmentInfoDets" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDS01_Orig</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDS01</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>directDebitTransaction</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction.MandateRelatedInformation.AmendmentInformationDetails</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>E2IDS01_Orig</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2003Plain.Data.IDOC.E2IDS01</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>directDebitTransaction</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_CustomerDirectDebitInitiationV1.Data.PaymentInformation.DirectDebitTransactionInformation.DirectDebitTransaction.MandateRelatedInformation.AmendmentInformationDetails</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[E2IDS01_Orig.MANDATE_ID // Spec reference - XML000388]]></source-field>
+						<destination-field>directDebitTransaction.OriginalMandateIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (E2IDS01_Orig.CREDITOR_NAME1.IsNotNull()) { // Spec reference - XML000390
+	def str;	
+	if (E2IDS01_Orig.CREDITOR_NAME2.IsNull())
+		str = E2IDS01_Orig.CREDITOR_NAME1;
+	else
+		str = E2IDS01_Orig.CREDITOR_NAME1 + " " + E2IDS01_Orig.CREDITOR_NAME2;
+
+	Set (str);
+}]]></source-field>
+						<destination-field>directDebitTransaction.OriginalCreditorSchemeIdentification.Name</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (E2IDS01_Orig.CREDITOR_ID.IsNotNull()) {
+	def othr = $value.SecAddElement();
+	othr.Identification = E2IDS01_Orig.CREDITOR_ID; // Spec reference - XML000406
+	othr.SchemeName.SecAddElement().Code = "CUST"; // Spec reference - XML000408
+}]]></source-field>
+						<destination-field>directDebitTransaction.OriginalCreditorSchemeIdentification.Identification.OrganisationIdentification.Other</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[E2IDS01_Orig.DEBTOR_IBAN // Spec reference - XML000531]]></source-field>
+						<destination-field>directDebitTransaction.OriginalDebtorAccount.Identification.IBAN</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[E2IDS01_Orig.DEBTOR_SWIFT // Spec reference - XML000545]]></source-field>
+						<destination-field>directDebitTransaction.OriginalDebtorAgent.FinancialInstitutionIdentification.BICFI</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirDebOtherIDInCdtrAndUltmtCdtr" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerDirectDebitInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$QUALIFIER__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"BA\"");
+def E2EDKA1_Qual = E2EDKA1.Secfilter ("$filterObj.PARVW == \"$$QUALIFIER__TOKEN\"");
+
+if (E2IDB02_Qual.length() != 0) {
+	if (E2IDB02_Qual[0].FIIBRANCH.IsNotNull() && IsBranch8100To8300Or1306 (E2IDB02_Qual[0].FIIBRANCH)) {
+		if (E2EDKA1_Qual.length() != 0) {
+			if (E2EDKA1_Qual[0].PARTN.IsNotNull())
+				SetPartyOrgOtherID (party, E2EDKA1_Qual[0].PARTN, "CUST", true); // Spec reference - XML000129, XML000131
+			if ((E2IDB02_Qual[0].FIIBLAND == "AR") && E2EDKA1_Qual[0].LIFNR.IsNotNull())
+				SetPartyOrgOtherID (party, E2EDKA1_Qual[0].LIFNR, "BANK", true); // Spec reference - XML000129 & XML000131
+		}
+	}
+}
+
+if ((E2IDKU3.length() != 0) && (E2IDKU3[0].PAIUZAWE == "U3") && (E2EDKA1_Qual.length() != 0) && E2EDKA1_Qual[0].TELX1.IsNotNull())
+	SetPartyOrgOtherID (party, E2EDKA1_Qual[0].TELX1, "BANK", true); // Spec reference - XML000129, XML000131
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDirectDebitMapperParams" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>inputMessageName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def mapperElm = fsnParams.MapperParams.SecAddElement();
+mapperElm.InputMessage = inputMessageName;
+mapperElm.MapperFlow = inputMessageName + "ToCDMV1_CustomerDirectDebitInitiation_MapFlow";
+mapperElm.OutputMessage	= "CDM_CustomerDirectDebitInitiationV1";
+mapperElm.InputValidationList = "DirectDebit";
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="MappingFlows" type="FolderElement">
+		<messageflow name="PEXR200nToCDMV1_CustomerDirectDebitInitiation_MapFlowBase" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>pexrOBJ</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>INPUT</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>inputType</name>
+						<type>String</type>
+						<notnull>true</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>cdmObj</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>CDM_CustomerDirectDebitInitiationV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="342" y="138"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="340" y="355"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="74e6a5c7-94fc-4c1f-ae7f-79e282a8ab90" type="Invoke" xsi:type="Invoke" >
+				<label>Update CDM Direct Debit</label>
+				<description><![CDATA[]]></description>
+				<name>SAP_FW_UpdateCDMDirectDebitFlow</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>obj</name>
+						<type>DataObject</type>
+						<value><![CDATA[cdmObj]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>forceComputeHeaderControlSum</name>
+						<type>Boolean</type>
+						<value><![CDATA[true]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>obj</name>
+						<type>DataObject</type>
+						<value><![CDATA[cdmObj]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="341" y="282"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Mapping1" uid="a8265bc2-65d5-40e5-8fed-5034fedf84e4" type="Mapping" xsi:type="Mapping" >
+				<label>Map PEXR to CDM</label>
+				<description><![CDATA[]]></description>
+				<in>pexrOBJ</in>
+				<out>cdmObj</out>
+				<messagemapping>=inputType + "ToCDMV1_CustomerDirectDebitInitiation"</messagemapping>
+				<create-destination>true</create-destination>
+				<visual>
+					<position x="342" y="200"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="74e6a5c7-94fc-4c1f-ae7f-79e282a8ab90" portindex="1"/>
+				<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+				<inputport uid="a8265bc2-65d5-40e5-8fed-5034fedf84e4" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="a8265bc2-65d5-40e5-8fed-5034fedf84e4" portindex="1"/>
+				<inputport uid="74e6a5c7-94fc-4c1f-ae7f-79e282a8ab90" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="304" y="124" width="80" height="245"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Sep 17 16:30:25 EDT 2012"/>
+						<property name="Author" value="Uday Thakur"/>
+						<property name="Title" value="SAP_BOAML"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:11 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="1739"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\PEXR\DirectDebit\Library\DirectDebit_PEXRLibrary.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/SAP-CDM-Mappings/Mappings/CDMV1/PEXR/DirectDebit/Library/DirectDebit_PEXRLibrary/MappingFlows/PEXR200nToCDMV1_CustomerDirectDebitInitiation_MapFlowBase</selected-element>
+		<watches>
+			<watch>
+				<name>E2EDKA1_Qual[0].PSTL2</name>
+			</watch>
+		</watches>
+	</workspace>
+</cartridge>
+

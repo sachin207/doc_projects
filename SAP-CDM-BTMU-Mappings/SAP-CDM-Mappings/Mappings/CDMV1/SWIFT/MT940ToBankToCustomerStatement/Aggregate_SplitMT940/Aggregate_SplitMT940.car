@@ -1,0 +1,2863 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="Aggregate_Split_MT940" type="Cartridge">
+	<description><![CDATA[Changes in split messages:
+
+a) 28C contains the correct sequence number (sequential) :28C:24/nnn
+b) All messages except first use 60M instead of 60F
+c) All messages except last use 62M instead of 62F
+d) 62F/62M contains the total closing balance for that statement (Opening + Sum of(61.Amount)
+e) 60F (Opening balance) of a statement matches the Closing balance of previous
+
+Check :
+ 62F of last statement matches with the 62F of the original.
+]]></description>
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="CopyMT940Fields" version="1.0" type="Mapping">
+			</service>
+			<service name="CopyMT940_A" version="1.0" type="Mapping">
+			</service>
+			<service name="CreateCombinedMT940" version="1.0" type="Mapping">
+			</service>
+			<service name="SplitMT940" version="1.0" type="Message Flow">
+			</service>
+			<service name="AggregateMT940FromList" version="1.0" type="Message Flow">
+			</service>
+			<service name="AggregateMT940" version="1.0" type="Message Flow">
+			</service>
+			<service name="ComputeMT940MinLength" version="1.0" type="Message Flow">
+			</service>
+			<service name="InitCombinedMT940" version="1.0" type="Message Flow">
+			</service>
+			<service name="ValidateMT940" version="1.0" type="Message Flow">
+			</service>
+			<service name="GetMT940List" version="1.0" type="Message Flow">
+			</service>
+			<service name="EliminateLengthException" version="1.0" type="Message Flow">
+			</service>
+			<service name="ApplyDebitCreditFix" version="1.0" type="Message Flow">
+			</service>
+			<service name="ThrowExceptLenExc" version="1.0" type="Message Flow">
+			</service>
+			<function name="SetAmountCreditDebit"/>
+			<function name="ComputeStatementEntryLength"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\SWIFT\SWIFTMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\SWIFT\SWIFTMessages.car</absolute-path>
+		</reference>
+	</references>
+	<messagemapping rulename="CopyMT940Fields" type="MessageMapping">
+		<source-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>MT940In</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</source-format>
+		<destination-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>MT940Out</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</destination-format>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header</source-field>
+					<destination-field>MT940Out.Header.Basic Header</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header.Application Identifier</source-field>
+					<destination-field>MT940Out.Header.Basic Header.Application Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header.Service Identifier</source-field>
+					<destination-field>MT940Out.Header.Basic Header.Service Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header.LT Identifier</source-field>
+					<destination-field>MT940Out.Header.Basic Header.LT Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header.Session Number</source-field>
+					<destination-field>MT940Out.Header.Basic Header.Session Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Basic Header.Sequence Number</source-field>
+					<destination-field>MT940Out.Header.Basic Header.Sequence Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input</source-field>
+					<destination-field>MT940Out.Header.Application Header Input</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Input/Output Identifier</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Input/Output Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Message Type</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Message Type</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Receiver's Address</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Receiver's Address</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Message Priority</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Message Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Delivery Monitoring</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Delivery Monitoring</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Input.Obsolescence Period</source-field>
+					<destination-field>MT940Out.Header.Application Header Input.Obsolescence Period</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output</source-field>
+					<destination-field>MT940Out.Header.Application Header Output</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Input/Output Identifier</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Input/Output Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Message Type</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Message Type</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Input Time</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Input Time</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Message Input Reference</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Message Input Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Output Date</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Output Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Output Time</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Output Time</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.Application Header Output.Message Priority</source-field>
+					<destination-field>MT940Out.Header.Application Header Output.Message Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header</source-field>
+					<destination-field>MT940Out.Header.User Header</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header.Service Identifier</source-field>
+					<destination-field>MT940Out.Header.User Header.Service Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header.Banking Priority</source-field>
+					<destination-field>MT940Out.Header.User Header.Banking Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header.Message User Reference</source-field>
+					<destination-field>MT940Out.Header.User Header.Message User Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header.Validation Flag</source-field>
+					<destination-field>MT940Out.Header.User Header.Validation Flag</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Header.User Header.Addressee Information</source-field>
+					<destination-field>MT940Out.Header.User Header.Addressee Information</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.20</source-field>
+					<destination-field>MT940Out.Data.20</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.20.TRN</source-field>
+					<destination-field>MT940Out.Data.20.TRN</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.21</source-field>
+					<destination-field>MT940Out.Data.21</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.21.Reference</source-field>
+					<destination-field>MT940Out.Data.21.Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.25</source-field>
+					<destination-field>MT940Out.Data.25</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.25.Account</source-field>
+					<destination-field>MT940Out.Data.25.Account</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.28C</source-field>
+					<destination-field>MT940Out.Data.28C</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.28C.Statement_Number</source-field>
+					<destination-field>MT940Out.Data.28C.Statement_Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.28C.Sequence_Number</source-field>
+					<destination-field>MT940Out.Data.28C.Sequence_Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a</source-field>
+					<destination-field>MT940Out.Data.60a</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a.D/C_Mark</source-field>
+					<destination-field>MT940Out.Data.60a.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a.Date</source-field>
+					<destination-field>MT940Out.Data.60a.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a.Currency</source-field>
+					<destination-field>MT940Out.Data.60a.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a.Amount</source-field>
+					<destination-field>MT940Out.Data.60a.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.60a.FormatOption</source-field>
+					<destination-field>MT940Out.Data.60a.FormatOption</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a</source-field>
+					<destination-field>MT940Out.Data.62a</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a.D/C_Mark</source-field>
+					<destination-field>MT940Out.Data.62a.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a.Date</source-field>
+					<destination-field>MT940Out.Data.62a.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a.Currency</source-field>
+					<destination-field>MT940Out.Data.62a.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a.Amount</source-field>
+					<destination-field>MT940Out.Data.62a.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.62a.FormatOption</source-field>
+					<destination-field>MT940Out.Data.62a.FormatOption</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.64</source-field>
+					<destination-field>MT940Out.Data.64</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.64.D/C_Mark</source-field>
+					<destination-field>MT940Out.Data.64.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.64.Date</source-field>
+					<destination-field>MT940Out.Data.64.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.64.Currency</source-field>
+					<destination-field>MT940Out.Data.64.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.64.Amount</source-field>
+					<destination-field>MT940Out.Data.64.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.65</source-field>
+					<destination-field>MT940Out.Data.65</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.65.D/C_Mark</source-field>
+					<destination-field>MT940Out.Data.65.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.65.Date</source-field>
+					<destination-field>MT940Out.Data.65.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.65.Currency</source-field>
+					<destination-field>MT940Out.Data.65.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.65.Amount</source-field>
+					<destination-field>MT940Out.Data.65.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.86</source-field>
+					<destination-field>MT940Out.Data.86</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Data.86.Narrative</source-field>
+					<destination-field>MT940Out.Data.86.Narrative</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Message Authentication Code</source-field>
+					<destination-field>MT940Out.Trailer.Message Authentication Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Proprietary Authentication Code</source-field>
+					<destination-field>MT940Out.Trailer.Proprietary Authentication Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Checksum</source-field>
+					<destination-field>MT940Out.Trailer.Checksum</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.System Originated Message</source-field>
+					<destination-field>MT940Out.Trailer.System Originated Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Test And Training Message</source-field>
+					<destination-field>MT940Out.Trailer.Test And Training Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Possible Duplicate Emission</source-field>
+					<destination-field>MT940Out.Trailer.Possible Duplicate Emission</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Delayed Message</source-field>
+					<destination-field>MT940Out.Trailer.Delayed Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Possible Duplicate Message</source-field>
+					<destination-field>MT940Out.Trailer.Possible Duplicate Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>MT940In.Trailer.Message Reference</source-field>
+					<destination-field>MT940Out.Trailer.Message Reference</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="CopyMT940_A" type="MessageMapping">
+		<source-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>A</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<message>MT940_SRG2013.Data.A</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</source-format>
+		<destination-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>A</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<message>MT940_SRG2013.Data.A</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</destination-format>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>A</source-field>
+					<destination-field>A</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61</source-field>
+					<destination-field>A.61</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Value_Date</source-field>
+					<destination-field>A.61.Value_Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Entry_Date</source-field>
+					<destination-field>A.61.Entry_Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Debit/Credit_Mark</source-field>
+					<destination-field>A.61.Debit/Credit_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Funds_Code</source-field>
+					<destination-field>A.61.Funds_Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Amount</source-field>
+					<destination-field>A.61.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Transaction_Type_Identification_Code</source-field>
+					<destination-field>A.61.Transaction_Type_Identification_Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Reference_for_the_Account_Owner</source-field>
+					<destination-field>A.61.Reference_for_the_Account_Owner</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Account_Servicing_Institution's_Reference</source-field>
+					<destination-field>A.61.Account_Servicing_Institution's_Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.61.Supplementary_Details</source-field>
+					<destination-field>A.61.Supplementary_Details</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.86</source-field>
+					<destination-field>A.86</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>A.86.Narrative</source-field>
+					<destination-field>A.86.Narrative</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="CreateCombinedMT940" type="MessageMapping">
+		<source-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>BTMU_MT940First</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</source-format>
+		<destination-format>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>BTMU_MT940Out</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</destination-format>
+		<mappingrules>
+			<mappings>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header.Application Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header.Application Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header.Service Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header.Service Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header.LT Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header.LT Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header.Session Number</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header.Session Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Basic Header.Sequence Number</source-field>
+					<destination-field>BTMU_MT940Out.Header.Basic Header.Sequence Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Input/Output Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Input/Output Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Message Type</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Message Type</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Receiver's Address</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Receiver's Address</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Message Priority</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Message Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Delivery Monitoring</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Delivery Monitoring</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Input.Obsolescence Period</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Input.Obsolescence Period</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Input/Output Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Input/Output Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Message Type</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Message Type</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Input Time</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Input Time</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Message Input Reference</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Message Input Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Output Date</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Output Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Output Time</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Output Time</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.Application Header Output.Message Priority</source-field>
+					<destination-field>BTMU_MT940Out.Header.Application Header Output.Message Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header.Service Identifier</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header.Service Identifier</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header.Banking Priority</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header.Banking Priority</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header.Message User Reference</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header.Message User Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header.Validation Flag</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header.Validation Flag</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Header.User Header.Addressee Information</source-field>
+					<destination-field>BTMU_MT940Out.Header.User Header.Addressee Information</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.20</source-field>
+					<destination-field>BTMU_MT940Out.Data.20</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.20.TRN</source-field>
+					<destination-field>BTMU_MT940Out.Data.20.TRN</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.21</source-field>
+					<destination-field>BTMU_MT940Out.Data.21</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.21.Reference</source-field>
+					<destination-field>BTMU_MT940Out.Data.21.Reference</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.25</source-field>
+					<destination-field>BTMU_MT940Out.Data.25</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.25.Account</source-field>
+					<destination-field>BTMU_MT940Out.Data.25.Account</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.28C</source-field>
+					<destination-field>BTMU_MT940Out.Data.28C</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.28C.Statement_Number</source-field>
+					<destination-field>BTMU_MT940Out.Data.28C.Statement_Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.28C.Sequence_Number</source-field>
+					<destination-field>BTMU_MT940Out.Data.28C.Sequence_Number</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a.D/C_Mark</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a.Date</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a.Currency</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a.Amount</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.60a.FormatOption</source-field>
+					<destination-field>BTMU_MT940Out.Data.60a.FormatOption</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.64.D/C_Mark</source-field>
+					<destination-field>BTMU_MT940Out.Data.64.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.64.Date</source-field>
+					<destination-field>BTMU_MT940Out.Data.64.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.64.Currency</source-field>
+					<destination-field>BTMU_MT940Out.Data.64.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.64.Amount</source-field>
+					<destination-field>BTMU_MT940Out.Data.64.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.65.D/C_Mark</source-field>
+					<destination-field>BTMU_MT940Out.Data.65.D/C_Mark</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.65.Date</source-field>
+					<destination-field>BTMU_MT940Out.Data.65.Date</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.65.Currency</source-field>
+					<destination-field>BTMU_MT940Out.Data.65.Currency</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.65.Amount</source-field>
+					<destination-field>BTMU_MT940Out.Data.65.Amount</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Data.86.Narrative</source-field>
+					<destination-field>BTMU_MT940Out.Data.86.Narrative</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Message Authentication Code</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Message Authentication Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Proprietary Authentication Code</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Proprietary Authentication Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Checksum</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Checksum</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.System Originated Message</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.System Originated Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Test And Training Message</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Test And Training Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Possible Duplicate Emission</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Possible Duplicate Emission</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Delayed Message</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Delayed Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Possible Duplicate Message</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Possible Duplicate Message</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>BTMU_MT940First.Trailer.Message Reference</source-field>
+					<destination-field>BTMU_MT940Out.Trailer.Message Reference</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="SetAmountCreditDebit" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>F60a</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>amount</name>
+					<type>Double</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if(amount < 0) {
+    F60a.Amount = Abs(amount);
+    F60a.D_C_Mark = "D";
+}
+else {
+    F60a.Amount = amount;
+    F60a.D_C_Mark = "C";
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="ComputeStatementEntryLength" type="FormulaFunctionDef">
+			<description>Compute serialized length of a statement entry</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>AElm</name>
+					<type>DataObject</type>
+					<message>MT940_SRG2013.Data.A</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Integer</ReturnType>
+			<Code><![CDATA[def entrylength = 0;
+if(AElm.F61.$size > 0) {
+    def F61 = AElm.F61[0];
+    entrylength += 6; // tag & CRLF
+    entrylength += 6; // Value_Date
+    if(F61.Entry_Date.IsNotNull())
+        entrylength += 4;
+
+    entrylength += 2; // DC Mark
+    //if(F61.Funds_Code.IsNotNull())
+      //  entrylength += 4;
+
+    if(F61.Amount.IsNotNull())
+        entrylength += ToText(F61.Amount).Length();
+
+    entrylength += Length(F61.Transaction_Type_Identification_Code);
+    
+    if(F61.Reference_for_the_Account_Owner.IsNotNull())
+        entrylength += F61.Reference_for_the_Account_Owner.Length();
+    
+    
+    if(F61.Account_Servicing_Institution_s_Reference.IsNotNull())
+        entrylength += 2 + Length(F61.Account_Servicing_Institution_s_Reference); // Slash + text
+
+    if(F61.Supplementary_Details.IsNotNull())
+        entrylength += 2 + Length(F61.Supplementary_Details); // crlf and text
+
+}
+if(AElm.F86.$size > 0) {
+    entrylength += 6 + Length(AElm.F86[0].Narrative);
+}
+return entrylength;]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messageflow name="SplitMT940" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>Binary</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>openingBalance</name>
+					<type>Double</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>index</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>MAX_ENTRIES</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>mt940obj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>mt940SmallObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawSmallOut</name>
+					<type>Binary</type>
+					<notnull>false</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>minMT940Length</name>
+					<type>Integer</type>
+					<notnull>false</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>messageCount</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="0e559572-2dd5-42e0-92b8-d8510733cf21" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="357" y="49"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="63ba20e9-129a-4e6d-a151-0700ac62c184" type="Parse" xsi:type="Parse" >
+			<label>Parse MT940 Full</label>
+			<description><![CDATA[Ignore message length error and resume]]></description>
+			<in>rawIn</in>
+			<out>mt940obj</out>
+			<message>MT940_SRG2013</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="364" y="185"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Loop1" uid="9c995f0a-0637-415b-8924-d1c1bb87b7b5" type="Loop" xsi:type="Loop" >
+			<label>Loop</label>
+			<description><![CDATA[]]></description>
+			<messageflow name="" type="MessageFlow">
+				<flowelement name="Serialize1" uid="b735dbce-1162-4dff-809a-cce502ca84c8" type="Serialize" xsi:type="Serialize" >
+					<label>Serialize Split Message</label>
+					<description><![CDATA[]]></description>
+					<in>mt940SmallObj</in>
+					<out>rawSmallOut</out>
+					<message>MT940_SRG2013</message>
+					<cascade-exceptions>false</cascade-exceptions>
+					<visual>
+						<position x="49" y="285"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom2" uid="30223147-4dc2-43e0-9ba6-0d691dc834fa" type="Custom" xsi:type="Custom" >
+					<label>Append Output</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[rawOut.append(rawSmallOut);
+messageCount += 1;
+rawOut.append("\n");
+//mt940SmallObj.Data.A.SecRemoveAllElements();
+//mt940SmallObj.setNull();]]></code>
+					<visual>
+						<position x="49" y="362"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Mapping1" uid="83206e9b-232c-4d1b-b77d-32f29e00dbaa" type="Mapping" xsi:type="Mapping" >
+					<label>Create Copy </label>
+					<description><![CDATA[]]></description>
+					<multi-source-input>
+						<field>
+							<name>MT940In</name>
+							<type>DataObject</type>
+							<value><![CDATA[mt940obj]]></value>
+							<notnull>false</notnull>
+						</field>
+					</multi-source-input>
+					<multi-source-output>
+						<field>
+							<name>MT940Out</name>
+							<type>DataObject</type>
+							<value><![CDATA[mt940SmallObj]]></value>
+							<notnull>false</notnull>
+						</field>
+					</multi-source-output>
+					<messagemapping>CopyMT940Fields</messagemapping>
+					<create-destination>true</create-destination>
+					<visual>
+						<position x="50" y="45"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom3" uid="611f2181-bfaa-4ae3-9d91-1ce491ea68f7" type="Custom" xsi:type="Custom" >
+					<label>Prepare Split Message</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[def maxIndex = mt940obj.Data.A.$size;
+
+def totalMessageLength = minMT940Length;
+for(; index < maxIndex; index += 1) {
+    def AElm = mt940obj.Data.A[index];
+    def entryLength = ComputeStatementEntryLength(AElm);
+    if(totalMessageLength + entryLength > SingleMT940Length) {
+    	break;
+    }
+    mt940SmallObj.Data.A.SecAddElement(AElm);
+    totalMessageLength += entryLength;
+}
+
+Info ("Message Length = " + totalMessageLength);
+]]></code>
+					<visual>
+						<position x="49" y="121"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom4" uid="5b4494fb-df3d-43ed-87a1-c23e4e27cc19" type="Custom" xsi:type="Custom" >
+					<label>Compute Balance</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[def amountInStmt = 0.0;
+foreach(def AElm in mt940SmallObj.Data.A) {
+    if(AElm.F61.$size > 0) {
+        def credit = AElm.F61[0].Debit_Credit_Mark == "C";
+        amountInStmt += If(credit, AElm.F61[0].Amount, -AElm.F61[0].Amount);
+    }
+}
+mt940SmallObj.Data.F28C[0].Sequence_Number = LPad (ToText (messageCount + 1), '0', 5);
+def F60a = mt940SmallObj.Data.F60a[0];
+def F62a = mt940SmallObj.Data.F62a[0];
+// First Message
+if(messageCount == 0) {
+    openingBalance = F60a.Amount;
+    if(F60a.D_C_Mark == "D") {
+        openingBalance = -openingBalance;
+    }
+}
+else {
+    F60a.FormatOption = 'M';
+}
+SetAmountCreditDebit(F60a, openingBalance);
+    
+def closingBalance = openingBalance + amountInStmt;
+
+// last message
+if(index == mt940obj.Data.A.$size) {
+}
+else {
+    F62a.FormatOption = 'M';
+}
+SetAmountCreditDebit(F62a, closingBalance);
+openingBalance = closingBalance;
+]]></code>
+					<visual>
+						<position x="49" y="203"/>
+					</visual>
+				</flowelement>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="b735dbce-1162-4dff-809a-cce502ca84c8" portindex="1"/>
+					<inputport uid="30223147-4dc2-43e0-9ba6-0d691dc834fa" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="83206e9b-232c-4d1b-b77d-32f29e00dbaa" portindex="1"/>
+					<inputport uid="611f2181-bfaa-4ae3-9d91-1ce491ea68f7" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="611f2181-bfaa-4ae3-9d91-1ce491ea68f7" portindex="1"/>
+					<inputport uid="5b4494fb-df3d-43ed-87a1-c23e4e27cc19" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="5b4494fb-df3d-43ed-87a1-c23e4e27cc19" portindex="1"/>
+					<inputport uid="b735dbce-1162-4dff-809a-cce502ca84c8" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<visual>
+					<bounds x="6" y="25" width="90" height="363"/>
+				</visual>
+			</messageflow>
+			<condition><![CDATA[index < mt940obj.Data.A.$size ]]></condition>
+			<init><![CDATA[index  = 0]]></init>
+			<visual>
+				<position x="364" y="613"/>
+			</visual>
+			<property name="showbody" value="true"/>
+		</flowelement>
+		<flowelement name="Custom1" uid="75dd4074-e684-4894-9421-a9c467ac9075" type="Custom" xsi:type="Custom" >
+			<label>Initialize</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[messageCount = 0;
+rawOut = NewMessage();
+MAX_ENTRIES = 6;
+openingBalance = 0;]]></code>
+			<visual>
+				<position x="364" y="112"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="38aa60c8-11c5-4c85-9b65-dff89e0b1744" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="363" y="862"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="515c0885-2b1e-42af-9ec3-099399de9345" type="Invoke" xsi:type="Invoke" >
+			<label>Compute MT940 Min Length</label>
+			<description><![CDATA[]]></description>
+			<name>ComputeMT940MinLength</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>mt940obj</name>
+					<type>DataObject</type>
+					<value><![CDATA[mt940obj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>minMT940Length</name>
+					<type>Integer</type>
+					<value><![CDATA[minMT940Length]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="364" y="355"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Validate1" uid="acb7a329-9358-4290-8d48-c91d4275807e" type="Validate" xsi:type="Validate" >
+			<label>Validate MT940</label>
+			<description><![CDATA[]]></description>
+			<in>mt940obj</in>
+			<message>MT940_SRG2013</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="365" y="268"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="511f3454-c349-418f-9d1b-8577a19e0a92" type="Invoke" xsi:type="Invoke" >
+			<label>Throw except Length Exception</label>
+			<description><![CDATA[]]></description>
+			<name>ThrowExceptLenExc</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<value><![CDATA[exObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<value><![CDATA[exObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="507" y="184"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="0e559572-2dd5-42e0-92b8-d8510733cf21" portindex="0"/>
+			<inputport uid="75dd4074-e684-4894-9421-a9c467ac9075" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="75dd4074-e684-4894-9421-a9c467ac9075" portindex="1"/>
+			<inputport uid="63ba20e9-129a-4e6d-a151-0700ac62c184" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="9c995f0a-0637-415b-8924-d1c1bb87b7b5" portindex="1"/>
+			<inputport uid="38aa60c8-11c5-4c85-9b65-dff89e0b1744" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="515c0885-2b1e-42af-9ec3-099399de9345" portindex="1"/>
+			<inputport uid="9c995f0a-0637-415b-8924-d1c1bb87b7b5" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="63ba20e9-129a-4e6d-a151-0700ac62c184" portindex="1"/>
+			<inputport uid="acb7a329-9358-4290-8d48-c91d4275807e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="acb7a329-9358-4290-8d48-c91d4275807e" portindex="1"/>
+			<inputport uid="515c0885-2b1e-42af-9ec3-099399de9345" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="63ba20e9-129a-4e6d-a151-0700ac62c184" portindex="2"/>
+			<inputport uid="511f3454-c349-418f-9d1b-8577a19e0a92" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="511f3454-c349-418f-9d1b-8577a19e0a92" portindex="1"/>
+			<inputport uid="acb7a329-9358-4290-8d48-c91d4275807e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="310" y="35" width="240" height="841"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="AggregateMT940FromList" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>MT940List</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>loopIndex</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>smallMT940</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>smallMT940Obj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>combinedMT940Obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>OUTPUT</variabletype>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>combinedMT940Out</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="b5040f7a-265a-4412-a5f9-0ed0ec3f487d" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="353" y="86"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Loop1" uid="d08c70fa-0e75-4a55-84a0-d7745b0a0f26" type="Loop" xsi:type="Loop" >
+			<label>Loop over MT940 list</label>
+			<description><![CDATA[]]></description>
+			<messageflow name="" type="MessageFlow">
+				<flowelement name="Mapping1" uid="25c7f1b9-5939-4aa0-b711-cfbbadca1fae" type="Mapping" xsi:type="Mapping" >
+					<label>Add sec A of small MT940 to combined</label>
+					<description><![CDATA[]]></description>
+					<multi-source-input>
+						<field>
+							<name>A</name>
+							<type>Section</type>
+							<value><![CDATA[smallMT940Obj.Data.A]]></value>
+							<notnull>false</notnull>
+						</field>
+					</multi-source-input>
+					<multi-source-output>
+						<field>
+							<name>A</name>
+							<type>Section</type>
+							<value><![CDATA[combinedMT940Obj.Data.A]]></value>
+							<notnull>false</notnull>
+						</field>
+					</multi-source-output>
+					<messagemapping>CopyMT940_A</messagemapping>
+					<create-destination>false</create-destination>
+					<visual>
+						<position x="50" y="291"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Parse1" uid="be0ed920-8967-4744-a43e-8d92c0ab876e" type="Parse" xsi:type="Parse" >
+					<label>Parse Small MT940</label>
+					<description><![CDATA[]]></description>
+					<in>smallMT940</in>
+					<out>smallMT940Obj</out>
+					<message>MT940_SRG2013</message>
+					<cascade-exceptions>false</cascade-exceptions>
+					<visual>
+						<position x="50" y="132"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom2" uid="4d2e34b9-c6d6-4525-a07b-cef26d600aaa" type="Custom" xsi:type="Custom" >
+					<label>Get small MT940</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[smallMT940 = MT940List.At (loopIndex);]]></code>
+					<visual>
+						<position x="51" y="50"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Invoke2" uid="8ff4b11f-0e3c-4356-9692-6c7fcd6cefb3" type="Invoke" xsi:type="Invoke" >
+					<label>Apply Debit Credit Fix</label>
+					<description><![CDATA[]]></description>
+					<name>ApplyDebitCreditFix</name>
+					<cascade-exceptions>false</cascade-exceptions>
+					<input>
+						<field>
+							<name>MT940</name>
+							<type>DataObject</type>
+							<value><![CDATA[smallMT940Obj]]></value>
+							<notnull>true</notnull>
+						</field>
+					</input>
+					<output>
+					</output>
+					<visual>
+						<position x="48" y="203"/>
+					</visual>
+				</flowelement>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="4d2e34b9-c6d6-4525-a07b-cef26d600aaa" portindex="1"/>
+					<inputport uid="be0ed920-8967-4744-a43e-8d92c0ab876e" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="be0ed920-8967-4744-a43e-8d92c0ab876e" portindex="1"/>
+					<inputport uid="8ff4b11f-0e3c-4356-9692-6c7fcd6cefb3" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="8ff4b11f-0e3c-4356-9692-6c7fcd6cefb3" portindex="1"/>
+					<inputport uid="25c7f1b9-5939-4aa0-b711-cfbbadca1fae" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<visual>
+					<bounds x="12" y="25" width="81" height="303"/>
+				</visual>
+			</messageflow>
+			<condition><![CDATA[loopIndex < MT940List.length()]]></condition>
+			<init><![CDATA[loopIndex = 0;]]></init>
+			<increment><![CDATA[loopIndex = loopIndex + 1;]]></increment>
+			<visual>
+				<position x="356" y="412"/>
+			</visual>
+			<property name="showbody" value="true"/>
+		</flowelement>
+		<flowelement name="Serialize1" uid="70d5c8cd-c4c8-4b8a-b68f-2d92bee28933" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize combined MT940</label>
+			<description><![CDATA[]]></description>
+			<in>combinedMT940Obj</in>
+			<out>combinedMT940Out</out>
+			<message>MT940_SRG2013</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="356" y="660"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="c6fde7b3-7d34-4f15-8393-b500d8e63337" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="355" y="744"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="7631268f-9b5f-4ed6-8890-ff24651bb5b1" type="Invoke" xsi:type="Invoke" >
+			<label>Init Combined MT940</label>
+			<description><![CDATA[]]></description>
+			<name>InitCombinedMT940</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>MT940List</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[MT940List]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>combinedMT940Obj</name>
+					<type>DataObject</type>
+					<value><![CDATA[combinedMT940Obj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>combinedMT940Obj</name>
+					<type>DataObject</type>
+					<value><![CDATA[combinedMT940Obj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="355" y="161"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="19f359e0-76a6-4cd0-8396-660e911339fd" type="Invoke" xsi:type="Invoke" >
+			<label>Throw except Length Exception</label>
+			<description><![CDATA[]]></description>
+			<name>ThrowExceptLenExc</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<value><![CDATA[exObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<value><![CDATA[exObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="480" y="659"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d08c70fa-0e75-4a55-84a0-d7745b0a0f26" portindex="1"/>
+			<inputport uid="70d5c8cd-c4c8-4b8a-b68f-2d92bee28933" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="70d5c8cd-c4c8-4b8a-b68f-2d92bee28933" portindex="1"/>
+			<inputport uid="c6fde7b3-7d34-4f15-8393-b500d8e63337" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="7631268f-9b5f-4ed6-8890-ff24651bb5b1" portindex="1"/>
+			<inputport uid="d08c70fa-0e75-4a55-84a0-d7745b0a0f26" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b5040f7a-265a-4412-a5f9-0ed0ec3f487d" portindex="0"/>
+			<inputport uid="7631268f-9b5f-4ed6-8890-ff24651bb5b1" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="70d5c8cd-c4c8-4b8a-b68f-2d92bee28933" portindex="2"/>
+			<inputport uid="19f359e0-76a6-4cd0-8396-660e911339fd" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="19f359e0-76a6-4cd0-8396-660e911339fd" portindex="1"/>
+			<inputport uid="c6fde7b3-7d34-4f15-8393-b500d8e63337" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="303" y="72" width="220" height="686"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="AggregateMT940" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>MT940RawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>MT940List</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>combinedMT940Obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>OUTPUT</variabletype>
+					<message>MT940_SRG2013</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>combinedMT940Out</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="b5040f7a-265a-4412-a5f9-0ed0ec3f487d" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="405" y="130"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop2" uid="e156c53d-0713-4fc9-972f-0ca614aaccb3" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="404" y="335"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke2" uid="5828a6ea-3366-471a-bb3f-4de357d82652" type="Invoke" xsi:type="Invoke" >
+			<label>Get MT940List</label>
+			<description><![CDATA[]]></description>
+			<name>GetMT940List</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>MT940RawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[MT940RawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>MT940List</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[MT940List]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="405" y="192"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="c3cdfe72-497d-4a8a-9799-444b4757b37e" type="Invoke" xsi:type="Invoke" >
+			<label>Aggregate from List</label>
+			<description><![CDATA[]]></description>
+			<name>AggregateMT940FromList</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>MT940List</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[MT940List]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>combinedMT940Obj</name>
+					<type>DataObject</type>
+					<value><![CDATA[combinedMT940Obj]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>combinedMT940Out</name>
+					<type>RawMessage</type>
+					<value><![CDATA[combinedMT940Out]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="405" y="268"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b5040f7a-265a-4412-a5f9-0ed0ec3f487d" portindex="0"/>
+			<inputport uid="5828a6ea-3366-471a-bb3f-4de357d82652" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5828a6ea-3366-471a-bb3f-4de357d82652" portindex="1"/>
+			<inputport uid="c3cdfe72-497d-4a8a-9799-444b4757b37e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c3cdfe72-497d-4a8a-9799-444b4757b37e" portindex="1"/>
+			<inputport uid="e156c53d-0713-4fc9-972f-0ca614aaccb3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="362" y="116" width="91" height="233"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<folder name="SubFlows" type="FolderElement">
+		<messageflow name="ComputeMT940MinLength" type="MessageFlow">
+			<version>1.0</version>
+			<description><![CDATA[Compues the length of MT940 without the statement entries (61 & 86). This is the minimum length of a 940 possible here. The rest of the bytes can be used for statement entries]]></description>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>mt940obj</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>INPUT</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>mt940SmallObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawSmallOut</name>
+						<type>Binary</type>
+						<notnull>false</notnull>
+						<variabletype>LOCAL</variabletype>
+					</field>
+					<field>
+						<name>minMT940Length</name>
+						<type>Integer</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Mapping1" uid="fff1d892-16b0-4cc4-9422-8e2f21a44621" type="Mapping" xsi:type="Mapping" >
+				<label>Create Copy </label>
+				<description><![CDATA[]]></description>
+				<multi-source-input>
+					<field>
+						<name>MT940In</name>
+						<type>DataObject</type>
+						<value><![CDATA[mt940obj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</multi-source-input>
+				<multi-source-output>
+					<field>
+						<name>MT940Out</name>
+						<type>DataObject</type>
+						<value><![CDATA[mt940SmallObj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</multi-source-output>
+				<messagemapping>CopyMT940Fields</messagemapping>
+				<create-destination>true</create-destination>
+				<visual>
+					<position x="397" y="101"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Start1" uid="d548aa0f-4551-44d6-9a29-39c377b124c5" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="397" y="39"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Serialize1" uid="33aed19d-2d3f-4cf8-bdae-9770476a903e" type="Serialize" xsi:type="Serialize" >
+				<label>Serialize</label>
+				<description><![CDATA[]]></description>
+				<in>mt940SmallObj</in>
+				<out>rawSmallOut</out>
+				<message>MT940_SRG2013</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<visual>
+					<position x="396" y="172"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="528e6dbc-e5db-49d1-b6f2-cd19916d3a5f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="396" y="305"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="441a8445-4c76-4ba9-aff1-4cd1448d0c50" type="Custom" xsi:type="Custom" >
+				<label>Custom</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[minMT940Length = length(rawSmallOut)]]></code>
+				<visual>
+					<position x="396" y="243"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="d548aa0f-4551-44d6-9a29-39c377b124c5" portindex="0"/>
+				<inputport uid="fff1d892-16b0-4cc4-9422-8e2f21a44621" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="fff1d892-16b0-4cc4-9422-8e2f21a44621" portindex="1"/>
+				<inputport uid="33aed19d-2d3f-4cf8-bdae-9770476a903e" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="33aed19d-2d3f-4cf8-bdae-9770476a903e" portindex="1"/>
+				<inputport uid="441a8445-4c76-4ba9-aff1-4cd1448d0c50" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="441a8445-4c76-4ba9-aff1-4cd1448d0c50" portindex="1"/>
+				<inputport uid="528e6dbc-e5db-49d1-b6f2-cd19916d3a5f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="359" y="26" width="80" height="293"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<resources type="Resources">
+			<Locales active="">
+			</Locales>
+			<resourcefields>
+				<resourcefield>
+					<name>SingleMT940Length</name>
+					<type>Integer</type>
+					<value>1600</value>
+				</resourcefield>
+			</resourcefields>
+		</resources>
+		<messageflow name="InitCombinedMT940" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>MT940List</name>
+						<type>RawMessageList</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>combinedMT940Obj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>IN/OUT</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>firstMT940</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>LOCAL</variabletype>
+					</field>
+					<field>
+						<name>lastMT940</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>LOCAL</variabletype>
+					</field>
+					<field>
+						<name>firstMT940Obj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>lastMT940Obj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Create1" uid="902022d0-3841-4897-b21f-c465bccf5079" type="Create" xsi:type="Create" >
+				<label>Create combined MT940Obj</label>
+				<description><![CDATA[]]></description>
+				<out>combinedMT940Obj</out>
+				<message>MT940_SRG2013</message>
+				<visual>
+					<position x="683" y="111"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom3" uid="5b876657-7820-4908-a58b-38ebe3003a38" type="Custom" xsi:type="Custom" >
+				<label>Get First small MT940</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[firstMT940 = MT940List.At (0);
+lastMT940 = MT940List.At (MT940List.length() - 1);
+]]></code>
+				<visual>
+					<position x="683" y="198"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Parse2" uid="8721314f-c2d0-4354-a499-be986e88e4b4" type="Parse" xsi:type="Parse" >
+				<label>Parse First MT940</label>
+				<description><![CDATA[]]></description>
+				<in>firstMT940</in>
+				<out>firstMT940Obj</out>
+				<message>MT940_SRG2013</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<visual>
+					<position x="683" y="280"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Mapping2" uid="d74e756d-d399-4349-b987-99a7271f9e50" type="Mapping" xsi:type="Mapping" >
+				<label>Map first MT940 to combined MT940</label>
+				<description><![CDATA[]]></description>
+				<multi-source-input>
+					<field>
+						<name>BTMU_MT940First</name>
+						<type>DataObject</type>
+						<value><![CDATA[firstMT940Obj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</multi-source-input>
+				<multi-source-output>
+					<field>
+						<name>BTMU_MT940Out</name>
+						<type>DataObject</type>
+						<value><![CDATA[combinedMT940Obj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</multi-source-output>
+				<messagemapping>CreateCombinedMT940</messagemapping>
+				<create-destination>true</create-destination>
+				<visual>
+					<position x="683" y="373"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Start1" uid="563ebe1a-65af-4b01-96f7-ca96fc5219e6" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="683" y="38"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="e57de3f8-0431-4052-96e4-9eea6ecad549" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="681" y="637"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Parse1" uid="f32eb8b9-328d-45cc-86a6-a92af6fcd03d" type="Parse" xsi:type="Parse" >
+				<label>Parse last MT940</label>
+				<description><![CDATA[]]></description>
+				<in>lastMT940</in>
+				<out>lastMT940Obj</out>
+				<message>MT940_SRG2013</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<visual>
+					<position x="682" y="466"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="b7e11bcf-9db3-496b-a62e-a998e8811342" type="Custom" xsi:type="Custom" >
+				<label>Update combined MT940 with last MT940</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[def F62 = combinedMT940Obj.Data.F62a.SecAddElement();
+def F62src = lastMT940Obj.Data.F62a[0];
+
+F62.D_C_Mark = F62src.D_C_Mark;
+F62.Date = F62src.Date;
+F62.Currency = F62src.Currency;
+F62.Amount = F62src.Amount;
+F62.FormatOption = F62src.FormatOption;
+]]></code>
+				<visual>
+					<position x="682" y="559"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="5b876657-7820-4908-a58b-38ebe3003a38" portindex="1"/>
+				<inputport uid="8721314f-c2d0-4354-a499-be986e88e4b4" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="902022d0-3841-4897-b21f-c465bccf5079" portindex="1"/>
+				<inputport uid="5b876657-7820-4908-a58b-38ebe3003a38" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="8721314f-c2d0-4354-a499-be986e88e4b4" portindex="1"/>
+				<inputport uid="d74e756d-d399-4349-b987-99a7271f9e50" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="563ebe1a-65af-4b01-96f7-ca96fc5219e6" portindex="0"/>
+				<inputport uid="902022d0-3841-4897-b21f-c465bccf5079" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="d74e756d-d399-4349-b987-99a7271f9e50" portindex="1"/>
+				<inputport uid="f32eb8b9-328d-45cc-86a6-a92af6fcd03d" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="f32eb8b9-328d-45cc-86a6-a92af6fcd03d" portindex="1"/>
+				<inputport uid="b7e11bcf-9db3-496b-a62e-a998e8811342" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b7e11bcf-9db3-496b-a62e-a998e8811342" portindex="1"/>
+				<inputport uid="e57de3f8-0431-4052-96e4-9eea6ecad549" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="645" y="25" width="81" height="626"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="ValidateMT940" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>String</type>
+						<notnull>true</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>MT940</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>amountsInMsg</name>
+						<type>DoubleList</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+					<field>
+						<name>amountInStmt</name>
+						<type>Double</type>
+						<notnull>false</notnull>
+						<variabletype>LOCAL</variabletype>
+					</field>
+					<field>
+						<name>amountsThatMatter</name>
+						<type>StringList</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+					<field>
+						<name>valid</name>
+						<type>Boolean</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="be7c5a86-2a9b-4ffb-97bf-bcd08eb7a1ff" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="248" y="157"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Parse1" uid="8bd121e9-8951-4324-82af-dc3ea89e6d98" type="Parse" xsi:type="Parse" >
+				<label>Parse</label>
+				<description><![CDATA[]]></description>
+				<in>rawIn</in>
+				<out>MT940</out>
+				<message>MT940_SRG2013</message>
+				<cascade-exceptions>true</cascade-exceptions>
+				<visual>
+					<position x="248" y="219"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom4" uid="353c0002-662d-487d-9e7b-44de07f2d484" type="Custom" xsi:type="Custom" >
+				<label>Compute Balance</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[amountInStmt = 0.0;
+foreach(def AElm in MT940.Data.A) {
+    if(AElm.F61.$size > 0) {
+        def credit = In (AElm.F61[0].Debit_Credit_Mark, "C", "DR");
+        def val = If(credit, AElm.F61[0].Amount, -AElm.F61[0].Amount);
+        amountsInMsg.Add (val);
+        amountInStmt += val;
+    }
+}
+
+
+
+def F60a = MT940.Data.F60a[0];
+def F62a = MT940.Data.F62a[0];
+// First Message
+def openingBalance = F60a.Amount;
+if(F60a.D_C_Mark == "D") {
+    openingBalance = -openingBalance;
+}
+    
+def closingBalance = Abs (openingBalance + amountInStmt);
+
+amountsThatMatter.Add ("Opening Balance:" + openingBalance + "\n");
+amountsThatMatter.Add ("Closing Balance in sample:" + MT940.Data.F62a[0].Amount + "\n");
+amountsThatMatter.Add ("Amount in sample:" + amountInStmt + "\n");
+amountsThatMatter.Add ("Computed closing balance:" + closingBalance + "\n");
+
+valid = Abs (closingBalance - MT940.Data.F62a[0].Amount) < 1E-6;
+
+Error ("diff:" + (closingBalance - MT940.Data.F62a[0].Amount));]]></code>
+				<visual>
+					<position x="247" y="366"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="0b309671-7015-490c-bae4-ce5b135b91eb" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="247" y="433"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Validate1" uid="5905a4ba-1d61-48a9-b7c3-81405f713cb3" type="Validate" xsi:type="Validate" >
+				<label>Validate</label>
+				<description><![CDATA[]]></description>
+				<in>MT940</in>
+				<message>MT940_SRG2013</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<visual>
+					<position x="248" y="290"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Resume1" uid="f7d2fb1e-532a-4158-9265-71b9d00161cb" type="Resume" xsi:type="Resume" >
+				<label>Resume</label>
+				<visual>
+					<position x="359" y="346"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke3" uid="03d19782-4344-41b0-ba57-308b1bf2010e" type="Invoke" xsi:type="Invoke" >
+				<label>Throw except Length Exception</label>
+				<description><![CDATA[]]></description>
+				<name>ThrowExceptLenExc</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="364" y="217"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="be7c5a86-2a9b-4ffb-97bf-bcd08eb7a1ff" portindex="0"/>
+				<inputport uid="8bd121e9-8951-4324-82af-dc3ea89e6d98" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="353c0002-662d-487d-9e7b-44de07f2d484" portindex="1"/>
+				<inputport uid="0b309671-7015-490c-bae4-ce5b135b91eb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="8bd121e9-8951-4324-82af-dc3ea89e6d98" portindex="1"/>
+				<inputport uid="5905a4ba-1d61-48a9-b7c3-81405f713cb3" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="5905a4ba-1d61-48a9-b7c3-81405f713cb3" portindex="1"/>
+				<inputport uid="353c0002-662d-487d-9e7b-44de07f2d484" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Exception" xsi:type="Exception">
+				<message>TransformException</message>
+				<cascade-exceptions>false</cascade-exceptions>
+				<outputport uid="5905a4ba-1d61-48a9-b7c3-81405f713cb3" portindex="2"/>
+				<inputport uid="f7d2fb1e-532a-4158-9265-71b9d00161cb" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Exception" xsi:type="Exception">
+				<message>TransformException</message>
+				<out>exObj</out>
+				<cascade-exceptions>false</cascade-exceptions>
+				<runtime-exceptions>true</runtime-exceptions>
+				<outputport uid="8bd121e9-8951-4324-82af-dc3ea89e6d98" portindex="2"/>
+				<inputport uid="03d19782-4344-41b0-ba57-308b1bf2010e" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="03d19782-4344-41b0-ba57-308b1bf2010e" portindex="1"/>
+				<inputport uid="5905a4ba-1d61-48a9-b7c3-81405f713cb3" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="216" y="143" width="191" height="304"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="GetMT940List" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>MT940RawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>MT940List</name>
+						<type>RawMessageList</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="2af4d36f-166e-4ae2-a832-2751cd5d2af0" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="351" y="98"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="01f3b649-ba87-44db-a20a-a802c719700f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="351" y="221"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="8a122f1f-e147-42aa-b422-be7fa49955b4" type="Custom" xsi:type="Custom" >
+				<label>Split to list</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[def SWIFT_START = "{1:";
+def SWIFT_END = "-}";
+
+def startPos = findFirst (MT940RawIn, SWIFT_START);
+def endPos = findFirst (MT940RawIn, SWIFT_END, startPos);
+
+while (startPos != -1) {
+	def curMsg = Mid (MT940RawIn, startPos, endPos + SWIFT_END.length() - startPos);
+	MT940List.Add (curMsg.ToRawMessage());
+	
+	startPos = findFirst (MT940RawIn, SWIFT_START, endPos);
+	endPos = findFirst (MT940RawIn, SWIFT_END, startPos);
+}]]></code>
+				<visual>
+					<position x="351" y="160"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="2af4d36f-166e-4ae2-a832-2751cd5d2af0" portindex="0"/>
+				<inputport uid="8a122f1f-e147-42aa-b422-be7fa49955b4" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="8a122f1f-e147-42aa-b422-be7fa49955b4" portindex="1"/>
+				<inputport uid="01f3b649-ba87-44db-a20a-a802c719700f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="319" y="85" width="69" height="150"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="EliminateLengthException" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>IN/OUT</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>newEx</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="beb2f8e2-d2b7-4485-86cc-a2e55d4bb829" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="345" y="167"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom2" uid="e725b798-cd35-477c-9924-931d8fe6d1d8" type="Custom" xsi:type="Custom" >
+				<label>Eliminate Length Validation</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[def allEx = ex.GetCascadedExceptions();
+
+foreach (def exc in allEx) {
+	if (exc.Message.FindFirst ("Message length exceeded. Maximum length allowed") == -1) {
+		if (IsNull (newEx))
+			Copy (exc, CreateException ("").GetCascadedExceptions()[0]);
+		else
+			newEx.AddCascadedExceptions (exc);
+	}
+}
+]]></code>
+				<visual>
+					<position x="277" y="323"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="bbbd773a-af45-447b-8162-a6d59858db60" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="470" y="597"/>
+				</visual>
+			</flowelement>
+			<flowelement name="If1" uid="1fde83eb-0fa9-4a2e-82f2-875a359bda9b" type="If" xsi:type="If" >
+				<label>Is Exc present?</label>
+				<description><![CDATA[]]></description>
+				<condition><![CDATA[ex.IsNotNull()]]></condition>
+				<visual>
+					<position x="344" y="240"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="1c63d87d-9e5e-4454-8993-de00d4271a35" type="Create" xsi:type="Create" >
+				<label>Update exception</label>
+				<description><![CDATA[]]></description>
+				<out>ex</out>
+				<message>TransformException</message>
+				<init>Copy (ex, newEx);
+</init>
+				<visual>
+					<position x="201" y="495"/>
+				</visual>
+			</flowelement>
+			<flowelement name="If2" uid="04887ba6-b7c0-48bc-97cf-bcb6ef76b574" type="If" xsi:type="If" >
+				<label>Exc to be returned?</label>
+				<description><![CDATA[]]></description>
+				<condition><![CDATA[newEx.IsNotNull()]]></condition>
+				<visual>
+					<position x="279" y="420"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom3" uid="3a09c7d6-634a-4f41-8fe6-931db74458c5" type="Custom" xsi:type="Custom" >
+				<label>Set Exc to be returned to null</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[ex.SetNull();
+]]></code>
+				<visual>
+					<position x="370" y="497"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="1fde83eb-0fa9-4a2e-82f2-875a359bda9b" portindex="1"/>
+				<inputport uid="e725b798-cd35-477c-9924-931d8fe6d1d8" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="1fde83eb-0fa9-4a2e-82f2-875a359bda9b" portindex="2"/>
+				<inputport uid="bbbd773a-af45-447b-8162-a6d59858db60" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="e725b798-cd35-477c-9924-931d8fe6d1d8" portindex="1"/>
+				<inputport uid="04887ba6-b7c0-48bc-97cf-bcb6ef76b574" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="04887ba6-b7c0-48bc-97cf-bcb6ef76b574" portindex="1"/>
+				<inputport uid="1c63d87d-9e5e-4454-8993-de00d4271a35" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="1c63d87d-9e5e-4454-8993-de00d4271a35" portindex="1"/>
+				<inputport uid="bbbd773a-af45-447b-8162-a6d59858db60" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="04887ba6-b7c0-48bc-97cf-bcb6ef76b574" portindex="2"/>
+				<inputport uid="3a09c7d6-634a-4f41-8fe6-931db74458c5" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="3a09c7d6-634a-4f41-8fe6-931db74458c5" portindex="1"/>
+				<inputport uid="bbbd773a-af45-447b-8162-a6d59858db60" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="beb2f8e2-d2b7-4485-86cc-a2e55d4bb829" portindex="0"/>
+				<inputport uid="1fde83eb-0fa9-4a2e-82f2-875a359bda9b" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="172" y="153" width="329" height="458"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="ApplyDebitCreditFix" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>MT940</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>INPUT</variabletype>
+						<message>MT940_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="e17858fb-565e-4e64-9564-d2a1e6c7c980" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="443" y="124"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="72429207-814b-41f5-a722-0f48c3153a5d" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="443" y="259"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="19ba28b8-ca50-471d-aa51-3d1ef1de14c1" type="Custom" xsi:type="Custom" >
+				<label>Debit Credit Fix</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[// Parsing of MT940 is not complete without this.
+// Normally this is in the validation of the message but in the base map MT940 message this has been removed from the validation.
+def Asec = MT940.Data.A;
+foreach (def Aelm in Asec) {
+	if (Aelm.F61.length() > 0) {
+		def F61 = Aelm.F61[0];
+		
+		def dc = F61.Debit_Credit_Mark;
+		def shouldFix = (Length(dc) == 2) && !In(dc, "RD", "RC") && IsNull (F61.Funds_Code);
+		if (shouldFix) {
+			F61.Funds_Code = Right(dc, 1);
+			F61.Debit_Credit_Mark = Left(dc, 1);
+		}
+	}
+}
+]]></code>
+				<visual>
+					<position x="443" y="191"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="e17858fb-565e-4e64-9564-d2a1e6c7c980" portindex="0"/>
+				<inputport uid="19ba28b8-ca50-471d-aa51-3d1ef1de14c1" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="19ba28b8-ca50-471d-aa51-3d1ef1de14c1" portindex="1"/>
+				<inputport uid="72429207-814b-41f5-a722-0f48c3153a5d" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="408" y="110" width="75" height="163"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="ThrowExceptLenExc" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>IN/OUT</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="af3b5ac9-d63f-486d-a2e4-8a7008c55c7b" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="545" y="65"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="4bac98dd-46ba-4e21-a672-210c099b3619" type="Invoke" xsi:type="Invoke" >
+				<label>Eliminate Length Exception</label>
+				<description><![CDATA[]]></description>
+				<name>EliminateLengthException</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<value><![CDATA[ex]]></value>
+						<notnull>false</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>ex</name>
+						<type>DataObject</type>
+						<value><![CDATA[ex]]></value>
+						<notnull>false</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="548" y="151"/>
+				</visual>
+			</flowelement>
+			<flowelement name="If1" uid="115ceaf9-1b46-4d67-91f8-00ff269cfbd4" type="If" xsi:type="If" >
+				<label>Exc present?</label>
+				<description><![CDATA[]]></description>
+				<condition><![CDATA[ex.IsNotNull()]]></condition>
+				<visual>
+					<position x="547" y="249"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Throw1" uid="13a12ecf-06bf-4b8c-ada9-299f31c9a431" type="Throw" xsi:type="Throw" >
+				<label>Throw</label>
+				<description><![CDATA[]]></description>
+				<in>ex</in>
+				<visual>
+					<position x="454" y="319"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop2" uid="8bc1ded9-96f7-42d0-8414-04b9193f4329" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="631" y="302"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="af3b5ac9-d63f-486d-a2e4-8a7008c55c7b" portindex="0"/>
+				<inputport uid="4bac98dd-46ba-4e21-a672-210c099b3619" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="115ceaf9-1b46-4d67-91f8-00ff269cfbd4" portindex="2"/>
+				<inputport uid="8bc1ded9-96f7-42d0-8414-04b9193f4329" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="115ceaf9-1b46-4d67-91f8-00ff269cfbd4" portindex="1"/>
+				<inputport uid="13a12ecf-06bf-4b8c-ada9-299f31c9a431" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="4bac98dd-46ba-4e21-a672-210c099b3619" portindex="1"/>
+				<inputport uid="115ceaf9-1b46-4d67-91f8-00ff269cfbd4" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="417" y="51" width="245" height="282"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Feb 16 15:46:36 IST 2011"/>
+						<property name="Author" value="Krishnan"/>
+						<property name="Title" value="SplitMT940_45"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:13 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="239"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\SWIFT\MT940ToBankToCustomerStatement\Aggregate_SplitMT940\Aggregate_SplitMT940.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">Aggregate_Split_MT940/SubFlows/EliminateLengthException</selected-element>
+		<watches>
+			<watch>
+				<name>MT940List.length()</name>
+			</watch>
+		</watches>
+	</workspace>
+</cartridge>
+

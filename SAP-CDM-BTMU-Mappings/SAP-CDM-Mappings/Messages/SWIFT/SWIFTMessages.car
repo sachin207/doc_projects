@@ -1,0 +1,2293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="SWIFTMessages" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="MT940_SRG2013" version="1.0" type="External Message">
+			</service>
+			<service name="MT942_SRG2013" version="1.0" type="External Message">
+			</service>
+		</summary>
+	</private>
+	<externalmessage xsi:type="SwiftFormat" type="SwiftFormat" version="5.0" rulename="MT940_SRG2013" formattype="SwiftFormat" >
+		<description><![CDATA[This message type is: 
+
+a) sent by an account servicing institution (reporting institution) to a financial institution (concentrating institution), which has been authorised by the account owner to receive it . 
+
+b) sent by an account servicing institution (reporting institution) to a financial institution account owner. 
+
+c) sent by an account servicing institution to a non-financial institution account owner or party authorised by the account owner to receive the information. 
+
+d) sent by a concentrating institution to a non-financial institution account owner or party authorised by the account owner to receive the information. 
+
+It is used to transmit detailed information about all entries booked to the account. 
+
+NOTE:
+Please do not disable the validation 'DC-FIX'. It provides fix for the parsing problem in field 61.]]></description>
+		<standard>SWIFT</standard>
+		<standard-name>MT940</standard-name>
+		<standard-version>SRG 2013</standard-version>
+		<standard-category>Cash Management &amp; Customer Status</standard-category>
+		<standard-detailed-name>Customer Statement Message</standard-detailed-name>
+		<version>1.0</version>
+		<SwiftFields>
+			<customizable>true</customizable>
+			<modifiable>true</modifiable>
+			<SwiftMessageType>User</SwiftMessageType>
+			<max-length>2000</max-length>
+			<HeaderAndTrailerType>SWIFT_INPUT_OUTPUT_HEADER</HeaderAndTrailerType>
+			<Header>
+				<fields>
+					<field>
+						<name>Basic Header</name>
+						<description><![CDATA[The Basic Header is given in Block 1 of a SWIFT message and is the only header that appears on all messages. The Basic Header provides the fundamental reference for any particular message and is almost always automatically built by the CBT.
+The Basic Header has the same format for both input and output messages. However, the information contained in the Basic Header is relative to the sender when the message is input but relative to the receiver when the same message is output.]]></description>
+						<datatype>Section</datatype>
+						<required>true</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Application Identifier</name>
+								<description><![CDATA[The Application Identifier identifies the application within which the message is being sent or received. The available options are:
+
+F = FIN All user-to-user, FIN system and FIN service messages 
+A = GPA Most GPA system and service messages 
+L = GPA Certain GPA service messages, for example, LOGIN, LAKs, ABORT 
+
+These values are automatically assigned by the SWIFT system and the user's CBT, but the user should be aware of their existence and significance
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Service Identifier</name>
+								<description><![CDATA[The Service Identifier consists of 2 numeric characters. It identifies the type of data that is being sent or received and, in doing so, whether the message which follows is one of the following:
+
+a user-to-user message
+
+a system message
+
+a service message, for example, a session control command, such as SELECT, or a logical acknowledgement, such as ACK/SAK/UAK
+
+Users will be primarily concerned with identifier '01' which applies to all GPA and FIN system and user-to-user messages. Other values include: '21' for message acknowledgements such as ACK/NAK, UAK/UNK, '03' for SELECT commands, and 
+so on]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>2</length>
+							</field>
+							<field>
+								<name>LT Identifier</name>
+								<description><![CDATA[This 12-character SWIFT address, given in the Basic Header Block, is the address of the sending LT for input messages or of the receiving LT for output messages, and includes the Branch Code.
+
+In the Basic Header, the LT Code within the LT Identifier is specific to the LT that has established the session in which the message is being transmitted, that is the sending LT for input messages or the receiving LT for output messages.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>12</length>
+							</field>
+							<field>
+								<name>Session Number</name>
+								<description><![CDATA[The Session Number identifies the session in which the message was transmitted. Within the Basic Header, the 4-digit Session Number is the user's current GPA or FIN Session Number.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Sequence Number</name>
+								<description><![CDATA[The sequence number always consists of 6 digits. It is the ISN of the sender's current input session or the OSN of the receiver's current output session.
+
+Note: The sequence number is not present in those messages with an Application Identifier of 'L' (for example LOGIN). The sequence number is, however, a key element in the processing of retrievals. Therefore, LOGINs and attempted LOGINs are not retrievable
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>6</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>Application Header Input</name>
+						<description><![CDATA[The Application Header of a SWIFT message provides information about the message itself.
+
+The Application Header is given in Block 2 of a SWIFT message. It differs according to whether the message is a GPA or a FIN message and whether the Application Header is part of an input or an output message.
+
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Input/Output Identifier</name>
+								<description><![CDATA[For an input message, the Input/Output Identifier consists of the single letter 'I'.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Message Type</name>
+								<description><![CDATA[The Message Type consists of 3 digits which define the MT number of the message being input. The example used above is for an MT 100 Customer Transfer]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>3</length>
+							</field>
+							<field>
+								<name>Receiver's Address</name>
+								<description><![CDATA[This address is the 12-character SWIFT address of the receiver of the message, but with a LT Code of 'X'. It defines the destination to which the message should be sent.
+
+The system will replace the 'X' with a specific LT Code on delivery of the message according to the delivery control exercised by the receiving user.
+
+The Branch Code is mandatory and will be validated. The default of 'XXX' may be used, as in the example above.
+
+Unless otherwise documented, system messages addressed to the SWIFT system itself should be addressed to SWFTXXXXXXXX.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>12</length>
+							</field>
+							<field>
+								<name>Message Priority</name>
+								<description><![CDATA[This character, used within FIN Application Headers only, defines the priority with which a message is delivered. The possible values are:
+
+S = System
+
+U = Urgent
+
+N = Normal
+
+Message Priority 'S' must be used for user-to-system messages; for user-to-user messages either 'U' or 'N' can be used. In the absence of user-specified delivery criteria, system messages are always delivered first, followed by urgent priority messages and then normal priority messages.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Delivery Monitoring</name>
+								<description><![CDATA[Delivery monitoring options apply only to FIN user-to-user messages, and allow the sender of a message to request:
+
+automatic MT 011 Delivery Notification once the message has been delivered
+
+automatic MT 010 Non-Delivery Warning if a message is not delivered within the specified obsolescence period (see below)
+
+both, or neither, options. This may be requested on an individual message basis.
+
+The chosen option is expressed as a single digit:
+
+1 = Non-Delivery Warning
+
+2 = Delivery Notification
+
+3 = Non-Delivery Warning and Delivery Notification. 
+If the message has priority 'U' then the user must request delivery monitoring option '1' or '3'. If the message has priority 'N', the user can request delivery monitoring option '2', or, by leaving the option blank, no delivery monitoring.
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Obsolescence Period</name>
+								<description><![CDATA[The obsolescence period defines the period of time after which a Delayed Message (DLM) trailer is added to a FIN user-to-user message when the message is delivered. For urgent priority messages, it is also the period of time after which, if the message remains undelivered, a Non-Delivery Warning is generated.
+
+The values for the obsolescence period are 003 (15 minutes) for 'U' priority, and 020 (100 minutes) for 'N' priority. An obsolescence period can only be specified when delivery monitoring has been requested (option 1 or 3 for urgent priority messages, option 2 for normal priority messages). If no delivery monitoring has been requested, and an obsolescence period is specified, the message will be NAKed with error code H25.
+
+GPA input Application Headers are similar to their FIN equivalents except that GPA messages do not specify priority, delivery monitoring, nor obsolescence period.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>3</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>Application Header Output</name>
+						<description><![CDATA[The Application Header of a SWIFT message provides information about the message itself.
+
+The Application Header is given in Block 2 of a SWIFT message. It differs according to whether the message is a GPA or a FIN message and whether the Application Header is part of an input or an output message.
+
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Input/Output Identifier</name>
+								<description><![CDATA[For an input message, the Input/Output Identifier consists of the single letter 'I'.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Message Type</name>
+								<description><![CDATA[Three digits indicating the Message Type.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>3</length>
+							</field>
+							<field>
+								<name>Input Time</name>
+								<description><![CDATA[The first occurrence of the time field contains the system time and date. This is the generation time in Greenwich Mean Time (GMT).
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Message Input Reference</name>
+								<description><![CDATA[The input MIR.
+
+If the message is generated by the system, the input time is the generation time (in GMT) and the input MIR is the system MIR
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>28</length>
+							</field>
+							<field>
+								<name>Output Date</name>
+								<description><![CDATA[The output date, local to the receiver.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>6</length>
+							</field>
+							<field>
+								<name>Output Time</name>
+								<description><![CDATA[The second occurrence of the time field contains the output time and date. This is in a time local to the receiver.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Message Priority</name>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>User Header</name>
+						<description><![CDATA[The User Header is an optional header available within FIN for user-to-user messages only. It appears in Block 3 of a SWIFT message, and allows users to provide their own reference within the headers for a particular message.
+
+A User Header can only be assigned by the sender of a message and, if assigned, will always appear on the output message copy. Relevant parts of the User Header will be repeated in related system messages and acknowledgements.
+
+Block 3 may contain tag 113, defining banking priorities, and tag 108, which is a user reference. The user reference part of the User Header may be used as one of the selection criteria when retrieving a message.
+
+The optional field tags 103 and 115 are also used in Block 3 for the FIN Copy service. The order of tags, when present, is 103, 113, 108 and 115.
+
+An optional field tag 119 can be included in Block 3 of certain messages to specify that different validation rules are to be applied. Agreed code words in field 119 indicate what validation rules SWIFT will apply. If field 119 is present, it should appear after field 108
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Service Identifier</name>
+								<description><![CDATA[For any message which the user submits to a FIN Copy service, Block 3 requires an additional field 103 which contains a three-character Service Identifier unique to a specific FIN Copy service. By using a unique identifier it is possible to support access to multiple services within the same CBT.
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>3</length>
+								<tag>103</tag>
+							</field>
+							<field>
+								<name>Banking Priority</name>
+								<description><![CDATA[Assigned by the sender of the message.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>4</length>
+								<tag>113</tag>
+							</field>
+							<field>
+								<name>Message User Reference</name>
+								<description><![CDATA[Assigned by the sender of the message.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>16</length>
+								<tag>108</tag>
+							</field>
+							<field>
+								<name>Validation Flag</name>
+								<description><![CDATA[Indicates whether a special validation needs to be performed by FIN. The following are examples of the values this field may take. Please note that this list is subject to change:
+
+ISITC indicates validation of ISITC Standards. Only to be used with MT 521 and MT 523.
+
+REMIT identifies the presence of field 77T. Only to be used in MT 103.
+
+RFDD indicates that the message is a request for direct debit. Only to be used in MT 104.
+
+STP indicates that the message is validated according to straight through processing principles. Only to be used in MT 103.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>-1</length>
+								<tag>119</tag>
+							</field>
+							<field>
+								<name>Addressee Information</name>
+								<description><![CDATA[Information from Central Institution to the receiver of payment message. Information is input in the MT 097 FIN Copy Message Authorisation/Refusal Notification in Y-Copy mode.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>-1</length>
+								<tag>115</tag>
+							</field>
+						</fields>
+					</field>
+				</fields>
+			</Header>
+			<Data>
+				<Fields>
+					<SwiftField Name="20">
+						<SwiftFieldDef Name="20">
+							<Generic>false</Generic>
+							<Description><![CDATA[Reference]]></Description>
+							<Option Name="">
+								<Format><![CDATA[16x]]></Format>
+								<Specification><![CDATA[(TRN)]]></Specification>
+								<Description><![CDATA[Transaction Reference Number]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="TRN">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T26</ErrorCode>
+									<Comment><![CDATA[This field must not start or end with a slash '/' and must not contain two consecutive slashes '//'  (Error code(s): T26).]]></Comment>
+									<ValidationPattern xsi:type="T26" Type="T26">
+										<Type>T26</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="21">
+						<SwiftFieldDef Name="21">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[16x]]></Format>
+								<Specification><![CDATA[(Reference)]]></Specification>
+								<Description><![CDATA[Related Reference]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="Reference">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T26</ErrorCode>
+									<Comment><![CDATA[This field must not start or end with a slash '/' and must not contain two consecutive slashes '//'  (Error code(s): T26).]]></Comment>
+									<ValidationPattern xsi:type="T26" Type="T26">
+										<Type>T26</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="25">
+						<SwiftFieldDef Name="25">
+							<Generic>false</Generic>
+							<Description><![CDATA[Account Identification]]></Description>
+							<Option Name="">
+								<Format><![CDATA[35x]]></Format>
+								<Specification><![CDATA[(Account)]]></Specification>
+								<Description><![CDATA[Account Identification]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options> </Options>
+					</SwiftField>
+					<SwiftField Name="28C">
+						<SwiftFieldDef Name="28">
+							<Generic>false</Generic>
+							<Option Name="C">
+								<Format><![CDATA[5c[/5c]]]></Format>
+								<Specification><![CDATA[(Statement Number) (Sequence Number)]]></Specification>
+								<Description><![CDATA[Statement Number/Sequence Number]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>C</Options>
+					</SwiftField>
+					<SwiftField Name="60a">
+						<SwiftFieldDef Name="60">
+							<Generic>false</Generic>
+							<Option Name="F">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency)(Amount)]]></Specification>
+								<Description><![CDATA[Opening Balance]]></Description>
+							</Option>
+							<Option Name="M">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency)(Amount)]]></Specification>
+								<Description><![CDATA[Opening Balance]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>F, M</Options>
+						<Validations>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[In option F, or M, D/C Mark must contain one of the following codes (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="C">
+												<DetailedName>Credit</DetailedName>
+												<Description>The (intermediate) opening balance is a credit balance.</Description>
+											</Code>
+											<Code Name="D">
+												<DetailedName>Debit</DetailedName>
+												<Description>The (intermediate) opening balance is a debit balance.</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Date">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T50</ErrorCode>
+									<Comment><![CDATA[Date must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>yyMMdd</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for that specific currency as specified in ISO 4217 (Error code(s): C03,T40,T43).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftSequence Name="A">
+						<Name>A</Name>
+						<Description><![CDATA[Sequence A]]></Description>
+						<Mandatory>false</Mandatory>
+						<Repeating>true</Repeating>
+						<Fields>
+							<SwiftField Name="61">
+								<SwiftFieldDef Name="61">
+									<Generic>false</Generic>
+									<Option Name="">
+										<Format><![CDATA[6!n[4!n]2a[1!a]15d(1!a3!c)16x[//16x][CRLF34x]]]></Format>
+										<Specification><![CDATA[(Value Date)(Entry Date)(Debit/Credit Mark)(Funds Code)(Amount)(Transaction Type Identification Code)(Reference for the Account Owner)(Account Servicing Institution's Reference)(Supplementary Details)]]></Specification>
+										<Description><![CDATA[Statement Line]]></Description>
+									</Option>
+								</SwiftFieldDef>
+								<Repeating>false</Repeating>
+								<Presence>O</Presence>
+								<Options> </Options>
+								<Validations>
+									<SubField Name="Debit/Credit_Mark">
+										<Validation>
+											<Options> </Options>
+											<ErrorCode>T51</ErrorCode>
+											<Comment><![CDATA[Subfield 3, Debit/Credit Mark, must contain one of the following codes (Error code(s): T51):]]></Comment>
+											<ValidationPattern xsi:type="CODE" Type="CODE">
+												<Type>CODE</Type>
+												<Codes>
+													<Code Name="D">
+														<Description>Debit</Description>
+													</Code>
+													<Code Name="C">
+														<Description>Credit</Description>
+													</Code>
+													<Code Name="RC">
+														<Description>Reversal of credit (debit entry)</Description>
+													</Code>
+													<Code Name="RD">
+														<Description>Reversal of debit (credit entry)</Description>
+													</Code>
+												</Codes>
+											</ValidationPattern>
+										</Validation>
+									</SubField>
+									<SubField Name="Value_Date">
+										<Validation>
+											<Options> </Options>
+											<ErrorCode>T50</ErrorCode>
+											<Comment><![CDATA[Subfield 1, Value Date, must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+											<ValidationPattern xsi:type="DATE" Type="DATE">
+												<Type>DATE</Type>
+												<Format>yyMMdd</Format>
+											</ValidationPattern>
+										</Validation>
+									</SubField>
+								</Validations>
+							</SwiftField>
+							<SwiftField Name="86">
+								<SwiftFieldDef Name="86">
+									<Generic>false</Generic>
+									<Option Name="">
+										<Format><![CDATA[6*65x]]></Format>
+										<Specification><![CDATA[(Narrative)]]></Specification>
+										<Description><![CDATA[Information to Account Owner]]></Description>
+									</Option>
+								</SwiftFieldDef>
+								<Repeating>false</Repeating>
+								<Presence>O</Presence>
+								<Options> </Options>
+							</SwiftField>
+						</Fields>
+					</SwiftSequence>
+					<SwiftField Name="62a">
+						<SwiftFieldDef Name="62">
+							<Generic>false</Generic>
+							<Option Name="F">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency)(Amount)]]></Specification>
+								<Description><![CDATA[Closing Balance (Booked Funds)]]></Description>
+							</Option>
+							<Option Name="M">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency)(Amount)]]></Specification>
+								<Description><![CDATA[Closing Balance (Booked Funds)]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>M, F</Options>
+						<Validations>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[In option F, or M, D/C Mark must contain one of the following codes (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="C">
+												<DetailedName>Credit</DetailedName>
+												<Description>The (intermediate) closing balance is a credit balance.</Description>
+											</Code>
+											<Code Name="D">
+												<DetailedName>Debit</DetailedName>
+												<Description>The (intermediate) closing balance is a debit balance.</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Date">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T50</ErrorCode>
+									<Comment><![CDATA[Date must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>yyMMdd</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>F, M</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for that specific currency as specified in ISO 4217 (Error code(s): C03,T40,T43).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="64">
+						<SwiftFieldDef Name="64">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency) (Amount)]]></Specification>
+								<Description><![CDATA[Closing Available Balance (Available Funds)]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[D/C Mark must contain one of the following codes (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="C">
+												<DetailedName>Credit</DetailedName>
+												<Description>The closing available balance is a credit balance.</Description>
+											</Code>
+											<Code Name="D">
+												<DetailedName>Debit</DetailedName>
+												<Description>The closing available balance is a debit balance.</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Date">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T50</ErrorCode>
+									<Comment><![CDATA[Date must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>yyMMdd</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for that specific currency as specified in ISO 4217 (Error code(s): C03,T40,T43).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Currency">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="65">
+						<SwiftFieldDef Name="65">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[1!a6!n3!a15d]]></Format>
+								<Specification><![CDATA[(D/C Mark) (Date) (Currency) (Amount)]]></Specification>
+								<Description><![CDATA[Forward Available Balance]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>true</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[D/C Mark must contain one of the following codes (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="C">
+												<DetailedName>Credit</DetailedName>
+												<Description>The forward available balance is a credit balance.</Description>
+											</Code>
+											<Code Name="D">
+												<DetailedName>Debit</DetailedName>
+												<Description>The forward available balance is a debit balance.</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Date">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T50</ErrorCode>
+									<Comment><![CDATA[Date must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>yyMMdd</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Currency">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for that specific currency as specified in ISO 4217 (Error code(s): C03).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="86">
+						<SwiftFieldDef Name="86">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[6*65x]]></Format>
+								<Specification><![CDATA[(Narrative)]]></Specification>
+								<Description><![CDATA[Information to Account Owner]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+					</SwiftField>
+				</Fields>
+			</Data>
+			<Trailer>
+				<fields>
+					<field>
+						<name>Message Authentication Code</name>
+						<description><![CDATA[Allows authentication by the receiving user. It is followed by an authentication result.
+
+This trailer is mandatory for most user-to-user message categories within the FIN application. When the FIN Copy Service is used a PAC trailer, if present, follows the MAC trailer.
+
+Format:
+
+{MAC:<authentication-result>}
+
+where <authentication-result> = 8!h
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>8</length>
+						<tag>MAC</tag>
+					</field>
+					<field>
+						<name>Proprietary Authentication Code</name>
+						<description><![CDATA[The PAC is used within the FIN Copy service only, when using the double authentication option. The PAC is included in Block 5 of FIN user-to-user messages, immediately after the MAC trailer, if present.
+
+This is calculated on the extracted fields of Block 4 of the message, the value of field 115, if present, and the <authentication-result> of the MAC trailer for Copy Services with double authentication.
+
+Thus, the end-of-block indicator (CrLf-) is included in the PAC calculation, and the fields are defined as follows:
+
+The first three characters are CrLf:
+
+The field and the delimiter are present, that is, 32A:, 20:, and so on.
+
+All subfields and their delimiters are present.
+
+Format:
+
+{PAC:[<authentication-result>]}
+
+where <authentication-result> is mandatory on input messages only and <authentication-result> = 8!h
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>8</length>
+						<tag>PAC</tag>
+					</field>
+					<field>
+						<name>Checksum</name>
+						<description><![CDATA[The checksum is computed based on the receiver's address (12 characters, with 9th character replaced by X) plus the Text Block. This trailer allows the system and the CBT to check that messages have not been corrupted due to a system malfunction or an undetected transmission error.
+
+Format:
+
+{CHK:<checksum-result>}
+
+where <checksum-result> = 12!h
+
+Note: This trailer is mandatory for FIN and GPA messages (Service Identifier 01).
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>12</length>
+						<tag>CHK</tag>
+					</field>
+					<field>
+						<name>System Originated Message</name>
+						<description><![CDATA[The system message or service message which is generated by a system PLT has a SYS trailer. All solicited system messages (Service Identifier 01) contain the MIR of the request and may also contain the time.
+
+Format:
+
+{SYS:[<time><mir>]}
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>SYS</tag>
+					</field>
+					<field>
+						<name>Test And Training Message</name>
+						<description><![CDATA[Mandatory for FIN and GPA messages (Service Identifier 01) sent by, or delivered to, a Test & Training Logical Terminal (LT). This trailer has a tag only, and no value.
+
+Format:
+
+{TNG:}
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>0</length>
+						<tag>TNG</tag>
+					</field>
+					<field>
+						<name>Possible Duplicate Emission</name>
+						<description><![CDATA[This trailer is used by the destination of the message. It only applies to FIN user-to-user messages (Service Identifier 01, message categories reserved for banking messages). There can be multiple PDEs. The system does not verify the order nor restrict the number (except for maximum message length).
+
+Correctly formatted PDE trailers applied to user-to-system messages are accepted by the system, but not processed. This means that the system does not check to see if the original message exists. Therefore, a retrieval request sent with a PDE trailer may be processed twice if the original message was received by the system.
+
+Format:
+
+{PDE:[<time><mir>]}
+
+where <time><mir> refers to the emission of the previous possible issue.
+
+Note: It can be added automatically by a CBT or manually by a user. It may be followed by the MIR and the time of its previous possible messages.
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>PDE</tag>
+					</field>
+					<field>
+						<name>Delayed Message</name>
+						<description><![CDATA[This trailer is added to all FIN user-to-user output messages that have exceeded their obsolescence period. If this trailer appears in GPA or FIN system messages, it must be ignored. This trailer has a tag only, and no value.
+
+The Obsolescence Period is:
+
+U = 15 minutes
+
+N = 100 minutes
+
+Format:
+
+{DLM:}
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>0</length>
+						<tag>DLM</tag>
+					</field>
+					<field>
+						<name>Possible Duplicate Message</name>
+						<description><![CDATA[Added by the system to any output message (GPA and FIN Service Identifier 01) being resent because a prior delivery may be invalid. If a system PLT receives a report request with a PDM, the response has a plain PDM (without the optional delivery reference). Other PDMs may be added as a result of unsuccessful delivery attempts to the user. 
+Format:
+{PDM:[<time><mor>]}
+where <time> and the Message Output Reference <mor> are that of the previous attempt.
+Note: For messages recovered after a system failure, the optional fields may not be present.
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>PDM</tag>
+					</field>
+					<field>
+						<name>Message Reference</name>
+						<description><![CDATA[The MRF trailer is used to specify the message reference of the original user message in MT 096 FIN Copy to Central Institution Messages.
+Format:
+{MRF:<date><full-time><mir>}
+where <mir> is that of the original user message whose fields are copied in the MT 096 FIN Copy to Central Institution Message.
+Note: The MRF is specific to FIN Copy. The MRF trailer is automatically generated in the MT 096 FIN Copy to Central Institution Message and can only be reused in field 109 of the MT 096 FIN Copy to Central Institution Message to identify the MT 096 to which the MT 097 is a response. The format of the MRF is subject to change.
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>MRF</tag>
+					</field>
+				</fields>
+			</Trailer>
+		</SwiftFields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>U09</name>
+						<formula><![CDATA[if($this.Header.GetFieldIndex("User_Header") != -1) {
+    def userHeader = $this.Header.GetSection("User_Header");
+    if(userHeader.$size > 0 && userHeader[0].IsNotNull("Validation_Flag")) {
+        return false;
+    }
+}
+return true;
+]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>U09</error-code>
+						<actionmessage><![CDATA["User has used tag 119 in a message that is not a candidate for special processing"]]></actionmessage>
+					</fieldvalidation>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>C1</name>
+						<fieldname>A.86</fieldname>
+						<formula><![CDATA[A.F61.$size > 0]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C24</error-code>
+						<actionmessage><![CDATA["If field 86 is present in any occurrence of the repetitive sequence, it must be preceded by a field 61."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C2-1</name>
+						<fieldname>62a.Currency</fieldname>
+						<formula><![CDATA[Left($value, 2) == Left(F60a[0].Currency, 2)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 60a, 62a, 64 and 65 must be the same for all occurrences of these fields."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C2-2</name>
+						<fieldname>64.Currency</fieldname>
+						<formula><![CDATA[Left($value, 2) == Left(F60a[0].Currency, 2)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 60a, 62a, 64 and 65 must be the same for all occurrences of these fields."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C2-3</name>
+						<fieldname>65.Currency</fieldname>
+						<formula><![CDATA[Left($value, 2) == Left(F60a[0].Currency, 2)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 60a, 62a, 64 and 65 must be the same for all occurrences of these fields."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-A</name>
+						<fieldname>A.61.Transaction_Type_Identification_Code</fieldname>
+						<formula><![CDATA[If(StartsWith($value, "S"), 
+   IsInt(RightStr($value, "S")) && 
+     Between(ToInt(RightStr($value, "S")), 100, 999), 
+   true)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T18</error-code>
+						<actionmessage><![CDATA["In field 61 of sequence A, if the first character of subfield 6, Transaction Type Identification Code, is an 'S', the remaining characters must be in the range 100-999."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-B</name>
+						<fieldname>A.61.Transaction_Type_Identification_Code</fieldname>
+						<comment><![CDATA["Subfield 6, Transaction Type Identification Code, should start with S, N or F."]]></comment>
+						<formula><![CDATA[In(CharAt($value, 0), 'S', 'N', 'F')]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T53</error-code>
+						<actionmessage><![CDATA["Subfield 6, Transaction Type Identification Code, should start with S, N or F."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-C</name>
+						<fieldname>A.61.Entry_Date</fieldname>
+						<formula><![CDATA[IsDate(FormatDate(Today(), "yy") + $value, "yyMMdd")]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T50</error-code>
+						<actionmessage><![CDATA["Must be a valid date expressed as MMDD in the current system Year."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-1</name>
+						<fieldname>A.61.Supplementary_Details</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-2</name>
+						<fieldname>A.86.Narrative</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-3</name>
+						<fieldname>86.Narrative</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>MaxLength</name>
+						<fieldname>25.Account</fieldname>
+						<rule type="MaxLength">34</rule>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>MaxLength</error-code>
+						<actionmessage><![CDATA["Maximum length allowed is 34."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E1</name>
+						<fieldname>28C.Statement_Number</fieldname>
+						<formula><![CDATA[IsDouble($value)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E1</error-code>
+						<actionmessage><![CDATA["Should contain only numeric characters."]]></actionmessage>
+					</fieldvalidation>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar swiftrt.jar swiftresources.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<externalmessage xsi:type="SwiftFormat" type="SwiftFormat" version="5.0" rulename="MT942_SRG2013" formattype="SwiftFormat" >
+		<description><![CDATA[This message type is: 
+
+a) sent by an account servicing institution (reporting institution) to a financial institution (concentrating institution) which has been authorised by the account owner to receive it . 
+
+b) sent by an account servicing institution (reporting institution) to a financial institution account owner. 
+
+c) sent by an account servicing institution to a non-financial institution account owner or party authorised by the account owner to receive the information. 
+
+d) sent by a concentrating institution to a non-financial institution account owner or party authorised by the account owner to receive the information. 
+
+It is used to transmit detailed and/or summary information about entries debited or credited to the account since: 
+
+a) the last statement or balance report, or 
+
+b) the last interim transaction report (sent in the period since the last statement or balance report). 
+]]></description>
+		<standard>SWIFT</standard>
+		<standard-name>MT942</standard-name>
+		<standard-version>SRG 2013</standard-version>
+		<standard-category>Cash Management &amp; Customer Status</standard-category>
+		<standard-detailed-name>Interim Transaction Report</standard-detailed-name>
+		<version>1.0</version>
+		<SwiftFields>
+			<customizable>true</customizable>
+			<modifiable>true</modifiable>
+			<SwiftMessageType>User</SwiftMessageType>
+			<max-length>2000</max-length>
+			<HeaderAndTrailerType>SWIFT_INPUT_OUTPUT_HEADER</HeaderAndTrailerType>
+			<Header>
+				<fields>
+					<field>
+						<name>Basic Header</name>
+						<description><![CDATA[The Basic Header is given in Block 1 of a SWIFT message and is the only header that appears on all messages. The Basic Header provides the fundamental reference for any particular message and is almost always automatically built by the CBT.
+The Basic Header has the same format for both input and output messages. However, the information contained in the Basic Header is relative to the sender when the message is input but relative to the receiver when the same message is output.]]></description>
+						<datatype>Section</datatype>
+						<required>true</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Application Identifier</name>
+								<description><![CDATA[The Application Identifier identifies the application within which the message is being sent or received. The available options are:
+
+F = FIN All user-to-user, FIN system and FIN service messages 
+A = GPA Most GPA system and service messages 
+L = GPA Certain GPA service messages, for example, LOGIN, LAKs, ABORT 
+
+These values are automatically assigned by the SWIFT system and the user's CBT, but the user should be aware of their existence and significance
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Service Identifier</name>
+								<description><![CDATA[The Service Identifier consists of 2 numeric characters. It identifies the type of data that is being sent or received and, in doing so, whether the message which follows is one of the following:
+
+a user-to-user message
+
+a system message
+
+a service message, for example, a session control command, such as SELECT, or a logical acknowledgement, such as ACK/SAK/UAK
+
+Users will be primarily concerned with identifier '01' which applies to all GPA and FIN system and user-to-user messages. Other values include: '21' for message acknowledgements such as ACK/NAK, UAK/UNK, '03' for SELECT commands, and 
+so on]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>2</length>
+							</field>
+							<field>
+								<name>LT Identifier</name>
+								<description><![CDATA[This 12-character SWIFT address, given in the Basic Header Block, is the address of the sending LT for input messages or of the receiving LT for output messages, and includes the Branch Code.
+
+In the Basic Header, the LT Code within the LT Identifier is specific to the LT that has established the session in which the message is being transmitted, that is the sending LT for input messages or the receiving LT for output messages.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>12</length>
+							</field>
+							<field>
+								<name>Session Number</name>
+								<description><![CDATA[The Session Number identifies the session in which the message was transmitted. Within the Basic Header, the 4-digit Session Number is the user's current GPA or FIN Session Number.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Sequence Number</name>
+								<description><![CDATA[The sequence number always consists of 6 digits. It is the ISN of the sender's current input session or the OSN of the receiver's current output session.
+
+Note: The sequence number is not present in those messages with an Application Identifier of 'L' (for example LOGIN). The sequence number is, however, a key element in the processing of retrievals. Therefore, LOGINs and attempted LOGINs are not retrievable
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>6</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>Application Header Input</name>
+						<description><![CDATA[The Application Header of a SWIFT message provides information about the message itself.
+
+The Application Header is given in Block 2 of a SWIFT message. It differs according to whether the message is a GPA or a FIN message and whether the Application Header is part of an input or an output message.
+
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Input/Output Identifier</name>
+								<description><![CDATA[For an input message, the Input/Output Identifier consists of the single letter 'I'.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Message Type</name>
+								<description><![CDATA[The Message Type consists of 3 digits which define the MT number of the message being input. The example used above is for an MT 100 Customer Transfer]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>3</length>
+							</field>
+							<field>
+								<name>Receiver's Address</name>
+								<description><![CDATA[This address is the 12-character SWIFT address of the receiver of the message, but with a LT Code of 'X'. It defines the destination to which the message should be sent.
+
+The system will replace the 'X' with a specific LT Code on delivery of the message according to the delivery control exercised by the receiving user.
+
+The Branch Code is mandatory and will be validated. The default of 'XXX' may be used, as in the example above.
+
+Unless otherwise documented, system messages addressed to the SWIFT system itself should be addressed to SWFTXXXXXXXX.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>12</length>
+							</field>
+							<field>
+								<name>Message Priority</name>
+								<description><![CDATA[This character, used within FIN Application Headers only, defines the priority with which a message is delivered. The possible values are:
+
+S = System
+
+U = Urgent
+
+N = Normal
+
+Message Priority 'S' must be used for user-to-system messages; for user-to-user messages either 'U' or 'N' can be used. In the absence of user-specified delivery criteria, system messages are always delivered first, followed by urgent priority messages and then normal priority messages.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Delivery Monitoring</name>
+								<description><![CDATA[Delivery monitoring options apply only to FIN user-to-user messages, and allow the sender of a message to request:
+
+automatic MT 011 Delivery Notification once the message has been delivered
+
+automatic MT 010 Non-Delivery Warning if a message is not delivered within the specified obsolescence period (see below)
+
+both, or neither, options. This may be requested on an individual message basis.
+
+The chosen option is expressed as a single digit:
+
+1 = Non-Delivery Warning
+
+2 = Delivery Notification
+
+3 = Non-Delivery Warning and Delivery Notification. 
+If the message has priority 'U' then the user must request delivery monitoring option '1' or '3'. If the message has priority 'N', the user can request delivery monitoring option '2', or, by leaving the option blank, no delivery monitoring.
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Obsolescence Period</name>
+								<description><![CDATA[The obsolescence period defines the period of time after which a Delayed Message (DLM) trailer is added to a FIN user-to-user message when the message is delivered. For urgent priority messages, it is also the period of time after which, if the message remains undelivered, a Non-Delivery Warning is generated.
+
+The values for the obsolescence period are 003 (15 minutes) for 'U' priority, and 020 (100 minutes) for 'N' priority. An obsolescence period can only be specified when delivery monitoring has been requested (option 1 or 3 for urgent priority messages, option 2 for normal priority messages). If no delivery monitoring has been requested, and an obsolescence period is specified, the message will be NAKed with error code H25.
+
+GPA input Application Headers are similar to their FIN equivalents except that GPA messages do not specify priority, delivery monitoring, nor obsolescence period.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>3</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>Application Header Output</name>
+						<description><![CDATA[The Application Header of a SWIFT message provides information about the message itself.
+
+The Application Header is given in Block 2 of a SWIFT message. It differs according to whether the message is a GPA or a FIN message and whether the Application Header is part of an input or an output message.
+
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Input/Output Identifier</name>
+								<description><![CDATA[For an input message, the Input/Output Identifier consists of the single letter 'I'.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+							<field>
+								<name>Message Type</name>
+								<description><![CDATA[Three digits indicating the Message Type.]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>3</length>
+							</field>
+							<field>
+								<name>Input Time</name>
+								<description><![CDATA[The first occurrence of the time field contains the system time and date. This is the generation time in Greenwich Mean Time (GMT).
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Message Input Reference</name>
+								<description><![CDATA[The input MIR.
+
+If the message is generated by the system, the input time is the generation time (in GMT) and the input MIR is the system MIR
+
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>28</length>
+							</field>
+							<field>
+								<name>Output Date</name>
+								<description><![CDATA[The output date, local to the receiver.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>6</length>
+							</field>
+							<field>
+								<name>Output Time</name>
+								<description><![CDATA[The second occurrence of the time field contains the output time and date. This is in a time local to the receiver.
+]]></description>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>4</length>
+							</field>
+							<field>
+								<name>Message Priority</name>
+								<datatype>String</datatype>
+								<required>true</required>
+								<length>1</length>
+							</field>
+						</fields>
+					</field>
+					<field>
+						<name>User Header</name>
+						<description><![CDATA[The User Header is an optional header available within FIN for user-to-user messages only. It appears in Block 3 of a SWIFT message, and allows users to provide their own reference within the headers for a particular message.
+
+A User Header can only be assigned by the sender of a message and, if assigned, will always appear on the output message copy. Relevant parts of the User Header will be repeated in related system messages and acknowledgements.
+
+Block 3 may contain tag 113, defining banking priorities, and tag 108, which is a user reference. The user reference part of the User Header may be used as one of the selection criteria when retrieving a message.
+
+The optional field tags 103 and 115 are also used in Block 3 for the FIN Copy service. The order of tags, when present, is 103, 113, 108 and 115.
+
+An optional field tag 119 can be included in Block 3 of certain messages to specify that different validation rules are to be applied. Agreed code words in field 119 indicate what validation rules SWIFT will apply. If field 119 is present, it should appear after field 108
+]]></description>
+						<datatype>Section</datatype>
+						<required>false</required>
+						<repeating>false</repeating>
+						<fields>
+							<field>
+								<name>Service Identifier</name>
+								<description><![CDATA[For any message which the user submits to a FIN Copy service, Block 3 requires an additional field 103 which contains a three-character Service Identifier unique to a specific FIN Copy service. By using a unique identifier it is possible to support access to multiple services within the same CBT.
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>3</length>
+								<tag>103</tag>
+							</field>
+							<field>
+								<name>Banking Priority</name>
+								<description><![CDATA[Assigned by the sender of the message.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>4</length>
+								<tag>113</tag>
+							</field>
+							<field>
+								<name>Message User Reference</name>
+								<description><![CDATA[Assigned by the sender of the message.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>16</length>
+								<tag>108</tag>
+							</field>
+							<field>
+								<name>Validation Flag</name>
+								<description><![CDATA[Indicates whether a special validation needs to be performed by FIN. The following are examples of the values this field may take. Please note that this list is subject to change:
+
+ISITC indicates validation of ISITC Standards. Only to be used with MT 521 and MT 523.
+
+REMIT identifies the presence of field 77T. Only to be used in MT 103.
+
+RFDD indicates that the message is a request for direct debit. Only to be used in MT 104.
+
+STP indicates that the message is validated according to straight through processing principles. Only to be used in MT 103.
+
+]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>-1</length>
+								<tag>119</tag>
+							</field>
+							<field>
+								<name>Addressee Information</name>
+								<description><![CDATA[Information from Central Institution to the receiver of payment message. Information is input in the MT 097 FIN Copy Message Authorisation/Refusal Notification in Y-Copy mode.]]></description>
+								<datatype>String</datatype>
+								<required>false</required>
+								<length>-1</length>
+								<tag>115</tag>
+							</field>
+						</fields>
+					</field>
+				</fields>
+			</Header>
+			<Data>
+				<Fields>
+					<SwiftField Name="20">
+						<SwiftFieldDef Name="20">
+							<Generic>false</Generic>
+							<Description><![CDATA[Reference]]></Description>
+							<Option Name="">
+								<Format><![CDATA[16x]]></Format>
+								<Specification><![CDATA[(TRN)]]></Specification>
+								<Description><![CDATA[Transaction Reference Number]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="TRN">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T26</ErrorCode>
+									<Comment><![CDATA[This field must not start or end with a slash '/' and must not contain two consecutive slashes '//' (Error code(s): T26).]]></Comment>
+									<ValidationPattern xsi:type="T26" Type="T26">
+										<Type>T26</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="21">
+						<SwiftFieldDef Name="21">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[16x]]></Format>
+								<Specification><![CDATA[(Related Reference)]]></Specification>
+								<Description><![CDATA[Related Reference]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+						<Validations>
+							<SubField Name="Related_Reference">
+								<Validation>
+									<Options> </Options>
+									<ErrorCode>T26</ErrorCode>
+									<Comment><![CDATA[This field must not start or end with a slash '/' and must not contain two consecutive slashes '//' (Error code(s): T26).]]></Comment>
+									<ValidationPattern xsi:type="T26" Type="T26">
+										<Type>T26</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="25">
+						<SwiftFieldDef Name="25">
+							<Generic>false</Generic>
+							<Description><![CDATA[Account Identification]]></Description>
+							<Option Name="">
+								<Format><![CDATA[35x]]></Format>
+								<Specification><![CDATA[(Account)]]></Specification>
+								<Description><![CDATA[Account Identification]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options> </Options>
+					</SwiftField>
+					<SwiftField Name="28C">
+						<SwiftFieldDef Name="28">
+							<Generic>false</Generic>
+							<Option Name="C">
+								<Format><![CDATA[5n[/5n]]]></Format>
+								<Specification><![CDATA[(Statement Number) (Sequence Number)]]></Specification>
+								<Description><![CDATA[Statement Number/Sequence Number]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>C</Options>
+					</SwiftField>
+					<SwiftField Name="34F">
+						<SwiftFieldDef Name="34">
+							<Generic>false</Generic>
+							<Option Name="F">
+								<Format><![CDATA[3!a[1!a]15d]]></Format>
+								<Specification><![CDATA[(Currency) (D/C Mark) (Amount)]]></Specification>
+								<Description><![CDATA[Debit/(Debit and Credit)Floor Limit Indicator]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>F</Options>
+						<Validations>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[When D/C Mark is present, it must contain the following code (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="D">
+												<DetailedName>Debit</DetailedName>
+												<Description>Debit floor limit</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for the specified currency (Error code(s): C03).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="34F1">
+						<SwiftFieldDef Name="34">
+							<Generic>false</Generic>
+							<Option Name="F">
+								<Format><![CDATA[3!a[1!a]15d]]></Format>
+								<Specification><![CDATA[(Currency) (D/C Mark) (Amount)]]></Specification>
+								<Description><![CDATA[Credit Floor Limit Indicator]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Suffix>F1</Suffix>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options>F</Options>
+						<Validations>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="D/C_Mark">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>T51</ErrorCode>
+									<Comment><![CDATA[D/C Mark must contain the following code (Error code(s): T51):]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="C">
+												<DetailedName>Credit</DetailedName>
+												<Description>Credit floor limit</Description>
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>F</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for the specified currency (Error code(s): C03).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="13D">
+						<SwiftFieldDef Name="13">
+							<Generic>false</Generic>
+							<Description><![CDATA[Number Identification]]></Description>
+							<Option Name="D">
+								<Format><![CDATA[6!n4!n1!x4!n]]></Format>
+								<Specification><![CDATA[(Date) (Time) (Sign) (Offset)]]></Specification>
+								<Description><![CDATA[Date/Time Indication]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>M</Presence>
+						<Options>D</Options>
+						<Validations>
+							<SubField Name="Date">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>T50</ErrorCode>
+									<Comment><![CDATA[Date must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>yyMMdd</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Time">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>T38</ErrorCode>
+									<Comment><![CDATA[Time must be a valid time expressed as HHMM (Error code(s): T38).]]></Comment>
+									<ValidationPattern xsi:type="DATE" Type="DATE">
+										<Type>DATE</Type>
+										<Format>HHmm</Format>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Sign">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>T15</ErrorCode>
+									<Comment><![CDATA[Sign is either "+" or "-" (Error code(s): T15).]]></Comment>
+									<ValidationPattern xsi:type="CODE" Type="CODE">
+										<Type>CODE</Type>
+										<Codes>
+											<Code Name="+">
+											</Code>
+											<Code Name="-">
+											</Code>
+										</Codes>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Offset">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>T16</ErrorCode>
+									<Comment><![CDATA[Time offset is expressed as 'HHMM', where the hour component, ie, 'HH', must be in the range of 00 through 13, and the minute component, ie, 'MM' must be in the range of 00 through 59. Any 'HH' or 'MM' component outside of these range checks will be disallowed (Error code(s): T16).]]></Comment>
+									<ValidationPattern xsi:type="Time_Offset" Type="Time Offset">
+										<Type>Time Offset</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftSequence Name="A">
+						<Name>A</Name>
+						<Description><![CDATA[Sequence A]]></Description>
+						<Mandatory>false</Mandatory>
+						<Repeating>true</Repeating>
+						<Fields>
+							<SwiftField Name="61">
+								<SwiftFieldDef Name="61">
+									<Generic>false</Generic>
+									<Option Name="">
+										<Format><![CDATA[6!n[4!n]2a[1!a]15d(1!a3!c)16x[//16x][CRLF34x]]]></Format>
+										<Specification><![CDATA[(Value Date)(Entry Date)(Debit/Credit Mark)(Funds Code)(Amount)(Transaction Type Identification Code)(Reference for the Account Owner)(Account Servicing Institution's Reference)(Supplementary Details)]]></Specification>
+										<Description><![CDATA[Statement Line]]></Description>
+									</Option>
+								</SwiftFieldDef>
+								<Repeating>false</Repeating>
+								<Presence>O</Presence>
+								<Options> </Options>
+								<Validations>
+									<SubField Name="Debit/Credit_Mark">
+										<Validation>
+											<Options> </Options>
+											<ErrorCode>T51</ErrorCode>
+											<Comment><![CDATA[Subfield 3, Debit/Credit Mark, must contain one of the following codes (Error code(s): T51):]]></Comment>
+											<ValidationPattern xsi:type="CODE" Type="CODE">
+												<Type>CODE</Type>
+												<Codes>
+													<Code Name="D">
+														<Description>Debit</Description>
+													</Code>
+													<Code Name="C">
+														<Description>Credit</Description>
+													</Code>
+													<Code Name="EC">
+														<Description>Expected credit</Description>
+													</Code>
+													<Code Name="ED">
+														<Description>Expected debit</Description>
+													</Code>
+													<Code Name="RC">
+														<Description>Reversal of credit (debit entry)</Description>
+													</Code>
+													<Code Name="RD">
+														<Description>Reversal of debit (credit entry)</Description>
+													</Code>
+												</Codes>
+											</ValidationPattern>
+										</Validation>
+									</SubField>
+									<SubField Name="Value_Date">
+										<Validation>
+											<Options> </Options>
+											<ErrorCode>T50</ErrorCode>
+											<Comment><![CDATA[Subfield 1, Value Date, must be a valid date expressed as YYMMDD (Error code(s): T50).]]></Comment>
+											<ValidationPattern xsi:type="DATE" Type="DATE">
+												<Type>DATE</Type>
+												<Format>yyMMdd</Format>
+											</ValidationPattern>
+										</Validation>
+									</SubField>
+								</Validations>
+							</SwiftField>
+							<SwiftField Name="86">
+								<SwiftFieldDef Name="86">
+									<Generic>false</Generic>
+									<Option Name="">
+										<Format><![CDATA[6*65x]]></Format>
+										<Specification><![CDATA[(Narrative)]]></Specification>
+										<Description><![CDATA[Information to Account Owner]]></Description>
+									</Option>
+								</SwiftFieldDef>
+								<Repeating>false</Repeating>
+								<Presence>O</Presence>
+								<Options> </Options>
+							</SwiftField>
+						</Fields>
+					</SwiftSequence>
+					<SwiftField Name="90D">
+						<SwiftFieldDef Name="90">
+							<Generic>false</Generic>
+							<Description><![CDATA[Price]]></Description>
+							<Option Name="D">
+								<Format><![CDATA[5n3!a15d]]></Format>
+								<Specification><![CDATA[(Number) (Currency) (Amount)]]></Specification>
+								<Description><![CDATA[Number and Sum of Entries]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options>D</Options>
+						<Validations>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>D</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for the specified currency (Error code(s): C03).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="90C">
+						<SwiftFieldDef Name="90">
+							<Generic>false</Generic>
+							<Description><![CDATA[Price]]></Description>
+							<Option Name="C">
+								<Format><![CDATA[5n3!a15d]]></Format>
+								<Specification><![CDATA[(Number) (Currency) (Amount)]]></Specification>
+								<Description><![CDATA[Number and Sum of Entries]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options>C</Options>
+						<Validations>
+							<SubField Name="Currency">
+								<Validation>
+									<Options>C</Options>
+									<ErrorCode>T52</ErrorCode>
+									<Comment><![CDATA[Currency must be a valid ISO 4217 currency code (Error code(s): T52).]]></Comment>
+									<ValidationPattern xsi:type="Currency_Code" Type="Currency Code">
+										<Type>Currency Code</Type>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+							<SubField Name="Amount">
+								<Validation>
+									<Options>C</Options>
+									<ErrorCode>C03</ErrorCode>
+									<Comment><![CDATA[The number of digits following the comma must not exceed the maximum number allowed for the specified currency (Error code(s): C03).]]></Comment>
+									<ValidationPattern xsi:type="Decimal" Type="Decimal">
+										<Type>Decimal</Type>
+										<currency-field>Currency</currency-field>
+									</ValidationPattern>
+								</Validation>
+							</SubField>
+						</Validations>
+					</SwiftField>
+					<SwiftField Name="86">
+						<SwiftFieldDef Name="86">
+							<Generic>false</Generic>
+							<Option Name="">
+								<Format><![CDATA[6*65x]]></Format>
+								<Specification><![CDATA[(Narrative)]]></Specification>
+								<Description><![CDATA[Information to Account Owner]]></Description>
+							</Option>
+						</SwiftFieldDef>
+						<Repeating>false</Repeating>
+						<Presence>O</Presence>
+						<Options> </Options>
+					</SwiftField>
+				</Fields>
+			</Data>
+			<Trailer>
+				<fields>
+					<field>
+						<name>Message Authentication Code</name>
+						<description><![CDATA[Allows authentication by the receiving user. It is followed by an authentication result.
+
+This trailer is mandatory for most user-to-user message categories within the FIN application. When the FIN Copy Service is used a PAC trailer, if present, follows the MAC trailer.
+
+Format:
+
+{MAC:<authentication-result>}
+
+where <authentication-result> = 8!h
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>8</length>
+						<tag>MAC</tag>
+					</field>
+					<field>
+						<name>Proprietary Authentication Code</name>
+						<description><![CDATA[The PAC is used within the FIN Copy service only, when using the double authentication option. The PAC is included in Block 5 of FIN user-to-user messages, immediately after the MAC trailer, if present.
+
+This is calculated on the extracted fields of Block 4 of the message, the value of field 115, if present, and the <authentication-result> of the MAC trailer for Copy Services with double authentication.
+
+Thus, the end-of-block indicator (CrLf-) is included in the PAC calculation, and the fields are defined as follows:
+
+The first three characters are CrLf:
+
+The field and the delimiter are present, that is, 32A:, 20:, and so on.
+
+All subfields and their delimiters are present.
+
+Format:
+
+{PAC:[<authentication-result>]}
+
+where <authentication-result> is mandatory on input messages only and <authentication-result> = 8!h
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>8</length>
+						<tag>PAC</tag>
+					</field>
+					<field>
+						<name>Checksum</name>
+						<description><![CDATA[The checksum is computed based on the receiver's address (12 characters, with 9th character replaced by X) plus the Text Block. This trailer allows the system and the CBT to check that messages have not been corrupted due to a system malfunction or an undetected transmission error.
+
+Format:
+
+{CHK:<checksum-result>}
+
+where <checksum-result> = 12!h
+
+Note: This trailer is mandatory for FIN and GPA messages (Service Identifier 01).
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>12</length>
+						<tag>CHK</tag>
+					</field>
+					<field>
+						<name>System Originated Message</name>
+						<description><![CDATA[The system message or service message which is generated by a system PLT has a SYS trailer. All solicited system messages (Service Identifier 01) contain the MIR of the request and may also contain the time.
+
+Format:
+
+{SYS:[<time><mir>]}
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>SYS</tag>
+					</field>
+					<field>
+						<name>Test And Training Message</name>
+						<description><![CDATA[Mandatory for FIN and GPA messages (Service Identifier 01) sent by, or delivered to, a Test & Training Logical Terminal (LT). This trailer has a tag only, and no value.
+
+Format:
+
+{TNG:}
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>0</length>
+						<tag>TNG</tag>
+					</field>
+					<field>
+						<name>Possible Duplicate Emission</name>
+						<description><![CDATA[This trailer is used by the destination of the message. It only applies to FIN user-to-user messages (Service Identifier 01, message categories reserved for banking messages). There can be multiple PDEs. The system does not verify the order nor restrict the number (except for maximum message length).
+
+Correctly formatted PDE trailers applied to user-to-system messages are accepted by the system, but not processed. This means that the system does not check to see if the original message exists. Therefore, a retrieval request sent with a PDE trailer may be processed twice if the original message was received by the system.
+
+Format:
+
+{PDE:[<time><mir>]}
+
+where <time><mir> refers to the emission of the previous possible issue.
+
+Note: It can be added automatically by a CBT or manually by a user. It may be followed by the MIR and the time of its previous possible messages.
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>PDE</tag>
+					</field>
+					<field>
+						<name>Delayed Message</name>
+						<description><![CDATA[This trailer is added to all FIN user-to-user output messages that have exceeded their obsolescence period. If this trailer appears in GPA or FIN system messages, it must be ignored. This trailer has a tag only, and no value.
+
+The Obsolescence Period is:
+
+U = 15 minutes
+
+N = 100 minutes
+
+Format:
+
+{DLM:}
+
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>0</length>
+						<tag>DLM</tag>
+					</field>
+					<field>
+						<name>Possible Duplicate Message</name>
+						<description><![CDATA[Added by the system to any output message (GPA and FIN Service Identifier 01) being resent because a prior delivery may be invalid. If a system PLT receives a report request with a PDM, the response has a plain PDM (without the optional delivery reference). Other PDMs may be added as a result of unsuccessful delivery attempts to the user. 
+Format:
+{PDM:[<time><mor>]}
+where <time> and the Message Output Reference <mor> are that of the previous attempt.
+Note: For messages recovered after a system failure, the optional fields may not be present.
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>PDM</tag>
+					</field>
+					<field>
+						<name>Message Reference</name>
+						<description><![CDATA[The MRF trailer is used to specify the message reference of the original user message in MT 096 FIN Copy to Central Institution Messages.
+Format:
+{MRF:<date><full-time><mir>}
+where <mir> is that of the original user message whose fields are copied in the MT 096 FIN Copy to Central Institution Message.
+Note: The MRF is specific to FIN Copy. The MRF trailer is automatically generated in the MT 096 FIN Copy to Central Institution Message and can only be reused in field 109 of the MT 096 FIN Copy to Central Institution Message to identify the MT 096 to which the MT 097 is a response. The format of the MRF is subject to change.
+]]></description>
+						<datatype>String</datatype>
+						<required>false</required>
+						<length>-1</length>
+						<tag>MRF</tag>
+					</field>
+				</fields>
+			</Trailer>
+		</SwiftFields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>U09</name>
+						<formula><![CDATA[if($this.Header.GetFieldIndex("User_Header") != -1) {
+    def userHeader = $this.Header.GetSection("User_Header");
+    if(userHeader.$size > 0 && userHeader[0].IsNotNull("Validation_Flag")) {
+        return false;
+    }
+}
+return true;
+]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>U09</error-code>
+						<actionmessage><![CDATA["User has used tag 119 in a message that is not a candidate for special processing"]]></actionmessage>
+					</fieldvalidation>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+					<fieldvalidation>
+						<name>FA-61-A</name>
+						<fieldname>A.61.Transaction_Type_Identification_Code</fieldname>
+						<formula><![CDATA[In(CharAt(A.F61.Transaction_Type_Identification_Code, 0), 
+   'S', 'N', 'F')]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T53</error-code>
+						<actionmessage><![CDATA["Subfield 6, Transaction Type Identification Code, should start with S, N or F."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-B</name>
+						<fieldname>A.61.Transaction_Type_Identification_Code</fieldname>
+						<formula><![CDATA[If(StartsWith($value, "S"), 
+   IsInt(RightStr($value, "S")) && 
+     Between(ToInt(RightStr($value, "S")), 100, 999), 
+   true)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T18</error-code>
+						<actionmessage><![CDATA["In field 61 of sequence A, if the first character of subfield 6, Transaction Type Identification Code, is an 'S', the remaining characters must be in the range 100-999."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-C</name>
+						<fieldname>A.61.Transaction_Type_Identification_Code</fieldname>
+						<formula><![CDATA[If(StartsWith(A.F61.Transaction_Type_Identification_Code, 
+              "N") || 
+     StartsWith(A.F61.Transaction_Type_Identification_Code, 
+                "F"), 
+   In(Right(A.F61.Transaction_Type_Identification_Code, 3), 
+      "BOE", "BRF", "CHG", "CHK", "CLR", "CMI", "CMN", "CMS", 
+      "CMT", "CMZ", "COL", "COM", "DCR", "DDT", "DIV", "ECK", 
+      "EQA", "FEX", "INT", "LBX", "LDP", "MSC", "RTI", "SEC", 
+      "STO", "TCK", "TRF", "VDA"), 
+   true)]]></formula>
+						<enabled>false</enabled>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T53</error-code>
+						<actionmessage><![CDATA["When formats N3!c or F3!c are used, the last three characters, ie, 3!c, may contain one of the following codes: BOE, BRF, CHG, CHK, CLR, CMI, CMN, CMS, CMT, CMZ, COL, COM, DCR, DDT, DIV, ECK, EQA, FEX, INT, LBX, LDP, MSC, RTI, SEC, STO, TCK, TRF, VDA."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>FA-61-D</name>
+						<fieldname>A.61.Entry_Date</fieldname>
+						<formula><![CDATA[IsDate(FormatDate(Today(), "yy") + A.F61.Entry_Date, "yyMMdd")]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T50</error-code>
+						<actionmessage><![CDATA["Must be a valid date expressed as MMDD in the current system Year."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>DC-FIX</name>
+						<fieldname>A.61</fieldname>
+						<comment><![CDATA[This validation should not be disabled. This provides fix for the parsing problem in field 61.]]></comment>
+						<formula><![CDATA[$dc = A.F61.Debit_Credit_Mark;
+$shouldFix = Length($dc) == 2 && !In($dc, "RD", "RC", "ED", "EC") && 
+               IsNull(A.F61.Funds_Code);
+If($shouldFix, Set(A.F61.Funds_Code, Right($dc, 1)));
+If($shouldFix, Set(A.F61.Debit_Credit_Mark, Left($dc, 1)));
+true;
+]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>DC-FIX</error-code>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C1-1</name>
+						<fieldname>34F1.Currency</fieldname>
+						<formula><![CDATA[StartsWith($value, Left(F34F[0].Currency, 2))]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 34F, 90D, and 90C must be the same."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C1-2</name>
+						<fieldname>90D.Currency</fieldname>
+						<formula><![CDATA[StartsWith($value, Left(F34F[0].Currency, 2))]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 34F, 90D, and 90C must be the same."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C1-3</name>
+						<fieldname>90C.Currency</fieldname>
+						<formula><![CDATA[StartsWith($value, Left(F34F[0].Currency, 2))]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C27</error-code>
+						<actionmessage><![CDATA["The first two characters of the three character currency code in fields 34F, 90D, and 90C must be the same."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>C2</name>
+						<formula><![CDATA[If(F34F1.$size == 0, 
+   IsNull(F34F[0].D_C_Mark), 
+   (IsNotNull(F34F[0].D_C_Mark) && F34F[0].D_C_Mark == "D") && 
+     (IsNotNull(F34F1[0].D_C_Mark) && 
+        F34F1[0].D_C_Mark == "C"))]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>C23</error-code>
+						<actionmessage><![CDATA["When only one field 34F is present, the second subfield must not be used. When both fields 34F are present, subfield 2 of the first 34F must contain the value 'D', and subfield 2 of the second 34F must contain the value 'C'."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-1</name>
+						<fieldname>A.61.Supplementary_Details</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-2</name>
+						<fieldname>A.86.Narrative</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>ERI-3</name>
+						<fieldname>86.Narrative</fieldname>
+						<formula><![CDATA[ApplyERICodeValidationUnstructured($value);]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>T47</error-code>
+						<actionmessage><![CDATA["In an ERI field (i.e. fields 61, 72, 77A, 79, 86) the data part of a code word /OCMT/, or /CHGS/, is being validated, but the ending separator (i.e. third slash) is missing or the code words are duplicated."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>MaxLength</name>
+						<fieldname>25.Account</fieldname>
+						<rule type="MaxLength">34</rule>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>MaxLength</error-code>
+						<actionmessage><![CDATA["Maximum length allowed is 34."]]></actionmessage>
+					</fieldvalidation>
+					<fieldvalidation>
+						<name>E1</name>
+						<fieldname>A</fieldname>
+						<formula><![CDATA[Implies ($value.F86.$size > 0, $value.F61.$size > 0)]]></formula>
+						<severity>error</severity>
+						<cascade>true</cascade>
+						<error-code>E1</error-code>
+						<actionmessage><![CDATA["If field 'A.86' is present, then the field 'A.61' should be present."]]></actionmessage>
+					</fieldvalidation>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar swiftrt.jar swiftresources.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jun 11 10:45:13 IST 2008"/>
+						<property name="Author" value="Krish"/>
+						<property name="Title" value="MT202_mxpacs_009_001_01"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:16 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="662"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Messages\SWIFT\SWIFTMessages.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SWIFTMessages</selected-element>
+	</workspace>
+</cartridge>
+

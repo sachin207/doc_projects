@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="SupplementaryDataHelper" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="XMLMsgForSuppDataHelper" version="1.0" type="External Message">
+			</service>
+			<function name="createRootTag"/>
+			<function name="createTag"/>
+			<function name="createTagNS"/>
+			<function name="createTagValue"/>
+			<function name="createTagValueNS"/>
+			<function name="createTagWithID"/>
+			<function name="createTagWithIDNS"/>
+			<function name="getRootTag"/>
+			<function name="getTag"/>
+			<function name="getTagNS"/>
+			<function name="getTagValue"/>
+			<function name="getTagValueNS"/>
+			<function name="getTagWithID"/>
+			<function name="getTagWithIDNS"/>
+			<function name="validateObj"/>
+			<function name="createEmptyAnyElm"/>
+			<function name="getNSOrBlank"/>
+			<function name="isGivenTag"/>
+			<function name="isGivenTag"/>
+			<function name="getThisTagValue"/>
+			<function name="setThisTagValue"/>
+			<function name="isEmptyTag"/>
+			<function name="forceCreateTagNS"/>
+			<function name="forceCreateTagValueNS"/>
+			<function name="getTagNSImpl"/>
+			<function name="getTagWithIDNSImpl"/>
+			<function name="createXMLAnyElement"/>
+		</summary>
+	</private>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<folder name="Setter" type="FunctionDefFolder">
+			<FormulaFunctionDef name="createRootTag" type="FormulaFunctionDef">
+				<description>Creates the root tag of all the contents inside the 'Any' node.</description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>parentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<Code><![CDATA[def anySec = parentObj.getSection("any");
+if (anySec.length() == 0) {
+	anySec.createXMLAnyElement();
+	anySec[0].SetString("name", name);
+	anySec[0].SetString("namespace", nameSpace);
+}
+return anySec[0];
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTag" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return obj.createTagNS (name, getNSOrBlank (obj));
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTagNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[obj.validateObj();
+
+def childObj = obj.getTagNSImpl (name, nameSpace);
+if (childObj.IsNull ())
+	childObj = obj.forceCreateTagNS (name, nameSpace);
+
+return childObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTagValue" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>value</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return obj.createTagValueNS (name, obj.getNSOrBlank(), value);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTagValueNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>value</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def childObj = obj.getTagNSImpl (name, nameSpace);
+if (childObj.IsNull ())
+	childObj = obj.forceCreateTagValueNS (name, nameSpace, value);
+
+return childObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTagWithID" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>entityParentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entitySecName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idVal</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def parentNS = entityParentObj.getNSOrBlank();
+return entityParentObj.createTagWithIDNS(entitySecName, parentNS, idTagName, parentNS, idVal);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createTagWithIDNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>entityParentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idVal</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[entityParentObj.validateObj();
+
+def entityTag = entityParentObj.getTagWithIDNSImpl (entityName, entityNS, idTagName, idTagNS, idVal);
+if (entityTag.IsNull ()) {
+	entityTag = entityParentObj.forcecreateTagNS (entityName, entityNS);
+	def idTag = entityTag.forcecreateTagValueNS (idTagName, idTagNS, idVal);
+}
+
+return entityTag;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="Getter" type="FunctionDefFolder">
+			<FormulaFunctionDef name="getRootTag" type="FormulaFunctionDef">
+				<description>Creates the root tag of all the contents inside the 'Any' node.</description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def anySec = obj.getSection ("any");
+def retObj;
+if ((anySec.length() != 0) && anySec[0].isGivenTag (name, nameSpace))
+	retObj = anySec[0];
+else
+	retObj = createEmptyAnyElm();
+
+return retObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTag" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return obj.getTagNS(name, getNSOrBlank (obj));
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def objToRet = obj.getTagNSImpl (name, nameSpace);
+if (objToRet.IsNull ())
+	objToRet = createEmptyAnyElm();
+	
+return objToRet;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagValue" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return obj.getTagValueNS (name, getNSOrBlank (obj));
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagValueNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[obj.validateObj();
+
+def reqdObj = obj.getTagNSImpl(name, nameSpace);
+if (reqdObj.IsNotNull())
+	return reqdObj.getThisTagValue();
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagWithID" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>entityParentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entitySecName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idVal</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def parentNS = entityParentObj.getNSOrBlank();
+return entityParentObj.getTagWithIDNS(entitySecName, parentNS, idTagName, parentNS, idVal);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagWithIDNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>entityParentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idVal</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[entityParentObj.validateObj();
+
+def objToGet = entityParentObj.getTagWithIDNSImpl (entityName, entityNS, idTagName, idTagNS, idVal);
+if (objToGet.IsNull())
+	objToGet = createEmptyAnyElm();
+
+return objToGet;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="Library" type="FunctionDefFolder">
+			<FormulaFunctionDef name="validateObj" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def fldNames = ["name", "namespace", "prefix", "value", "attributes", "subelements"];
+def fldTypes = ["String", "String", "String", "String", "Section", "Section"];
+
+def fldCount = obj.getFieldCount();
+def isRightType = (fldCount == fldNames.length());
+for (def i=0; isRightType && (i<fldCount); i++)
+	isRightType = ((obj.getFieldName (i) == fldNames.At (i)) && (obj.getFieldType (i) == fldTypes.At (i)));
+
+if (!isRightType) {
+	def exc = CreateException ("Input object is not an object of a section of node type 'any'");
+	ThrowException (exc);
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="createEmptyAnyElm" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[def sec = NewSection();
+sec.createXMLAnyElement();
+return sec[0];
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getNSOrBlank" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<Code><![CDATA[return (obj.isNotNull ("namespace")? obj.getString ("namespace"): "");
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isGivenTag" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Boolean</ReturnType>
+				<Code><![CDATA[return ((obj.getString ("name") == name) && (obj.getString ("namespace") == nameSpace));
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isGivenTag" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Boolean</ReturnType>
+				<Code><![CDATA[return obj.isGivenTag(name, getNSOrBlank (obj));
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getThisTagValue" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<Code><![CDATA[def subElmSec = obj.getSection ("subelements");
+def computedChildValue = "";
+for (def k=0; k<subElmSec.length(); k++) {
+	if ((subElmSec[k].getFieldIndex("value") != -1) && subElmSec[k].IsNotNull ("value"))
+		computedChildValue = computedChildValue + subElmSec[k].getString ("value");
+}
+
+return computedChildValue;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="setThisTagValue" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>value</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def subElmSec = obj.GetSection ("subelements");
+for (def i=subElmSec.length()-1; i>=0; i--)
+	if ((subElmSec[i].getFieldIndex ("value") != -1) && subElmSec[i].IsNotNull ("value"))
+		subElmSec.SecRemoveElement (i);
+
+def elm = subElmSec.SecAddElement();
+elm.setString ("value", value);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isEmptyTag" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Boolean</ReturnType>
+				<Code><![CDATA[obj.validateObj();
+return obj.IsNull("name");
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="forceCreateTagNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[obj.validateObj();
+
+def childObj = obj.GetSection ("subelements").SecAddElement();
+childObj.SetString ("name", name);
+childObj.SetString ("namespace", nameSpace);
+
+return childObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="forceCreateTagValueNS" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>value</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[obj.validateObj();
+
+def childObj = obj.forceCreateTagNS (name, nameSpace);
+childObj.setThisTagValue (value);
+
+return childObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagNSImpl" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>obj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>name</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>nameSpace</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[obj.validateObj();
+
+def subElmSec = obj.getSection ("subelements");
+def retObj;
+for (def i=0; (i<subElmSec.length()) && retObj.IsNull(); i++)
+	if (subElmSec[i].isGivenTag(name, nameSpace))
+		retObj = subElmSec[i];
+
+return retObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getTagWithIDNSImpl" type="FormulaFunctionDef">
+				<description></description>
+				<Category>SAP_SupplementaryData</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>entityParentObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>entityNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagName</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idTagNS</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>idVal</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[entityParentObj.validateObj();
+
+def entitySec = entityParentObj.getSection ("subelements");
+def retObj;
+for (def i=0; (i<entitySec.length()) && retObj.IsNull(); i++)
+	if (entitySec[i].isGivenTag(entityName, entityNS)) {
+		def childTag = entitySec[i].getTagNSImpl(idTagName, idTagNS);
+		if (childTag.isNotNull () && (childTag.getThisTagValue() == idVal))
+			retObj = entitySec[i];
+	}
+
+return retObj;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<folder name="GoneIn5.0" type="FunctionDefFolder">
+				<FormulaFunctionDef name="createXMLAnyElement" type="FormulaFunctionDef">
+					<description></description>
+					<Category>SAP_SupplementaryData</Category>
+					<parameterfields>
+						<parameterfield>
+							<name>sec</name>
+							<type>Section</type>
+						</parameterfield>
+					</parameterfields>
+					<ReturnType>Void</ReturnType>
+					<Code><![CDATA[]]></Code>
+					<function-type>Native Code</function-type>
+					<native-code>	com.tplus.transform.runtime.xmlrt.XMLElement xmlElement = new com.tplus.transform.runtime.xmlrt.XMLElement(sec);
+	sec.addElement (xmlElement);
+</native-code>
+				</FormulaFunctionDef>
+				<elementproperties>
+					<propertymap>
+					</propertymap>
+				</elementproperties>
+			</folder>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="5.0" rulename="XMLMsgForSuppDataHelper" formattype="XMLFormat" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<batch>false</batch>
+				<root-tag>Dummy</root-tag>
+				<record-tag>Dummy</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+			</entity-references>
+			<doc-type-decl>&lt;!DOCTYPE {0} SYSTEM "{1}"&gt;</doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Sep 17 16:30:25 EDT 2012"/>
+						<property name="Author" value="Uday Thakur"/>
+						<property name="Title" value="SAP_BOAML"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="1123"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SupplementaryDataHelper\SupplementaryDataHelper.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SupplementaryDataHelper</selected-element>
+		<watches>
+			<watch>
+				<name>E2EDKA1_Qual[0].PSTL2</name>
+			</watch>
+		</watches>
+	</workspace>
+</cartridge>
+

@@ -1,0 +1,2836 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--edited with XMLSpy v2013 (x64) (http://www.altova.com) by Global License Asset Management (SAP AG)-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:sap:messagetype:310:FSN_CDM:2.0:BaseDataTypes"
+    targetNamespace="urn:sap:messagetype:310:FSN_CDM:2.0:BaseDataTypes"
+    elementFormDefault="qualified">
+  <xs:complexType name="AccountIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" default="IBAN" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" default="2007" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AccountStatementIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="AddressTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ADDR"/>
+      <xs:enumeration value="BIZZ"/>
+      <xs:enumeration value="DLVY"/>
+      <xs:enumeration value="HOME"/>
+      <xs:enumeration value="MLTO"/>
+      <xs:enumeration value="PBOX"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AddressTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="AddressTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:AddressType2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AmountType">
+    <xs:simpleContent>
+      <xs:extension base="xs:decimal">
+        <xs:attribute name="currencyCode" type="xs:token" use="required"/>
+        <xs:attribute name="currencyCodeListID" type="xs:string"/>
+        <xs:attribute name="currencyCodeListVersionID" type="xs:string"/>
+        <xs:attribute name="currencyCodeListAgencyID" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="AuthorisationCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AUTH"/>
+      <xs:enumeration value="FDET"/>
+      <xs:enumeration value="FSUM"/>
+      <xs:enumeration value="ILEV"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AuthorisationCodeType">
+    <xs:simpleContent>
+      <xs:extension base="AuthorisationCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:Authorisation1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="BalanceTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CLAV"/>
+      <xs:enumeration value="CLBD"/>
+      <xs:enumeration value="FWAV"/>
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="ITAV"/>
+      <xs:enumeration value="ITBD"/>
+      <xs:enumeration value="OPAV"/>
+      <xs:enumeration value="OPBD"/>
+      <xs:enumeration value="PRCD"/>
+      <xs:enumeration value="XPCD"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="BalanceTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="BalanceTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:BalanceType12Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="BankTransactionCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="BankTransactionFamilyCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="BankTransactionSubFamilyCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="BranchIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="CardCountryCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CardDataReadingCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BRCD"/>
+      <xs:enumeration value="CICC"/>
+      <xs:enumeration value="CTLS"/>
+      <xs:enumeration value="DFLE"/>
+      <xs:enumeration value="ECTL"/>
+      <xs:enumeration value="MGST"/>
+      <xs:enumeration value="PHYS"/>
+      <xs:enumeration value="TAGC"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CardDataReadingCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CardDataReadingCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CardDataReading1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CardholderVerificationCapabilityCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="APKI"/>
+      <xs:enumeration value="CHDT"/>
+      <xs:enumeration value="FBIG"/>
+      <xs:enumeration value="FBIO"/>
+      <xs:enumeration value="FCPN"/>
+      <xs:enumeration value="FDSG"/>
+      <xs:enumeration value="FEPN"/>
+      <xs:enumeration value="MNSG"/>
+      <xs:enumeration value="MNVR"/>
+      <xs:enumeration value="NPIN"/>
+      <xs:enumeration value="PKIS"/>
+      <xs:enumeration value="SCEC"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CardholderVerificationCapabilityCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CardholderVerificationCapabilityCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CardholderVerificationCapability1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CardPaymentServiceTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AGGR"/>
+      <xs:enumeration value="DCCV"/>
+      <xs:enumeration value="GRTT"/>
+      <xs:enumeration value="INSP"/>
+      <xs:enumeration value="LOYT"/>
+      <xs:enumeration value="NRES"/>
+      <xs:enumeration value="PUCO"/>
+      <xs:enumeration value="RECP"/>
+      <xs:enumeration value="SOAF"/>
+      <xs:enumeration value="UNAF"/>
+      <xs:enumeration value="VCAU"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CardPaymentServiceTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CardPaymentServiceType2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CardTransactionCategoryCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="742"/>
+      <xs:enumeration value="763"/>
+      <xs:enumeration value="780"/>
+      <xs:enumeration value="1520"/>
+      <xs:enumeration value="1711"/>
+      <xs:enumeration value="1731"/>
+      <xs:enumeration value="1740"/>
+      <xs:enumeration value="1750"/>
+      <xs:enumeration value="1761"/>
+      <xs:enumeration value="1771"/>
+      <xs:enumeration value="1799"/>
+      <xs:enumeration value="2741"/>
+      <xs:enumeration value="2791"/>
+      <xs:enumeration value="2842"/>
+      <xs:enumeration value="3000"/>
+      <xs:enumeration value="3351"/>
+      <xs:enumeration value="3501"/>
+      <xs:enumeration value="4011"/>
+      <xs:enumeration value="4111"/>
+      <xs:enumeration value="4112"/>
+      <xs:enumeration value="4119"/>
+      <xs:enumeration value="4121"/>
+      <xs:enumeration value="4131"/>
+      <xs:enumeration value="4214"/>
+      <xs:enumeration value="4215"/>
+      <xs:enumeration value="4225"/>
+      <xs:enumeration value="4411"/>
+      <xs:enumeration value="4457"/>
+      <xs:enumeration value="4468"/>
+      <xs:enumeration value="4511"/>
+      <xs:enumeration value="4582"/>
+      <xs:enumeration value="4722"/>
+      <xs:enumeration value="4723"/>
+      <xs:enumeration value="4784"/>
+      <xs:enumeration value="4789"/>
+      <xs:enumeration value="4812"/>
+      <xs:enumeration value="4814"/>
+      <xs:enumeration value="4816"/>
+      <xs:enumeration value="4821"/>
+      <xs:enumeration value="4829"/>
+      <xs:enumeration value="4899"/>
+      <xs:enumeration value="4900"/>
+      <xs:enumeration value="5013"/>
+      <xs:enumeration value="5021"/>
+      <xs:enumeration value="5039"/>
+      <xs:enumeration value="5044"/>
+      <xs:enumeration value="5045"/>
+      <xs:enumeration value="5046"/>
+      <xs:enumeration value="5047"/>
+      <xs:enumeration value="5051"/>
+      <xs:enumeration value="5065"/>
+      <xs:enumeration value="5072"/>
+      <xs:enumeration value="5074"/>
+      <xs:enumeration value="5085"/>
+      <xs:enumeration value="5094"/>
+      <xs:enumeration value="5099"/>
+      <xs:enumeration value="5111"/>
+      <xs:enumeration value="5122"/>
+      <xs:enumeration value="5131"/>
+      <xs:enumeration value="5137"/>
+      <xs:enumeration value="5139"/>
+      <xs:enumeration value="5169"/>
+      <xs:enumeration value="5172"/>
+      <xs:enumeration value="5192"/>
+      <xs:enumeration value="5193"/>
+      <xs:enumeration value="5198"/>
+      <xs:enumeration value="5199"/>
+      <xs:enumeration value="5200"/>
+      <xs:enumeration value="5211"/>
+      <xs:enumeration value="5231"/>
+      <xs:enumeration value="5251"/>
+      <xs:enumeration value="5261"/>
+      <xs:enumeration value="5271"/>
+      <xs:enumeration value="5300"/>
+      <xs:enumeration value="5309"/>
+      <xs:enumeration value="5310"/>
+      <xs:enumeration value="5311"/>
+      <xs:enumeration value="5331"/>
+      <xs:enumeration value="5399"/>
+      <xs:enumeration value="5411"/>
+      <xs:enumeration value="5422"/>
+      <xs:enumeration value="5441"/>
+      <xs:enumeration value="5451"/>
+      <xs:enumeration value="5462"/>
+      <xs:enumeration value="5499"/>
+      <xs:enumeration value="5511"/>
+      <xs:enumeration value="5521"/>
+      <xs:enumeration value="5531"/>
+      <xs:enumeration value="5532"/>
+      <xs:enumeration value="5533"/>
+      <xs:enumeration value="5541"/>
+      <xs:enumeration value="5542"/>
+      <xs:enumeration value="5551"/>
+      <xs:enumeration value="5561"/>
+      <xs:enumeration value="5571"/>
+      <xs:enumeration value="5592"/>
+      <xs:enumeration value="5598"/>
+      <xs:enumeration value="5599"/>
+      <xs:enumeration value="5611"/>
+      <xs:enumeration value="5621"/>
+      <xs:enumeration value="5631"/>
+      <xs:enumeration value="5641"/>
+      <xs:enumeration value="5651"/>
+      <xs:enumeration value="5655"/>
+      <xs:enumeration value="5661"/>
+      <xs:enumeration value="5681"/>
+      <xs:enumeration value="5691"/>
+      <xs:enumeration value="5697"/>
+      <xs:enumeration value="5698"/>
+      <xs:enumeration value="5699"/>
+      <xs:enumeration value="5712"/>
+      <xs:enumeration value="5713"/>
+      <xs:enumeration value="5714"/>
+      <xs:enumeration value="5718"/>
+      <xs:enumeration value="5719"/>
+      <xs:enumeration value="5722"/>
+      <xs:enumeration value="5732"/>
+      <xs:enumeration value="5733"/>
+      <xs:enumeration value="5734"/>
+      <xs:enumeration value="5735"/>
+      <xs:enumeration value="5811"/>
+      <xs:enumeration value="5812"/>
+      <xs:enumeration value="5813"/>
+      <xs:enumeration value="5814"/>
+      <xs:enumeration value="5912"/>
+      <xs:enumeration value="5921"/>
+      <xs:enumeration value="5931"/>
+      <xs:enumeration value="5932"/>
+      <xs:enumeration value="5933"/>
+      <xs:enumeration value="5935"/>
+      <xs:enumeration value="5937"/>
+      <xs:enumeration value="5940"/>
+      <xs:enumeration value="5941"/>
+      <xs:enumeration value="5942"/>
+      <xs:enumeration value="5943"/>
+      <xs:enumeration value="5944"/>
+      <xs:enumeration value="5945"/>
+      <xs:enumeration value="5946"/>
+      <xs:enumeration value="5947"/>
+      <xs:enumeration value="5948"/>
+      <xs:enumeration value="5949"/>
+      <xs:enumeration value="5950"/>
+      <xs:enumeration value="5960"/>
+      <xs:enumeration value="5962"/>
+      <xs:enumeration value="5963"/>
+      <xs:enumeration value="5964"/>
+      <xs:enumeration value="5965"/>
+      <xs:enumeration value="5966"/>
+      <xs:enumeration value="5967"/>
+      <xs:enumeration value="5968"/>
+      <xs:enumeration value="5969"/>
+      <xs:enumeration value="5970"/>
+      <xs:enumeration value="5971"/>
+      <xs:enumeration value="5972"/>
+      <xs:enumeration value="5973"/>
+      <xs:enumeration value="5975"/>
+      <xs:enumeration value="5976"/>
+      <xs:enumeration value="5977"/>
+      <xs:enumeration value="5978"/>
+      <xs:enumeration value="5983"/>
+      <xs:enumeration value="5992"/>
+      <xs:enumeration value="5993"/>
+      <xs:enumeration value="5994"/>
+      <xs:enumeration value="5995"/>
+      <xs:enumeration value="5996"/>
+      <xs:enumeration value="5997"/>
+      <xs:enumeration value="5998"/>
+      <xs:enumeration value="5999"/>
+      <xs:enumeration value="6010"/>
+      <xs:enumeration value="6011"/>
+      <xs:enumeration value="6012"/>
+      <xs:enumeration value="6051"/>
+      <xs:enumeration value="6211"/>
+      <xs:enumeration value="6300"/>
+      <xs:enumeration value="6399"/>
+      <xs:enumeration value="6513"/>
+      <xs:enumeration value="7011"/>
+      <xs:enumeration value="7012"/>
+      <xs:enumeration value="7032"/>
+      <xs:enumeration value="7033"/>
+      <xs:enumeration value="7210"/>
+      <xs:enumeration value="7211"/>
+      <xs:enumeration value="7216"/>
+      <xs:enumeration value="7217"/>
+      <xs:enumeration value="7221"/>
+      <xs:enumeration value="7230"/>
+      <xs:enumeration value="7251"/>
+      <xs:enumeration value="7261"/>
+      <xs:enumeration value="7273"/>
+      <xs:enumeration value="7276"/>
+      <xs:enumeration value="7277"/>
+      <xs:enumeration value="7278"/>
+      <xs:enumeration value="7296"/>
+      <xs:enumeration value="7297"/>
+      <xs:enumeration value="7298"/>
+      <xs:enumeration value="7299"/>
+      <xs:enumeration value="7311"/>
+      <xs:enumeration value="7321"/>
+      <xs:enumeration value="7333"/>
+      <xs:enumeration value="7338"/>
+      <xs:enumeration value="7339"/>
+      <xs:enumeration value="7342"/>
+      <xs:enumeration value="7349"/>
+      <xs:enumeration value="7361"/>
+      <xs:enumeration value="7372"/>
+      <xs:enumeration value="7375"/>
+      <xs:enumeration value="7379"/>
+      <xs:enumeration value="7392"/>
+      <xs:enumeration value="7393"/>
+      <xs:enumeration value="7394"/>
+      <xs:enumeration value="7395"/>
+      <xs:enumeration value="7399"/>
+      <xs:enumeration value="7511"/>
+      <xs:enumeration value="7512"/>
+      <xs:enumeration value="7513"/>
+      <xs:enumeration value="7519"/>
+      <xs:enumeration value="7523"/>
+      <xs:enumeration value="7531"/>
+      <xs:enumeration value="7534"/>
+      <xs:enumeration value="7535"/>
+      <xs:enumeration value="7538"/>
+      <xs:enumeration value="7542"/>
+      <xs:enumeration value="7549"/>
+      <xs:enumeration value="7622"/>
+      <xs:enumeration value="7623"/>
+      <xs:enumeration value="7629"/>
+      <xs:enumeration value="7631"/>
+      <xs:enumeration value="7641"/>
+      <xs:enumeration value="7692"/>
+      <xs:enumeration value="7699"/>
+      <xs:enumeration value="7829"/>
+      <xs:enumeration value="7832"/>
+      <xs:enumeration value="7841"/>
+      <xs:enumeration value="7911"/>
+      <xs:enumeration value="7922"/>
+      <xs:enumeration value="7929"/>
+      <xs:enumeration value="7932"/>
+      <xs:enumeration value="7933"/>
+      <xs:enumeration value="7941"/>
+      <xs:enumeration value="7991"/>
+      <xs:enumeration value="7992"/>
+      <xs:enumeration value="7993"/>
+      <xs:enumeration value="7994"/>
+      <xs:enumeration value="7995"/>
+      <xs:enumeration value="7996"/>
+      <xs:enumeration value="7997"/>
+      <xs:enumeration value="7998"/>
+      <xs:enumeration value="7999"/>
+      <xs:enumeration value="8011"/>
+      <xs:enumeration value="8021"/>
+      <xs:enumeration value="8031"/>
+      <xs:enumeration value="8041"/>
+      <xs:enumeration value="8042"/>
+      <xs:enumeration value="8043"/>
+      <xs:enumeration value="8049"/>
+      <xs:enumeration value="8050"/>
+      <xs:enumeration value="8062"/>
+      <xs:enumeration value="8071"/>
+      <xs:enumeration value="8099"/>
+      <xs:enumeration value="8111"/>
+      <xs:enumeration value="8211"/>
+      <xs:enumeration value="8220"/>
+      <xs:enumeration value="8241"/>
+      <xs:enumeration value="8244"/>
+      <xs:enumeration value="8249"/>
+      <xs:enumeration value="8299"/>
+      <xs:enumeration value="8351"/>
+      <xs:enumeration value="8398"/>
+      <xs:enumeration value="8641"/>
+      <xs:enumeration value="8651"/>
+      <xs:enumeration value="8661"/>
+      <xs:enumeration value="8675"/>
+      <xs:enumeration value="8699"/>
+      <xs:enumeration value="8734"/>
+      <xs:enumeration value="8911"/>
+      <xs:enumeration value="8931"/>
+      <xs:enumeration value="8999"/>
+      <xs:enumeration value="9211"/>
+      <xs:enumeration value="9222"/>
+      <xs:enumeration value="9223"/>
+      <xs:enumeration value="9311"/>
+      <xs:enumeration value="9399"/>
+      <xs:enumeration value="9402"/>
+      <xs:enumeration value="9405"/>
+      <xs:enumeration value="9950"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CardTransactionCategoryCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CardTransactionCategoryCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO 18245"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="2003"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CashAccountTypeCodeList">
+    <xs:restriction base="xs:token">
+      <!-- <xs:enumeration value="BBAN"/>
+      <xs:enumeration value="CUID"/>
+      <xs:enumeration value="UPIC"/> Commented by Volante as these facets do not match with corresponding facets on CGI side-->
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CashAccountTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CashAccountTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:1-AccountIdentification" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CategoryPurposeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ADJT"/>
+      <xs:enumeration value="BCUR"/>
+      <xs:enumeration value="BLCK"/>
+      <xs:enumeration value="BLKD"/>
+      <xs:enumeration value="DLOD"/>
+      <xs:enumeration value="EAST"/>
+      <xs:enumeration value="FCOL"/>
+      <xs:enumeration value="FCOU"/>
+      <xs:enumeration value="FORC"/>
+      <xs:enumeration value="FUND"/>
+      <xs:enumeration value="INTM"/>
+      <xs:enumeration value="LCUR"/>
+      <xs:enumeration value="LRLD"/>
+      <xs:enumeration value="NOTE"/>
+      <xs:enumeration value="PDNG"/>
+      <xs:enumeration value="PIPO"/>
+      <xs:enumeration value="PRAV"/>
+      <xs:enumeration value="RESV"/>
+      <xs:enumeration value="SCOL"/>
+      <xs:enumeration value="SCOU"/>
+      <xs:enumeration value="THRE"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CategoryPurposeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CategoryPurposeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:2-BalanceSubType" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="CertificateIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ChargeBearerTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CRED"/>
+      <xs:enumeration value="DEBT"/>
+      <xs:enumeration value="SHAR"/>
+      <xs:enumeration value="SLEV"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ChargeBearerTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ChargeBearerTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:ChargeBearerType1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ChargeTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BRKF"/>
+      <xs:enumeration value="BTCH"/>
+      <xs:enumeration value="COMM"/>
+      <xs:enumeration value="SUMM"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ChargeTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ChargeTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:26-ChargeType" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ChequeDeliveryMethodCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CRCD"/>
+      <xs:enumeration value="CRDB"/>
+      <xs:enumeration value="CRFA"/>
+      <xs:enumeration value="MLCD"/>
+      <xs:enumeration value="MLDB"/>
+      <xs:enumeration value="MLFA"/>
+      <xs:enumeration value="PUCD"/>
+      <xs:enumeration value="PUDB"/>
+      <xs:enumeration value="PUFA"/>
+      <xs:enumeration value="RGCD"/>
+      <xs:enumeration value="RGDB"/>
+      <xs:enumeration value="RGFA"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ChequeDeliveryMethodCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ChequeDeliveryMethodCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:ChequeDelivery1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ChequeTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BCHQ"/>
+      <xs:enumeration value="CCCH"/>
+      <xs:enumeration value="CCHQ"/>
+      <xs:enumeration value="DRFT"/>
+      <xs:enumeration value="ELDR"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ChequeTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ChequeTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:ChequeType2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ClearingChannelCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="COUR"/>
+      <xs:enumeration value="EMAL"/>
+      <xs:enumeration value="FAXI"/>
+      <xs:enumeration value="MESS"/>
+      <xs:enumeration value="POST"/>
+      <xs:enumeration value="REGM"/>
+      <xs:enumeration value="SEMA"/>
+      <xs:enumeration value="SWFA"/>
+      <xs:enumeration value="SWIA"/>
+      <xs:enumeration value="SWMT"/>
+      <xs:enumeration value="SWMX"/>
+      <xs:enumeration value="TELE"/>
+      <xs:enumeration value="WEBM"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ClearingChannelCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ClearingChannelCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ClearingSystemCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BOOK"/>
+      <xs:enumeration value="MPNS"/>
+      <xs:enumeration value="RTGS"/>
+      <xs:enumeration value="RTNS"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ClearingSystemCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ClearingSystemCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:ClearingChannel2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ClearingSystemIdentificationCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ATBLZ"/>
+      <xs:enumeration value="AUBSB"/>
+      <xs:enumeration value="CACPA"/>
+      <xs:enumeration value="CHBCC"/>
+      <xs:enumeration value="CHSIC"/>
+      <xs:enumeration value="CNAPS"/>
+      <xs:enumeration value="DEBLZ"/>
+      <xs:enumeration value="ESNCC"/>
+      <xs:enumeration value="GBDSC"/>
+      <xs:enumeration value="GRBIC"/>
+      <xs:enumeration value="HKNCC"/>
+      <xs:enumeration value="IENCC"/>
+      <xs:enumeration value="INFSC"/>
+      <xs:enumeration value="ITNCC"/>
+      <xs:enumeration value="JPZGN"/>
+      <xs:enumeration value="NZNCC"/>
+      <xs:enumeration value="PLKNR"/>
+      <xs:enumeration value="PTNCC"/>
+      <xs:enumeration value="RUCBC"/>
+      <xs:enumeration value="SESBA"/>
+      <xs:enumeration value="SGIBG"/>
+      <xs:enumeration value="TWNCC"/>
+      <xs:enumeration value="USABA"/>
+      <xs:enumeration value="USPID"/>
+      <xs:enumeration value="ZANCC"/>
+      <xs:minLength value="5"/>
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ClearingSystemIdentificationCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ClearingSystemIdentificationCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:5-ClearingSystemIdentification" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ContractIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CopyDuplicateCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CODU"/>
+      <xs:enumeration value="COPY"/>
+      <xs:enumeration value="DUPL"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CopyDuplicateCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CopyDuplicate1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CountryCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AD"/>
+      <xs:enumeration value="AE"/>
+      <xs:enumeration value="AF"/>
+      <xs:enumeration value="AG"/>
+      <xs:enumeration value="AI"/>
+      <xs:enumeration value="AL"/>
+      <xs:enumeration value="AM"/>
+      <xs:enumeration value="AN"/>
+      <xs:enumeration value="AO"/>
+      <xs:enumeration value="AQ"/>
+      <xs:enumeration value="AR"/>
+      <xs:enumeration value="AS"/>
+      <xs:enumeration value="AT"/>
+      <xs:enumeration value="AU"/>
+      <xs:enumeration value="AW"/>
+      <xs:enumeration value="AX"/>
+      <xs:enumeration value="AZ"/>
+      <xs:enumeration value="BA"/>
+      <xs:enumeration value="BB"/>
+      <xs:enumeration value="BD"/>
+      <xs:enumeration value="BE"/>
+      <xs:enumeration value="BF"/>
+      <xs:enumeration value="BG"/>
+      <xs:enumeration value="BH"/>
+      <xs:enumeration value="BI"/>
+      <xs:enumeration value="BJ"/>
+      <xs:enumeration value="BM"/>
+      <xs:enumeration value="BN"/>
+      <xs:enumeration value="BO"/>
+      <xs:enumeration value="BR"/>
+      <xs:enumeration value="BS"/>
+      <xs:enumeration value="BT"/>
+      <xs:enumeration value="BV"/>
+      <xs:enumeration value="BW"/>
+      <xs:enumeration value="BY"/>
+      <xs:enumeration value="BZ"/>
+      <xs:enumeration value="CA"/>
+      <xs:enumeration value="CC"/>
+      <xs:enumeration value="CD"/>
+      <xs:enumeration value="CF"/>
+      <xs:enumeration value="CG"/>
+      <xs:enumeration value="CH"/>
+      <xs:enumeration value="CI"/>
+      <xs:enumeration value="CK"/>
+      <xs:enumeration value="CL"/>
+      <xs:enumeration value="CM"/>
+      <xs:enumeration value="CN"/>
+      <xs:enumeration value="CO"/>
+      <xs:enumeration value="CR"/>
+      <xs:enumeration value="CU"/>
+      <xs:enumeration value="CV"/>
+      <xs:enumeration value="CX"/>
+      <xs:enumeration value="CY"/>
+      <xs:enumeration value="CZ"/>
+      <xs:enumeration value="DE"/>
+      <xs:enumeration value="DJ"/>
+      <xs:enumeration value="DK"/>
+      <xs:enumeration value="DM"/>
+      <xs:enumeration value="DO"/>
+      <xs:enumeration value="DZ"/>
+      <xs:enumeration value="EC"/>
+      <xs:enumeration value="EE"/>
+      <xs:enumeration value="EG"/>
+      <xs:enumeration value="EH"/>
+      <xs:enumeration value="ER"/>
+      <xs:enumeration value="ES"/>
+      <xs:enumeration value="ET"/>
+      <xs:enumeration value="FI"/>
+      <xs:enumeration value="FJ"/>
+      <xs:enumeration value="FK"/>
+      <xs:enumeration value="FM"/>
+      <xs:enumeration value="FO"/>
+      <xs:enumeration value="FR"/>
+      <xs:enumeration value="GA"/>
+      <xs:enumeration value="GB"/>
+      <xs:enumeration value="GD"/>
+      <xs:enumeration value="GE"/>
+      <xs:enumeration value="GF"/>
+      <xs:enumeration value="GG"/>
+      <xs:enumeration value="GH"/>
+      <xs:enumeration value="GI"/>
+      <xs:enumeration value="GL"/>
+      <xs:enumeration value="GM"/>
+      <xs:enumeration value="GN"/>
+      <xs:enumeration value="GP"/>
+      <xs:enumeration value="GQ"/>
+      <xs:enumeration value="GR"/>
+      <xs:enumeration value="GS"/>
+      <xs:enumeration value="GT"/>
+      <xs:enumeration value="GU"/>
+      <xs:enumeration value="GW"/>
+      <xs:enumeration value="GY"/>
+      <xs:enumeration value="HK"/>
+      <xs:enumeration value="HM"/>
+      <xs:enumeration value="HN"/>
+      <xs:enumeration value="HR"/>
+      <xs:enumeration value="HT"/>
+      <xs:enumeration value="HU"/>
+      <xs:enumeration value="ID"/>
+      <xs:enumeration value="IE"/>
+      <xs:enumeration value="IL"/>
+      <xs:enumeration value="IM"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="IO"/>
+      <xs:enumeration value="IQ"/>
+      <xs:enumeration value="IR"/>
+      <xs:enumeration value="IS"/>
+      <xs:enumeration value="IT"/>
+      <xs:enumeration value="JE"/>
+      <xs:enumeration value="JM"/>
+      <xs:enumeration value="JO"/>
+      <xs:enumeration value="JP"/>
+      <xs:enumeration value="KE"/>
+      <xs:enumeration value="KG"/>
+      <xs:enumeration value="KH"/>
+      <xs:enumeration value="KI"/>
+      <xs:enumeration value="KM"/>
+      <xs:enumeration value="KN"/>
+      <xs:enumeration value="KP"/>
+      <xs:enumeration value="KR"/>
+      <xs:enumeration value="KW"/>
+      <xs:enumeration value="KY"/>
+      <xs:enumeration value="KZ"/>
+      <xs:enumeration value="LA"/>
+      <xs:enumeration value="LB"/>
+      <xs:enumeration value="LC"/>
+      <xs:enumeration value="LI"/>
+      <xs:enumeration value="LK"/>
+      <xs:enumeration value="LR"/>
+      <xs:enumeration value="LS"/>
+      <xs:enumeration value="LT"/>
+      <xs:enumeration value="LU"/>
+      <xs:enumeration value="LV"/>
+      <xs:enumeration value="LY"/>
+      <xs:enumeration value="MA"/>
+      <xs:enumeration value="MC"/>
+      <xs:enumeration value="MD"/>
+      <xs:enumeration value="ME"/>
+      <xs:enumeration value="MG"/>
+      <xs:enumeration value="MH"/>
+      <xs:enumeration value="MK"/>
+      <xs:enumeration value="ML"/>
+      <xs:enumeration value="MM"/>
+      <xs:enumeration value="MN"/>
+      <xs:enumeration value="MO"/>
+      <xs:enumeration value="MP"/>
+      <xs:enumeration value="MQ"/>
+      <xs:enumeration value="MR"/>
+      <xs:enumeration value="MS"/>
+      <xs:enumeration value="MT"/>
+      <xs:enumeration value="MU"/>
+      <xs:enumeration value="MV"/>
+      <xs:enumeration value="MW"/>
+      <xs:enumeration value="MX"/>
+      <xs:enumeration value="MY"/>
+      <xs:enumeration value="MZ"/>
+      <xs:enumeration value="NA"/>
+      <xs:enumeration value="NC"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="NF"/>
+      <xs:enumeration value="NG"/>
+      <xs:enumeration value="NI"/>
+      <xs:enumeration value="NL"/>
+      <xs:enumeration value="NO"/>
+      <xs:enumeration value="NP"/>
+      <xs:enumeration value="NR"/>
+      <xs:enumeration value="NU"/>
+      <xs:enumeration value="NZ"/>
+      <xs:enumeration value="OM"/>
+      <xs:enumeration value="PA"/>
+      <xs:enumeration value="PE"/>
+      <xs:enumeration value="PF"/>
+      <xs:enumeration value="PG"/>
+      <xs:enumeration value="PH"/>
+      <xs:enumeration value="PK"/>
+      <xs:enumeration value="PL"/>
+      <xs:enumeration value="PM"/>
+      <xs:enumeration value="PN"/>
+      <xs:enumeration value="PR"/>
+      <xs:enumeration value="PS"/>
+      <xs:enumeration value="PT"/>
+      <xs:enumeration value="PW"/>
+      <xs:enumeration value="PY"/>
+      <xs:enumeration value="QA"/>
+      <xs:enumeration value="RE"/>
+      <xs:enumeration value="RO"/>
+      <xs:enumeration value="RS"/>
+      <xs:enumeration value="RU"/>
+      <xs:enumeration value="RW"/>
+      <xs:enumeration value="SA"/>
+      <xs:enumeration value="SB"/>
+      <xs:enumeration value="SC"/>
+      <xs:enumeration value="SD"/>
+      <xs:enumeration value="SE"/>
+      <xs:enumeration value="SG"/>
+      <xs:enumeration value="SH"/>
+      <xs:enumeration value="SI"/>
+      <xs:enumeration value="SJ"/>
+      <xs:enumeration value="SK"/>
+      <xs:enumeration value="SL"/>
+      <xs:enumeration value="SM"/>
+      <xs:enumeration value="SN"/>
+      <xs:enumeration value="SO"/>
+      <xs:enumeration value="SR"/>
+      <xs:enumeration value="ST"/>
+      <xs:enumeration value="SV"/>
+      <xs:enumeration value="SY"/>
+      <xs:enumeration value="SZ"/>
+      <xs:enumeration value="TC"/>
+      <xs:enumeration value="TD"/>
+      <xs:enumeration value="TF"/>
+      <xs:enumeration value="TG"/>
+      <xs:enumeration value="TH"/>
+      <xs:enumeration value="TJ"/>
+      <xs:enumeration value="TK"/>
+      <xs:enumeration value="TL"/>
+      <xs:enumeration value="TM"/>
+      <xs:enumeration value="TN"/>
+      <xs:enumeration value="TO"/>
+      <xs:enumeration value="TR"/>
+      <xs:enumeration value="TT"/>
+      <xs:enumeration value="TV"/>
+      <xs:enumeration value="TW"/>
+      <xs:enumeration value="TZ"/>
+      <xs:enumeration value="UA"/>
+      <xs:enumeration value="UG"/>
+      <xs:enumeration value="UM"/>
+      <xs:enumeration value="US"/>
+      <xs:enumeration value="UY"/>
+      <xs:enumeration value="UZ"/>
+      <xs:enumeration value="VA"/>
+      <xs:enumeration value="VC"/>
+      <xs:enumeration value="VE"/>
+      <xs:enumeration value="VG"/>
+      <xs:enumeration value="VI"/>
+      <xs:enumeration value="VN"/>
+      <xs:enumeration value="VU"/>
+      <xs:enumeration value="WF"/>
+      <xs:enumeration value="WS"/>
+      <xs:enumeration value="YE"/>
+      <xs:enumeration value="YT"/>
+      <xs:enumeration value="ZA"/>
+      <xs:enumeration value="ZM"/>
+      <xs:enumeration value="ZW"/>
+      <xs:minLength value="2"/>
+      <xs:maxLength value="2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CountryCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CountryCodeList">
+        <xs:attribute name="listID" type="xs:token" default="3066-1" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="2006" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CreditDebitCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CRDT"/>
+      <xs:enumeration value="DBIT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CreditDebitCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CreditDebitCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CreditDebitCode" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CreditorReferenceTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="DISP"/>
+      <xs:enumeration value="FXDR"/>
+      <xs:enumeration value="PUOR"/>
+      <xs:enumeration value="RADM"/>
+      <xs:enumeration value="RPIN"/>
+      <xs:enumeration value="SCOR"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CreditorReferenceTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CreditorReferenceTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:DocumentType3Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CSCManagementCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BYPS"/>
+      <xs:enumeration value="NCSC"/>
+      <xs:enumeration value="PRST"/>
+      <xs:enumeration value="UNRD"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CSCManagementCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CSCManagementCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:CSCManagement1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="CurrencyCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AED"/>
+      <xs:enumeration value="AFN"/>
+      <xs:enumeration value="ALL"/>
+      <xs:enumeration value="AMD"/>
+      <xs:enumeration value="ANG"/>
+      <xs:enumeration value="AOA"/>
+      <xs:enumeration value="ARS"/>
+      <xs:enumeration value="AUD"/>
+      <xs:enumeration value="AWG"/>
+      <xs:enumeration value="AZN"/>
+      <xs:enumeration value="BAM"/>
+      <xs:enumeration value="BBD"/>
+      <xs:enumeration value="BDT"/>
+      <xs:enumeration value="BGN"/>
+      <xs:enumeration value="BHD"/>
+      <xs:enumeration value="BIF"/>
+      <xs:enumeration value="BMD"/>
+      <xs:enumeration value="BND"/>
+      <xs:enumeration value="BOB"/>
+      <xs:enumeration value="BOV"/>
+      <xs:enumeration value="BRL"/>
+      <xs:enumeration value="BSD"/>
+      <xs:enumeration value="BTN"/>
+      <xs:enumeration value="BWP"/>
+      <xs:enumeration value="BYR"/>
+      <xs:enumeration value="BZD"/>
+      <xs:enumeration value="CAD"/>
+      <xs:enumeration value="CDF"/>
+      <xs:enumeration value="CHE"/>
+      <xs:enumeration value="CHF"/>
+      <xs:enumeration value="CHW"/>
+      <xs:enumeration value="CLF"/>
+      <xs:enumeration value="CLP"/>
+      <xs:enumeration value="CNY"/>
+      <xs:enumeration value="COP"/>
+      <xs:enumeration value="COU"/>
+      <xs:enumeration value="CRC"/>
+      <xs:enumeration value="CSD"/>
+      <xs:enumeration value="CUC"/>
+      <xs:enumeration value="CUP"/>
+      <xs:enumeration value="CVE"/>
+      <xs:enumeration value="CYP"/>
+      <xs:enumeration value="CZK"/>
+      <xs:enumeration value="DJF"/>
+      <xs:enumeration value="DKK"/>
+      <xs:enumeration value="DOP"/>
+      <xs:enumeration value="DZD"/>
+      <xs:enumeration value="EEK"/>
+      <xs:enumeration value="EGP"/>
+      <xs:enumeration value="ERN"/>
+      <xs:enumeration value="ETB"/>
+      <xs:enumeration value="EUR"/>
+      <xs:enumeration value="FJD"/>
+      <xs:enumeration value="FKP"/>
+      <xs:enumeration value="GBP"/>
+      <xs:enumeration value="GEL"/>
+      <xs:enumeration value="GHC"/>
+      <xs:enumeration value="GHS"/>
+      <xs:enumeration value="GIP"/>
+      <xs:enumeration value="GMD"/>
+      <xs:enumeration value="GNF"/>
+      <xs:enumeration value="GTQ"/>
+      <xs:enumeration value="GWP"/>
+      <xs:enumeration value="GYD"/>
+      <xs:enumeration value="HKD"/>
+      <xs:enumeration value="HNL"/>
+      <xs:enumeration value="HRK"/>
+      <xs:enumeration value="HTG"/>
+      <xs:enumeration value="HUF"/>
+      <xs:enumeration value="IDR"/>
+      <xs:enumeration value="ILS"/>
+      <xs:enumeration value="INR"/>
+      <xs:enumeration value="IQD"/>
+      <xs:enumeration value="IRR"/>
+      <xs:enumeration value="ISK"/>
+      <xs:enumeration value="JMD"/>
+      <xs:enumeration value="JOD"/>
+      <xs:enumeration value="JPY"/>
+      <xs:enumeration value="KES"/>
+      <xs:enumeration value="KGS"/>
+      <xs:enumeration value="KHR"/>
+      <xs:enumeration value="KMF"/>
+      <xs:enumeration value="KPW"/>
+      <xs:enumeration value="KRW"/>
+      <xs:enumeration value="KWD"/>
+      <xs:enumeration value="KYD"/>
+      <xs:enumeration value="KZT"/>
+      <xs:enumeration value="LAK"/>
+      <xs:enumeration value="LBP"/>
+      <xs:enumeration value="LKR"/>
+      <xs:enumeration value="LRD"/>
+      <xs:enumeration value="LSL"/>
+      <xs:enumeration value="LTL"/>
+      <xs:enumeration value="LVL"/>
+      <xs:enumeration value="LYD"/>
+      <xs:enumeration value="MAD"/>
+      <xs:enumeration value="MDL"/>
+      <xs:enumeration value="MGA"/>
+      <xs:enumeration value="MKD"/>
+      <xs:enumeration value="MMK"/>
+      <xs:enumeration value="MNT"/>
+      <xs:enumeration value="MOP"/>
+      <xs:enumeration value="MRO"/>
+      <xs:enumeration value="MTL"/>
+      <xs:enumeration value="MUR"/>
+      <xs:enumeration value="MVR"/>
+      <xs:enumeration value="MWK"/>
+      <xs:enumeration value="MXN"/>
+      <xs:enumeration value="MXV"/>
+      <xs:enumeration value="MYR"/>
+      <xs:enumeration value="MZN"/>
+      <xs:enumeration value="NAD"/>
+      <xs:enumeration value="NGN"/>
+      <xs:enumeration value="NIO"/>
+      <xs:enumeration value="NOK"/>
+      <xs:enumeration value="NPR"/>
+      <xs:enumeration value="NZD"/>
+      <xs:enumeration value="OMR"/>
+      <xs:enumeration value="PAB"/>
+      <xs:enumeration value="PEN"/>
+      <xs:enumeration value="PGK"/>
+      <xs:enumeration value="PHP"/>
+      <xs:enumeration value="PKR"/>
+      <xs:enumeration value="PLN"/>
+      <xs:enumeration value="PYG"/>
+      <xs:enumeration value="QAR"/>
+      <xs:enumeration value="RON"/>
+      <xs:enumeration value="RSD"/>
+      <xs:enumeration value="RUB"/>
+      <xs:enumeration value="RWF"/>
+      <xs:enumeration value="SAR"/>
+      <xs:enumeration value="SBD"/>
+      <xs:enumeration value="SCR"/>
+      <xs:enumeration value="SDD"/>
+      <xs:enumeration value="SDG"/>
+      <xs:enumeration value="SEK"/>
+      <xs:enumeration value="SGD"/>
+      <xs:enumeration value="SHP"/>
+      <xs:enumeration value="SKK"/>
+      <xs:enumeration value="SLL"/>
+      <xs:enumeration value="SOS"/>
+      <xs:enumeration value="SRD"/>
+      <xs:enumeration value="STD"/>
+      <xs:enumeration value="SVC"/>
+      <xs:enumeration value="SYP"/>
+      <xs:enumeration value="SZL"/>
+      <xs:enumeration value="THB"/>
+      <xs:enumeration value="TJS"/>
+      <xs:enumeration value="TMM"/>
+      <xs:enumeration value="TMT"/>
+      <xs:enumeration value="TND"/>
+      <xs:enumeration value="TOP"/>
+      <xs:enumeration value="TRY"/>
+      <xs:enumeration value="TTD"/>
+      <xs:enumeration value="TWD"/>
+      <xs:enumeration value="TZS"/>
+      <xs:enumeration value="UAH"/>
+      <xs:enumeration value="UGX"/>
+      <xs:enumeration value="USD"/>
+      <xs:enumeration value="USN"/>
+      <xs:enumeration value="USS"/>
+      <xs:enumeration value="UYI"/>
+      <xs:enumeration value="UYU"/>
+      <xs:enumeration value="UZS"/>
+      <xs:enumeration value="VEB"/>
+      <xs:enumeration value="VEF"/>
+      <xs:enumeration value="VND"/>
+      <xs:enumeration value="VUV"/>
+      <xs:enumeration value="WST"/>
+      <xs:enumeration value="XAF"/>
+      <xs:enumeration value="XAG"/>
+      <xs:enumeration value="XAU"/>
+      <xs:enumeration value="XBA"/>
+      <xs:enumeration value="XBB"/>
+      <xs:enumeration value="XBC"/>
+      <xs:enumeration value="XBD"/>
+      <xs:enumeration value="XCD"/>
+      <xs:enumeration value="XDR"/>
+      <xs:enumeration value="XFU"/>
+      <xs:enumeration value="XOF"/>
+      <xs:enumeration value="XPD"/>
+      <xs:enumeration value="XPF"/>
+      <xs:enumeration value="XPT"/>
+      <xs:enumeration value="XSU"/>
+      <xs:enumeration value="XTS"/>
+      <xs:enumeration value="XXX"/>
+      <xs:enumeration value="YER"/>
+      <xs:enumeration value="ZAR"/>
+      <xs:enumeration value="ZMK"/>
+      <xs:enumeration value="ZWL"/>
+      <xs:enumeration value="ZWN"/>
+      <xs:minLength value="3"/>
+      <xs:maxLength value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="CurrencyCodeType">
+    <xs:simpleContent>
+      <xs:extension base="CurrencyCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO 4127" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="2008" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="DiscountAmountTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BONU"/>
+      <xs:enumeration value="CASH"/>
+      <xs:enumeration value="CBLK"/>
+      <xs:enumeration value="CCRD"/>
+      <xs:enumeration value="CORT"/>
+      <xs:enumeration value="DCRD"/>
+      <xs:enumeration value="DIVI"/>
+      <xs:enumeration value="EPAY"/>
+      <xs:enumeration value="FCOL"/>
+      <xs:enumeration value="GOVT"/>
+      <xs:enumeration value="HEDG"/>
+      <xs:enumeration value="ICCP"/>
+      <xs:enumeration value="IDCP"/>
+      <xs:enumeration value="INTC"/>
+      <xs:enumeration value="INTE"/>
+      <xs:enumeration value="LOAN"/>
+      <xs:enumeration value="OTHR"/>
+      <xs:enumeration value="PENS"/>
+      <xs:enumeration value="SALA"/>
+      <xs:enumeration value="SECU"/>
+      <xs:enumeration value="SSBE"/>
+      <xs:enumeration value="SUPP"/>
+      <xs:enumeration value="TAXS"/>
+      <xs:enumeration value="TRAD"/>
+      <xs:enumeration value="TREA"/>
+      <xs:enumeration value="VATX"/>
+      <xs:enumeration value="WHLD"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="DiscountAmountTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="DiscountAmountTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:4-CategoryPurpose" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="EndToEndIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="EntryStatusCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BOOK"/>
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="PDNG"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="EntryStatusCodeType">
+    <xs:simpleContent>
+      <xs:extension base="EntryStatusCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="EventIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ExchangeRateTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AGRD"/>
+      <xs:enumeration value="SALE"/>
+      <xs:enumeration value="SPOT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ExchangeRateTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ExchangeRateTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:ExchangeRateType1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstrumentIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="FinancialSchemeNameCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ATBLZ"/>
+      <xs:enumeration value="AUBSB"/>
+      <xs:enumeration value="CACPA"/>
+      <xs:enumeration value="CHBCC"/>
+      <xs:enumeration value="CHSIC"/>
+      <xs:enumeration value="CNAPS"/>
+      <xs:enumeration value="DEBLZ"/>
+      <xs:enumeration value="ESNCC"/>
+      <xs:enumeration value="GBDSC"/>
+      <xs:enumeration value="GRBIC"/>
+      <xs:enumeration value="HKNCC"/>
+      <xs:enumeration value="IENCC"/>
+      <xs:enumeration value="INFSC"/>
+      <xs:enumeration value="ITNCC"/>
+      <xs:enumeration value="JPZGN"/>
+      <xs:enumeration value="NZNCC"/>
+      <xs:enumeration value="PLKNR"/>
+      <xs:enumeration value="PTNCC"/>
+      <xs:enumeration value="RUCBC"/>
+      <xs:enumeration value="SESBA"/>
+      <xs:enumeration value="SGIBG"/>
+      <xs:enumeration value="TWNCC"/>
+      <xs:enumeration value="USABA"/>
+      <xs:enumeration value="USPID"/>
+      <xs:enumeration value="ZANCC"/>
+      <xs:minLength value="5"/>
+      <xs:maxLength value="5"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FinancialSchemeNameCodeType">
+    <xs:simpleContent>
+      <xs:extension base="FinancialSchemeNameCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:24-FinancialInstrumentIdType" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="FrequencyCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ADHO"/>
+      <xs:enumeration value="DAIL"/>
+      <xs:enumeration value="FRTN"/>
+      <xs:enumeration value="INDA"/>
+      <xs:enumeration value="MIAN"/>
+      <xs:enumeration value="MNTH"/>
+      <xs:enumeration value="QURT"/>
+      <xs:enumeration value="WEEK"/>
+      <xs:enumeration value="YEAR"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="FrequencyCodeType">
+    <xs:simpleContent>
+      <xs:extension base="FrequencyCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:Frequency6Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenericAccountIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenericCardIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenericFinancialIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenericOrganisationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="GenericPersonIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="InstructionCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CHQB"/>
+      <xs:enumeration value="HOLD"/>
+      <xs:enumeration value="PHOB"/>
+      <xs:enumeration value="TELB"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="InstructionCodeType">
+    <xs:simpleContent>
+      <xs:extension base="InstructionCodeList">
+        <xs:attribute name="schemeID" type="xs:token" default="ISO_20022:24-FinancialInstrumentIdType" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="InstructionIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="InterestTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="INDY"/>
+      <xs:enumeration value="OVRN"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="InterestTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="InterestTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="LocalInstrumentCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="0000"/>
+      <xs:enumeration value="0001"/>
+      <xs:enumeration value="0002"/>
+      <xs:enumeration value="04"/>
+      <xs:enumeration value="05"/>
+      <xs:enumeration value="08"/>
+      <xs:enumeration value="19"/>
+      <xs:enumeration value="58"/>
+      <xs:enumeration value="60"/>
+      <xs:enumeration value="82"/>
+      <xs:enumeration value="83"/>
+      <xs:enumeration value="85"/>
+      <xs:enumeration value="89"/>
+      <xs:enumeration value="0090"/>
+      <xs:enumeration value="0091"/>
+      <xs:enumeration value="0092"/>
+      <xs:enumeration value="0220"/>
+      <xs:enumeration value="0221"/>
+      <xs:enumeration value="0222"/>
+      <xs:enumeration value="0223"/>
+      <xs:enumeration value="0224"/>
+      <xs:enumeration value="0225"/>
+      <xs:enumeration value="0226"/>
+      <xs:enumeration value="0227"/>
+      <xs:enumeration value="ACCEPT"/>
+      <xs:enumeration value="ARC"/>
+      <xs:enumeration value="B2B"/>
+      <xs:enumeration value="B2BAMIPM"/>
+      <xs:enumeration value="BTR"/>
+      <xs:enumeration value="CARD"/>
+      <xs:enumeration value="CCD"/>
+      <xs:enumeration value="CCI"/>
+      <xs:enumeration value="CHN"/>
+      <xs:enumeration value="CIE"/>
+      <xs:enumeration value="CKS"/>
+      <xs:enumeration value="COR1"/>
+      <xs:enumeration value="CORAMIPM"/>
+      <xs:enumeration value="CORE"/>
+      <xs:enumeration value="CPP"/>
+      <xs:enumeration value="CR1AMIPM"/>
+      <xs:enumeration value="CTP"/>
+      <xs:enumeration value="CTR"/>
+      <xs:enumeration value="CTX"/>
+      <xs:enumeration value="DDFA"/>
+      <xs:enumeration value="DDNR"/>
+      <xs:enumeration value="DDT"/>
+      <xs:enumeration value="DEP"/>
+      <xs:enumeration value="DRB"/>
+      <xs:enumeration value="DRC"/>
+      <xs:enumeration value="DRW"/>
+      <xs:enumeration value="FADAMIPM"/>
+      <xs:enumeration value="FFR"/>
+      <xs:enumeration value="FFS"/>
+      <xs:enumeration value="GST"/>
+      <xs:enumeration value="IAT"/>
+      <xs:enumeration value="IDEAL"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="IN"/>
+      <xs:enumeration value="NLDO"/>
+      <xs:enumeration value="NLGOV"/>
+      <xs:enumeration value="NLUP"/>
+      <xs:enumeration value="ONCL"/>
+      <xs:enumeration value="POP"/>
+      <xs:enumeration value="POS"/>
+      <xs:enumeration value="PPD"/>
+      <xs:enumeration value="RCK"/>
+      <xs:enumeration value="RDD"/>
+      <xs:enumeration value="RIBA"/>
+      <xs:enumeration value="RIDO"/>
+      <xs:enumeration value="RIDV"/>
+      <xs:enumeration value="RTR"/>
+      <xs:enumeration value="SCN"/>
+      <xs:enumeration value="SDCL"/>
+      <xs:enumeration value="SDD"/>
+      <xs:enumeration value="SDN"/>
+      <xs:enumeration value="SGT"/>
+      <xs:enumeration value="SRD"/>
+      <xs:enumeration value="SRT"/>
+      <xs:enumeration value="STR"/>
+      <xs:enumeration value="SVC"/>
+      <xs:enumeration value="TEL"/>
+      <xs:enumeration value="TRF"/>
+      <xs:enumeration value="WEB"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="LocalInstrumentCodeType">
+    <xs:simpleContent>
+      <xs:extension base="LocalInstrumentCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:7-LocalInstrument" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MandateIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MemberIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MessageIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="MessageNumberIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="NamePrefixCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="DOCT"/>
+      <xs:enumeration value="MADM"/>
+      <xs:enumeration value="MISS"/>
+      <xs:enumeration value="MIST"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="NamePrefixCodeType">
+    <xs:simpleContent>
+      <xs:extension base="NamePrefixCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:NamePrefix1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="OnLineCapabilityCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="OFLN"/>
+      <xs:enumeration value="ONLN"/>
+      <xs:enumeration value="SMON"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OnLineCapabilityCodeType">
+    <xs:simpleContent>
+      <xs:extension base="OnLineCapabilityCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="OrganisationCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BANK"/>
+      <xs:enumeration value="CBID"/>
+      <xs:enumeration value="CHID"/>
+      <xs:enumeration value="COID"/>
+      <xs:enumeration value="CUST"/>
+      <xs:enumeration value="DUNS"/>
+      <xs:enumeration value="EMPL"/>
+      <xs:enumeration value="GS1G"/>
+      <xs:enumeration value="SREN"/>
+      <xs:enumeration value="SRET"/>
+      <xs:enumeration value="TXID"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="OrganisationCodeType">
+    <xs:simpleContent>
+      <xs:extension base="OrganisationCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:9-OrganisationIdentification" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OrganisationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" default="BIC" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" default="17" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OriginalMandateIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OtherIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PartyIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" default="TaxRecordPeriod1Code" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" default="04" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PartyTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACCP"/>
+      <xs:enumeration value="ACQR"/>
+      <xs:enumeration value="CISS"/>
+      <xs:enumeration value="DLIS"/>
+      <xs:enumeration value="ITAG"/>
+      <xs:enumeration value="MERC"/>
+      <xs:enumeration value="OPOI"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PartyTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PartyTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PaymentIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PaymentInformationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PaymentInstructionIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PaymentMethodCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CHK"/>
+      <xs:enumeration value="TRA"/>
+      <xs:enumeration value="TRF"/>
+      <xs:minLength value="3"/>
+      <xs:maxLength value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PaymentMethodCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PaymentMethodCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:PaymentMethod3Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PersonSchemeNameCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ARNU"/>
+      <xs:enumeration value="CCPT"/>
+      <xs:enumeration value="CUST"/>
+      <xs:enumeration value="DRLC"/>
+      <xs:enumeration value="EMPL"/>
+      <xs:enumeration value="NIDN"/>
+      <xs:enumeration value="SOSE"/>
+      <xs:enumeration value="TXID"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PersonSchemeNameCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PersonSchemeNameCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:10-PersonIdentification" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="PlainCardIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="POIComponentTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CHIT"/>
+      <xs:enumeration value="EMVK"/>
+      <xs:enumeration value="EMVO"/>
+      <xs:enumeration value="MRIT"/>
+      <xs:enumeration value="PEDV"/>
+      <xs:enumeration value="SECM"/>
+      <xs:enumeration value="SOFT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="POIComponentTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="POIComponentTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PriceValueTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="DISC"/>
+      <xs:enumeration value="PARV"/>
+      <xs:enumeration value="PREM"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PriceValueTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PriceValueTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PriorityCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="HIGH"/>
+      <xs:enumeration value="NORM"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PriorityCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PriorityCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:Priority2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ProcessingIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="PurposeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACCT"/>
+      <xs:enumeration value="ADMG"/>
+      <xs:enumeration value="ADVA"/>
+      <xs:enumeration value="AEMP"/>
+      <xs:enumeration value="AGRT"/>
+      <xs:enumeration value="AIRB"/>
+      <xs:enumeration value="ALMY"/>
+      <xs:enumeration value="ANNI"/>
+      <xs:enumeration value="ANTS"/>
+      <xs:enumeration value="AREN"/>
+      <xs:enumeration value="BECH"/>
+      <xs:enumeration value="BENE"/>
+      <xs:enumeration value="BEXP"/>
+      <xs:enumeration value="BLDM"/>
+      <xs:enumeration value="BOCE"/>
+      <xs:enumeration value="BONU"/>
+      <xs:enumeration value="BUSB"/>
+      <xs:enumeration value="CAFI"/>
+      <xs:enumeration value="CASH"/>
+      <xs:enumeration value="CBFF"/>
+      <xs:enumeration value="CBLK"/>
+      <xs:enumeration value="CBTV"/>
+      <xs:enumeration value="CCRD"/>
+      <xs:enumeration value="CDBL"/>
+      <xs:enumeration value="CDCB"/>
+      <xs:enumeration value="CDCD"/>
+      <xs:enumeration value="CDCS"/>
+      <xs:enumeration value="CDDP"/>
+      <xs:enumeration value="CDOC"/>
+      <xs:enumeration value="CDQC"/>
+      <xs:enumeration value="CFDI"/>
+      <xs:enumeration value="CFEE"/>
+      <xs:enumeration value="CHAR"/>
+      <xs:enumeration value="CLPR"/>
+      <xs:enumeration value="CMDT"/>
+      <xs:enumeration value="COLL"/>
+      <xs:enumeration value="COMC"/>
+      <xs:enumeration value="COMM"/>
+      <xs:enumeration value="COMT"/>
+      <xs:enumeration value="COST"/>
+      <xs:enumeration value="CPYR"/>
+      <xs:enumeration value="CSDB"/>
+      <xs:enumeration value="CSLP"/>
+      <xs:enumeration value="CVCF"/>
+      <xs:enumeration value="DBTC"/>
+      <xs:enumeration value="DCRD"/>
+      <xs:enumeration value="DEPT"/>
+      <xs:enumeration value="DERI"/>
+      <xs:enumeration value="DIVD"/>
+      <xs:enumeration value="DMEQ"/>
+      <xs:enumeration value="DNTS"/>
+      <xs:enumeration value="ELEC"/>
+      <xs:enumeration value="ENRG"/>
+      <xs:enumeration value="ESTX"/>
+      <xs:enumeration value="ETUP"/>
+      <xs:enumeration value="FAND"/>
+      <xs:enumeration value="FCOL"/>
+      <xs:enumeration value="FERB"/>
+      <xs:enumeration value="FREX"/>
+      <xs:enumeration value="GASB"/>
+      <xs:enumeration value="GDDS"/>
+      <xs:enumeration value="GDSV"/>
+      <xs:enumeration value="GFRP"/>
+      <xs:enumeration value="GOVI"/>
+      <xs:enumeration value="GOVT"/>
+      <xs:enumeration value="GSCB"/>
+      <xs:enumeration value="GVEA"/>
+      <xs:enumeration value="GVEB"/>
+      <xs:enumeration value="GVEC"/>
+      <xs:enumeration value="GVED"/>
+      <xs:enumeration value="GWLT"/>
+      <xs:enumeration value="HEDG"/>
+      <xs:enumeration value="HLRP"/>
+      <xs:enumeration value="HLTC"/>
+      <xs:enumeration value="HLTI"/>
+      <xs:enumeration value="HSPC"/>
+      <xs:enumeration value="HSTX"/>
+      <xs:enumeration value="ICCP"/>
+      <xs:enumeration value="ICRF"/>
+      <xs:enumeration value="IDCP"/>
+      <xs:enumeration value="IHRP"/>
+      <xs:enumeration value="INPC"/>
+      <xs:enumeration value="INSM"/>
+      <xs:enumeration value="INSU"/>
+      <xs:enumeration value="INTC"/>
+      <xs:enumeration value="INTE"/>
+      <xs:enumeration value="INTX"/>
+      <xs:enumeration value="LBRI"/>
+      <xs:enumeration value="LICF"/>
+      <xs:enumeration value="LIFI"/>
+      <xs:enumeration value="LIMA"/>
+      <xs:enumeration value="LOAN"/>
+      <xs:enumeration value="LOAR"/>
+      <xs:enumeration value="LTCF"/>
+      <xs:enumeration value="MDCS"/>
+      <xs:enumeration value="MSVC"/>
+      <xs:enumeration value="MTUP"/>
+      <xs:enumeration value="NETT"/>
+      <xs:enumeration value="NITX"/>
+      <xs:enumeration value="NOWS"/>
+      <xs:enumeration value="NWCH"/>
+      <xs:enumeration value="NWCM"/>
+      <xs:enumeration value="OFEE"/>
+      <xs:enumeration value="OTHR"/>
+      <xs:enumeration value="OTLC"/>
+      <xs:enumeration value="PADD"/>
+      <xs:enumeration value="PAYR"/>
+      <xs:enumeration value="PENO"/>
+      <xs:enumeration value="PENS"/>
+      <xs:enumeration value="PHON"/>
+      <xs:enumeration value="POPE"/>
+      <xs:enumeration value="PPTI"/>
+      <xs:enumeration value="PRCP"/>
+      <xs:enumeration value="PRME"/>
+      <xs:enumeration value="PTSP"/>
+      <xs:enumeration value="RCKE"/>
+      <xs:enumeration value="RCPT"/>
+      <xs:enumeration value="REFU"/>
+      <xs:enumeration value="RENT"/>
+      <xs:enumeration value="RHBS"/>
+      <xs:enumeration value="RINP"/>
+      <xs:enumeration value="RLWY"/>
+      <xs:enumeration value="ROYA"/>
+      <xs:enumeration value="SALA"/>
+      <xs:enumeration value="SAVG"/>
+      <xs:enumeration value="SCVE"/>
+      <xs:enumeration value="SECU"/>
+      <xs:enumeration value="SEPI"/>
+      <xs:enumeration value="SSBE"/>
+      <xs:enumeration value="STDY"/>
+      <xs:enumeration value="SUBS"/>
+      <xs:enumeration value="SUPP"/>
+      <xs:enumeration value="TAXR"/>
+      <xs:enumeration value="TAXS"/>
+      <xs:enumeration value="TELI"/>
+      <xs:enumeration value="TRAD"/>
+      <xs:enumeration value="TREA"/>
+      <xs:enumeration value="TRFD"/>
+      <xs:enumeration value="VATX"/>
+      <xs:enumeration value="VIEW"/>
+      <xs:enumeration value="WEBI"/>
+      <xs:enumeration value="WHLD"/>
+      <xs:enumeration value="WTER"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="PurposeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="PurposeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:11-Purpose" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ReferencingIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ReferredDocumentTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AROI"/>
+      <xs:enumeration value="BOLD"/>
+      <xs:enumeration value="CINV"/>
+      <xs:enumeration value="CMCN"/>
+      <xs:enumeration value="CNFA"/>
+      <xs:enumeration value="CREN"/>
+      <xs:enumeration value="DEBN"/>
+      <xs:enumeration value="DISP"/>
+      <xs:enumeration value="DNFA"/>
+      <xs:enumeration value="HIRI"/>
+      <xs:enumeration value="MSIN"/>
+      <xs:enumeration value="SBIN"/>
+      <xs:enumeration value="SOAC"/>
+      <xs:enumeration value="TSUT"/>
+      <xs:enumeration value="VCHR"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReferredDocumentTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ReferredDocumentTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:DocumentType5Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="RegistrationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="RegulatoryReportingTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BOTH"/>
+      <xs:enumeration value="CRED"/>
+      <xs:enumeration value="DEBT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RegulatoryReportingTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="RegulatoryReportingTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:RegulatoryReportingType1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="RemittanceIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="RemittanceLocationMethodCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="EDIC"/>
+      <xs:enumeration value="EMAL"/>
+      <xs:enumeration value="FAXI"/>
+      <xs:enumeration value="POST"/>
+      <xs:enumeration value="SMSM"/>
+      <xs:enumeration value="URID"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="RemittanceLocationMethodCodeType">
+    <xs:simpleContent>
+      <xs:extension base="RemittanceLocationMethodCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:RemittanceLocationMethod2Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ReportingSourceCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACCT"/>
+      <xs:enumeration value="ARPF"/>
+      <xs:enumeration value="ARPP"/>
+      <xs:enumeration value="CTDB"/>
+      <xs:enumeration value="CUST"/>
+      <xs:enumeration value="DEPT"/>
+      <xs:enumeration value="DPCS"/>
+      <xs:enumeration value="LKBX"/>
+      <xs:enumeration value="RCPT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReportingSourceCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ReportingSourceCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ReturnReasonCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AC01"/>
+      <xs:enumeration value="AC03"/>
+      <xs:enumeration value="AC04"/>
+      <xs:enumeration value="AC06"/>
+      <xs:enumeration value="AG01"/>
+      <xs:enumeration value="AG02"/>
+      <xs:enumeration value="AM01"/>
+      <xs:enumeration value="AM02"/>
+      <xs:enumeration value="AM03"/>
+      <xs:enumeration value="AM04"/>
+      <xs:enumeration value="AM05"/>
+      <xs:enumeration value="AM06"/>
+      <xs:enumeration value="AM07"/>
+      <xs:enumeration value="AM09"/>
+      <xs:enumeration value="AM10"/>
+      <xs:enumeration value="ARDT"/>
+      <xs:enumeration value="BE01"/>
+      <xs:enumeration value="BE04"/>
+      <xs:enumeration value="BE05"/>
+      <xs:enumeration value="BE06"/>
+      <xs:enumeration value="BE07"/>
+      <xs:enumeration value="CNOR"/>
+      <xs:enumeration value="CURR"/>
+      <xs:enumeration value="CUST"/>
+      <xs:enumeration value="DNOR"/>
+      <xs:enumeration value="DT01"/>
+      <xs:enumeration value="ED01"/>
+      <xs:enumeration value="ED03"/>
+      <xs:enumeration value="ED05"/>
+      <xs:enumeration value="EMVL"/>
+      <xs:enumeration value="FOCR"/>
+      <xs:enumeration value="MD01"/>
+      <xs:enumeration value="MD02"/>
+      <xs:enumeration value="MD06"/>
+      <xs:enumeration value="MD07"/>
+      <xs:enumeration value="MS02"/>
+      <xs:enumeration value="MS03"/>
+      <xs:enumeration value="NARR"/>
+      <xs:enumeration value="NOAS"/>
+      <xs:enumeration value="NOOR"/>
+      <xs:enumeration value="PINL"/>
+      <xs:enumeration value="RC01"/>
+      <xs:enumeration value="RC07"/>
+      <xs:enumeration value="RF01"/>
+      <xs:enumeration value="RR01"/>
+      <xs:enumeration value="RR02"/>
+      <xs:enumeration value="RR03"/>
+      <xs:enumeration value="RR04"/>
+      <xs:enumeration value="SL01"/>
+      <xs:enumeration value="SL02"/>
+      <xs:enumeration value="SVNR"/>
+      <xs:enumeration value="TM01"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ReturnReasonCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ReturnReasonCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SaleReconciliationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SecuritiesAccountIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="SecurityIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SequenceTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="FNAL"/>
+      <xs:enumeration value="FRST"/>
+      <xs:enumeration value="OOFF"/>
+      <xs:enumeration value="RCUR"/>
+      <xs:enumeration value="RPRE"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SequenceTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="SequenceTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:SequenceType3Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ServiceCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="ServiceLevelCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="BKTR"/>
+      <xs:enumeration value="NUGP"/>
+      <xs:enumeration value="NURG"/>
+      <xs:enumeration value="PRPT"/>
+      <xs:enumeration value="SDVA"/>
+      <xs:enumeration value="SEPA"/>
+      <xs:enumeration value="URGP"/>
+      <xs:enumeration value="URNS"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ServiceLevelCodeType">
+    <xs:simpleContent>
+      <xs:extension base="ServiceLevelCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:15-ServiceLevel" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="SettlementMethodCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CLRG"/>
+      <xs:enumeration value="COVE"/>
+      <xs:enumeration value="INDA"/>
+      <xs:enumeration value="INGA"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SettlementMethodCodeType">
+    <xs:simpleContent>
+      <xs:extension base="SettlementMethodCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:SettlementMethod1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="StatusReasonCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="AC01"/>
+      <xs:enumeration value="AC02"/>
+      <xs:enumeration value="AC03"/>
+      <xs:enumeration value="AC04"/>
+      <xs:enumeration value="AC05"/>
+      <xs:enumeration value="AC06"/>
+      <xs:enumeration value="AC07"/>
+      <xs:enumeration value="AC08"/>
+      <xs:enumeration value="AC09"/>
+      <xs:enumeration value="AC10"/>
+      <xs:enumeration value="AC11"/>
+      <xs:enumeration value="AC12"/>
+      <xs:enumeration value="AC13"/>
+      <xs:enumeration value="AC14"/>
+      <xs:enumeration value="AG01"/>
+      <xs:enumeration value="AG02"/>
+      <xs:enumeration value="AG03"/>
+      <xs:enumeration value="AG04"/>
+      <xs:enumeration value="AG05"/>
+      <xs:enumeration value="AG06"/>
+      <xs:enumeration value="AG07"/>
+      <xs:enumeration value="AG08"/>
+      <xs:enumeration value="AGNT"/>
+      <xs:enumeration value="AM01"/>
+      <xs:enumeration value="AM02"/>
+      <xs:enumeration value="AM03"/>
+      <xs:enumeration value="AM04"/>
+      <xs:enumeration value="AM05"/>
+      <xs:enumeration value="AM06"/>
+      <xs:enumeration value="AM07"/>
+      <xs:enumeration value="AM09"/>
+      <xs:enumeration value="AM10"/>
+      <xs:enumeration value="AM11"/>
+      <xs:enumeration value="AM12"/>
+      <xs:enumeration value="AM13"/>
+      <xs:enumeration value="AM14"/>
+      <xs:enumeration value="AM15"/>
+      <xs:enumeration value="AM16"/>
+      <xs:enumeration value="AM17"/>
+      <xs:enumeration value="AM18"/>
+      <xs:enumeration value="AM19"/>
+      <xs:enumeration value="AM20"/>
+      <xs:enumeration value="AM21"/>
+      <xs:enumeration value="BE01"/>
+      <xs:enumeration value="BE04"/>
+      <xs:enumeration value="BE05"/>
+      <xs:enumeration value="BE06"/>
+      <xs:enumeration value="BE07"/>
+      <xs:enumeration value="BE08"/>
+      <xs:enumeration value="BE09"/>
+      <xs:enumeration value="BE10"/>
+      <xs:enumeration value="BE11"/>
+      <xs:enumeration value="BE12"/>
+      <xs:enumeration value="BE13"/>
+      <xs:enumeration value="BE14"/>
+      <xs:enumeration value="BE15"/>
+      <xs:enumeration value="BE16"/>
+      <xs:enumeration value="BE17"/>
+      <xs:enumeration value="BE18"/>
+      <xs:enumeration value="BE19"/>
+      <xs:enumeration value="BE20"/>
+      <xs:enumeration value="BE21"/>
+      <xs:enumeration value="BE22"/>
+      <xs:enumeration value="CH03"/>
+      <xs:enumeration value="CH04"/>
+      <xs:enumeration value="CH07"/>
+      <xs:enumeration value="CH09"/>
+      <xs:enumeration value="CH10"/>
+      <xs:enumeration value="CH11"/>
+      <xs:enumeration value="CH12"/>
+      <xs:enumeration value="CH13"/>
+      <xs:enumeration value="CH14"/>
+      <xs:enumeration value="CH15"/>
+      <xs:enumeration value="CH16"/>
+      <xs:enumeration value="CH17"/>
+      <xs:enumeration value="CH19"/>
+      <xs:enumeration value="CH20"/>
+      <xs:enumeration value="CH21"/>
+      <xs:enumeration value="CH22"/>
+      <xs:enumeration value="CNOR"/>
+      <xs:enumeration value="CURR"/>
+      <xs:enumeration value="CUST"/>
+      <xs:enumeration value="DNOR"/>
+      <xs:enumeration value="DS01"/>
+      <xs:enumeration value="DS02"/>
+      <xs:enumeration value="DS03"/>
+      <xs:enumeration value="DS04"/>
+      <xs:enumeration value="DS05"/>
+      <xs:enumeration value="DS06"/>
+      <xs:enumeration value="DS07"/>
+      <xs:enumeration value="DS08"/>
+      <xs:enumeration value="DS09"/>
+      <xs:enumeration value="DS0A"/>
+      <xs:enumeration value="DS0B"/>
+      <xs:enumeration value="DS0C"/>
+      <xs:enumeration value="DS0D"/>
+      <xs:enumeration value="DS0E"/>
+      <xs:enumeration value="DS0F"/>
+      <xs:enumeration value="DS0G"/>
+      <xs:enumeration value="DS0H"/>
+      <xs:enumeration value="DS0K"/>
+      <xs:enumeration value="DS10"/>
+      <xs:enumeration value="DS11"/>
+      <xs:enumeration value="DS12"/>
+      <xs:enumeration value="DS13"/>
+      <xs:enumeration value="DS14"/>
+      <xs:enumeration value="DS15"/>
+      <xs:enumeration value="DS16"/>
+      <xs:enumeration value="DS17"/>
+      <xs:enumeration value="DS18"/>
+      <xs:enumeration value="DS19"/>
+      <xs:enumeration value="DS20"/>
+      <xs:enumeration value="DS21"/>
+      <xs:enumeration value="DS22"/>
+      <xs:enumeration value="DS23"/>
+      <xs:enumeration value="DS24"/>
+      <xs:enumeration value="DS25"/>
+      <xs:enumeration value="DS26"/>
+      <xs:enumeration value="DS27"/>
+      <xs:enumeration value="DT01"/>
+      <xs:enumeration value="DT02"/>
+      <xs:enumeration value="DT03"/>
+      <xs:enumeration value="DT04"/>
+      <xs:enumeration value="DT05"/>
+      <xs:enumeration value="DT06"/>
+      <xs:enumeration value="DU01"/>
+      <xs:enumeration value="DU02"/>
+      <xs:enumeration value="DU03"/>
+      <xs:enumeration value="DU04"/>
+      <xs:enumeration value="DU05"/>
+      <xs:enumeration value="DUPL"/>
+      <xs:enumeration value="ED01"/>
+      <xs:enumeration value="ED03"/>
+      <xs:enumeration value="ED05"/>
+      <xs:enumeration value="FF01"/>
+      <xs:enumeration value="FF02"/>
+      <xs:enumeration value="FF03"/>
+      <xs:enumeration value="FF04"/>
+      <xs:enumeration value="FF05"/>
+      <xs:enumeration value="FF06"/>
+      <xs:enumeration value="FF07"/>
+      <xs:enumeration value="FF08"/>
+      <xs:enumeration value="FF09"/>
+      <xs:enumeration value="FF10"/>
+      <xs:enumeration value="ID01"/>
+      <xs:enumeration value="MD01"/>
+      <xs:enumeration value="MD02"/>
+      <xs:enumeration value="MD05"/>
+      <xs:enumeration value="MD06"/>
+      <xs:enumeration value="MD07"/>
+      <xs:enumeration value="MS02"/>
+      <xs:enumeration value="MS03"/>
+      <xs:enumeration value="NARR"/>
+      <xs:enumeration value="RC01"/>
+      <xs:enumeration value="RC02"/>
+      <xs:enumeration value="RC03"/>
+      <xs:enumeration value="RC04"/>
+      <xs:enumeration value="RC05"/>
+      <xs:enumeration value="RC06"/>
+      <xs:enumeration value="RC07"/>
+      <xs:enumeration value="RC08"/>
+      <xs:enumeration value="RC09"/>
+      <xs:enumeration value="RC10"/>
+      <xs:enumeration value="RC11"/>
+      <xs:enumeration value="RC12"/>
+      <xs:enumeration value="RF01"/>
+      <xs:enumeration value="RR01"/>
+      <xs:enumeration value="RR02"/>
+      <xs:enumeration value="RR03"/>
+      <xs:enumeration value="RR04"/>
+      <xs:enumeration value="RR05"/>
+      <xs:enumeration value="RR06"/>
+      <xs:enumeration value="RR07"/>
+      <xs:enumeration value="RR08"/>
+      <xs:enumeration value="RR09"/>
+      <xs:enumeration value="RR10"/>
+      <xs:enumeration value="RR11"/>
+      <xs:enumeration value="RR12"/>
+      <xs:enumeration value="SL01"/>
+      <xs:enumeration value="SL02"/>
+      <xs:enumeration value="TA01"/>
+      <xs:enumeration value="TD01"/>
+      <xs:enumeration value="TD02"/>
+      <xs:enumeration value="TD03"/>
+      <xs:enumeration value="TM01"/>
+      <xs:enumeration value="TS01"/>
+      <xs:enumeration value="TS04"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StatusReasonCodeType">
+    <xs:simpleContent>
+      <xs:extension base="StatusReasonCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:16-StatusReason" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="TaxAmountTypeCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CITY"/>
+      <xs:enumeration value="CNTY"/>
+      <xs:enumeration value="LOCL"/>
+      <xs:enumeration value="PROV"/>
+      <xs:enumeration value="STAT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TaxAmountTypeCodeType">
+    <xs:simpleContent>
+      <xs:extension base="TaxAmountTypeCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:29-TaxAmountType" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TaxIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="TaxRecordPeriodCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="HLF1"/>
+      <xs:enumeration value="HLF2"/>
+      <xs:enumeration value="MM01"/>
+      <xs:enumeration value="MM02"/>
+      <xs:enumeration value="MM03"/>
+      <xs:enumeration value="MM04"/>
+      <xs:enumeration value="MM05"/>
+      <xs:enumeration value="MM06"/>
+      <xs:enumeration value="MM07"/>
+      <xs:enumeration value="MM08"/>
+      <xs:enumeration value="MM09"/>
+      <xs:enumeration value="MM10"/>
+      <xs:enumeration value="MM11"/>
+      <xs:enumeration value="MM12"/>
+      <xs:enumeration value="QTR1"/>
+      <xs:enumeration value="QTR2"/>
+      <xs:enumeration value="QTR3"/>
+      <xs:enumeration value="QTR4"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TaxRecordPeriodCodeType">
+    <xs:simpleContent>
+      <xs:extension base="TaxRecordPeriodCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:TaxRecordPeriod1Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TaxRegistrationIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TechnicalInputChannelCodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:17-TechnicalInputChannel" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="7 February, 2013" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="TransactionGroupStatusCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACCP"/>
+      <xs:enumeration value="ACSC"/>
+      <xs:enumeration value="ACSP"/>
+      <xs:enumeration value="ACTC"/>
+      <xs:enumeration value="ACWC"/>
+      <xs:enumeration value="PART"/>
+      <xs:enumeration value="PDNG"/>
+      <xs:enumeration value="RCVD"/>
+      <xs:enumeration value="RJCT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TransactionGroupStatusCodeType">
+    <xs:simpleContent>
+      <xs:extension base="TransactionGroupStatusCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:TransactionGroupStatus3Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="TransactionIDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="TransactionIndividualStatusCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACCP"/>
+      <xs:enumeration value="ACSC"/>
+      <xs:enumeration value="ACSP"/>
+      <xs:enumeration value="ACTC"/>
+      <xs:enumeration value="ACWC"/>
+      <xs:enumeration value="PDNG"/>
+      <xs:enumeration value="RJCT"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TransactionIndividualStatusCodeType">
+    <xs:simpleContent>
+      <xs:extension base="TransactionIndividualStatusCodeList">
+        <xs:attribute name="listID" type="xs:token" default="ISO_20022:TransactionIndividualStatus3Code" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="4" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="UnitOfMeasureCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ACRE"/>
+      <xs:enumeration value="ARES"/>
+      <xs:enumeration value="CELI"/>
+      <xs:enumeration value="CMET"/>
+      <xs:enumeration value="FOOT"/>
+      <xs:enumeration value="GBGA"/>
+      <xs:enumeration value="GBOU"/>
+      <xs:enumeration value="GBPI"/>
+      <xs:enumeration value="GBQA"/>
+      <xs:enumeration value="GRAM"/>
+      <xs:enumeration value="HECT"/>
+      <xs:enumeration value="INCH"/>
+      <xs:enumeration value="KILO"/>
+      <xs:enumeration value="KMET"/>
+      <xs:enumeration value="LITR"/>
+      <xs:enumeration value="METR"/>
+      <xs:enumeration value="MILE"/>
+      <xs:enumeration value="MILI"/>
+      <xs:enumeration value="MMET"/>
+      <xs:enumeration value="PIEC"/>
+      <xs:enumeration value="PUND"/>
+      <xs:enumeration value="SCMT"/>
+      <xs:enumeration value="SMET"/>
+      <xs:enumeration value="SMIL"/>
+      <xs:enumeration value="SQFO"/>
+      <xs:enumeration value="SQIN"/>
+      <xs:enumeration value="SQKI"/>
+      <xs:enumeration value="SQMI"/>
+      <xs:enumeration value="SQYA"/>
+      <xs:enumeration value="TONS"/>
+      <xs:enumeration value="USGA"/>
+      <xs:enumeration value="USOU"/>
+      <xs:enumeration value="USPI"/>
+      <xs:enumeration value="USQA"/>
+      <xs:enumeration value="YARD"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="UnitOfMeasureCodeType">
+    <xs:simpleContent>
+      <xs:extension base="UnitOfMeasureCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="UserInterfaceCodeList">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="CDSP"/>
+      <xs:enumeration value="MDSP"/>
+      <xs:minLength value="4"/>
+      <xs:maxLength value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="UserInterfaceCodeType">
+    <xs:simpleContent>
+      <xs:extension base="UserInterfaceCodeList">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" default="3" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ZZZ_CodeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="listID" type="xs:token" use="optional"/>
+        <xs:attribute name="listVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="listAgencyID" type="xs:token" default="5" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="ZZZ_IDType">
+    <xs:simpleContent>
+      <xs:extension base="xs:token">
+        <xs:attribute name="schemeID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeVersionID" type="xs:token" use="optional"/>
+        <xs:attribute name="schemeAgencyID" type="xs:token" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>

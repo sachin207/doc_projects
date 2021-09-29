@@ -1,0 +1,1827 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="GenericFilter" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="SAP_FW_FilterBasedOnExceptions" version="1.0" type="Message Flow">
+			</service>
+			<service name="PaymentIndices" version="1.0" type="Internal Message">
+			</service>
+			<service name="SAP_FW_GenericFilterTest" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_GenericFilterTestWrapperForCGICreditTransfer" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_GenericFilterTestWrapperForCGICreditTransferNOGrp" version="1.0" type="Message Flow">
+			</service>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\CGI\CGIMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CGI\CGIMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\SAPUtil\SAPUtil.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\FSNParams\FSNParams.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNParams\FSNParams.car</absolute-path>
+		</reference>
+	</references>
+	<messageflow name="SAP_FW_FilterBasedOnExceptions" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>inputObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>IN/OUT</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>groupSecQualName</name>
+					<type>String</type>
+					<notnull>false</notnull>
+					<length>-1</length>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>paymentSecQualName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>paymentIDRelName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>index</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>fieldNameList</name>
+					<type>StringList</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>fieldIDList</name>
+					<type>StringList</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>curName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>curID</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>groupIndex</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>paymentIndex</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>indexInerrIndexList</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>groupIndicesToDel</name>
+					<type>IntegerList</type>
+					<notnull>false</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>groupGiven</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>errObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>paymentIndices</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>PaymentIndices</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exList</name>
+					<type>Section</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>entireInputRejected</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>validIDList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>fixedObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>OUTPUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Custom2" uid="7c43355c-3d39-450d-b440-ec073ef55669" type="Custom" xsi:type="Custom" >
+			<label>Get Exception Details</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[exList = GetCascadedExceptions(exObj);
+fieldNameList = [typeof("")];
+fieldIDList = [typeof("")];
+groupIndicesToDel = [typeof(0)];
+foreach (def ex in exList) {
+	if (ex.IsNotNull("FieldName") && ex.IsNotNull("FieldID")) {
+		fieldNameList.add (ex.GetString ("FieldName"));
+		fieldIDList.add (ex.GetString ("FieldID"));
+	}
+	else {
+		def exc = CreateException ("Exception without field ID.\n" + ex.Totext());
+		ThrowException (exc);
+	}
+}
+
+
+errObj.GetObject ("Data").getSection (0).SecRemoveAllElements();
+entireInputRejected = false;
+
+groupGiven = (groupSecQualName.IsNotNull() && (groupSecQualName.trim().length() != 0));
+if (!groupGiven)
+	groupSecQualName = paymentSecQualName;
+]]></code>
+			<visual>
+				<position x="540" y="318"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Loop2" uid="34bc3361-c79b-494e-aee8-b52032826a6a" type="Loop" xsi:type="Loop" >
+			<label>Loop over Exceptions to identify err indices</label>
+			<description><![CDATA[]]></description>
+			<messageflow name="" type="MessageFlow">
+				<flowelement name="If1" uid="531513d7-0107-44be-ae62-dd3df6af5d87" type="If" xsi:type="If" >
+					<label>Is exception within group?</label>
+					<description><![CDATA[]]></description>
+					<condition><![CDATA[//error ("curFldName:" + fieldNameList.At (index));
+//error ("groupQualname:" + groupSecQualName);
+curName.StartsWith (groupSecQualName)// + ".")]]></condition>
+					<visual>
+						<position x="173" y="140"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom3" uid="f7e0893f-b8e3-4c7a-ada9-3e5ae550122a" type="Custom" xsi:type="Custom" >
+					<label>Reject entire input</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[entireInputRejected = true;
+def allIDs = getAllTransacIDsInMsg (fixedObj, paymentSecQualName, paymentIDRelName);
+setIDsOnExc (ex, allIDs);
+]]></code>
+					<visual>
+						<position x="282" y="189"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom6" uid="cc657e91-9cca-4bdc-b7f1-fb74509b3544" type="Custom" xsi:type="Custom" >
+					<label>Compute Group Details</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[ex = exList[index];
+curID = fieldIDList.At (index);
+ex.setXPATH (inputObj, curID);
+
+curName = fieldNameList.At (index);
+groupIndex = getSecIndexFromExcFldID (curID, groupSecQualName);
+
+if (groupIndex == 0) {
+	def grpSecs = inputObj.GetObject ("Data").GetSections (groupSecQualName);
+	if (grpSecs.length() == 0) // Index points to first instance but it is missing.
+		curName = "";									// Shift error to above the group
+}
+]]></code>
+					<visual>
+						<position x="170" y="48"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom1" uid="68d4577d-6b0a-4c84-89f4-8be6fd108777" type="Custom" xsi:type="Custom" >
+					<label>Process Exception</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[if (groupGiven && curName.StartsWith (paymentSecQualName)) {
+	//Is exception within payment?
+	if (groupIndicesToDel.FindFirst (groupIndex) == -1) {
+		//NOT already rejected group?
+		def secSize = getPaymentSection (inputObj.getObject ("Data"), groupSecQualName, groupIndex, paymentSecQualName).length();
+		if (indexInerrIndexList != -1) {
+			//Group Already has exceptions?
+			def curPayIndex = paymentIndices [indexInerrIndexList];
+
+			def alreadyAdded = false;
+			def indices = split (",", curPayIndex.paymentIndices);
+			foreach (def index in indices) {
+				if (index.trim() == paymentIndex.toText()) {
+					alreadyAdded = true;
+					break;
+				}
+			}
+			
+			if (!alreadyAdded) {
+				if (secSize == curPayIndex.count + 1) {
+					curPayIndex.valid = false;
+					groupIndicesToDel.add (groupIndex);
+				}
+				else {
+					curPayIndex.paymentIndices = curPayIndex.paymentIndices +"," + paymentIndex;
+					curPayIndex.count = curPayIndex.count + 1;
+				}
+			}
+		}
+		else {
+			def newPayIndex = paymentIndices.SecAddElement();
+			newPayIndex.groupIndex = groupIndex;
+			newPayIndex.paymentIndices = paymentIndex.Totext();
+			newPayIndex.count = 1;
+			if (secSize == 1) {
+				newPayIndex.valid = false;
+				groupIndicesToDel.add (groupIndex);
+			}
+			else
+				newPayIndex.valid = true;
+		}
+	}
+	def transacID = getTransacIDWithinTransac (inputObj, groupSecQualName, groupIndex, paymentSecQualName, paymentIndex, paymentIDRelName);
+	ex.setIDsOnExc (transacID);
+}
+else {
+	if (indexInerrIndexList != -1) {
+		paymentIndices[indexInerrIndexList].valid = false;
+	}
+	if (groupIndicesToDel.FindFirst (groupIndex) == -1)
+		groupIndicesToDel = groupIndicesToDel.add (groupIndex);
+	
+	def allGroupIDs = getTransacIDsWithinGroup (inputObj, groupSecQualName, groupIndex, 
+							(groupGiven? paymentSecQualName: null), paymentIDRelName);
+	setIDsOnExc (ex, allGroupIDs);
+}
+]]></code>
+					<visual>
+						<position x="70" y="281"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom10" uid="7ec06324-8736-4d78-a4a5-3bf261683347" type="Custom" xsi:type="Custom" >
+					<label>Compute Payment Details</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[if (groupGiven) {
+	paymentIndex = getSecIndexFromExcFldID (curID, paymentSecQualName);
+	if (paymentIndex == 0) {
+		def grpSec = inputObj.GetObject ("Data").GetSections (groupSecQualName)[groupIndex];
+		def paymentSecName = paymentSecQualName.subString (groupSecQualName.length()+1);
+		if (grpSec.getSections (paymentSecName).length() == 0)	// Index points to first instance in group but it is missing
+			curName = groupSecQualName;							// Shift error to group level
+	}
+}
+
+indexInerrIndexList = getIndexInErrList (paymentIndices, groupIndex);
+]]></code>
+					<visual>
+						<position x="68" y="192"/>
+					</visual>
+				</flowelement>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="531513d7-0107-44be-ae62-dd3df6af5d87" portindex="2"/>
+					<inputport uid="f7e0893f-b8e3-4c7a-ada9-3e5ae550122a" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="cc657e91-9cca-4bdc-b7f1-fb74509b3544" portindex="1"/>
+					<inputport uid="531513d7-0107-44be-ae62-dd3df6af5d87" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="531513d7-0107-44be-ae62-dd3df6af5d87" portindex="1"/>
+					<inputport uid="7ec06324-8736-4d78-a4a5-3bf261683347" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="7ec06324-8736-4d78-a4a5-3bf261683347" portindex="1"/>
+					<inputport uid="68d4577d-6b0a-4c84-89f4-8be6fd108777" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<visual>
+					<bounds x="40" y="23" width="283" height="290"/>
+				</visual>
+			</messageflow>
+			<condition><![CDATA[index < fieldNameList.length();]]></condition>
+			<init><![CDATA[index=0;
+]]></init>
+			<increment><![CDATA[index=index+1;]]></increment>
+			<visual>
+				<position x="543" y="580"/>
+			</visual>
+			<property name="showbody" value="true"/>
+		</flowelement>
+		<flowelement name="Stop2" uid="38c08ece-e208-47ae-a051-07cc0e70d689" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="668" y="1401"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Loop3" uid="ad93d157-1afc-4b43-bc7f-4321187ac5d3" type="Loop" xsi:type="Loop" >
+			<label>Iterate over groups to delete errors</label>
+			<description><![CDATA[]]></description>
+			<messageflow name="" type="MessageFlow">
+				<flowelement name="If6" uid="3ca485f4-5f6d-4bf6-9b8e-0567c46f5613" type="If" xsi:type="If" >
+					<label>Is group to del?</label>
+					<description><![CDATA[]]></description>
+					<condition><![CDATA[groupIndicesToDel.findfirst (index) != -1]]></condition>
+					<visual>
+						<position x="137" y="51"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom7" uid="4e901530-0efe-4e65-89a1-801d9db375f4" type="Custom" xsi:type="Custom" >
+					<label>Delete group</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[def groupSecInFixedObj = getSectionUsingQualName (fixedObj.getObject ("Data"), groupSecQualName);
+def groupSecInErrObj = getSectionUsingQualName (errObj.getObject ("Data"), groupSecQualName);
+groupSecInErrObj.SecAddElement(groupSecInFixedObj[index]);
+groupSecInFixedObj.SecRemoveElement (groupSecInFixedObj[index]);
+]]></code>
+					<visual>
+						<position x="46" y="123"/>
+					</visual>
+				</flowelement>
+				<flowelement name="If7" uid="59da0d6f-e53c-449c-a535-92515a0412e8" type="If" xsi:type="If" >
+					<label>Is group with partial del?</label>
+					<description><![CDATA[]]></description>
+					<condition><![CDATA[groupGiven && (getIndexInErrList (paymentIndices, index) != -1)]]></condition>
+					<visual>
+						<position x="257" y="117"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom8" uid="e14c8eb4-e691-42aa-b42a-b78afc334996" type="Custom" xsi:type="Custom" >
+					<label>Clean up group</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[def groupSecInFixedObj = getSectionUsingQualName (fixedObj.getObject ("Data"), groupSecQualName);
+def groupSecInErrObj = getSectionUsingQualName (errObj.getObject ("Data"), groupSecQualName);
+def dummy = groupSecInErrObj.SecAddElement();
+
+def paymentSecInFixedObj = getPaymentSection (fixedObj.getObject ("Data"), groupSecQualName, index, paymentSecQualName);
+def paymentSecInErrObj = getPaymentSection (errObj.getObject ("Data"), groupSecQualName, groupSecInErrObj.length()-1, paymentSecQualName);
+def indexInErr = getIndexInErrList (paymentIndices, index);
+def payInd = paymentIndices[indexInErr];
+def paymentIndicesToDel = split (",", payInd.paymentIndices);
+
+for (def i=paymentIndicesToDel.length()-1; i>=0; i--) {
+	def objToDel = paymentSecInFixedObj [ToInt (paymentIndicesToDel[i])];
+	paymentSecInErrObj.SecAddElement (objToDel);
+	paymentSecInFixedObj.SecRemoveElement (objToDel);
+}
+
+reverseObjectsInSection (paymentSecInErrObj);
+]]></code>
+					<visual>
+						<position x="173" y="182"/>
+					</visual>
+				</flowelement>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="3ca485f4-5f6d-4bf6-9b8e-0567c46f5613" portindex="1"/>
+					<inputport uid="4e901530-0efe-4e65-89a1-801d9db375f4" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="3ca485f4-5f6d-4bf6-9b8e-0567c46f5613" portindex="2"/>
+					<inputport uid="59da0d6f-e53c-449c-a535-92515a0412e8" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="59da0d6f-e53c-449c-a535-92515a0412e8" portindex="1"/>
+					<inputport uid="e14c8eb4-e691-42aa-b42a-b78afc334996" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<visual>
+					<bounds x="9" y="6" width="338" height="208"/>
+				</visual>
+			</messageflow>
+			<condition><![CDATA[index >= 0]]></condition>
+			<init><![CDATA[def groupCount = getSectionUsingQualName (inputObj.getObject ("Data"), groupSecQualName).length();
+index=groupCount-1;
+]]></init>
+			<increment><![CDATA[index = index-1;]]></increment>
+			<visual>
+				<position x="658" y="1047"/>
+			</visual>
+			<property name="showbody" value="true"/>
+		</flowelement>
+		<flowelement name="Custom9" uid="d71033de-971a-4ddb-bdf1-236d4f6a912d" type="Custom" xsi:type="Custom" >
+			<label>Reverse Err Obj</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def groupSecInErrObj = getSectionUsingQualName (errObj.getObject ("Data"), groupSecQualName);
+reverseObjectsInSection (groupSecInErrObj);
+]]></code>
+			<visual>
+				<position x="664" y="1237"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="1148da12-d907-449c-9490-744f366d0a15" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="545" y="81"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom4" uid="974d0a0d-c6a3-445c-a444-5c241e824b87" type="Custom" xsi:type="Custom" >
+			<label>Get Valid IDs</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[validIDList = getAllTransacIDsInMsg (fixedObj, paymentSecQualName, paymentIDRelName);
+]]></code>
+			<visual>
+				<position x="666" y="1316"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If2" uid="d36a2d49-b86a-430c-87c2-2e6874237dfa" type="If" xsi:type="If" >
+			<label>Entire input rejected?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[def groupSec = inputObj.GetObject("Data").GetSections(groupSecQualName);
+return entireInputRejected || (groupIndicesToDel.length() == groupSec.length());
+]]></condition>
+			<visual>
+				<position x="539" y="853"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom5" uid="e3a00654-610f-4378-abf3-95df4141acfd" type="Custom" xsi:type="Custom" >
+			<label>Set fixed obj to null</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[fixedObj.SetNull();]]></code>
+			<visual>
+				<position x="413" y="1241"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke2" uid="53e35220-e9fc-4850-a787-e289e9185fa8" type="Invoke" xsi:type="Invoke" >
+			<label>Prepare Fixed Obj</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_Clone</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>inputObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[inputObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>outputObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fixedObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="545" y="151"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="79cd742d-5a19-4415-9da9-02464da79ac2" type="Invoke" xsi:type="Invoke" >
+			<label>Prepare Err Obj</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_Clone</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>inputObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[inputObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>outputObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[errObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="544" y="234"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="7c43355c-3d39-450d-b440-ec073ef55669" portindex="1"/>
+			<inputport uid="34bc3361-c79b-494e-aee8-b52032826a6a" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d71033de-971a-4ddb-bdf1-236d4f6a912d" portindex="1"/>
+			<inputport uid="974d0a0d-c6a3-445c-a444-5c241e824b87" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="974d0a0d-c6a3-445c-a444-5c241e824b87" portindex="1"/>
+			<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="34bc3361-c79b-494e-aee8-b52032826a6a" portindex="1"/>
+			<inputport uid="d36a2d49-b86a-430c-87c2-2e6874237dfa" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d36a2d49-b86a-430c-87c2-2e6874237dfa" portindex="2"/>
+			<inputport uid="ad93d157-1afc-4b43-bc7f-4321187ac5d3" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d36a2d49-b86a-430c-87c2-2e6874237dfa" portindex="1"/>
+			<inputport uid="e3a00654-610f-4378-abf3-95df4141acfd" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="e3a00654-610f-4378-abf3-95df4141acfd" portindex="1"/>
+			<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="ad93d157-1afc-4b43-bc7f-4321187ac5d3" portindex="1"/>
+			<inputport uid="d71033de-971a-4ddb-bdf1-236d4f6a912d" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1148da12-d907-449c-9490-744f366d0a15" portindex="0"/>
+			<inputport uid="53e35220-e9fc-4850-a787-e289e9185fa8" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="53e35220-e9fc-4850-a787-e289e9185fa8" portindex="1"/>
+			<inputport uid="79cd742d-5a19-4415-9da9-02464da79ac2" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="79cd742d-5a19-4415-9da9-02464da79ac2" portindex="1"/>
+			<inputport uid="7c43355c-3d39-450d-b440-ec073ef55669" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="376" y="67" width="466" height="1348"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<internalmessage name="PaymentIndices" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>valid</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>groupIndex</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>paymentIndices</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>count</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="getIndexInErrList" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>paymentIndices</name>
+					<type>Section</type>
+					<message>PaymentIndices</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>groupIndex</name>
+					<type>Integer</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Integer</ReturnType>
+			<Code><![CDATA[for (def i=0; i<paymentIndices.length(); i++) {
+	def obj = paymentIndices[i];
+	if ((obj.valid == true) && (obj.groupIndex == groupIndex))
+		return i;
+}
+return -1;]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getPaymentSection" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>groupQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>groupIndex</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>paymentQualName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Section</ReturnType>
+			<Code><![CDATA[def groupSec = getSectionUsingQualName (obj, groupQualName);
+def paymentPath = paymentQualName.subString  (groupQualName.length()+1);
+def paymentSec = getSectionUsingQualName (groupSec[groupIndex], paymentPath);
+return paymentSec;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getSectionUsingQualName" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>qualName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Section</ReturnType>
+			<Code><![CDATA[def pathSections = split (".", qualName);
+def groupObj = obj;
+def pathSecLen = pathSections.length();
+for (def i=0; i<pathSecLen-1; i++) {
+	def grpSec = groupObj.getSection (pathSections[i]);
+	if (grpSec.length() == 0)
+		def dummy = grpSec.SecAddElement();
+	groupObj = grpSec[0];
+}
+
+return groupObj.getSection (pathSections [pathSecLen-1]);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="reverseObjectsInSection" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>sec</name>
+					<type>Section</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def newSec = NewSection (sec);
+for (def i=0; i<sec.length(); i++) {
+	newSec.SecAddElement (sec[i]);
+}
+sec.SecRemoveAllElements();
+for (def i=newSec.length()-1; i>=0; i--) {
+	sec.SecAddElement (newSec[i]);
+}
+newSec.SecRemoveAllElements();
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getTransacIDsWithinGroup" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>groupQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>groupIndex</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacIDRelName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>StringList</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def grpSec = obj.GetObject("Data").getSections (groupQualName)[groupIndex];
+def idRelNameFromGroup;
+if (transacQualName.IsNotNull() && (transacQualName.trim().length() != 0))
+	idRelNameFromGroup = transacQualName.rightStr (groupQualName + ".")  + "." + transacIDRelName;
+else
+	idRelNameFromGroup = transacIDRelName;
+
+if (grpSec.CheckFieldExists (idRelNameFromGroup))
+	return grpSec.getStrings (idRelNameFromGroup);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getAllTransacIDsInMsg" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>transacQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacIDRelName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>StringList</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def idRelName = transacQualName + "." + transacIDRelName;
+if (obj.GetObject("Data").CheckFieldExists (idRelName))
+	return obj.GetObject("Data").getStrings (idRelName);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="setIDsOnExc" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>exc</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>inputIDList</name>
+					<type>StringList</type>
+					<required>false</required>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if (inputIDList.IsNotNull()) {
+	def idList = [typeof ("")];
+	if (exc.HasProperty (EXCEPTION_PROP.TRANSACTIONIDLIST))
+		idList = exc.GetProperty (EXCEPTION_PROP.TRANSACTIONIDLIST).split (",");
+	foreach (def val in inputIDList)
+		def a = idList.Add (val);
+	
+	exc.SetExceptionProperty (EXCEPTION_PROP.TRANSACTIONIDLIST, StripBrackets (idList.toText()));
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getTransacIDWithinTransac" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>groupQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>groupIndex</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacIndex</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacIDRelName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>StringList</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def data = obj.GetObject("Data");
+def grpSec = data.getSections (groupQualName)[groupIndex];
+def transacSecRelName = transacQualName.rightStr (groupQualName + ".");
+def transacSec = grpSec.getSection (transacSecRelName)[transacIndex];
+
+if (transacSec.CheckFieldExists (transacIDRelName))
+	return [transacSec.getStrings (transacIDRelName)[0]];
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getSecIndexFromExcFldID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>excFldId</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>secQualName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Integer</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def excIDParts = split (".", excFldId);
+def secQualNameParts = split (".", secQualName);
+if (excIDParts.length() < secQualNameParts.length())
+	return -1;
+for (def i=0; i<secQualNameParts.length(); i++)
+	if (!(excIDParts[i].startsWith (secQualNameParts[i] + "[") || (excIDParts[i] == secQualNameParts[i])))
+		return -1;
+
+def prevPos = -1;
+def curPos = excFldId.findFirst (".", prevPos+1);
+for (def i=1; (curPos != -1) && (i<secQualNameParts.length()); i++) {
+	prevPos = curPos;
+	curPos = excFldId.findFirst (".", prevPos+1);
+}
+
+def posInExcID = ((curPos == -1)? excFldId.length(): curPos);
+
+if (excFldId.charAt (posInExcID-1) != ']')
+	return 0;
+
+def openBracketsPos = excFldId.left (posInExcID).FindLast ("[");
+return ToInt (excFldId.subString (openBracketsPos+1, posInExcID-openBracketsPos-2));
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="setXPATH" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>fieldID</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def xpath = "";//obj.fieldIDToXPath (fieldID); (function available in 5.0)
+exObj.SetExceptionProperty (EXCEPTION_PROP.XPATH, xpath);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<resources type="Resources">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+		</resourcefields>
+	</resources>
+	<folder name="TEST" type="FolderElement">
+		<messageflow name="SAP_FW_GenericFilterTest" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>messageName</name>
+						<type>String</type>
+						<notnull>true</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>validationList</name>
+						<type>StringList</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>paymentSecQualName</name>
+						<type>String</type>
+						<notnull>true</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>groupSecQualName</name>
+						<type>String</type>
+						<notnull>false</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>paymentIDRelName</name>
+						<type>String</type>
+						<notnull>true</notnull>
+						<length>-1</length>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>index</name>
+						<type>Integer</type>
+						<notnull>true</notnull>
+						<variabletype>LOCAL</variabletype>
+					</field>
+					<field>
+						<name>inputObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<notnull>false</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="b7270600-47d3-4be8-be2e-ff89668a91e0" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="509" y="46"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="ffce8e4e-7fa6-4381-a1bf-3ae0bb6ee31a" type="Custom" xsi:type="Custom" >
+				<label>Validate group section</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[if (groupSecQualName.IsNotNull()) {
+	if (!paymentSecQualName.StartsWith (groupSecQualName)) {
+		def exc = CreateException ("payment section qualified name should start with group section qualified name");
+		ThrowException (exc);
+	}
+}
+]]></code>
+				<visual>
+					<position x="509" y="113"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Parse1" uid="a01fa883-7e01-41c0-a61f-defed46d2d50" type="Parse" xsi:type="Parse" >
+				<label>Parse Message</label>
+				<description><![CDATA[]]></description>
+				<in>rawIn</in>
+				<out>inputObj</out>
+				<message>=messageName</message>
+				<cascade-exceptions>true</cascade-exceptions>
+				<visual>
+					<position x="508" y="184"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Loop1" uid="cf35e6a9-4054-442d-932a-4b3ee7c3ba57" type="Loop" xsi:type="Loop" >
+				<label>Loop over Validations</label>
+				<description><![CDATA[]]></description>
+				<messageflow name="" type="MessageFlow">
+					<flowelement name="Validate1" uid="357ca799-4e36-47f4-bab6-61e569e19f64" type="Validate" xsi:type="Validate" >
+						<label>Validate</label>
+						<description><![CDATA[]]></description>
+						<in>inputObj</in>
+						<message>=messageName</message>
+						<cascade-exceptions>true</cascade-exceptions>
+						<validation-name>=validationList.At (index)</validation-name>
+						<visual>
+							<position x="62" y="27"/>
+						</visual>
+					</flowelement>
+					<flowelement name="Resume1" uid="f04dfa3f-2605-4e71-8f8a-ae7d1481d973" type="Resume" xsi:type="Resume" >
+						<label>Resume</label>
+						<visual>
+							<position x="115" y="80"/>
+						</visual>
+					</flowelement>
+					<link type="Exception" xsi:type="Exception">
+						<message>TransformException</message>
+						<out>exObj</out>
+						<cascade-exceptions>true</cascade-exceptions>
+						<outputport uid="357ca799-4e36-47f4-bab6-61e569e19f64" portindex="2"/>
+						<inputport uid="f04dfa3f-2605-4e71-8f8a-ae7d1481d973" portindex="0"/>
+						<edge-type>ELBOW</edge-type>
+					</link>
+					<visual>
+						<bounds x="36" y="7" width="121" height="87"/>
+					</visual>
+				</messageflow>
+				<condition><![CDATA[index < validationList.length();]]></condition>
+				<init><![CDATA[index=0;]]></init>
+				<increment><![CDATA[index = index+1;]]></increment>
+				<visual>
+					<position x="508" y="302"/>
+				</visual>
+				<property name="showbody" value="true"/>
+			</flowelement>
+			<flowelement name="Resume2" uid="a4956d02-7e06-4edf-af43-1bf7a0095829" type="Resume" xsi:type="Resume" >
+				<label>Resume</label>
+				<visual>
+					<position x="679" y="328"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop2" uid="38c08ece-e208-47ae-a051-07cc0e70d689" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="515" y="653"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="74fe45ad-7765-4ce0-bd96-239d0492fb7d" type="Invoke" xsi:type="Invoke" >
+				<label>Filter Based On Exceptions</label>
+				<description><![CDATA[]]></description>
+				<name>SAP_FW_FilterBasedOnExceptions</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>inputObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[inputObj]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>groupSecQualName</name>
+						<type>String</type>
+						<value><![CDATA[groupSecQualName]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>paymentSecQualName</name>
+						<type>String</type>
+						<value><![CDATA[paymentSecQualName]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>paymentIDRelName</name>
+						<type>String</type>
+						<value><![CDATA[paymentIDRelName]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<value><![CDATA[validIDList]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[fixedObj]]></value>
+						<notnull>false</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="400" y="498"/>
+				</visual>
+			</flowelement>
+			<flowelement name="If2" uid="b291eaf2-8eba-4b02-8fca-2c39627d7e77" type="If" xsi:type="If" >
+				<label>Exc present?</label>
+				<description><![CDATA[]]></description>
+				<condition><![CDATA[exObj.IsNotNull()]]></condition>
+				<visual>
+					<position x="506" y="427"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom5" uid="08406126-0bc5-478c-abf1-dfa9f5e7f9a3" type="Custom" xsi:type="Custom" >
+				<label>Short input output</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[fixedObj = inputObj;
+]]></code>
+				<visual>
+					<position x="617" y="488"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom4" uid="f793cf7b-808d-4df0-aa8e-8a7856874cf0" type="Custom" xsi:type="Custom" >
+				<label>Get Valid IDs</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[validIDList = getAllTransacIDsInMsg (fixedObj, paymentSecQualName, paymentIDRelName);
+]]></code>
+				<visual>
+					<position x="618" y="570"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b7270600-47d3-4be8-be2e-ff89668a91e0" portindex="0"/>
+				<inputport uid="ffce8e4e-7fa6-4381-a1bf-3ae0bb6ee31a" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ffce8e4e-7fa6-4381-a1bf-3ae0bb6ee31a" portindex="1"/>
+				<inputport uid="a01fa883-7e01-41c0-a61f-defed46d2d50" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="a01fa883-7e01-41c0-a61f-defed46d2d50" portindex="1"/>
+				<inputport uid="cf35e6a9-4054-442d-932a-4b3ee7c3ba57" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Exception" xsi:type="Exception">
+				<message>TransformException</message>
+				<out>exObj</out>
+				<cascade-exceptions>true</cascade-exceptions>
+				<outputport uid="a01fa883-7e01-41c0-a61f-defed46d2d50" portindex="2"/>
+				<inputport uid="a4956d02-7e06-4edf-af43-1bf7a0095829" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="74fe45ad-7765-4ce0-bd96-239d0492fb7d" portindex="1"/>
+				<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b291eaf2-8eba-4b02-8fca-2c39627d7e77" portindex="2"/>
+				<inputport uid="08406126-0bc5-478c-abf1-dfa9f5e7f9a3" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="cf35e6a9-4054-442d-932a-4b3ee7c3ba57" portindex="1"/>
+				<inputport uid="b291eaf2-8eba-4b02-8fca-2c39627d7e77" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b291eaf2-8eba-4b02-8fca-2c39627d7e77" portindex="1"/>
+				<inputport uid="74fe45ad-7765-4ce0-bd96-239d0492fb7d" portindex="0"/>
+				<edge-type>ELBOW</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="08406126-0bc5-478c-abf1-dfa9f5e7f9a3" portindex="1"/>
+				<inputport uid="f793cf7b-808d-4df0-aa8e-8a7856874cf0" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="f793cf7b-808d-4df0-aa8e-8a7856874cf0" portindex="1"/>
+				<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="358" y="32" width="363" height="635"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="SAP_FW_GenericFilterTestWrapperForCGICreditTransfer" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<notnull>false</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="b7270600-47d3-4be8-be2e-ff89668a91e0" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="569" y="189"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop2" uid="38c08ece-e208-47ae-a051-07cc0e70d689" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="568" y="324"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke GenericFilterTest</label>
+				<description><![CDATA[]]></description>
+				<name>SAP_FW_GenericFilterTest</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>messageName</name>
+						<type>String</type>
+						<value><![CDATA["CGI_CustomerCreditTransferInitiationV03"]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>validationList</name>
+						<type>StringList</type>
+						<value><![CDATA[["Default"]]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>paymentSecQualName</name>
+						<type>String</type>
+						<value><![CDATA["CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf"]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>groupSecQualName</name>
+						<type>String</type>
+						<value><![CDATA["CstmrCdtTrfInitn.PmtInf"]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>paymentIDRelName</name>
+						<type>String</type>
+						<value><![CDATA["PmtId.EndToEndId"]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[fixedObj]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<value><![CDATA[validIDList]]></value>
+						<notnull>false</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="568" y="256"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b7270600-47d3-4be8-be2e-ff89668a91e0" portindex="0"/>
+				<inputport uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" portindex="1"/>
+				<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="519" y="175" width="102" height="163"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="SAP_FW_GenericFilterTestWrapperForCGICreditTransferNOGrp" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>TransformException</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<notnull>false</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="b7270600-47d3-4be8-be2e-ff89668a91e0" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="569" y="189"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop2" uid="38c08ece-e208-47ae-a051-07cc0e70d689" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="568" y="324"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke GenericFilterTest</label>
+				<description><![CDATA[]]></description>
+				<name>SAP_FW_GenericFilterTest</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>messageName</name>
+						<type>String</type>
+						<value><![CDATA["CGI_CustomerCreditTransferInitiationV03"]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>validationList</name>
+						<type>StringList</type>
+						<value><![CDATA[["Default"]]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>paymentSecQualName</name>
+						<type>String</type>
+						<value><![CDATA["CstmrCdtTrfInitn.PmtInf"]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>groupSecQualName</name>
+						<type>String</type>
+						<value><![CDATA[null]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>paymentIDRelName</name>
+						<type>String</type>
+						<value><![CDATA["PmtInfId"]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>exObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[exObj]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>fixedObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[fixedObj]]></value>
+						<notnull>false</notnull>
+					</field>
+					<field>
+						<name>validIDList</name>
+						<type>StringList</type>
+						<value><![CDATA[validIDList]]></value>
+						<notnull>false</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="568" y="255"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b7270600-47d3-4be8-be2e-ff89668a91e0" portindex="0"/>
+				<inputport uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="f6b7ca9c-b98f-41d5-87c4-eb2def5bd118" portindex="1"/>
+				<inputport uid="38c08ece-e208-47ae-a051-07cc0e70d689" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="519" y="175" width="102" height="163"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jul 24 14:56:39 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="GenericFilter"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="426"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\GenericFilter\GenericFilter.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">GenericFilter/FilterBasedOnExceptions</selected-element>
+	</workspace>
+</cartridge>
+

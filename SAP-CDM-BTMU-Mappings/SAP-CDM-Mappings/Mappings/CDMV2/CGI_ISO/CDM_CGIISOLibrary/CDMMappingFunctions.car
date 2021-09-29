@@ -1,0 +1,2097 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="CDMMappingFunctions" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<function name="isoAmountToCDMAmount"/>
+			<function name="isoCodeToCDMCodeScheme"/>
+			<function name="isoCodeToCDMCodeList"/>
+			<function name="isoCdOrPrtryToCDMCodeList"/>
+			<function name="isoCdOrPrtryToCDMCodeScheme"/>
+			<function name="isoIDOrOthrToCDMCodeScheme"/>
+			<function name="CDMAmountToISOAmount"/>
+			<function name="CDMCodeSchemeToISOCode"/>
+			<function name="CDMCodeListToISOCode"/>
+			<function name="CDMCodeListToISOCode"/>
+			<function name="CDMCodeSchemeToISOCode"/>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="CDMAccountIDType_To_AccountIdentification4Choice"/>
+			<function name="CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount"/>
+			<function name="CDMBranchDataType_To_BranchData2"/>
+			<function name="CDMClearingSystemCodeType_To_ClearingSystemIdentification2Choice"/>
+			<function name="CDMClearingSystemMemberType_To_ClearingSystemMemberIdentification2"/>
+			<function name="CDMContactDetailsType_To_ContactDetails2"/>
+			<function name="CDMCreditorReferenceInformationType_To_CreditorReferenceInformation2"/>
+			<function name="CDMCreditorReferenceTypeCodeType_To_CreditorReferenceType2"/>
+			<function name="CDMDatePeriodDetailsType_To_DatePeriodDetails"/>
+			<function name="CDMDocumentAdjustmentType_To_DocumentAdjustment1"/>
+			<function name="CDMGenericFinancialIDType_To_GenericFinancialIdentification1"/>
+			<function name="CDMNameAndAddressType_To_NameAndAddress10"/>
+			<function name="CDMPostalAddressType_To_PostalAddress6"/>
+			<function name="CDMPurposeCodeType_To_Purpose2Choice"/>
+			<function name="CDMReferredDocumentTypeCodeType_To_ReferredDocumentType2"/>
+			<function name="CDMRemittanceLocationType_To_RemittanceLocation2"/>
+			<function name="CDMstring_To_Max140Text"/>
+			<function name="CDMstring_To_Max70Text"/>
+			<function name="CDMTaxAmountType_To_TaxAmount1"/>
+			<function name="CDMTaxAuthorisationType_To_TaxAuthorisation1"/>
+			<function name="CDMTaxInformationType_To_TaxInformation3"/>
+			<function name="CDMTaxPartyType_To_TaxParty1"/>
+			<function name="CDMTaxPartyType_To_TaxParty2"/>
+			<function name="CDMTaxPeriodType_To_TaxPeriod1"/>
+			<function name="CDMTaxRecordDetailsType_To_TaxRecordDetails1"/>
+			<function name="CDMTaxRecordType_To_TaxRecord1"/>
+			<function name="AccountIdentification4Choice_To_CDMAccountIDType"/>
+			<function name="ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType"/>
+			<function name="BranchData2_To_CDMBranchDataType"/>
+			<function name="ClearingSystemIdentification2Choice_To_CDMClearingSystemCodeType"/>
+			<function name="ClearingSystemMemberIdentification2_To_CDMClearingSystemMemberType"/>
+			<function name="ContactDetails2_To_CDMContactDetailsType"/>
+			<function name="CreditorReferenceInformation2_To_CDMCreditorReferenceInformationType"/>
+			<function name="CreditorReferenceType2_To_CDMCreditorReferenceTypeCodeType"/>
+			<function name="DatePeriodDetails_To_CDMDatePeriodDetailsType"/>
+			<function name="DocumentAdjustment1_To_CDMDocumentAdjustmentType"/>
+			<function name="GenericFinancialIdentification1_To_CDMGenericFinancialIDType"/>
+			<function name="Max140Text_To_CDMstring"/>
+			<function name="Max70Text_To_CDMstring"/>
+			<function name="NameAndAddress10_To_CDMNameAndAddressType"/>
+			<function name="PostalAddress6_To_CDMPostalAddressType"/>
+			<function name="Purpose2Choice_To_CDMPurposeCodeType"/>
+			<function name="ReferredDocumentType2_To_CDMReferredDocumentTypeCodeType"/>
+			<function name="RemittanceLocation2_To_CDMRemittanceLocationType"/>
+			<function name="TaxAmount1_To_CDMTaxAmountType"/>
+			<function name="TaxAuthorisation1_To_CDMTaxAuthorisationType"/>
+			<function name="TaxInformation3_To_CDMTaxInformationType"/>
+			<function name="TaxParty1_To_CDMTaxPartyType"/>
+			<function name="TaxParty2_To_CDMTaxPartyType"/>
+			<function name="TaxPeriod1_To_CDMTaxPeriodType"/>
+			<function name="TaxRecord1_To_CDMTaxRecordType"/>
+			<function name="TaxRecordDetails1_To_CDMTaxRecordDetailsType"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>BasicFunctions\CDMFunctions.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV2\CGI_ISO\CDM_CGIISOLibrary\BasicFunctions\CDMFunctions.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\CDM\V2\CDMV2Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V2\CDMV2Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\ISO20022\ISO20022Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\ISO20022\ISO20022Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\CGI\CGIMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CGI\CGIMessages.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<folder name="CDMToISO" type="FunctionDefFolder">
+			<FormulaFunctionDef name="CDMAccountIDType_To_AccountIdentification4Choice" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMAccountIDType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.DebtorAccount.ID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.DebtorAccount.ID</description>
+					</parameterfield>
+					<parameterfield>
+						<name>AccountIdentification4Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMAccountIDTypeElm in CDMAccountIDType) {
+    def AccountIdentification4ChoiceElm = AccountIdentification4Choice.secAddElement();
+    AccountIdentification4ChoiceElm.IBAN = CDMCodeSchemeToISOCode (CDMAccountIDTypeElm);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMAmountType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount</description>
+					</parameterfield>
+					<parameterfield>
+						<name>ActiveOrHistoricCurrencyAndAmount</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMAmountTypeElm in CDMAmountType) {
+    CDMAmountToISOAmount (CDMAmountTypeElm, ActiveOrHistoricCurrencyAndAmount);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMBranchDataType_To_BranchData2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMBranchDataType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.Branch</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.Branch</description>
+					</parameterfield>
+					<parameterfield>
+						<name>BranchData2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.BrnchId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.BrnchId</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMBranchDataTypeElm in CDMBranchDataType) {
+    def BranchData2Elm = BranchData2.secAddElement();
+    BranchData2Elm.Id = CDMCodeSchemeToISOCode(CDMBranchDataTypeElm.ID);
+    BranchData2Elm.Nm = CDMBranchDataTypeElm.Name;
+    CDMPostalAddressType_To_PostalAddress6(CDMBranchDataTypeElm.PostalAddress, BranchData2Elm.PstlAdr);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMClearingSystemCodeType_To_ClearingSystemIdentification2Choice" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMClearingSystemCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID</description>
+					</parameterfield>
+					<parameterfield>
+						<name>ClearingSystemIdentification2Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId.ClrSysId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId.ClrSysId</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMClearingSystemCodeTypeElm in CDMClearingSystemCodeType) {
+    def ClearingSystemIdentification2ChoiceElm = ClearingSystemIdentification2Choice.secAddElement();
+    ClearingSystemIdentification2ChoiceElm.Cd = CDMCodeListToISOCode (CDMClearingSystemCodeTypeElm);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMClearingSystemMemberType_To_ClearingSystemMemberIdentification2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMClearingSystemMemberType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember</description>
+					</parameterfield>
+					<parameterfield>
+						<name>ClearingSystemMemberIdentification2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMClearingSystemMemberTypeElm in CDMClearingSystemMemberType) {
+    def ClearingSystemMemberIdentification2Elm = ClearingSystemMemberIdentification2.secAddElement();
+    CDMClearingSystemCodeType_To_ClearingSystemIdentification2Choice(CDMClearingSystemMemberTypeElm.ClearingSystemID, ClearingSystemMemberIdentification2Elm.ClrSysId);
+    ClearingSystemMemberIdentification2Elm.MmbId = CDMCodeSchemeToISOCode(CDMClearingSystemMemberTypeElm.MemberID);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMContactDetailsType_To_ContactDetails2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMContactDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.ContactDetails</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.ContactDetails</description>
+					</parameterfield>
+					<parameterfield>
+						<name>ContactDetails2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.CtctDtls</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.CtctDtls</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMContactDetailsTypeElm in CDMContactDetailsType) {
+    def ContactDetails2Elm = ContactDetails2.secAddElement();
+    ContactDetails2Elm.NmPrfx = CDMCodeListToISOCode(CDMContactDetailsTypeElm.NamePrefixCode);
+    ContactDetails2Elm.Nm = CDMContactDetailsTypeElm.Name;
+    ContactDetails2Elm.PhneNb = CDMContactDetailsTypeElm.PhoneNumber;
+    ContactDetails2Elm.MobNb = CDMContactDetailsTypeElm.MobileNumber;
+    ContactDetails2Elm.FaxNb = CDMContactDetailsTypeElm.FaxNumber;
+    ContactDetails2Elm.EmailAdr = CDMContactDetailsTypeElm.EmailAddress;
+    ContactDetails2Elm.Othr = CDMContactDetailsTypeElm.Other;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCreditorReferenceInformationType_To_CreditorReferenceInformation2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMCreditorReferenceInformationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CreditorReferenceInformation2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMCreditorReferenceInformationTypeElm in CDMCreditorReferenceInformationType) {
+    def CreditorReferenceInformation2Elm = CreditorReferenceInformation2.secAddElement();
+    CDMCreditorReferenceTypeCodeType_To_CreditorReferenceType2(CDMCreditorReferenceInformationTypeElm.TypeCode, CreditorReferenceInformation2Elm.Tp);
+    CreditorReferenceInformation2Elm.Ref = CDMCreditorReferenceInformationTypeElm.Reference;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCreditorReferenceTypeCodeType_To_CreditorReferenceType2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMCreditorReferenceTypeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CreditorReferenceType2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.Tp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.Tp</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMCreditorReferenceTypeCodeTypeElm in CDMCreditorReferenceTypeCodeType) {
+    def CreditorReferenceType2Elm = CreditorReferenceType2.secAddElement();
+    CreditorReferenceType2Elm.CdOrPrtry.SecAddElement().Cd = CDMCodeListToISOCode (CDMCreditorReferenceTypeCodeTypeElm);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMDatePeriodDetailsType_To_DatePeriodDetails" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMDatePeriodDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period.FromToDate</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period.FromToDate</description>
+					</parameterfield>
+					<parameterfield>
+						<name>DatePeriodDetails</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd.FrToDt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd.FrToDt</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMDatePeriodDetailsTypeElm in CDMDatePeriodDetailsType) {
+    def DatePeriodDetailsElm = DatePeriodDetails.secAddElement();
+    DatePeriodDetailsElm.FrDt = CDMDatePeriodDetailsTypeElm.FromDate;
+    DatePeriodDetailsElm.ToDt = CDMDatePeriodDetailsTypeElm.ToDate;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMDocumentAdjustmentType_To_DocumentAdjustment1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMDocumentAdjustmentType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentAmount.AdjustmentAmountAndReason</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentAmount.AdjustmentAmountAndReason</description>
+					</parameterfield>
+					<parameterfield>
+						<name>DocumentAdjustment1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocAmt.AdjstmntAmtAndRsn</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocAmt.AdjstmntAmtAndRsn</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMDocumentAdjustmentTypeElm in CDMDocumentAdjustmentType) {
+    def DocumentAdjustment1Elm = DocumentAdjustment1.secAddElement();
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMDocumentAdjustmentTypeElm.Amount, DocumentAdjustment1Elm.Amt);
+    DocumentAdjustment1Elm.CdtDbtInd = CDMCodeListToISOCode(CDMDocumentAdjustmentTypeElm.CreditDebitIndicatorCode);
+    DocumentAdjustment1Elm.Rsn = CDMDocumentAdjustmentTypeElm.Reason;
+    DocumentAdjustment1Elm.AddtlInf = CDMDocumentAdjustmentTypeElm.AdditionalInformation;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMGenericFinancialIDType_To_GenericFinancialIdentification1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMGenericFinancialIDType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.OtherID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.OtherID</description>
+					</parameterfield>
+					<parameterfield>
+						<name>GenericFinancialIdentification1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMGenericFinancialIDTypeElm in CDMGenericFinancialIDType) {
+    def GenericFinancialIdentification1Elm = GenericFinancialIdentification1.secAddElement();
+    GenericFinancialIdentification1Elm.Id = CDMCodeSchemeToISOCode (CDMGenericFinancialIDTypeElm);
+}
+ //TODO : CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr.SchmeNm -> GroupHeader.ForwardingAgent.FinancialInstitution.OtherID.schemeVersionID
+//TODO : CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr.SchmeNm -> GroupHeader.ForwardingAgent.FinancialInstitution.OtherID.schemeAgencyID
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMNameAndAddressType_To_NameAndAddress10" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMNameAndAddressType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.ChequeInstruction.ChequeFrom</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.ChequeInstruction.ChequeFrom</description>
+					</parameterfield>
+					<parameterfield>
+						<name>NameAndAddress10</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.ChqInstr.ChqFr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.ChqInstr.ChqFr</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMNameAndAddressTypeElm in CDMNameAndAddressType) {
+    def NameAndAddress10Elm = NameAndAddress10.secAddElement();
+    NameAndAddress10Elm.Nm = CDMNameAndAddressTypeElm.Name;
+    CDMPostalAddressType_To_PostalAddress6(CDMNameAndAddressTypeElm.Address, NameAndAddress10Elm.Adr);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMPostalAddressType_To_PostalAddress6" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMPostalAddressType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress</description>
+					</parameterfield>
+					<parameterfield>
+						<name>PostalAddress6</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMPostalAddressTypeElm in CDMPostalAddressType) {
+    def PostalAddress6Elm = PostalAddress6.secAddElement();
+    PostalAddress6Elm.AdrTp = CDMCodeListToISOCode(CDMPostalAddressTypeElm.AddressTypeCode);
+    PostalAddress6Elm.Dept = CDMPostalAddressTypeElm.Department;
+    PostalAddress6Elm.SubDept = CDMPostalAddressTypeElm.SubDepartment;
+    PostalAddress6Elm.StrtNm = CDMPostalAddressTypeElm.StreetName;
+    PostalAddress6Elm.BldgNb = CDMPostalAddressTypeElm.BuildingNumber;
+    PostalAddress6Elm.PstCd = CDMPostalAddressTypeElm.PostCode;
+    PostalAddress6Elm.TwnNm = CDMPostalAddressTypeElm.TownName;
+    PostalAddress6Elm.CtrySubDvsn = CDMPostalAddressTypeElm.CountrySubDivision;
+    PostalAddress6Elm.Ctry = CDMCodeListToISOCode(CDMPostalAddressTypeElm.CountryCode);
+    CDMstring_To_Max70Text(CDMPostalAddressTypeElm.AddressLine, PostalAddress6Elm.AdrLine);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMPurposeCodeType_To_Purpose2Choice" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMPurposeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Purpose</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Purpose</description>
+					</parameterfield>
+					<parameterfield>
+						<name>Purpose2Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Purp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Purp</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMPurposeCodeTypeElm in CDMPurposeCodeType) {
+    def Purpose2ChoiceElm = Purpose2Choice.secAddElement();
+    Purpose2ChoiceElm.Cd = CDMCodeListToISOCode (CDMPurposeCodeTypeElm);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMReferredDocumentTypeCodeType_To_ReferredDocumentType2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMReferredDocumentTypeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode</description>
+					</parameterfield>
+					<parameterfield>
+						<name>ReferredDocumentType2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocInf.Tp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocInf.Tp</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMReferredDocumentTypeCodeTypeElm in CDMReferredDocumentTypeCodeType) {
+    def ReferredDocumentType2Elm = ReferredDocumentType2.secAddElement();
+    ReferredDocumentType2Elm.CdOrPrtry.SecAddElement().Cd = CDMCodeListToISOCode (CDMReferredDocumentTypeCodeTypeElm);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMRemittanceLocationType_To_RemittanceLocation2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMRemittanceLocationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RelatedRemittanceInformation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RelatedRemittanceInformation</description>
+					</parameterfield>
+					<parameterfield>
+						<name>RemittanceLocation2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RltdRmtInf</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RltdRmtInf</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMRemittanceLocationTypeElm in CDMRemittanceLocationType) {
+    def RemittanceLocation2Elm = RemittanceLocation2.secAddElement();
+    RemittanceLocation2Elm.RmtId = CDMCodeSchemeToISOCode(CDMRemittanceLocationTypeElm.RemittanceID);
+    RemittanceLocation2Elm.RmtLctnMtd = CDMCodeListToISOCode(CDMRemittanceLocationTypeElm.RemittanceLocationMethodCode);
+    RemittanceLocation2Elm.RmtLctnElctrncAdr = CDMRemittanceLocationTypeElm.RemittanceLocationElectronicAddress;
+    CDMNameAndAddressType_To_NameAndAddress10(CDMRemittanceLocationTypeElm.RemittanceLocationPostalAddress, RemittanceLocation2Elm.RmtLctnPstlAdr);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMstring_To_Max140Text" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMstring</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Unstructured</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Unstructured</description>
+					</parameterfield>
+					<parameterfield>
+						<name>Max140Text</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMstringElm in CDMstring) {
+    def Max140TextElm = Max140Text.secAddElement();
+    Max140TextElm.Value = CDMstringElm.Value;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMstring_To_Max70Text" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMstring</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress.AddressLine</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress.AddressLine</description>
+					</parameterfield>
+					<parameterfield>
+						<name>Max70Text</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr.AdrLine</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr.AdrLine</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMstringElm in CDMstring) {
+    def Max70TextElm = Max70Text.secAddElement();
+    Max70TextElm.Value = CDMstringElm.Value;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxAmountType_To_TaxAmount1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxAmountType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxAmount1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxAmountTypeElm in CDMTaxAmountType) {
+    def TaxAmount1Elm = TaxAmount1.secAddElement();
+    TaxAmount1Elm.Rate = CDMTaxAmountTypeElm.Rate;
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMTaxAmountTypeElm.TaxableBaseAmount, TaxAmount1Elm.TaxblBaseAmt);
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMTaxAmountTypeElm.TotalAmount, TaxAmount1Elm.TtlAmt);
+    CDMTaxRecordDetailsType_To_TaxRecordDetails1(CDMTaxAmountTypeElm.Details, TaxAmount1Elm.Dtls);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxAuthorisationType_To_TaxAuthorisation1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxAuthorisationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor.Authorisation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor.Authorisation</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxAuthorisation1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr.Authstn</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr.Authstn</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxAuthorisationTypeElm in CDMTaxAuthorisationType) {
+    def TaxAuthorisation1Elm = TaxAuthorisation1.secAddElement();
+    TaxAuthorisation1Elm.Titl = CDMTaxAuthorisationTypeElm.Title;
+    TaxAuthorisation1Elm.Nm = CDMTaxAuthorisationTypeElm.Name;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxInformationType_To_TaxInformation3" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxInformationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxInformation3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxInformationTypeElm in CDMTaxInformationType) {
+    def TaxInformation3Elm = TaxInformation3.secAddElement();
+    CDMTaxPartyType_To_TaxParty1(CDMTaxInformationTypeElm.Creditor, TaxInformation3Elm.Cdtr);
+    CDMTaxPartyType_To_TaxParty2(CDMTaxInformationTypeElm.Debtor, TaxInformation3Elm.Dbtr);
+    TaxInformation3Elm.AdmstnZn = CDMTaxInformationTypeElm.AdministrationZone;
+    TaxInformation3Elm.RefNb = CDMTaxInformationTypeElm.ReferenceNumber;
+    TaxInformation3Elm.Mtd = CDMTaxInformationTypeElm.Method;
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMTaxInformationTypeElm.TotalTaxableBaseAmount, TaxInformation3Elm.TtlTaxblBaseAmt);
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMTaxInformationTypeElm.TotalTaxAmount, TaxInformation3Elm.TtlTaxAmt);
+    TaxInformation3Elm.Dt = CDMTaxInformationTypeElm.Date;
+    TaxInformation3Elm.SeqNb = CDMTaxInformationTypeElm.SequenceNumber;
+    CDMTaxRecordType_To_TaxRecord1(CDMTaxInformationTypeElm.Record, TaxInformation3Elm.Rcrd);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxPartyType_To_TaxParty1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxPartyType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Creditor</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Creditor</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxParty1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Cdtr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Cdtr</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxPartyTypeElm in CDMTaxPartyType) {
+    def TaxParty1Elm = TaxParty1.secAddElement();
+    TaxParty1Elm.TaxId = CDMCodeSchemeToISOCode(CDMTaxPartyTypeElm.TaxID);
+    TaxParty1Elm.RegnId = CDMCodeSchemeToISOCode(CDMTaxPartyTypeElm.RegistrationID);
+    TaxParty1Elm.TaxTp = CDMTaxPartyTypeElm.TaxType;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxPartyType_To_TaxParty2" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxPartyType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxParty2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxPartyTypeElm in CDMTaxPartyType) {
+    def TaxParty2Elm = TaxParty2.secAddElement();
+    TaxParty2Elm.TaxId = CDMCodeSchemeToISOCode(CDMTaxPartyTypeElm.TaxID);
+    TaxParty2Elm.RegnId = CDMCodeSchemeToISOCode(CDMTaxPartyTypeElm.RegistrationID);
+    TaxParty2Elm.TaxTp = CDMTaxPartyTypeElm.TaxType;
+    CDMTaxAuthorisationType_To_TaxAuthorisation1(CDMTaxPartyTypeElm.Authorisation, TaxParty2Elm.Authstn);
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxPeriodType_To_TaxPeriod1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxPeriodType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxPeriod1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxPeriodTypeElm in CDMTaxPeriodType) {
+    def TaxPeriod1Elm = TaxPeriod1.secAddElement();
+    TaxPeriod1Elm.Yr = CDMTaxPeriodTypeElm.Year;
+    TaxPeriod1Elm.Tp = CDMCodeListToISOCode(CDMTaxPeriodTypeElm.TypeCode);
+    CDMDatePeriodDetailsType_To_DatePeriodDetails(CDMTaxPeriodTypeElm.FromToDate, TaxPeriod1Elm.FrToDt);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxRecordDetailsType_To_TaxRecordDetails1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxRecordDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount.Details</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount.Details</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxRecordDetails1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt.Dtls</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt.Dtls</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxRecordDetailsTypeElm in CDMTaxRecordDetailsType) {
+    def TaxRecordDetails1Elm = TaxRecordDetails1.secAddElement();
+    CDMTaxPeriodType_To_TaxPeriod1(CDMTaxRecordDetailsTypeElm.Period, TaxRecordDetails1Elm.Prd);
+    CDMAmountType_To_ActiveOrHistoricCurrencyAndAmount(CDMTaxRecordDetailsTypeElm.Amount, TaxRecordDetails1Elm.Amt);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTaxRecordType_To_TaxRecord1" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTaxRecordType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TaxRecord1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTaxRecordTypeElm in CDMTaxRecordType) {
+    def TaxRecord1Elm = TaxRecord1.secAddElement();
+    TaxRecord1Elm.Tp = CDMTaxRecordTypeElm.Type;
+    TaxRecord1Elm.Ctgy = CDMTaxRecordTypeElm.Category;
+    TaxRecord1Elm.CtgyDtls = CDMTaxRecordTypeElm.CategoryDetails;
+    TaxRecord1Elm.DbtrSts = CDMTaxRecordTypeElm.DebtorStatus;
+    TaxRecord1Elm.CertId = CDMCodeSchemeToISOCode(CDMTaxRecordTypeElm.CertificateID);
+    TaxRecord1Elm.FrmsCd = CDMTaxRecordTypeElm.FormsCode;
+    CDMTaxPeriodType_To_TaxPeriod1(CDMTaxRecordTypeElm.Period, TaxRecord1Elm.Prd);
+    CDMTaxAmountType_To_TaxAmount1(CDMTaxRecordTypeElm.TaxAmount, TaxRecord1Elm.TaxAmt);
+    TaxRecord1Elm.AddtlInf = CDMTaxRecordTypeElm.AdditionalInformation;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="ISOToCDM" type="FunctionDefFolder">
+			<FormulaFunctionDef name="AccountIdentification4Choice_To_CDMAccountIDType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>AccountIdentification4Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.DbtrAcct.Id</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMAccountIDType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.DebtorAccount.ID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.DebtorAccount.ID</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def AccountIdentification4ChoiceElm in AccountIdentification4Choice) {
+    isoIDOrOthrToCDMCodeScheme (AccountIdentification4ChoiceElm, CDMAccountIDType);
+}
+ //TODO : PaymentInformation.DebtorAccount.ID.schemeID -> ?
+//TODO : PaymentInformation.DebtorAccount.ID.schemeVersionID -> ?
+//TODO : PaymentInformation.DebtorAccount.ID.schemeAgencyID -> ?
+//TODO : PaymentInformation.DebtorAccount.ID.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ActiveOrHistoricCurrencyAndAmount</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Amt.InstdAmt</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMAmountType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def ActiveOrHistoricCurrencyAndAmountElm in ActiveOrHistoricCurrencyAndAmount) {
+    isoAmountToCDMAmount (ActiveOrHistoricCurrencyAndAmountElm, CDMAmountType);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="BranchData2_To_CDMBranchDataType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>BranchData2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.BrnchId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.BrnchId</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMBranchDataType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.Branch</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.Branch</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def BranchData2Elm in BranchData2) {
+    def CDMBranchDataTypeElm = CDMBranchDataType.secAddElement();
+    isoCodeToCDMCodeScheme(BranchData2Elm.Id, CDMBranchDataTypeElm.ID);
+    CDMBranchDataTypeElm.Name = BranchData2Elm.Nm;
+    PostalAddress6_To_CDMPostalAddressType(BranchData2Elm.PstlAdr, CDMBranchDataTypeElm.PostalAddress);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="ClearingSystemIdentification2Choice_To_CDMClearingSystemCodeType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ClearingSystemIdentification2Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId.ClrSysId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId.ClrSysId</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMClearingSystemCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def ClearingSystemIdentification2ChoiceElm in ClearingSystemIdentification2Choice) {
+    //TODO : GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID.listID -> ?
+    //TODO : GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID.listVersionID -> ?
+    isoCdOrPrtryToCDMCodeList (ClearingSystemIdentification2ChoiceElm, CDMClearingSystemCodeType);
+}
+ //TODO : GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember.ClearingSystemID.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="ClearingSystemMemberIdentification2_To_CDMClearingSystemMemberType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ClearingSystemMemberIdentification2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.ClrSysMmbId</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMClearingSystemMemberType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.ClearingSystemMember</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def ClearingSystemMemberIdentification2Elm in ClearingSystemMemberIdentification2) {
+    def CDMClearingSystemMemberTypeElm = CDMClearingSystemMemberType.secAddElement();
+    ClearingSystemIdentification2Choice_To_CDMClearingSystemCodeType(ClearingSystemMemberIdentification2Elm.ClrSysId, CDMClearingSystemMemberTypeElm.ClearingSystemID);
+    isoCodeToCDMCodeScheme(ClearingSystemMemberIdentification2Elm.MmbId, CDMClearingSystemMemberTypeElm.MemberID);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="ContactDetails2_To_CDMContactDetailsType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ContactDetails2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.CtctDtls</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.CtctDtls</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMContactDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.ContactDetails</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.ContactDetails</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def ContactDetails2Elm in ContactDetails2) {
+    def CDMContactDetailsTypeElm = CDMContactDetailsType.secAddElement();
+    isoCodeToCDMCodeList(ContactDetails2Elm.NmPrfx, CDMContactDetailsTypeElm.NamePrefixCode);
+    CDMContactDetailsTypeElm.Name = ContactDetails2Elm.Nm;
+    CDMContactDetailsTypeElm.PhoneNumber = ContactDetails2Elm.PhneNb;
+    CDMContactDetailsTypeElm.MobileNumber = ContactDetails2Elm.MobNb;
+    CDMContactDetailsTypeElm.FaxNumber = ContactDetails2Elm.FaxNb;
+    CDMContactDetailsTypeElm.EmailAddress = ContactDetails2Elm.EmailAdr;
+    CDMContactDetailsTypeElm.Other = ContactDetails2Elm.Othr;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CreditorReferenceInformation2_To_CDMCreditorReferenceInformationType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CreditorReferenceInformation2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMCreditorReferenceInformationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CreditorReferenceInformation2Elm in CreditorReferenceInformation2) {
+    def CDMCreditorReferenceInformationTypeElm = CDMCreditorReferenceInformationType.secAddElement();
+    CreditorReferenceType2_To_CDMCreditorReferenceTypeCodeType(CreditorReferenceInformation2Elm.Tp, CDMCreditorReferenceInformationTypeElm.TypeCode);
+    CDMCreditorReferenceInformationTypeElm.Reference = CreditorReferenceInformation2Elm.Ref;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CreditorReferenceType2_To_CDMCreditorReferenceTypeCodeType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CreditorReferenceType2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.Tp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.CdtrRefInf.Tp</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMCreditorReferenceTypeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CreditorReferenceType2Elm in CreditorReferenceType2) {
+    //TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode.listID -> ?
+    isoCdOrPrtryToCDMCodeList (CreditorReferenceType2Elm.CdOrPrtry[0], CDMCreditorReferenceTypeCodeType);
+}
+ //TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode.listAgencyID -> ?
+//TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.CreditorReferenceInformation.TypeCode.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="DatePeriodDetails_To_CDMDatePeriodDetailsType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>DatePeriodDetails</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd.FrToDt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd.FrToDt</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMDatePeriodDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period.FromToDate</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period.FromToDate</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def DatePeriodDetailsElm in DatePeriodDetails) {
+    def CDMDatePeriodDetailsTypeElm = CDMDatePeriodDetailsType.secAddElement();
+    CDMDatePeriodDetailsTypeElm.FromDate = DatePeriodDetailsElm.FrDt;
+    CDMDatePeriodDetailsTypeElm.ToDate = DatePeriodDetailsElm.ToDt;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="DocumentAdjustment1_To_CDMDocumentAdjustmentType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>DocumentAdjustment1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocAmt.AdjstmntAmtAndRsn</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocAmt.AdjstmntAmtAndRsn</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMDocumentAdjustmentType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentAmount.AdjustmentAmountAndReason</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentAmount.AdjustmentAmountAndReason</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def DocumentAdjustment1Elm in DocumentAdjustment1) {
+    def CDMDocumentAdjustmentTypeElm = CDMDocumentAdjustmentType.secAddElement();
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(DocumentAdjustment1Elm.Amt, CDMDocumentAdjustmentTypeElm.Amount);
+    isoCodeToCDMCodeList(DocumentAdjustment1Elm.CdtDbtInd, CDMDocumentAdjustmentTypeElm.CreditDebitIndicatorCode);
+    CDMDocumentAdjustmentTypeElm.Reason = DocumentAdjustment1Elm.Rsn;
+    CDMDocumentAdjustmentTypeElm.AdditionalInformation = DocumentAdjustment1Elm.AddtlInf;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="GenericFinancialIdentification1_To_CDMGenericFinancialIDType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>GenericFinancialIdentification1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMGenericFinancialIDType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.OtherID</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.ForwardingAgent.FinancialInstitution.OtherID</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def GenericFinancialIdentification1Elm in GenericFinancialIdentification1) {
+    isoCodeToCDMCodeScheme (GenericFinancialIdentification1Elm.Id, CDMGenericFinancialIDType);
+}
+ //TODO : GroupHeader.ForwardingAgent.FinancialInstitution.OtherID.schemeVersionID -> CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr.SchmeNm
+//TODO : GroupHeader.ForwardingAgent.FinancialInstitution.OtherID.schemeAgencyID -> CstmrCdtTrfInitn.GrpHdr.FwdgAgt.FinInstnId.Othr.SchmeNm
+//TODO : GroupHeader.ForwardingAgent.FinancialInstitution.OtherID.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="Max140Text_To_CDMstring" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Max140Text</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Ustrd</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMstring</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Unstructured</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Unstructured</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def Max140TextElm in Max140Text) {
+    def CDMstringElm = CDMstring.secAddElement();
+    CDMstringElm.Value = Max140TextElm.Value;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="Max70Text_To_CDMstring" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Max70Text</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr.AdrLine</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr.AdrLine</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMstring</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress.AddressLine</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress.AddressLine</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def Max70TextElm in Max70Text) {
+    def CDMstringElm = CDMstring.secAddElement();
+    CDMstringElm.Value = Max70TextElm.Value;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="NameAndAddress10_To_CDMNameAndAddressType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>NameAndAddress10</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.ChqInstr.ChqFr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.ChqInstr.ChqFr</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMNameAndAddressType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.ChequeInstruction.ChequeFrom</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.ChequeInstruction.ChequeFrom</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def NameAndAddress10Elm in NameAndAddress10) {
+    def CDMNameAndAddressTypeElm = CDMNameAndAddressType.secAddElement();
+    CDMNameAndAddressTypeElm.Name = NameAndAddress10Elm.Nm;
+    PostalAddress6_To_CDMPostalAddressType(NameAndAddress10Elm.Adr, CDMNameAndAddressTypeElm.Address);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="PostalAddress6_To_CDMPostalAddressType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>PostalAddress6</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.GrpHdr.InitgPty.PstlAdr</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMPostalAddressType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.GroupHeader.InitiatingParty.PostalAddress</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def PostalAddress6Elm in PostalAddress6) {
+    def CDMPostalAddressTypeElm = CDMPostalAddressType.secAddElement();
+    isoCodeToCDMCodeList(PostalAddress6Elm.AdrTp, CDMPostalAddressTypeElm.AddressTypeCode);
+    CDMPostalAddressTypeElm.Department = PostalAddress6Elm.Dept;
+    CDMPostalAddressTypeElm.SubDepartment = PostalAddress6Elm.SubDept;
+    CDMPostalAddressTypeElm.StreetName = PostalAddress6Elm.StrtNm;
+    CDMPostalAddressTypeElm.BuildingNumber = PostalAddress6Elm.BldgNb;
+    CDMPostalAddressTypeElm.PostCode = PostalAddress6Elm.PstCd;
+    CDMPostalAddressTypeElm.TownName = PostalAddress6Elm.TwnNm;
+    CDMPostalAddressTypeElm.CountrySubDivision = PostalAddress6Elm.CtrySubDvsn;
+    isoCodeToCDMCodeList(PostalAddress6Elm.Ctry, CDMPostalAddressTypeElm.CountryCode);
+    Max70Text_To_CDMstring(PostalAddress6Elm.AdrLine, CDMPostalAddressTypeElm.AddressLine);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="Purpose2Choice_To_CDMPurposeCodeType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Purpose2Choice</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Purp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Purp</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMPurposeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Purpose</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Purpose</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def Purpose2ChoiceElm in Purpose2Choice) {
+    //TODO : PaymentInformation.CreditTransferTransactionInformation.Purpose.listID -> ?
+    //TODO : PaymentInformation.CreditTransferTransactionInformation.Purpose.listVersionID -> ?
+    isoCdOrPrtryToCDMCodeList (Purpose2ChoiceElm, CDMPurposeCodeType);
+}
+ //TODO : PaymentInformation.CreditTransferTransactionInformation.Purpose.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="ReferredDocumentType2_To_CDMReferredDocumentTypeCodeType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ReferredDocumentType2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocInf.Tp</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RmtInf.Strd.RfrdDocInf.Tp</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMReferredDocumentTypeCodeType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def ReferredDocumentType2Elm in ReferredDocumentType2) {
+    //TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode.listID -> ?
+    isoCdOrPrtryToCDMCodeList (ReferredDocumentType2Elm.CdOrPrtry[0], CDMReferredDocumentTypeCodeType);
+}
+ //TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode.listAgencyID -> ?
+//TODO : PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured.ReferredDocumentInformation.TypeCode.Value -> ?
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="RemittanceLocation2_To_CDMRemittanceLocationType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>RemittanceLocation2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RltdRmtInf</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.RltdRmtInf</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMRemittanceLocationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RelatedRemittanceInformation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.RelatedRemittanceInformation</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def RemittanceLocation2Elm in RemittanceLocation2) {
+    def CDMRemittanceLocationTypeElm = CDMRemittanceLocationType.secAddElement();
+    isoCodeToCDMCodeScheme(RemittanceLocation2Elm.RmtId, CDMRemittanceLocationTypeElm.RemittanceID);
+    isoCodeToCDMCodeList(RemittanceLocation2Elm.RmtLctnMtd, CDMRemittanceLocationTypeElm.RemittanceLocationMethodCode);
+    CDMRemittanceLocationTypeElm.RemittanceLocationElectronicAddress = RemittanceLocation2Elm.RmtLctnElctrncAdr;
+    NameAndAddress10_To_CDMNameAndAddressType(RemittanceLocation2Elm.RmtLctnPstlAdr, CDMRemittanceLocationTypeElm.RemittanceLocationPostalAddress);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxAmount1_To_CDMTaxAmountType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxAmount1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxAmountType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxAmount1Elm in TaxAmount1) {
+    def CDMTaxAmountTypeElm = CDMTaxAmountType.secAddElement();
+    CDMTaxAmountTypeElm.Rate = TaxAmount1Elm.Rate;
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(TaxAmount1Elm.TaxblBaseAmt, CDMTaxAmountTypeElm.TaxableBaseAmount);
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(TaxAmount1Elm.TtlAmt, CDMTaxAmountTypeElm.TotalAmount);
+    TaxRecordDetails1_To_CDMTaxRecordDetailsType(TaxAmount1Elm.Dtls, CDMTaxAmountTypeElm.Details);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxAuthorisation1_To_CDMTaxAuthorisationType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxAuthorisation1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr.Authstn</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr.Authstn</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxAuthorisationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor.Authorisation</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor.Authorisation</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxAuthorisation1Elm in TaxAuthorisation1) {
+    def CDMTaxAuthorisationTypeElm = CDMTaxAuthorisationType.secAddElement();
+    CDMTaxAuthorisationTypeElm.Title = TaxAuthorisation1Elm.Titl;
+    CDMTaxAuthorisationTypeElm.Name = TaxAuthorisation1Elm.Nm;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxInformation3_To_CDMTaxInformationType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxInformation3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxInformationType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxInformation3Elm in TaxInformation3) {
+    def CDMTaxInformationTypeElm = CDMTaxInformationType.secAddElement();
+    TaxParty1_To_CDMTaxPartyType(TaxInformation3Elm.Cdtr, CDMTaxInformationTypeElm.Creditor);
+    TaxParty2_To_CDMTaxPartyType(TaxInformation3Elm.Dbtr, CDMTaxInformationTypeElm.Debtor);
+    CDMTaxInformationTypeElm.AdministrationZone = TaxInformation3Elm.AdmstnZn;
+    CDMTaxInformationTypeElm.ReferenceNumber = TaxInformation3Elm.RefNb;
+    CDMTaxInformationTypeElm.Method = TaxInformation3Elm.Mtd;
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(TaxInformation3Elm.TtlTaxblBaseAmt, CDMTaxInformationTypeElm.TotalTaxableBaseAmount);
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(TaxInformation3Elm.TtlTaxAmt, CDMTaxInformationTypeElm.TotalTaxAmount);
+    CDMTaxInformationTypeElm.Date = TaxInformation3Elm.Dt;
+    CDMTaxInformationTypeElm.SequenceNumber = TaxInformation3Elm.SeqNb;
+    TaxRecord1_To_CDMTaxRecordType(TaxInformation3Elm.Rcrd, CDMTaxInformationTypeElm.Record);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxParty1_To_CDMTaxPartyType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxParty1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Cdtr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Cdtr</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxPartyType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Creditor</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Creditor</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxParty1Elm in TaxParty1) {
+    def CDMTaxPartyTypeElm = CDMTaxPartyType.secAddElement();
+    isoCodeToCDMCodeScheme(TaxParty1Elm.TaxId, CDMTaxPartyTypeElm.TaxID);
+    isoCodeToCDMCodeScheme(TaxParty1Elm.RegnId, CDMTaxPartyTypeElm.RegistrationID);
+    CDMTaxPartyTypeElm.TaxType = TaxParty1Elm.TaxTp;
+}
+ //TODO : PaymentInformation.CreditTransferTransactionInformation.Tax.Creditor.Authorisation -> ?
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxParty2_To_CDMTaxPartyType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxParty2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Dbtr</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxPartyType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Debtor</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxParty2Elm in TaxParty2) {
+    def CDMTaxPartyTypeElm = CDMTaxPartyType.secAddElement();
+    isoCodeToCDMCodeScheme(TaxParty2Elm.TaxId, CDMTaxPartyTypeElm.TaxID);
+    isoCodeToCDMCodeScheme(TaxParty2Elm.RegnId, CDMTaxPartyTypeElm.RegistrationID);
+    CDMTaxPartyTypeElm.TaxType = TaxParty2Elm.TaxTp;
+    TaxAuthorisation1_To_CDMTaxAuthorisationType(TaxParty2Elm.Authstn, CDMTaxPartyTypeElm.Authorisation);
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxPeriod1_To_CDMTaxPeriodType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxPeriod1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.Prd</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxPeriodType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.Period</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxPeriod1Elm in TaxPeriod1) {
+    def CDMTaxPeriodTypeElm = CDMTaxPeriodType.secAddElement();
+    CDMTaxPeriodTypeElm.Year = TaxPeriod1Elm.Yr;
+    isoCodeToCDMCodeList(TaxPeriod1Elm.Tp, CDMTaxPeriodTypeElm.TypeCode);
+    DatePeriodDetails_To_CDMDatePeriodDetailsType(TaxPeriod1Elm.FrToDt, CDMTaxPeriodTypeElm.FromToDate);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxRecord1_To_CDMTaxRecordType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxRecord1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxRecordType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxRecord1Elm in TaxRecord1) {
+    def CDMTaxRecordTypeElm = CDMTaxRecordType.secAddElement();
+    CDMTaxRecordTypeElm.Type = TaxRecord1Elm.Tp;
+    CDMTaxRecordTypeElm.Category = TaxRecord1Elm.Ctgy;
+    CDMTaxRecordTypeElm.CategoryDetails = TaxRecord1Elm.CtgyDtls;
+    CDMTaxRecordTypeElm.DebtorStatus = TaxRecord1Elm.DbtrSts;
+    isoCodeToCDMCodeScheme(TaxRecord1Elm.CertId, CDMTaxRecordTypeElm.CertificateID);
+    CDMTaxRecordTypeElm.FormsCode = TaxRecord1Elm.FrmsCd;
+    TaxPeriod1_To_CDMTaxPeriodType(TaxRecord1Elm.Prd, CDMTaxRecordTypeElm.Period);
+    TaxAmount1_To_CDMTaxAmountType(TaxRecord1Elm.TaxAmt, CDMTaxRecordTypeElm.TaxAmount);
+    CDMTaxRecordTypeElm.AdditionalInformation = TaxRecord1Elm.AddtlInf;
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TaxRecordDetails1_To_CDMTaxRecordDetailsType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TaxRecordDetails1</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt.Dtls</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_CustomerCreditTransferInitiationV03.Data.CstmrCdtTrfInitn.PmtInf.CdtTrfTxInf.Tax.Rcrd.TaxAmt.Dtls</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTaxRecordDetailsType</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount.Details</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_CustomerCreditTransferInitiationV2.Data.PaymentInformation.CreditTransferTransactionInformation.Tax.Record.TaxAmount.Details</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TaxRecordDetails1Elm in TaxRecordDetails1) {
+    def CDMTaxRecordDetailsTypeElm = CDMTaxRecordDetailsType.secAddElement();
+    TaxPeriod1_To_CDMTaxPeriodType(TaxRecordDetails1Elm.Prd, CDMTaxRecordDetailsTypeElm.Period);
+    ActiveOrHistoricCurrencyAndAmount_To_CDMAmountType(TaxRecordDetails1Elm.Amt, CDMTaxRecordDetailsTypeElm.Amount);
+}
+
+//ISO 20022camt_053_001_03-CDMcamt.053.001.03
+//CDMMappingFunctions]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jul 17 17:39:46 IST 2013"/>
+						<property name="Author" value="krishnan"/>
+						<property name="Title" value="CDMMappingFunctions"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:14 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="84"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV2\CGI_ISO\CDM_CGIISOLibrary\CDMMappingFunctions.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-Mappings/SAP-CDM-Mappings_For5.0P1/Cartridges/Mappings/CDMV2/CGIISO/BankToCustomerStatement/ISO_V03/CDMV2_ISOV03_BankToCustomerStatement/Function Definitions/ISOToCDM/Price2_To_CDMPriceType</selected-element>
+	</workspace>
+</cartridge>
+

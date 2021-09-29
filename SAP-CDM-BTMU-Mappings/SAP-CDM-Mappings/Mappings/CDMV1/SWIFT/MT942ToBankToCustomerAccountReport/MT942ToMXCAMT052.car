@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="MT942_MXCAMT052" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="MT942SRG2013ToCDMV1_BankToCustomerAccountReport" version="1.0" type="Mapping">
+			</service>
+			<service name="MT942ToCDM_BkToCstmrAcctRpt" version="1.7" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="MT942ToCDM_BkToCstmrAcctRptFSN" version="1.7" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="isInputFSNXML"/>
+			<function name="SetThresholdsOnFilteringSide"/>
+			<function name="mapToCDMExc"/>
+			<function name="setStackTrace"/>
+			<function name="RawMessageToBase64Binary"/>
+			<function name="Base64BinaryToRawMessage"/>
+			<function name="getPropFromExtHeader"/>
+			<function name="containsTechnicalException"/>
+			<function name="assignToContainer"/>
+			<function name="getAllMessageContents"/>
+			<function name="getPropertyFromExObj"/>
+			<function name="getErrorTrace"/>
+			<function name="getInternalCode"/>
+			<function name="getErrorType"/>
+			<function name="getErrorPhase"/>
+			<function name="setAllToValue"/>
+			<function name="MTSWIFTAddress_To_MXBICOrBEI"/>
+			<function name="MT_To_MXPartyAccount"/>
+			<function name="MTSWIFTAddress_To_MXBIC"/>
+			<function name="MT_To_MXTimeStr"/>
+			<function name="MT_To_MXDateStr"/>
+			<function name="ToBigDecimalAmount"/>
+			<function name="MT_To_MXDate"/>
+			<function name="MT_To_MXTime"/>
+			<function name="MT_To_MXOffset"/>
+			<function name="MT_To_MXTimeOffset"/>
+			<function name="MT_To_MXDateTimeOffset"/>
+			<function name="MT_To_MXCurrencyAmount"/>
+			<function name="MTDate4_To_MXDate"/>
+			<function name="MT_To_MX_Sum"/>
+			<function name="GetSendersAddress"/>
+			<function name="GetReceiversAddress"/>
+			<function name="MT_MX_Copy"/>
+			<function name="StopTranslation"/>
+			<function name="IsBEI"/>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+			<function name="getValidationList"/>
+			<function name="getCallBacksOfGivenType"/>
+			<function name="computeAmount"/>
+			<function name="validateFiltering"/>
+			<function name="getThreshold"/>
+			<function name="ApplyDiffOnMapperParams"/>
+			<function name="AddElmsInSrcSecToDestSec"/>
+			<function name="ApplyFilteringSideDiff"/>
+			<function name="RemoveExcProperty"/>
+			<function name="getRecordCount"/>
+			<function name="MTMXCreateBalance"/>
+			<function name="MT942SRG2013ToCDMV1_BankToCustomerAccountReport"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\FSNProcessor\Mappings_FSNProcessor.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\SWIFT_CDMLibrary\SWIFT_CDMLibrary.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\SWIFT\SWIFT_CDMLibrary\SWIFT_CDMLibrary.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\SWIFT\SWIFTMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\SWIFT\SWIFTMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\MessageTypeValue\MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Library\GenericMapper\GenericMapper.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\GenericMapper\GenericMapper.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="MTMXCreateBalance" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTBalance</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>MXCode</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>MXBalanceSec</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def balance1 = SecAddElement(MXBalanceSec);
+balance1.Tp.SecAddElement().CdOrPrtry.SecAddElement().Cd = MXCode;
+if(MTBalance.D_C_Mark == "C")
+    balance1.CdtDbtInd = "CRDT";
+
+if(MTBalance.D_C_Mark == "D")
+    balance1.CdtDbtInd = "DBIT";
+
+balance1.Dt.SecAddElement().Dt = MT_To_MXDate(MTBalance.Date);
+MT_To_MXCurrencyAmount(MTBalance.Currency, MTBalance.Amount, 
+                       balance1.Amt.SecAddElement());
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT942SRG2013ToCDMV1_BankToCustomerAccountReport" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>MT942_SRG2013</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>destObj</name>
+					<type>DataObject</type>
+					<output>true</output>
+					<message>CDM_BankToCustomerAccountReportV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>MT942_SRG2013</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>destObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_BankToCustomerAccountReportV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="one2one">
+						<source-field>srcObj.Data.20.TRN</source-field>
+						<destination-field>destObj.Data.GroupHeader.MessageIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if(srcObj.Data.F13D.$size > 0) {
+    def F13DElm = srcObj.Data.F13D[0];
+    return MT_To_MXDateTimeOffset(F13DElm.Date, F13DElm.Time, F13DElm.Offset, 
+                                  F13DElm.Sign);
+}
+else
+    return ParseISODate("9999-12-31T00:00:00", "%Y-%M-%DT%h:%m:%s%z");]]></source-field>
+						<destination-field>destObj.Data.GroupHeader.CreationDateTime</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p5 and default
+If(IsNotNull(srcObj.Data.F28C.Sequence_Number), Set(ToText(srcObj.Data.F28C.Sequence_Number)), set("1"))]]></source-field>
+						<destination-field>destObj.Data.GroupHeader.MessagePagination.PageNumber</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p5
+true]]></source-field>
+						<destination-field>destObj.Data.GroupHeader.MessagePagination.LastPageIndicator</destination-field>
+					</mapping>
+					<mapping type="one2one">
+						<source-field>srcObj.Data.20.TRN</source-field>
+						<destination-field>destObj.Data.Report.Identification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p5
+Set(ToBigDecimal(srcObj.Data.F28C.Statement_Number));]]></source-field>
+						<destination-field>destObj.Data.Report.ElectronicSequenceNumber</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p6
+if(srcObj.Data.F13D.$size > 0) {
+    def F13DElm = srcObj.Data.F13D[0];
+    return MT_To_MXDateTimeOffset(F13DElm.Date, F13DElm.Time, F13DElm.Offset, 
+                                  F13DElm.Sign);
+}
+else
+    return ParseISODate("9999-12-31T00:00:00", "%Y-%M-%DT%h:%m:%s%z");]]></source-field>
+						<destination-field>destObj.Data.Report.CreationDateTime</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p4
+if(Length(srcObj.Data.F25.Account) > 34) {
+	StopTranslation("Account Length must not be longer than 34 characters", "25.Account");
+}
+// Spec Fix: Why are we adding a slash because MT_To_MXPartyAccount assumes a slash
+def acct = "/" + srcObj.Data.F25.Account;
+MT_To_MXPartyAccount(acct, $value.SecAddElement())]]></source-field>
+						<destination-field>destObj.Data.Report.Account.Identification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p3
+def recAddr = GetReceiversAddress(srcObj);
+MTSWIFTAddress_To_MXBICOrBEI(GetReceiversAddress(srcObj), $value);]]></source-field>
+						<destination-field>destObj.Data.Report.Account.Owner.Identification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[//p3
+MTSWIFTAddress_To_MXBIC(GetSendersAddress(srcObj), $value)]]></source-field>
+						<destination-field>destObj.Data.Report.Account.Servicer.FinancialInstitutionIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[ToText(srcObj.Data.F90C.Number)]]></source-field>
+						<destination-field>destObj.Data.Report.TransactionsSummary.TotalCreditEntries.NumberOfEntries</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MT_To_MX_Sum(srcObj.Data.F90C.Amount)]]></source-field>
+						<destination-field>destObj.Data.Report.TransactionsSummary.TotalCreditEntries.Sum</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[ToText(srcObj.Data.F90D.Number)]]></source-field>
+						<destination-field>destObj.Data.Report.TransactionsSummary.TotalDebitEntries.NumberOfEntries</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[MT_To_MX_Sum(srcObj.Data.F90D.Amount)]]></source-field>
+						<destination-field>destObj.Data.Report.TransactionsSummary.TotalDebitEntries.Sum</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[foreach(def aelm in srcObj.Data.A) {
+    def entry = $value.SecAddElement();
+    if(aelm.F61.$size > 0) {
+        def elm = aelm.F61[0];
+        //p6
+        entry.ValueDate.SecAddElement().Date = MT_To_MXDate(elm.Value_Date);
+        // For both options
+        if(IsNotNull(elm.Entry_Date)) {
+            entry.BookingDate.SecAddElement().Date = MTDate4_To_MXDate(elm.Entry_Date, 
+                                                                 "99991231");
+        }
+        
+        def crDbInd;
+        
+        if(elm.Debit_Credit_Mark == "D") {
+            crDbInd = "DBIT";
+        }
+        if(elm.Debit_Credit_Mark == "C") {
+            crDbInd = "CRDT";
+        }
+        //p7
+        if(elm.Debit_Credit_Mark == "RC") {
+            entry.ReversalIndicator = true;
+            crDbInd = "DBIT";
+        }
+        if(elm.Debit_Credit_Mark == "RD") {
+            entry.ReversalIndicator = true;
+            crDbInd = "CRDT";
+        }
+        
+        if(In(elm.Debit_Credit_Mark, "D", "C", "RD", "RC")) {
+	        entry.Status = "BOOK";
+        }
+        if(elm.Debit_Credit_Mark == "EC")
+            crDbInd = "CRDT";
+            
+        if(elm.Debit_Credit_Mark == "ED")
+            crDbInd = "DBIT";
+        //p8    
+        if(In(elm.Debit_Credit_Mark, "EC", "ED")) {
+	        entry.Status = "PDNG";
+        }
+        
+        entry.CreditDebitIndicator = crDbInd;
+            
+        MT_To_MXCurrencyAmount(srcObj.Data.F34F.Currency, elm.Amount, 
+                               entry.Amount.SecAddElement());
+                               
+        entry.BankTransactionCode.SecAddElement().Proprietary.SecAddElement().Code = elm.Transaction_Type_Identification_Code;
+        
+        def transacDtls = entry.EntryDetails.SecAddOrgetElement().TransactionDetails.SecAddOrGetElement();
+        
+        MT_To_MXCurrencyAmount(srcObj.Data.F34F.Currency, elm.Amount, transacDtls.Amount.SecAddElement());
+        transacDtls.CreditDebitIndicator = crDbInd;
+        
+        
+        transacDtls.References.SecAddElement().EndToEndIdentification = elm.Reference_for_the_Account_Owner;
+        if(IsNotNull(elm.Account_Servicing_Institution_s_Reference))
+            entry.AccountServicerReference = elm.Account_Servicing_Institution_s_Reference;
+
+        if(IsNotNull(elm.Supplementary_Details))
+            transacDtls.AdditionalTransactionInformation = elm.Supplementary_Details;
+
+    }
+	if(aelm.F86.$size > 0) {
+		entry.AdditionalEntryInformation = MT_MX_Copy(aelm.F86[0].Narrative);
+	}
+}]]></source-field>
+						<destination-field>destObj.Data.Report.Entry</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if(srcObj.Data.F86.Narrative.IsNotNull()) {
+    Set(MT_MX_Copy(srcObj.Data.F86.Narrative));
+}]]></source-field>
+						<destination-field>destObj.Data.Report.AdditionalReportInformation</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messagemapping rulename="MT942SRG2013ToCDMV1_BankToCustomerAccountReport" type="MessageMapping">
+		<source>MT942_SRG2013</source>
+		<destination>CDM_BankToCustomerAccountReportV1</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="formula">
+					<source-field><![CDATA[MT942SRG2013ToCDMV1_BankToCustomerAccountReport ($this, $that)]]></source-field>
+					<destination-field>GroupHeader</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messageflow name="MT942ToCDM_BkToCstmrAcctRpt" type="MessageFlow">
+		<version>1.7</version>
+		<transaction>Required</transaction>
+		<variables>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Stop1" uid="84ba938f-8277-46f1-b89f-691e201411e3" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="174"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="4a1c2969-ca16-4c58-8c21-61ec42ce1526" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Flow</label>
+			<description><![CDATA[]]></description>
+			<name>MT942ToCDM_BkToCstmrAcctRptFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="422" y="106"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="b690b69d-cbf1-4938-a1cc-98bd95052a86" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="422" y="39"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="4a1c2969-ca16-4c58-8c21-61ec42ce1526" portindex="1"/>
+			<inputport uid="84ba938f-8277-46f1-b89f-691e201411e3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b690b69d-cbf1-4938-a1cc-98bd95052a86" portindex="0"/>
+			<inputport uid="4a1c2969-ca16-4c58-8c21-61ec42ce1526" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="388" y="25" width="73" height="163"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="MT942ToCDM_BkToCstmrAcctRptFSN" type="MessageFlow">
+		<version>1.7</version>
+		<description><![CDATA[Converts MT942 wrapped in FSN to CDM BankToCustomerAccountReport message wrapped in FSN]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<description><![CDATA[FSN input message]]></description>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<description><![CDATA[FSN output message]]></description>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="8452d60e-5297-4ef6-bbb4-a82f1bcd7bf3" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="372" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="955e9482-fa3b-4372-8b0b-862914fa22ab" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Processor</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_FSNProcessor</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="371" y="199"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="8ed7c076-94a7-4094-aff0-3b85b4df961b" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="371" y="267"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="b227e7f4-1969-445e-bdc9-df9d024247e8" type="Create" xsi:type="Create" >
+			<label>Create Framework Params</label>
+			<description><![CDATA[]]></description>
+			<out>fsnParamsObj</out>
+			<message>FSNParams</message>
+			<init>fsnParamsObj.SetFSNMessageNames (
+	FSNMSGTYPE.MT942_SRG2013,
+	FSNMSGTYPE.BANK_TO_CUST_ACCOUNT_REP_1_0
+);
+
+fsnParamsObj.SetBasicParams(
+	"MT942_SRG2013",
+		"MT942SRG2013ToCDMV1_BankToCustomerAccountReport",
+			"CDM_BankToCustomerAccountReportV1"
+);
+
+fsnParamsObj.SetValidationList ("Default", null);
+
+fsnParamsObj.SetCartridgeDetails (
+	"MT942ToCDM_BkToCstmrAcctRptFSN", "1.7"
+);
+
+</init>
+			<visual>
+				<position x="371" y="112"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="955e9482-fa3b-4372-8b0b-862914fa22ab" portindex="1"/>
+			<inputport uid="8ed7c076-94a7-4094-aff0-3b85b4df961b" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8452d60e-5297-4ef6-bbb4-a82f1bcd7bf3" portindex="0"/>
+			<inputport uid="b227e7f4-1969-445e-bdc9-df9d024247e8" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b227e7f4-1969-445e-bdc9-df9d024247e8" portindex="1"/>
+			<inputport uid="955e9482-fa3b-4372-8b0b-862914fa22ab" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="337" y="25" width="73" height="256"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jun 11 10:45:13 IST 2008"/>
+						<property name="Author" value="Krish"/>
+						<property name="Title" value="MT202_mxpacs_009_001_01"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:14 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="798"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\SWIFT\MT942ToBankToCustomerAccountReport\MT942ToMXCAMT052.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/SAP_BTMU_DEV_INTERNAL-20thSept/SAP-CDM-Mappings/Mappings/CDMV1/SWIFT/MT942ToBankToCustomerAccountReport/MT942_MXCAMT052/MT942ToCDM_BkToCstmrAcctRptFSN</selected-element>
+	</workspace>
+</cartridge>
+

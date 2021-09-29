@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="FSNParamsHelper" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\FSNParams\FSNParams.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNParams\FSNParams.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\SAPUtil\SAPUtil.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="SetBasicParams" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>inputMsgName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>mapName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>outputMsgName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def elm = fsnParams.MapperParams.SecAddOrGetElement();
+elm.InputMessage = inputMsgName;
+elm.OutputMessage = outputMsgName;
+elm.MapperName = mapName;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetFSNMessageNames" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>inputFSNName</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>outputFSNName</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if (inputFSNName.IsNotNull() && (inputFSNName.trim().length() != 0))
+	fsnParams.InputFSNMsgType = inputFSNName;
+
+if (outputFSNName.IsNotNull() && (outputFSNName.trim().length() != 0))
+	fsnParams.OutputFSNMsgType = outputFSNName;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="AddCallBack" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>type</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>callBackFlowName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def callBacksElm = fsnParams.MapperParams.SecAddOrGetElement().CallBacks.SecAddElement();
+callBacksElm.Type = type;
+callBacksElm.FlowName = callBackFlowName;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetFilteringParams" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>filteringSide</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>groupQualName</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>transQualName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transIDRelName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>amtThresholdPaths</name>
+					<type>StringList</type>
+					<required>false</required>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def mapParams = fsnParams.MapperParams.SecAddOrGetElement();
+def filteringParamsElm = mapParams.FilteringParams.SecAddElement();
+filteringParamsElm.FilteringSide = filteringSide;
+if (groupQualName.IsNotNull())
+	filteringParamsElm.GroupQualName = groupQualName;
+filteringParamsElm.TransQualName = transQualName;
+filteringParamsElm.TransIDRelName = transIDRelName;
+
+def thresholdElm = filteringParamsElm.Thresholds.SecAddElement();
+thresholdElm.Name = THRESHOLDNAMES.TRANSACTIONCOUNT;
+fsnParams.AddCallBack (CALLBACKTYPE.CUSTOM_THRESHOLD_FILTER, "SAP_FW_ApplyTransactionCountThreshold");
+
+thresholdElm = filteringParamsElm.Thresholds.SecAddElement();
+thresholdElm.Name = THRESHOLDNAMES.AMOUNT;
+if (amtThresholdPaths.IsNotNull()) {
+	foreach (def pathEntry in amtThresholdPaths) {
+		thresholdElm.Path.SecAddElement().Value = pathEntry;
+	}
+	fsnParams.AddCallBack (CALLBACKTYPE.CUSTOM_THRESHOLD_FILTER, "SAP_FW_ApplyAmountThreshold");
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="setTypeCode" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>ex</name>
+					<type>DataObject</type>
+					<message>TransformException</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>value</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if (ex.IsNotNull()) {
+	def allExc = ex.GetCascadedExceptions();
+	foreach (def exc in allExc) {
+		def prop = exc.GetExceptionProperty (EXCEPTION_PROP.TYPECODE);
+		if (!isExceptionRunTime (exc.GetType()) || (value == EXCEPTION_TYPE_CODE.TECHNICAL))
+			if (prop.IsNull() || (prop.trim().length() == 0))
+				exc.SetExceptionProperty (EXCEPTION_PROP.TYPECODE, value);
+	}
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetCartridgeDetails" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>FSNFlowName</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>FSNFlowVersion</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[fsnParams.FSNFlowName = FSNFlowName;
+fsnParams.FSNFlowVersion = FSNFlowVersion;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetValidationList" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>inputValidationList</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>outputValidationList</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def elm = fsnParams.MapperParams.SecAddOrGetElement();
+if (inputValidationList.IsNotNull() && (inputValidationList.trim().length() != 0))
+	elm.InputValidationList = inputValidationList;
+
+if (outputValidationList.IsNotNull() && (outputValidationList.trim().length() != 0))
+	elm.OutputValidationList = outputValidationList;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetAllowMultipleInput" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>allowMultipleInput</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[fsnParams.AllowMultipleInput = allowMultipleInput;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetParserFlow" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>parserFlow</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[fsnParams.MapperParams.SecAddOrGetElement().ParserFlow = parserFlow;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetMapperName" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>mapperName</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[fsnParams.EndToEndMapper = mapperName;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="TypeCastToMapperParams" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>mapperParams</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>FSNParams.MapperParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<Code><![CDATA[return mapperParams;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetMessageID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnParams</name>
+					<type>DataObject</type>
+					<message>FSNParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>msgID</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>side</name>
+					<type>Integer</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def fltParams = fsnParams.MapperParams.SecAddOrGetElement().FilteringParams;
+
+def chosenSide;
+foreach (def elm in fltParams)
+	if (elm.FilteringSide == side) {
+		chosenSide = elm;
+		break;
+	}
+
+if (chosenSide.IsNull()) {
+	chosenSide = fltParams.SecAddElement();
+	chosenSide.FilteringSide = side;
+}
+
+chosenSide.MsgID = msgID;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Sep 17 14:15:04 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="FSNParamsHelper"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="109"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\FSNParamsHelper\FSNParamsHelper.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">FSNParamsHelper/Function Definitions/SetFilteringParams</selected-element>
+	</workspace>
+</cartridge>
+

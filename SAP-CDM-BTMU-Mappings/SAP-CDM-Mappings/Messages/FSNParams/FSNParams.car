@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="FSNParams" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="FSNParams" version="1.0" type="Internal Message">
+			</service>
+		</summary>
+	</private>
+	<internalmessage name="FSNParams" type="InternalMessage">
+		<version>1.0</version>
+		<normalizedformat>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field xsi:type="InternalMessageFieldType">
+					<name>InputFSNMsgType</name>
+					<type>String</type>
+					<description><![CDATA[This is mandatory. FSN Processor will thrown an exception if this does not match with the value in the input FSN XML.]]></description>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>OutputFSNMsgType</name>
+					<type>String</type>
+					<description><![CDATA[This is set in the output. This is optional as the flow indicated by 'MapImplFlowName' can return this.]]></description>
+					<notnull>false</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>EndToEndMapper</name>
+					<type>String</type>
+					<description><![CDATA[This and 'MapperParams' form a choice. Only one of them can be present. If this is present, the flow indicated by this will be invoked for mapping.]]></description>
+					<notnull>false</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>AllowMultipleInput</name>
+					<type>Boolean</type>
+					<description><![CDATA[Setting this will let the FSN processor accept multiple inputs]]></description>
+					<notnull>false</notnull>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>AllowMultipleOutput</name>
+					<type>Boolean</type>
+					<description><![CDATA[Setting this will let the FSN processor accept multiple outputs from client]]></description>
+					<notnull>false</notnull>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>FSNFlowName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>FSNFlowVersion</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageSectionType">
+					<name>MapperParams</name>
+					<type>Section</type>
+					<description><![CDATA[This and 'MapImplFlowName' form a choice. If 'MapImplFlowName' is not present, FSNMapper will be invoked with these params.]]></description>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<fields>
+						<field xsi:type="InternalMessageFieldType">
+							<name>InputMessage</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>ParserFlow</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>InputValidationList</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>MapperName</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>MapperFlow</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>OutputMessage</name>
+							<type>String</type>
+							<notnull>true</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>SerializerFlow</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageFieldType">
+							<name>OutputValidationList</name>
+							<type>String</type>
+							<notnull>false</notnull>
+							<length>-1</length>
+						</field>
+						<field xsi:type="InternalMessageSectionType">
+							<name>CallBacks</name>
+							<type>Section</type>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>-1</maxoccurs>
+							<fields>
+								<field xsi:type="InternalMessageFieldType">
+									<name>Type</name>
+									<type>Integer</type>
+									<notnull>true</notnull>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>FlowName</name>
+									<type>String</type>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+							</fields>
+						</field>
+						<field xsi:type="InternalMessageSectionType">
+							<name>FilteringParams</name>
+							<type>Section</type>
+							<description><![CDATA[This should be present only if filtering is desired.]]></description>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>2</maxoccurs>
+							<fields>
+								<field xsi:type="InternalMessageFieldType">
+									<name>FilteringSide</name>
+									<type>Integer</type>
+									<description><![CDATA[This indicates whether the params are for input side filtering or output side filtering.]]></description>
+									<notnull>true</notnull>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>MsgID</name>
+									<type>String</type>
+									<description><![CDATA[Unique ID for the entire message.]]></description>
+									<notnull>false</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>GroupQualName</name>
+									<type>String</type>
+									<description><![CDATA[If transactions are grouped, the qualified name of the group sec in the message should be present.]]></description>
+									<notnull>false</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>TransQualName</name>
+									<type>String</type>
+									<description><![CDATA[The qualified name of the section representing a transaction should be present here.]]></description>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageFieldType">
+									<name>TransIDRelName</name>
+									<type>String</type>
+									<description><![CDATA[The relative name of the field ID containing the unique ID for each transaction.]]></description>
+									<notnull>true</notnull>
+									<length>-1</length>
+								</field>
+								<field xsi:type="InternalMessageSectionType">
+									<name>Thresholds</name>
+									<type>Section</type>
+									<minoccurs>0</minoccurs>
+									<maxoccurs>-1</maxoccurs>
+									<fields>
+										<field xsi:type="InternalMessageFieldType">
+											<name>Name</name>
+											<type>String</type>
+											<notnull>true</notnull>
+											<length>-1</length>
+										</field>
+										<field xsi:type="InternalMessageFieldType">
+											<name>Value</name>
+											<type>String</type>
+											<notnull>true</notnull>
+											<length>-1</length>
+										</field>
+										<field xsi:type="InternalMessageSectionType">
+											<name>Path</name>
+											<type>Section</type>
+											<minoccurs>0</minoccurs>
+											<maxoccurs>-1</maxoccurs>
+											<fields>
+												<field xsi:type="InternalMessageFieldType">
+													<name>Value</name>
+													<type>String</type>
+													<notnull>true</notnull>
+													<length>-1</length>
+												</field>
+											</fields>
+										</field>
+									</fields>
+								</field>
+							</fields>
+						</field>
+					</fields>
+				</field>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.internal.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
+	<resources type="Resources">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+			<resourcefield>
+				<name>FILTERINGSIDE</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>INPUT</name>
+						<type>Integer</type>
+						<value>0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>OUTPUT</name>
+						<type>Integer</type>
+						<value>1</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>CALLBACKTYPE</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>PROCESS_INPUT_RAW_MSG</name>
+						<type>Integer</type>
+						<value>0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PROCESS_PARSED_OBJ</name>
+						<type>Integer</type>
+						<value>1</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUSTOM_VALIDATE_PARSED_OBJ</name>
+						<type>Integer</type>
+						<value>2</value>
+					</resourcefield>
+					<resourcefield>
+						<name>GET_VALIDATION_LIST_FOR_PARSED_OBJ</name>
+						<type>Integer</type>
+						<value>3</value>
+					</resourcefield>
+					<resourcefield>
+						<name>POST_PARSED_OBJ_VALIDATION</name>
+						<type>Integer</type>
+						<value>4</value>
+					</resourcefield>
+					<resourcefield>
+						<name>POST_INPUT_FILTER</name>
+						<type>Integer</type>
+						<value>5</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PROCESS_MAPPED_OBJ</name>
+						<type>Integer</type>
+						<value>6</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUSTOM_VALIDATE_MAPPED_OBJ</name>
+						<type>Integer</type>
+						<value>7</value>
+					</resourcefield>
+					<resourcefield>
+						<name>GET_VALIDATION_LIST_FOR_MAPPED_OBJ</name>
+						<type>Integer</type>
+						<value>8</value>
+					</resourcefield>
+					<resourcefield>
+						<name>POST_MAPPED_OBJ_VALIDATION</name>
+						<type>Integer</type>
+						<value>9</value>
+					</resourcefield>
+					<resourcefield>
+						<name>POST_OUTPUT_FILTER</name>
+						<type>Integer</type>
+						<value>10</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PROCESS_OUTPUT_RAW_MSG</name>
+						<type>Integer</type>
+						<value>11</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUSTOM_THRESHOLD_FILTER</name>
+						<type>Integer</type>
+						<value>12</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>THRESHOLDNAMES</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>TRANSACTIONCOUNT</name>
+						<type>String</type>
+						<value>TRANSACTION_COUNT</value>
+					</resourcefield>
+					<resourcefield>
+						<name>AMOUNT</name>
+						<type>String</type>
+						<value>AMOUNT</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>EXCEPTION_PROP</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>TRANSACTIONIDLIST</name>
+						<type>String</type>
+						<value>TransactionIDList</value>
+					</resourcefield>
+					<resourcefield>
+						<name>XPATH</name>
+						<type>String</type>
+						<value>XPath</value>
+					</resourcefield>
+					<resourcefield>
+						<name>TYPECODE</name>
+						<type>String</type>
+						<value>TypeCode</value>
+					</resourcefield>
+					<resourcefield>
+						<name>FSNFLOWNAME</name>
+						<type>String</type>
+						<value>FSNFlowName</value>
+					</resourcefield>
+					<resourcefield>
+						<name>FSNFLOWVERSION</name>
+						<type>String</type>
+						<value>FSNFlowVersion</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>EXCEPTION_TYPE_CODE</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>TRANSFORMATION</name>
+						<type>String</type>
+						<value>Transformation Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PARSING</name>
+						<type>String</type>
+						<value>Parsing Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>SERIALIZATION</name>
+						<type>String</type>
+						<value>Serialization Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>VALIDATION</name>
+						<type>String</type>
+						<value>Validation Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CODE_VALUE_MAPPING</name>
+						<type>String</type>
+						<value>Code Value Mapping Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>THRESHOLD_FAILURE</name>
+						<type>String</type>
+						<value>Threshold Failure Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>FSN_MESSAGE</name>
+						<type>String</type>
+						<value>FSN Message Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>FSN_MESSAGE_MISMATCH</name>
+						<type>String</type>
+						<value>FSN Message Mismatch Exception</value>
+					</resourcefield>
+					<resourcefield>
+						<name>TECHNICAL</name>
+						<type>String</type>
+						<value>Technical Exception</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>MAPPER_RAWIN_PARAMS</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>DIFF</name>
+						<type>String</type>
+						<value>DIFF</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CALLBACK</name>
+						<type>String</type>
+						<value>CALLBACK</value>
+					</resourcefield>
+					<resourcefield>
+						<name>INPUTRAWFSN</name>
+						<type>String</type>
+						<value>InputRawFSN</value>
+					</resourcefield>
+					<resourcefield>
+						<name>FSNOBJ</name>
+						<type>String</type>
+						<value>FsnObj</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>MAPPER_RETURN_PARAMS</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>FSN_OUTPUT_MSG_TYPE</name>
+						<type>String</type>
+						<value>FSNOutputMsgType</value>
+					</resourcefield>
+					<resourcefield>
+						<name>MULTIPLE_OUTPUT_PRESENT</name>
+						<type>String</type>
+						<value>MultipleOutputPresent</value>
+					</resourcefield>
+					<resourcefield>
+						<name>RECORD_COUNT</name>
+						<type>String</type>
+						<value>RecordCount</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>IFLOWPROPERTIES</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>INPUT_AMOUNT_THRESHOLD</name>
+						<type>String</type>
+						<value>InputAmountThreshold</value>
+					</resourcefield>
+					<resourcefield>
+						<name>INPUT_TRANSACTION_COUNT_THRESHOLD</name>
+						<type>String</type>
+						<value>InputTransacCountThreshold</value>
+					</resourcefield>
+					<resourcefield>
+						<name>OUTPUT_AMOUNT_THRESHOLD</name>
+						<type>String</type>
+						<value>OutputAmountThreshold</value>
+					</resourcefield>
+					<resourcefield>
+						<name>OUTPUT_TRANSACTION_COUNT_THRESHOLD</name>
+						<type>String</type>
+						<value>OutputTransacCountThreshold</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+			<resourcefield>
+				<name>TYPECODEINOUTPUT</name>
+				<type>String</type>
+				<value>mappingErrorTypeCode</value>
+			</resourcefield>
+			<resourcefield>
+				<name>ENABLE_EXC_HANDLING</name>
+				<type>Boolean</type>
+				<value>true</value>
+			</resourcefield>
+		</resourcefields>
+	</resources>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Fri Sep 13 14:43:58 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="FSNParams"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="173"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNParams\FSNParams.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">FSNParams/Resources</selected-element>
+	</workspace>
+</cartridge>
+

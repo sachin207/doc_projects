@@ -1,0 +1,1635 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="CDMV1_CGIISOV02_BankToCustomerAccountReport" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="CGIISOV02ToCDMV1_BankToCustomerAccountReport" version="1.0" type="Mapping">
+			</service>
+			<service name="CDMV1ToCGIISOV02_BankToCustomerAccountReport" version="1.0" type="Mapping">
+			</service>
+			<service name="CGIISOV02ToCDM_BankToCustAcctRpt" version="1.8" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="CGIISOV02ToCDM_BankToCustAcctRptFSN" version="1.8" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="CDMToCGIISOV02_BankToCustAcctRpt" version="1.8" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="CDMToCGIISOV02_BankToCustAcctRptFSN" version="1.8" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="isInputFSNXML"/>
+			<function name="SetThresholdsOnFilteringSide"/>
+			<function name="mapToCDMExc"/>
+			<function name="setStackTrace"/>
+			<function name="RawMessageToBase64Binary"/>
+			<function name="Base64BinaryToRawMessage"/>
+			<function name="getPropFromExtHeader"/>
+			<function name="containsTechnicalException"/>
+			<function name="assignToContainer"/>
+			<function name="getAllMessageContents"/>
+			<function name="getPropertyFromExObj"/>
+			<function name="getErrorTrace"/>
+			<function name="getInternalCode"/>
+			<function name="getErrorType"/>
+			<function name="getErrorPhase"/>
+			<function name="setAllToValue"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+			<function name="getValidationList"/>
+			<function name="getCallBacksOfGivenType"/>
+			<function name="computeAmount"/>
+			<function name="validateFiltering"/>
+			<function name="getThreshold"/>
+			<function name="ApplyDiffOnMapperParams"/>
+			<function name="AddElmsInSrcSecToDestSec"/>
+			<function name="ApplyFilteringSideDiff"/>
+			<function name="RemoveExcProperty"/>
+			<function name="getRecordCount"/>
+			<function name="updateCtrlSumAndNbOfTxs"/>
+			<function name="updateISOCreditTransfer"/>
+			<function name="updateISODirectDebit"/>
+			<function name="updateCDMCreditTransfer"/>
+			<function name="updateCDMDirectDebit"/>
+			<function name="CDMAccountIdentification4Choice_To_AccountIdentification4Choice"/>
+			<function name="CDMAccountInterest2_To_AccountInterest2"/>
+			<function name="CDMAccountSchemeName1Choice_To_AccountSchemeName1Choice"/>
+			<function name="CDMActiveCurrencyAndAmount_To_ActiveCurrencyAndAmount"/>
+			<function name="CDMActiveOrHistoricCurrencyAnd13DecimalAmount_To_ActiveOrHistoricCurrencyAnd13DecimalAmount"/>
+			<function name="CDMActiveOrHistoricCurrencyAndAmount_To_ActiveOrHistoricCurrencyAndAmount"/>
+			<function name="CDMAmendmentInformationDetails8_To_AmendmentInformationDetails6"/>
+			<function name="CDMAmendmentInformationDetails8_To_AmendmentInformationDetails8"/>
+			<function name="CDMAmountAndCurrencyExchange3_To_AmountAndCurrencyExchange3"/>
+			<function name="CDMAmountAndCurrencyExchangeDetails3_To_AmountAndCurrencyExchangeDetails3"/>
+			<function name="CDMAmountAndCurrencyExchangeDetails4_To_AmountAndCurrencyExchangeDetails4"/>
+			<function name="CDMAmountRangeBoundary1_To_AmountRangeBoundary1"/>
+			<function name="CDMAmountType3Choice_To_AmountType3Choice"/>
+			<function name="CDMAuthorisation1Choice_To_Authorisation1Choice"/>
+			<function name="CDMBalanceSubType1Choice_To_BalanceSubType1Choice"/>
+			<function name="CDMBalanceType12_To_BalanceType12"/>
+			<function name="CDMBalanceType5Choice_To_BalanceType5Choice"/>
+			<function name="CDMBankTransactionCodeStructure4_To_BankTransactionCodeStructure4"/>
+			<function name="CDMBankTransactionCodeStructure5_To_BankTransactionCodeStructure5"/>
+			<function name="CDMBankTransactionCodeStructure6_To_BankTransactionCodeStructure6"/>
+			<function name="CDMBatchInformation2_To_BatchInformation2"/>
+			<function name="CDMBranchAndFinancialInstitutionIdentification5_To_BranchAndFinancialInstitutionIdentification4"/>
+			<function name="CDMBranchAndFinancialInstitutionIdentification5_To_BranchAndFinancialInstitutionIdentification5"/>
+			<function name="CDMBranchData2_To_BranchData2"/>
+			<function name="CDMCardAggregated1_To_CardAggregated1"/>
+			<function name="CDMCardDataReading1Code_To_CardDataReading1Code"/>
+			<function name="CDMCardEntry1_To_CardEntry1"/>
+			<function name="CDMCardholderVerificationCapability1Code_To_CardholderVerificationCapability1Code"/>
+			<function name="CDMCardIndividualTransaction1_To_CardIndividualTransaction1"/>
+			<function name="CDMCardSecurityInformation1_To_CardSecurityInformation1"/>
+			<function name="CDMCardSequenceNumberRange1_To_CardSequenceNumberRange1"/>
+			<function name="CDMCardTransaction1_To_CardTransaction1"/>
+			<function name="CDMCardTransaction1Choice_To_CardTransaction1Choice"/>
+			<function name="CDMCashAccount24_To_CashAccount16"/>
+			<function name="CDMCashAccount24_To_CashAccount24"/>
+			<function name="CDMCashAccount25_To_CashAccount20"/>
+			<function name="CDMCashAccount25_To_CashAccount25"/>
+			<function name="CDMCashAccountType2Choice_To_CashAccountType2"/>
+			<function name="CDMCashAccountType2Choice_To_CashAccountType2Choice"/>
+			<function name="CDMCashBalance3_To_CashBalance3"/>
+			<function name="CDMCashBalanceAvailability2_To_CashBalanceAvailability2"/>
+			<function name="CDMCashBalanceAvailabilityDate1_To_CashBalanceAvailabilityDate1"/>
+			<function name="CDMCashDeposit1_To_CashDeposit1"/>
+			<function name="CDMCategoryPurpose1Choice_To_CategoryPurpose1Choice"/>
+			<function name="CDMCharges3_To_Charges3"/>
+			<function name="CDMCharges3_To_ChargesInformation6"/>
+			<function name="CDMChargesRecord1_To_ChargesRecord1"/>
+			<function name="CDMChargeType3Choice_To_ChargeType2Choice"/>
+			<function name="CDMChargeType3Choice_To_ChargeType3Choice"/>
+			<function name="CDMClearingSystemIdentification2Choice_To_ClearingSystemIdentification2Choice"/>
+			<function name="CDMClearingSystemIdentification3Choice_To_ClearingSystemIdentification3Choice"/>
+			<function name="CDMClearingSystemMemberIdentification2_To_ClearingSystemMemberIdentification2"/>
+			<function name="CDMContactDetails2_To_ContactDetails2"/>
+			<function name="CDMCorporateAction9_To_CorporateAction1"/>
+			<function name="CDMCorporateAction9_To_CorporateAction9"/>
+			<function name="CDMCreditLine2_To_CreditLine2"/>
+			<function name="CDMCreditorReferenceInformation2_To_CreditorReferenceInformation2"/>
+			<function name="CDMCreditorReferenceType1Choice_To_CreditorReferenceType1Choice"/>
+			<function name="CDMCreditorReferenceType2_To_CreditorReferenceType2"/>
+			<function name="CDMCurrencyAndAmountRange2_To_CurrencyAndAmountRange2"/>
+			<function name="CDMCurrencyExchange5_To_CurrencyExchange5"/>
+			<function name="CDMDateAndDateTimeChoice_To_DateAndDateTimeChoice"/>
+			<function name="CDMDateAndPlaceOfBirth_To_DateAndPlaceOfBirth"/>
+			<function name="CDMDateOrDateTimePeriodChoice_To_DateOrDateTimePeriodChoice"/>
+			<function name="CDMDatePeriodDetails_To_DatePeriodDetails"/>
+			<function name="CDMDateTimePeriodDetails_To_DateTimePeriodDetails"/>
+			<function name="CDMDiscountAmountAndType1_To_ActiveOrHistoricCurrencyAndAmount"/>
+			<function name="CDMDiscountAmountAndType1_To_DiscountAmountAndType1"/>
+			<function name="CDMDiscountAmountType1Choice_To_DiscountAmountType1Choice"/>
+			<function name="CDMDisplayCapabilities1_To_DisplayCapabilities1"/>
+			<function name="CDMDocumentAdjustment1_To_DocumentAdjustment1"/>
+			<function name="CDMEntryDetails2_To_EntryDetails1"/>
+			<function name="CDMEntryDetails2_To_EntryDetails2"/>
+			<function name="CDMEntryTransaction3_To_EntryTransaction2"/>
+			<function name="CDMEntryTransaction3_To_EntryTransaction3"/>
+			<function name="CDMEquivalentAmount2_To_EquivalentAmount2"/>
+			<function name="CDMFinancialIdentificationSchemeName1Choice_To_FinancialIdentificationSchemeName1Choice"/>
+			<function name="CDMFinancialInstitutionIdentification8_To_FinancialInstitutionIdentification7"/>
+			<function name="CDMFinancialInstitutionIdentification8_To_FinancialInstitutionIdentification8"/>
+			<function name="CDMFinancialInstrumentQuantityChoice_To_FinancialInstrumentQuantityChoice"/>
+			<function name="CDMFromToAmountRange_To_FromToAmountRange"/>
+			<function name="CDMGenericAccountIdentification1_To_GenericAccountIdentification1"/>
+			<function name="CDMGenericFinancialIdentification1_To_GenericFinancialIdentification1"/>
+			<function name="CDMGenericIdentification1_To_GenericIdentification1"/>
+			<function name="CDMGenericIdentification20_To_CashAccountType2"/>
+			<function name="CDMGenericIdentification20_To_GenericIdentification20"/>
+			<function name="CDMGenericIdentification32_To_GenericIdentification32"/>
+			<function name="CDMGenericIdentification3_To_GenericIdentification3"/>
+			<function name="CDMGenericOrganisationIdentification1_To_GenericOrganisationIdentification1"/>
+			<function name="CDMGenericPersonIdentification1_To_GenericPersonIdentification1"/>
+			<function name="CDMGroupHeader58_To_GroupHeader42"/>
+			<function name="CDMGroupHeader58_To_GroupHeader58"/>
+			<function name="CDMIdentificationSource3Choice_To_IdentificationSource3Choice"/>
+			<function name="CDMImpliedCurrencyAmountRangeChoice_To_ImpliedCurrencyAmountRangeChoice"/>
+			<function name="CDMInterestRecord1_To_InterestRecord1"/>
+			<function name="CDMInterestType1Choice_To_InterestType1Choice"/>
+			<function name="CDMLocalInstrument2Choice_To_LocalInstrument2Choice"/>
+			<function name="CDMMandateRelatedInformation8_To_MandateRelatedInformation6"/>
+			<function name="CDMMandateRelatedInformation8_To_MandateRelatedInformation8"/>
+			<function name="CDMMessageIdentification2_To_MessageIdentification2"/>
+			<function name="CDMNameAndAddress10_To_NameAndAddress10"/>
+			<function name="CDMNumberAndSumOfTransactions1_To_NumberAndSumOfTransactions1"/>
+			<function name="CDMNumberAndSumOfTransactions2_To_NumberAndSumOfTransactions2"/>
+			<function name="CDMOrganisationIdentification8_To_OrganisationIdentification4"/>
+			<function name="CDMOrganisationIdentification8_To_OrganisationIdentification8"/>
+			<function name="CDMOrganisationIdentificationSchemeName1Choice_To_OrganisationIdentificationSchemeName1Choice"/>
+			<function name="CDMOriginalAndCurrentQuantities1_To_OriginalAndCurrentQuantities1"/>
+			<function name="CDMOriginalBusinessQuery1_To_OriginalBusinessQuery1"/>
+			<function name="CDMOtherIdentification1_To_OtherIdentification1"/>
+			<function name="CDMPagination_To_Pagination"/>
+			<function name="CDMParty11Choice_To_Party11Choice"/>
+			<function name="CDMParty11Choice_To_Party6Choice"/>
+			<function name="CDMPartyIdentification43_To_PartyIdentification32"/>
+			<function name="CDMPartyIdentification43_To_PartyIdentification43"/>
+			<function name="CDMPaymentCard4_To_PaymentCard4"/>
+			<function name="CDMPaymentIdentification1_To_PaymentIdentification1"/>
+			<function name="CDMPaymentReturnReason2_To_PaymentReturnReason2"/>
+			<function name="CDMPaymentReturnReason2_To_ReturnReasonInformation10"/>
+			<function name="CDMPersonIdentification5_To_PersonIdentification5"/>
+			<function name="CDMPersonIdentificationSchemeName1Choice_To_PersonIdentificationSchemeName1Choice"/>
+			<function name="CDMPlainCardData1_To_PlainCardData1"/>
+			<function name="CDMPointOfInteraction1_To_PointOfInteraction1"/>
+			<function name="CDMPointOfInteractionCapabilities1_To_PointOfInteractionCapabilities1"/>
+			<function name="CDMPointOfInteractionComponent1_To_PointOfInteractionComponent1"/>
+			<function name="CDMPostalAddress6_To_PostalAddress6"/>
+			<function name="CDMPrice2_To_ActiveOrHistoricCurrencyAndAmount"/>
+			<function name="CDMPrice2_To_Price2"/>
+			<function name="CDMPriceRateOrAmountChoice_To_PriceRateOrAmountChoice"/>
+			<function name="CDMProduct2_To_Product2"/>
+			<function name="CDMProprietaryAgent3_To_ProprietaryAgent2"/>
+			<function name="CDMProprietaryAgent3_To_ProprietaryAgent3"/>
+			<function name="CDMProprietaryBankTransactionCodeStructure1_To_ProprietaryBankTransactionCodeStructure1"/>
+			<function name="CDMProprietaryDate2_To_ProprietaryDate2"/>
+			<function name="CDMProprietaryParty3_To_ProprietaryParty2"/>
+			<function name="CDMProprietaryParty3_To_ProprietaryParty3"/>
+			<function name="CDMProprietaryPrice2_To_ProprietaryPrice2"/>
+			<function name="CDMProprietaryQuantity1_To_ProprietaryQuantity1"/>
+			<function name="CDMProprietaryReference1_To_ProprietaryReference1"/>
+			<function name="CDMPurpose2Choice_To_Purpose2Choice"/>
+			<function name="CDMRate3_To_Rate3"/>
+			<function name="CDMRateType4Choice_To_RateType4Choice"/>
+			<function name="CDMReferredDocumentInformation3_To_ReferredDocumentInformation3"/>
+			<function name="CDMReferredDocumentType1Choice_To_ReferredDocumentType1Choice"/>
+			<function name="CDMReferredDocumentType2_To_ReferredDocumentType2"/>
+			<function name="CDMRegulatoryAuthority2_To_RegulatoryAuthority2"/>
+			<function name="CDMRegulatoryReporting3_To_RegulatoryReporting3"/>
+			<function name="CDMRemittanceAmount2_To_RemittanceAmount1"/>
+			<function name="CDMRemittanceAmount2_To_RemittanceAmount2"/>
+			<function name="CDMRemittanceInformation7_To_RemittanceInformation5"/>
+			<function name="CDMRemittanceInformation7_To_RemittanceInformation7"/>
+			<function name="CDMRemittanceLocation2_To_RemittanceLocation2"/>
+			<function name="CDMReportEntry3_To_ReportEntry2"/>
+			<function name="CDMReportEntry3_To_ReportEntry3"/>
+			<function name="CDMReportingSource1Choice_To_ReportingSource1Choice"/>
+			<function name="CDMReturnReason5Choice_To_ReturnReason5Choice"/>
+			<function name="CDMSecuritiesAccount13_To_CashAccount16"/>
+			<function name="CDMSecuritiesAccount13_To_SecuritiesAccount13"/>
+			<function name="CDMSecurityIdentification14_To_SecurityIdentification14"/>
+			<function name="CDMSecurityIdentification14_To_SecurityIdentification4Choice"/>
+			<function name="CDMServiceLevel8Choice_To_ServiceLevel8Choice"/>
+			<function name="CDMstring_To_Max105Text"/>
+			<function name="CDMstring_To_Max140Text"/>
+			<function name="CDMstring_To_Max35Text"/>
+			<function name="CDMstring_To_Max70Text"/>
+			<function name="CDMStructuredRegulatoryReporting3_To_StructuredRegulatoryReporting3"/>
+			<function name="CDMStructuredRemittanceInformation9_To_StructuredRemittanceInformation7"/>
+			<function name="CDMStructuredRemittanceInformation9_To_StructuredRemittanceInformation9"/>
+			<function name="CDMSupplementaryData1_To_SupplementaryData1"/>
+			<function name="CDMSupplementaryDataEnvelope1_To_SupplementaryDataEnvelope1"/>
+			<function name="CDMTaxAmount1_To_TaxAmount1"/>
+			<function name="CDMTaxAmountAndType1_To_ActiveOrHistoricCurrencyAndAmount"/>
+			<function name="CDMTaxAmountAndType1_To_TaxAmountAndType1"/>
+			<function name="CDMTaxAmountType1Choice_To_TaxAmountType1Choice"/>
+			<function name="CDMTaxAuthorisation1_To_TaxAuthorisation1"/>
+			<function name="CDMTaxCharges2_To_TaxCharges2"/>
+			<function name="CDMTaxInformation3_To_TaxInformation3"/>
+			<function name="CDMTaxParty1_To_TaxParty1"/>
+			<function name="CDMTaxParty2_To_TaxParty2"/>
+			<function name="CDMTaxPeriod1_To_TaxPeriod1"/>
+			<function name="CDMTaxRecord1_To_TaxRecord1"/>
+			<function name="CDMTaxRecordDetails1_To_TaxRecordDetails1"/>
+			<function name="CDMTechnicalInputChannel1Choice_To_TechnicalInputChannel1Choice"/>
+			<function name="CDMTotalsPerBankTransactionCode2_To_TotalsPerBankTransactionCode2"/>
+			<function name="CDMTotalTransactions2_To_TotalTransactions2"/>
+			<function name="CDMTrackData1_To_TrackData1"/>
+			<function name="CDMTransactionAgents3_To_TransactionAgents2"/>
+			<function name="CDMTransactionAgents3_To_TransactionAgents3"/>
+			<function name="CDMTransactionDates2_To_TransactionDates2"/>
+			<function name="CDMTransactionIdentifier1_To_TransactionIdentifier1"/>
+			<function name="CDMTransactionInterest3_To_TransactionInterest2"/>
+			<function name="CDMTransactionInterest3_To_TransactionInterest3"/>
+			<function name="CDMTransactionParties3_To_TransactionParties3"/>
+			<function name="CDMTransactionParties3_To_TransactionParty2"/>
+			<function name="CDMTransactionPrice3Choice_To_TransactionPrice2Choice"/>
+			<function name="CDMTransactionPrice3Choice_To_TransactionPrice3Choice"/>
+			<function name="CDMTransactionQuantities2Choice_To_TransactionQuantities1Choice"/>
+			<function name="CDMTransactionQuantities2Choice_To_TransactionQuantities2Choice"/>
+			<function name="CDMTransactionReferences3_To_TransactionReferences2"/>
+			<function name="CDMTransactionReferences3_To_TransactionReferences3"/>
+			<function name="CDMYieldedOrValueType1Choice_To_YieldedOrValueType1Choice"/>
+			<function name="AccountIdentification4Choice_To_CDMAccountIdentification4Choice"/>
+			<function name="AccountInterest2_To_CDMAccountInterest2"/>
+			<function name="AccountSchemeName1Choice_To_CDMAccountSchemeName1Choice"/>
+			<function name="ActiveCurrencyAndAmount_To_CDMActiveCurrencyAndAmount"/>
+			<function name="ActiveOrHistoricCurrencyAnd13DecimalAmount_To_CDMActiveOrHistoricCurrencyAnd13DecimalAmount"/>
+			<function name="ActiveOrHistoricCurrencyAndAmount_To_CDMActiveOrHistoricCurrencyAndAmount"/>
+			<function name="ActiveOrHistoricCurrencyAndAmount_To_CDMDiscountAmountAndType1"/>
+			<function name="ActiveOrHistoricCurrencyAndAmount_To_CDMPrice2"/>
+			<function name="ActiveOrHistoricCurrencyAndAmount_To_CDMTaxAmountAndType1"/>
+			<function name="AmendmentInformationDetails6_To_CDMAmendmentInformationDetails8"/>
+			<function name="AmendmentInformationDetails8_To_CDMAmendmentInformationDetails8"/>
+			<function name="AmountAndCurrencyExchange3_To_CDMAmountAndCurrencyExchange3"/>
+			<function name="AmountAndCurrencyExchangeDetails3_To_CDMAmountAndCurrencyExchangeDetails3"/>
+			<function name="AmountAndCurrencyExchangeDetails4_To_CDMAmountAndCurrencyExchangeDetails4"/>
+			<function name="AmountRangeBoundary1_To_CDMAmountRangeBoundary1"/>
+			<function name="AmountType3Choice_To_CDMAmountType3Choice"/>
+			<function name="Authorisation1Choice_To_CDMAuthorisation1Choice"/>
+			<function name="BalanceSubType1Choice_To_CDMBalanceSubType1Choice"/>
+			<function name="BalanceType12_To_CDMBalanceType12"/>
+			<function name="BalanceType5Choice_To_CDMBalanceType5Choice"/>
+			<function name="BankTransactionCodeStructure4_To_CDMBankTransactionCodeStructure4"/>
+			<function name="BankTransactionCodeStructure5_To_CDMBankTransactionCodeStructure5"/>
+			<function name="BankTransactionCodeStructure6_To_CDMBankTransactionCodeStructure6"/>
+			<function name="BatchInformation2_To_CDMBatchInformation2"/>
+			<function name="BranchAndFinancialInstitutionIdentification4_To_CDMBranchAndFinancialInstitutionIdentification5"/>
+			<function name="BranchAndFinancialInstitutionIdentification5_To_CDMBranchAndFinancialInstitutionIdentification5"/>
+			<function name="BranchData2_To_CDMBranchData2"/>
+			<function name="CardAggregated1_To_CDMCardAggregated1"/>
+			<function name="CardDataReading1Code_To_CDMCardDataReading1Code"/>
+			<function name="CardEntry1_To_CDMCardEntry1"/>
+			<function name="CardholderVerificationCapability1Code_To_CDMCardholderVerificationCapability1Code"/>
+			<function name="CardIndividualTransaction1_To_CDMCardIndividualTransaction1"/>
+			<function name="CardSecurityInformation1_To_CDMCardSecurityInformation1"/>
+			<function name="CardSequenceNumberRange1_To_CDMCardSequenceNumberRange1"/>
+			<function name="CardTransaction1_To_CDMCardTransaction1"/>
+			<function name="CardTransaction1Choice_To_CDMCardTransaction1Choice"/>
+			<function name="CashAccount16_To_CDMCashAccount24"/>
+			<function name="CashAccount16_To_CDMSecuritiesAccount13"/>
+			<function name="CashAccount20_To_CDMCashAccount25"/>
+			<function name="CashAccount24_To_CDMCashAccount24"/>
+			<function name="CashAccount25_To_CDMCashAccount25"/>
+			<function name="CashAccountType2_To_CDMCashAccountType2Choice"/>
+			<function name="CashAccountType2_To_CDMGenericIdentification20"/>
+			<function name="CashAccountType2Choice_To_CDMCashAccountType2Choice"/>
+			<function name="CashBalance3_To_CDMCashBalance3"/>
+			<function name="CashBalanceAvailability2_To_CDMCashBalanceAvailability2"/>
+			<function name="CashBalanceAvailabilityDate1_To_CDMCashBalanceAvailabilityDate1"/>
+			<function name="CashDeposit1_To_CDMCashDeposit1"/>
+			<function name="CategoryPurpose1Choice_To_CDMCategoryPurpose1Choice"/>
+			<function name="Charges3_To_CDMCharges3"/>
+			<function name="ChargesInformation6_To_CDMCharges3"/>
+			<function name="ChargesRecord1_To_CDMChargesRecord1"/>
+			<function name="ChargeType3Choice_To_CDMChargeType3Choice"/>
+			<function name="ClearingSystemIdentification2Choice_To_CDMClearingSystemIdentification2Choice"/>
+			<function name="ClearingSystemIdentification3Choice_To_CDMClearingSystemIdentification3Choice"/>
+			<function name="ClearingSystemMemberIdentification2_To_CDMClearingSystemMemberIdentification2"/>
+			<function name="ContactDetails2_To_CDMContactDetails2"/>
+			<function name="CorporateAction1_To_CDMCorporateAction9"/>
+			<function name="CorporateAction9_To_CDMCorporateAction9"/>
+			<function name="CreditLine2_To_CDMCreditLine2"/>
+			<function name="CreditorReferenceInformation2_To_CDMCreditorReferenceInformation2"/>
+			<function name="CreditorReferenceType1Choice_To_CDMCreditorReferenceType1Choice"/>
+			<function name="CreditorReferenceType2_To_CDMCreditorReferenceType2"/>
+			<function name="CurrencyAndAmountRange2_To_CDMCurrencyAndAmountRange2"/>
+			<function name="CurrencyExchange5_To_CDMCurrencyExchange5"/>
+			<function name="DateAndDateTimeChoice_To_CDMDateAndDateTimeChoice"/>
+			<function name="DateAndPlaceOfBirth_To_CDMDateAndPlaceOfBirth"/>
+			<function name="DateOrDateTimePeriodChoice_To_CDMDateOrDateTimePeriodChoice"/>
+			<function name="DatePeriodDetails_To_CDMDatePeriodDetails"/>
+			<function name="DateTimePeriodDetails_To_CDMDateTimePeriodDetails"/>
+			<function name="DiscountAmountAndType1_To_CDMDiscountAmountAndType1"/>
+			<function name="DiscountAmountType1Choice_To_CDMDiscountAmountType1Choice"/>
+			<function name="DisplayCapabilities1_To_CDMDisplayCapabilities1"/>
+			<function name="DocumentAdjustment1_To_CDMDocumentAdjustment1"/>
+			<function name="EntryDetails1_To_CDMEntryDetails2"/>
+			<function name="EntryDetails2_To_CDMEntryDetails2"/>
+			<function name="EntryTransaction2_To_CDMEntryTransaction3"/>
+			<function name="EntryTransaction3_To_CDMEntryTransaction3"/>
+			<function name="EquivalentAmount2_To_CDMEquivalentAmount2"/>
+			<function name="FinancialIdentificationSchemeName1Choice_To_CDMFinancialIdentificationSchemeName1Choice"/>
+			<function name="FinancialInstitutionIdentification7_To_CDMFinancialInstitutionIdentification8"/>
+			<function name="FinancialInstitutionIdentification8_To_CDMFinancialInstitutionIdentification8"/>
+			<function name="FinancialInstrumentQuantityChoice_To_CDMFinancialInstrumentQuantityChoice"/>
+			<function name="FromToAmountRange_To_CDMFromToAmountRange"/>
+			<function name="GenericAccountIdentification1_To_CDMGenericAccountIdentification1"/>
+			<function name="GenericFinancialIdentification1_To_CDMGenericFinancialIdentification1"/>
+			<function name="GenericIdentification1_To_CDMGenericIdentification1"/>
+			<function name="GenericIdentification20_To_CDMGenericIdentification20"/>
+			<function name="GenericIdentification32_To_CDMGenericIdentification32"/>
+			<function name="GenericIdentification3_To_CDMGenericIdentification3"/>
+			<function name="GenericOrganisationIdentification1_To_CDMGenericOrganisationIdentification1"/>
+			<function name="GenericPersonIdentification1_To_CDMGenericPersonIdentification1"/>
+			<function name="GroupHeader42_To_CDMGroupHeader58"/>
+			<function name="GroupHeader58_To_CDMGroupHeader58"/>
+			<function name="IdentificationSource3Choice_To_CDMIdentificationSource3Choice"/>
+			<function name="ImpliedCurrencyAmountRangeChoice_To_CDMImpliedCurrencyAmountRangeChoice"/>
+			<function name="InterestRecord1_To_CDMInterestRecord1"/>
+			<function name="InterestType1Choice_To_CDMInterestType1Choice"/>
+			<function name="LocalInstrument2Choice_To_CDMLocalInstrument2Choice"/>
+			<function name="MandateRelatedInformation6_To_CDMMandateRelatedInformation8"/>
+			<function name="MandateRelatedInformation8_To_CDMMandateRelatedInformation8"/>
+			<function name="Max105Text_To_CDMstring"/>
+			<function name="Max140Text_To_CDMstring"/>
+			<function name="Max35Text_To_CDMstring"/>
+			<function name="Max70Text_To_CDMstring"/>
+			<function name="MessageIdentification2_To_CDMMessageIdentification2"/>
+			<function name="NameAndAddress10_To_CDMNameAndAddress10"/>
+			<function name="NumberAndSumOfTransactions1_To_CDMNumberAndSumOfTransactions1"/>
+			<function name="NumberAndSumOfTransactions2_To_CDMNumberAndSumOfTransactions2"/>
+			<function name="OrganisationIdentification4_To_CDMOrganisationIdentification8"/>
+			<function name="OrganisationIdentification8_To_CDMOrganisationIdentification8"/>
+			<function name="OrganisationIdentificationSchemeName1Choice_To_CDMOrganisationIdentificationSchemeName1Choice"/>
+			<function name="OriginalAndCurrentQuantities1_To_CDMOriginalAndCurrentQuantities1"/>
+			<function name="OriginalBusinessQuery1_To_CDMOriginalBusinessQuery1"/>
+			<function name="OtherIdentification1_To_CDMOtherIdentification1"/>
+			<function name="Pagination_To_CDMPagination"/>
+			<function name="Party11Choice_To_CDMParty11Choice"/>
+			<function name="Party6Choice_To_CDMParty11Choice"/>
+			<function name="PartyIdentification32_To_CDMPartyIdentification43"/>
+			<function name="PartyIdentification43_To_CDMPartyIdentification43"/>
+			<function name="PaymentCard4_To_CDMPaymentCard4"/>
+			<function name="PaymentIdentification1_To_CDMPaymentIdentification1"/>
+			<function name="PaymentReturnReason2_To_CDMPaymentReturnReason2"/>
+			<function name="PersonIdentification5_To_CDMPersonIdentification5"/>
+			<function name="PersonIdentificationSchemeName1Choice_To_CDMPersonIdentificationSchemeName1Choice"/>
+			<function name="PlainCardData1_To_CDMPlainCardData1"/>
+			<function name="PointOfInteraction1_To_CDMPointOfInteraction1"/>
+			<function name="PointOfInteractionCapabilities1_To_CDMPointOfInteractionCapabilities1"/>
+			<function name="PointOfInteractionComponent1_To_CDMPointOfInteractionComponent1"/>
+			<function name="PostalAddress6_To_CDMPostalAddress6"/>
+			<function name="Price2_To_CDMPrice2"/>
+			<function name="PriceRateOrAmountChoice_To_CDMPriceRateOrAmountChoice"/>
+			<function name="Product2_To_CDMProduct2"/>
+			<function name="ProprietaryAgent2_To_CDMProprietaryAgent3"/>
+			<function name="ProprietaryAgent3_To_CDMProprietaryAgent3"/>
+			<function name="ProprietaryBankTransactionCodeStructure1_To_CDMProprietaryBankTransactionCodeStructure1"/>
+			<function name="ProprietaryDate2_To_CDMProprietaryDate2"/>
+			<function name="ProprietaryParty2_To_CDMProprietaryParty3"/>
+			<function name="ProprietaryParty3_To_CDMProprietaryParty3"/>
+			<function name="ProprietaryPrice2_To_CDMProprietaryPrice2"/>
+			<function name="ProprietaryQuantity1_To_CDMProprietaryQuantity1"/>
+			<function name="ProprietaryReference1_To_CDMProprietaryReference1"/>
+			<function name="Purpose2Choice_To_CDMPurpose2Choice"/>
+			<function name="Rate3_To_CDMRate3"/>
+			<function name="RateType4Choice_To_CDMRateType4Choice"/>
+			<function name="ReferredDocumentInformation3_To_CDMReferredDocumentInformation3"/>
+			<function name="ReferredDocumentType1Choice_To_CDMReferredDocumentType1Choice"/>
+			<function name="ReferredDocumentType2_To_CDMReferredDocumentType2"/>
+			<function name="RegulatoryAuthority2_To_CDMRegulatoryAuthority2"/>
+			<function name="RegulatoryReporting3_To_CDMRegulatoryReporting3"/>
+			<function name="RemittanceAmount1_To_CDMRemittanceAmount2"/>
+			<function name="RemittanceAmount2_To_CDMRemittanceAmount2"/>
+			<function name="RemittanceInformation5_To_CDMRemittanceInformation7"/>
+			<function name="RemittanceInformation7_To_CDMRemittanceInformation7"/>
+			<function name="RemittanceLocation2_To_CDMRemittanceLocation2"/>
+			<function name="ReportEntry2_To_CDMReportEntry3"/>
+			<function name="ReportEntry3_To_CDMReportEntry3"/>
+			<function name="ReportingSource1Choice_To_CDMReportingSource1Choice"/>
+			<function name="ReturnReason5Choice_To_CDMReturnReason5Choice"/>
+			<function name="ReturnReasonInformation10_To_CDMPaymentReturnReason2"/>
+			<function name="SecuritiesAccount13_To_CDMSecuritiesAccount13"/>
+			<function name="SecurityIdentification14_To_CDMSecurityIdentification14"/>
+			<function name="SecurityIdentification4Choice_To_CDMSecurityIdentification14"/>
+			<function name="ServiceLevel8Choice_To_CDMServiceLevel8Choice"/>
+			<function name="StructuredRegulatoryReporting3_To_CDMStructuredRegulatoryReporting3"/>
+			<function name="StructuredRemittanceInformation7_To_CDMStructuredRemittanceInformation9"/>
+			<function name="StructuredRemittanceInformation9_To_CDMStructuredRemittanceInformation9"/>
+			<function name="SupplementaryData1_To_CDMSupplementaryData1"/>
+			<function name="SupplementaryDataEnvelope1_To_CDMSupplementaryDataEnvelope1"/>
+			<function name="TaxAmount1_To_CDMTaxAmount1"/>
+			<function name="TaxAmountAndType1_To_CDMTaxAmountAndType1"/>
+			<function name="TaxAmountType1Choice_To_CDMTaxAmountType1Choice"/>
+			<function name="TaxAuthorisation1_To_CDMTaxAuthorisation1"/>
+			<function name="TaxCharges2_To_CDMTaxCharges2"/>
+			<function name="TaxInformation3_To_CDMTaxInformation3"/>
+			<function name="TaxParty1_To_CDMTaxParty1"/>
+			<function name="TaxParty2_To_CDMTaxParty2"/>
+			<function name="TaxPeriod1_To_CDMTaxPeriod1"/>
+			<function name="TaxRecord1_To_CDMTaxRecord1"/>
+			<function name="TaxRecordDetails1_To_CDMTaxRecordDetails1"/>
+			<function name="TechnicalInputChannel1Choice_To_CDMTechnicalInputChannel1Choice"/>
+			<function name="TotalsPerBankTransactionCode2_To_CDMTotalsPerBankTransactionCode2"/>
+			<function name="TotalTransactions2_To_CDMTotalTransactions2"/>
+			<function name="TrackData1_To_CDMTrackData1"/>
+			<function name="TransactionAgents2_To_CDMTransactionAgents3"/>
+			<function name="TransactionAgents3_To_CDMTransactionAgents3"/>
+			<function name="TransactionDates2_To_CDMTransactionDates2"/>
+			<function name="TransactionIdentifier1_To_CDMTransactionIdentifier1"/>
+			<function name="TransactionInterest2_To_CDMTransactionInterest3"/>
+			<function name="TransactionInterest3_To_CDMTransactionInterest3"/>
+			<function name="TransactionParties3_To_CDMTransactionParties3"/>
+			<function name="TransactionParty2_To_CDMTransactionParties3"/>
+			<function name="TransactionPrice2Choice_To_CDMTransactionPrice3Choice"/>
+			<function name="TransactionPrice3Choice_To_CDMTransactionPrice3Choice"/>
+			<function name="TransactionQuantities1Choice_To_CDMTransactionQuantities2Choice"/>
+			<function name="TransactionQuantities2Choice_To_CDMTransactionQuantities2Choice"/>
+			<function name="TransactionReferences2_To_CDMTransactionReferences3"/>
+			<function name="TransactionReferences3_To_CDMTransactionReferences3"/>
+			<function name="YieldedOrValueType1Choice_To_CDMYieldedOrValueType1Choice"/>
+			<function name="ChargeType2Choice_To_CDMChargeType3Choice"/>
+			<function name="AssignSrcElmToDestSec"/>
+			<function name="getCreditTransferValidationNameList"/>
+			<function name="getDirectDebitValidationNameList"/>
+			<function name="getPayStatRptValidationNameList"/>
+			<function name="SetCreditTransferFilteringParams"/>
+			<function name="SetDirectDebitFilteringParams"/>
+			<function name="CGIISOV02ToCDMV1_BankToCustomerAccountReport"/>
+			<function name="CDMV1ToCGIISOV02_BankToCustomerAccountReport"/>
+			<function name="AccountReport11_To_CDMAccountReport12"/>
+			<function name="AccountInterest2_To_CDMAccountInterest3"/>
+			<function name="TotalTransactions2_To_CDMTotalTransactions3"/>
+			<function name="NumberAndSumOfTransactions2_To_CDMNumberAndSumOfTransactions3"/>
+			<function name="CDMAccountReport12_To_AccountReport11"/>
+			<function name="CDMAccountInterest3_To_AccountInterest2"/>
+			<function name="CDMTotalTransactions3_To_TotalTransactions2"/>
+			<function name="CDMNumberAndSumOfTransactions3_To_NumberAndSumOfTransactions2"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\CGI\CGIMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CGI\CGIMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\FSNProcessor\Mappings_FSNProcessor.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\CGI_ISOLibrary\CGI_ISOLibrary.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\CGI_ISO\CGI_ISOLibrary\CGI_ISOLibrary.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\MessageTypeValue\MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\FSNParams\FSNParams.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNParams\FSNParams.car</absolute-path>
+		</reference>
+	</references>
+	<messagemapping rulename="CGIISOV02ToCDMV1_BankToCustomerAccountReport" type="MessageMapping">
+		<description><![CDATA[Mappings not sure
+
+1. Report.Entry.EntryDetails.TransactionDetails.Amount
+2. Report.Entry.EntryDetails.TransactionDetails.CreditDebitIndicator
+3. Report.Entry.EntryDetails.TransactionDetails.RelatedPrice
+4. Report.Entry.EntryDetails.TransactionDetails.CorporateAction
+5. Report.Entry.EntryDetails.TransactionDetails.SafekeepingAccount
+]]></description>
+		<source>CGI_BankToCustomerAccountReportV02</source>
+		<destination>CDM_BankToCustomerAccountReportV1</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="formula">
+					<source-field><![CDATA[CGIISOV02ToCDMV1_BankToCustomerAccountReport($this, $that);]]></source-field>
+					<destination-field>GroupHeader</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messagemapping rulename="CDMV1ToCGIISOV02_BankToCustomerAccountReport" type="MessageMapping">
+		<source>CDM_BankToCustomerAccountReportV1</source>
+		<destination>CGI_BankToCustomerAccountReportV02</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="formula">
+					<source-field><![CDATA[CDMV1ToCGIISOV02_BankToCustomerAccountReport($this, $that);]]></source-field>
+					<destination-field>BkToCstmrAcctRpt</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messageflow name="CGIISOV02ToCDM_BankToCustAcctRpt" type="MessageFlow">
+		<version>1.8</version>
+		<description><![CDATA[Converts CGI camt.052.001.02 to CDM V1 BankToCustomerAccountReport]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Stop1" uid="b5e28195-70e5-4817-85a7-ce6bd89bdd62" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="174"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="fc8f4b94-1d70-46ba-a33a-0b4f7ef67b9c" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Flow</label>
+			<description><![CDATA[]]></description>
+			<name>CGIISOV02ToCDM_BankToCustAcctRptFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="422" y="106"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="719c9127-37a0-4be6-b0d7-cebeadb9b438" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="422" y="39"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="fc8f4b94-1d70-46ba-a33a-0b4f7ef67b9c" portindex="1"/>
+			<inputport uid="b5e28195-70e5-4817-85a7-ce6bd89bdd62" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="719c9127-37a0-4be6-b0d7-cebeadb9b438" portindex="0"/>
+			<inputport uid="fc8f4b94-1d70-46ba-a33a-0b4f7ef67b9c" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="388" y="25" width="73" height="163"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="CGIISOV02ToCDM_BankToCustAcctRptFSN" type="MessageFlow">
+		<version>1.8</version>
+		<description><![CDATA[Converts CGI ISO camt.052.001.02 wrapped in FSN to CDM V1 BankToCustomerAccountReport wrapped in FSN]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="372" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="371" y="267"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" type="Create" xsi:type="Create" >
+			<label>Create Framework Params</label>
+			<description><![CDATA[]]></description>
+			<out>fsnParamsObj</out>
+			<message>FSNParams</message>
+			<init>fsnParamsObj.SetFSNMessageNames (
+	FSNMSGTYPE.CAMT_052_001_02,
+	FSNMSGTYPE.BANK_TO_CUST_ACCOUNT_REP_1_0
+);
+
+fsnParamsObj.SetBasicParams (
+	"CGI_BankToCustomerAccountReportV02",
+		"CGIISOV02ToCDMV1_BankToCustomerAccountReport", 
+			"CDM_BankToCustomerAccountReportV1"
+);
+
+fsnParamsObj.SetCartridgeDetails (
+	"CGIISOV02ToCDM_BankToCustAcctRptFSN", "1.8"
+);
+fsnParamsObj.SetMessageID ("BkToCstmrAcctRpt.GrpHdr.MsgId", FILTERINGSIDE.INPUT);</init>
+			<visual>
+				<position x="371" y="112"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Processor</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_FSNProcessor</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="371" y="199"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+			<inputport uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" portindex="1"/>
+			<inputport uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" portindex="1"/>
+			<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="337" y="25" width="73" height="256"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="CDMToCGIISOV02_BankToCustAcctRpt" type="MessageFlow">
+		<version>1.8</version>
+		<description><![CDATA[Converts CDM V1 BankToCustomerAccountReport to CGI camt.052.001.02]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Stop1" uid="36ebfa1a-3b07-448a-b24a-1072c9223c72" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="174"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="487d8fb1-b70f-42fb-b3dd-b96b18cbe55f" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="422" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="6049abbd-5b62-4c06-b1a5-d520dadd3019" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Flow</label>
+			<description><![CDATA[]]></description>
+			<name>CDMToCGIISOV02_BankToCustAcctRptFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="424" y="104"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6049abbd-5b62-4c06-b1a5-d520dadd3019" portindex="1"/>
+			<inputport uid="36ebfa1a-3b07-448a-b24a-1072c9223c72" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="487d8fb1-b70f-42fb-b3dd-b96b18cbe55f" portindex="0"/>
+			<inputport uid="6049abbd-5b62-4c06-b1a5-d520dadd3019" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="390" y="25" width="73" height="163"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="CDMToCGIISOV02_BankToCustAcctRptFSN" type="MessageFlow">
+		<version>1.8</version>
+		<description><![CDATA[Converts CDM V1 BankToCustomerAccountReport wrapped in FSN to CGI ISO camt.052.001.02 wrapped in FSN]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="372" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="371" y="267"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" type="Create" xsi:type="Create" >
+			<label>Create Framework Params</label>
+			<description><![CDATA[]]></description>
+			<out>fsnParamsObj</out>
+			<message>FSNParams</message>
+			<init>fsnParamsObj.SetFSNMessageNames (
+	FSNMSGTYPE.BANK_TO_CUST_ACCOUNT_REP_1_0,
+		FSNMSGTYPE.CAMT_052_001_02
+);
+
+fsnParamsObj.SetBasicParams (
+	"CDM_BankToCustomerAccountReportV1",
+		"CDMV1ToCGIISOV02_BankToCustomerAccountReport",
+			"CGI_BankToCustomerAccountReportV02"
+);
+
+fsnParamsObj.SetCartridgeDetails (
+	"CDMToCGIISOV02_BankToCustAcctRptFSN", "1.8"
+);
+
+fsnParamsObj.SetMessageID ("BkToCstmrAcctRpt.GrpHdr.MsgId", FILTERINGSIDE.OUTPUT);</init>
+			<visual>
+				<position x="372" y="113"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Processor</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_FSNProcessor</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="371" y="199"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+			<inputport uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5f5a116c-7c51-4da5-8222-d1e8794ff3db" portindex="1"/>
+			<inputport uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="074d68b9-1c85-4fa4-bb63-a7212ab2e1b6" portindex="1"/>
+			<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="337" y="25" width="73" height="256"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="CGIISOV02ToCDMV1_BankToCustomerAccountReport" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>CGI_BankToCustomerAccountReportV02</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>destObj</name>
+					<type>DataObject</type>
+					<output>true</output>
+					<message>CDM_BankToCustomerAccountReportV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CGI_BankToCustomerAccountReportV02</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>destObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_BankToCustomerAccountReportV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[GroupHeader42_To_CDMGroupHeader58(srcObj.Data.BkToCstmrAcctRpt.GrpHdr, $value)]]></source-field>
+						<destination-field>destObj.Data.GroupHeader</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[AccountReport11_To_CDMAccountReport12(srcObj.Data.BkToCstmrAcctRpt.Rpt, $value)]]></source-field>
+						<destination-field>destObj.Data.Report</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="CDMV1ToCGIISOV02_BankToCustomerAccountReport" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<message>CDM_BankToCustomerAccountReportV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>destObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CGI_BankToCustomerAccountReportV02</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>srcObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CDM_BankToCustomerAccountReportV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>destObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>CGI_BankToCustomerAccountReportV02</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[CDMGroupHeader58_To_GroupHeader42(srcObj.Data.GroupHeader, $value)]]></source-field>
+						<destination-field>destObj.Data.BkToCstmrAcctRpt.GrpHdr</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[CDMAccountReport12_To_AccountReport11(srcObj.Data.Report, $value)]]></source-field>
+						<destination-field>destObj.Data.BkToCstmrAcctRpt.Rpt</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<folder name="ISOToCDM" type="FunctionDefFolder">
+			<FormulaFunctionDef name="AccountReport11_To_CDMAccountReport12" type="FormulaFunctionDef">
+				<description></description>
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>AccountReport11</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMAccountReport12</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def AccountReport11Elm in AccountReport11) {
+    def CDMAccountReport12Elm = CDMAccountReport12.secAddElement();
+    CDMAccountReport12Elm.Identification = AccountReport11Elm.Id;
+    //TODO : Report.ReportPagination -> ?
+    CDMAccountReport12Elm.ElectronicSequenceNumber = AccountReport11Elm.ElctrncSeqNb;
+    CDMAccountReport12Elm.LegalSequenceNumber = AccountReport11Elm.LglSeqNb;
+    CDMAccountReport12Elm.CreationDateTime = AccountReport11Elm.CreDtTm;
+    DateTimePeriodDetails_To_CDMDateTimePeriodDetails(AccountReport11Elm.FrToDt, CDMAccountReport12Elm.FromToDate);
+    CDMAccountReport12Elm.CopyDuplicateIndicator = AccountReport11Elm.CpyDplctInd;
+    ReportingSource1Choice_To_CDMReportingSource1Choice(AccountReport11Elm.RptgSrc, CDMAccountReport12Elm.ReportingSource);
+    CashAccount20_To_CDMCashAccount25(AccountReport11Elm.Acct, CDMAccountReport12Elm.Account);
+    CashAccount16_To_CDMCashAccount24(AccountReport11Elm.RltdAcct, CDMAccountReport12Elm.RelatedAccount);
+    AccountInterest2_To_CDMAccountInterest3(AccountReport11Elm.Intrst, CDMAccountReport12Elm.Interest);
+    CashBalance3_To_CDMCashBalance3(AccountReport11Elm.Bal, CDMAccountReport12Elm.Balance);
+    TotalTransactions2_To_CDMTotalTransactions3(AccountReport11Elm.TxsSummry, CDMAccountReport12Elm.TransactionsSummary);
+    ReportEntry2_To_CDMReportEntry3(AccountReport11Elm.Ntry, CDMAccountReport12Elm.Entry);
+    CDMAccountReport12Elm.AdditionalReportInformation = AccountReport11Elm.AddtlRptInf;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="AccountInterest2_To_CDMAccountInterest3" type="FormulaFunctionDef">
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>AccountInterest2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.Intrst</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.Intrst</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMAccountInterest3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.Interest</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.Interest</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def AccountInterest2Elm in AccountInterest2) {
+    def CDMAccountInterest3Elm = CDMAccountInterest3.secAddElement();
+    InterestType1Choice_To_CDMInterestType1Choice(AccountInterest2Elm.Tp, CDMAccountInterest3Elm.Type);
+    Rate3_To_CDMRate3(AccountInterest2Elm.Rate, CDMAccountInterest3Elm.Rate);
+    DateTimePeriodDetails_To_CDMDateTimePeriodDetails(AccountInterest2Elm.FrToDt, CDMAccountInterest3Elm.FromToDate);
+    CDMAccountInterest3Elm.Reason = AccountInterest2Elm.Rsn;
+}
+ //TODO : Report.Interest.Tax -> ?
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="TotalTransactions2_To_CDMTotalTransactions3" type="FormulaFunctionDef">
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>TotalTransactions2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMTotalTransactions3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def TotalTransactions2Elm in TotalTransactions2) {
+    def CDMTotalTransactions3Elm = CDMTotalTransactions3.secAddElement();
+    NumberAndSumOfTransactions2_To_CDMNumberAndSumOfTransactions3(TotalTransactions2Elm.TtlNtries, CDMTotalTransactions3Elm.TotalEntries);
+    NumberAndSumOfTransactions1_To_CDMNumberAndSumOfTransactions1(TotalTransactions2Elm.TtlCdtNtries, CDMTotalTransactions3Elm.TotalCreditEntries);
+    NumberAndSumOfTransactions1_To_CDMNumberAndSumOfTransactions1(TotalTransactions2Elm.TtlDbtNtries, CDMTotalTransactions3Elm.TotalDebitEntries);
+    TotalsPerBankTransactionCode2_To_CDMTotalsPerBankTransactionCode2(TotalTransactions2Elm.TtlNtriesPerBkTxCd, CDMTotalTransactions3Elm.TotalEntriesPerBankTransactionCode);
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="NumberAndSumOfTransactions2_To_CDMNumberAndSumOfTransactions3" type="FormulaFunctionDef">
+				<Category>ISOToCDM</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>NumberAndSumOfTransactions2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry.TtlNtries</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry.TtlNtries</description>
+					</parameterfield>
+					<parameterfield>
+						<name>CDMNumberAndSumOfTransactions3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary.TotalEntries</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary.TotalEntries</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def NumberAndSumOfTransactions2Elm in NumberAndSumOfTransactions2) {
+    def CDMNumberAndSumOfTransactions3Elm = CDMNumberAndSumOfTransactions3.secAddElement();
+    CDMNumberAndSumOfTransactions3Elm.NumberOfEntries = NumberAndSumOfTransactions2Elm.NbOfNtries;
+    CDMNumberAndSumOfTransactions3Elm.Sum = NumberAndSumOfTransactions2Elm.Sum;
+    CDMNumberAndSumOfTransactions3Elm.TotalNetEntryAmount = NumberAndSumOfTransactions2Elm.TtlNetNtryAmt;
+    CDMNumberAndSumOfTransactions3Elm.CreditDebitIndicator = NumberAndSumOfTransactions2Elm.CdtDbtInd;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="CDMToISO" type="FunctionDefFolder">
+			<FormulaFunctionDef name="CDMAccountReport12_To_AccountReport11" type="FormulaFunctionDef">
+				<description></description>
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMAccountReport12</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report</description>
+					</parameterfield>
+					<parameterfield>
+						<name>AccountReport11</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMAccountReport12Elm in CDMAccountReport12) {
+    def AccountReport11Elm = AccountReport11.secAddElement();
+    AccountReport11Elm.Id = CDMAccountReport12Elm.Identification;
+    AccountReport11Elm.ElctrncSeqNb = CDMAccountReport12Elm.ElectronicSequenceNumber;
+    AccountReport11Elm.LglSeqNb = CDMAccountReport12Elm.LegalSequenceNumber;
+    AccountReport11Elm.CreDtTm = CDMAccountReport12Elm.CreationDateTime;
+    CDMDateTimePeriodDetails_To_DateTimePeriodDetails(CDMAccountReport12Elm.FromToDate, AccountReport11Elm.FrToDt);
+    AccountReport11Elm.CpyDplctInd = CDMAccountReport12Elm.CopyDuplicateIndicator;
+    CDMReportingSource1Choice_To_ReportingSource1Choice(CDMAccountReport12Elm.ReportingSource, AccountReport11Elm.RptgSrc);
+    CDMCashAccount25_To_CashAccount20(CDMAccountReport12Elm.Account, AccountReport11Elm.Acct);
+    CDMCashAccount24_To_CashAccount16(CDMAccountReport12Elm.RelatedAccount, AccountReport11Elm.RltdAcct);
+    CDMAccountInterest3_To_AccountInterest2(CDMAccountReport12Elm.Interest, AccountReport11Elm.Intrst);
+    CDMCashBalance3_To_CashBalance3(CDMAccountReport12Elm.Balance, AccountReport11Elm.Bal);
+    CDMTotalTransactions3_To_TotalTransactions2(CDMAccountReport12Elm.TransactionsSummary, AccountReport11Elm.TxsSummry);
+    CDMReportEntry3_To_ReportEntry2(CDMAccountReport12Elm.Entry, AccountReport11Elm.Ntry);
+    AccountReport11Elm.AddtlRptInf = CDMAccountReport12Elm.AdditionalReportInformation;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMAccountInterest3_To_AccountInterest2" type="FormulaFunctionDef">
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMAccountInterest3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.Interest</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.Interest</description>
+					</parameterfield>
+					<parameterfield>
+						<name>AccountInterest2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.Intrst</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.Intrst</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMAccountInterest3Elm in CDMAccountInterest3) {
+    def AccountInterest2Elm = AccountInterest2.secAddElement();
+    CDMInterestType1Choice_To_InterestType1Choice(CDMAccountInterest3Elm.Type, AccountInterest2Elm.Tp);
+    CDMRate3_To_Rate3(CDMAccountInterest3Elm.Rate, AccountInterest2Elm.Rate);
+    CDMDateTimePeriodDetails_To_DateTimePeriodDetails(CDMAccountInterest3Elm.FromToDate, AccountInterest2Elm.FrToDt);
+    AccountInterest2Elm.Rsn = CDMAccountInterest3Elm.Reason;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMTotalTransactions3_To_TotalTransactions2" type="FormulaFunctionDef">
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMTotalTransactions3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary</description>
+					</parameterfield>
+					<parameterfield>
+						<name>TotalTransactions2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMTotalTransactions3Elm in CDMTotalTransactions3) {
+    def TotalTransactions2Elm = TotalTransactions2.secAddElement();
+    CDMNumberAndSumOfTransactions3_To_NumberAndSumOfTransactions2(CDMTotalTransactions3Elm.TotalEntries, TotalTransactions2Elm.TtlNtries);
+    CDMNumberAndSumOfTransactions1_To_NumberAndSumOfTransactions1(CDMTotalTransactions3Elm.TotalCreditEntries, TotalTransactions2Elm.TtlCdtNtries);
+    CDMNumberAndSumOfTransactions1_To_NumberAndSumOfTransactions1(CDMTotalTransactions3Elm.TotalDebitEntries, TotalTransactions2Elm.TtlDbtNtries);
+    CDMTotalsPerBankTransactionCode2_To_TotalsPerBankTransactionCode2(CDMTotalTransactions3Elm.TotalEntriesPerBankTransactionCode, TotalTransactions2Elm.TtlNtriesPerBkTxCd);
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMNumberAndSumOfTransactions3_To_NumberAndSumOfTransactions2" type="FormulaFunctionDef">
+				<Category>CDMToISO</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>CDMNumberAndSumOfTransactions3</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<message>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary.TotalEntries</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CDM_BankToCustomerAccountReportV1.Data.Report.TransactionsSummary.TotalEntries</description>
+					</parameterfield>
+					<parameterfield>
+						<name>NumberAndSumOfTransactions2</name>
+						<type>Section</type>
+						<allow-any>true</allow-any>
+						<output>true</output>
+						<message>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry.TtlNtries</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<description>CGI_BankToCustomerAccountReportV02.Data.BkToCstmrAcctRpt.Rpt.TxsSummry.TtlNtries</description>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[foreach(def CDMNumberAndSumOfTransactions3Elm in CDMNumberAndSumOfTransactions3) {
+    def NumberAndSumOfTransactions2Elm = NumberAndSumOfTransactions2.secAddElement();
+    NumberAndSumOfTransactions2Elm.NbOfNtries = CDMNumberAndSumOfTransactions3Elm.NumberOfEntries;
+    NumberAndSumOfTransactions2Elm.Sum = CDMNumberAndSumOfTransactions3Elm.Sum;
+    NumberAndSumOfTransactions2Elm.TtlNetNtryAmt = CDMNumberAndSumOfTransactions3Elm.TotalNetEntryAmount;
+    NumberAndSumOfTransactions2Elm.CdtDbtInd = CDMNumberAndSumOfTransactions3Elm.CreditDebitIndicator;
+}
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jun 19 11:44:49 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="ISO_CDM_BankToCustomerAccountReport"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:49:59 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="380"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\CGI_ISO\BankToCustomerAccountReport\CGI_V02\CDMV1_CGIISOV02_BankToCustomerAccountReport.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/SAP-CDM-Mappings/Mappings/CDMV1/CGI_ISO/BankToCustomerAccountReport/CGI_V02/CDMV1_CGIISOV02_BankToCustomerAccountReport/CDMToCGIISOV02_BankToCustAcctRptFSN</selected-element>
+	</workspace>
+</cartridge>
+

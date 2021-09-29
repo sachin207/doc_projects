@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="SAP-CDM-Mappings" type="VolanteProject">
+	<version>1.0</version>
+	<folder-set root=".">
+	</folder-set>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="administrator"/>
+						<property name="Client Id" value="Sowmiya@volantetech.net"/>
+						<property name="Creation Time" value="Wed Oct 23 15:47:30 IST 2019"/>
+						<property name="Designer Build" value="2258"/>
+						<property name="Last Author" value="administrator"/>
+						<property name="Last Save Time" value="Wed Oct 23 15:56:12 IST 2019"/>
+						<property name="Revision Number" value="13"/>
+						<property name="Title" value="SAP-CDM-Mappings"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</project>
+

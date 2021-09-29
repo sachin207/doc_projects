@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2013 sp1 (http://www.altova.com) von Global License Asset Management (SAP AG) bearbeitet -->
+<xsd:schema xmlns="http://sapcd.com/fsnagt" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://sapcd.com/fsnagt">
+	<xsd:element name="ErrorMessage" type="ExceptionType"/>
+	<xsd:complexType name="ExceptionType">
+		<xsd:sequence>
+			<xsd:element name="ErrorGenerationDateTime" type="xsd:dateTime"/>
+			<xsd:element name="MappingName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MappingVersionID" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="TransformationException" type="TransformationExceptionType" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TransformationExceptionType">
+		<xsd:sequence>
+			<xsd:element name="Reference" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ID" type="xsd:token"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="TypeCode" type="xsd:token"/>
+			<xsd:element name="Message" type="xsd:string"/>
+			<xsd:element name="ErrorCode" type="xsd:token"/>
+			<xsd:element name="SeverityCode" type="xsd:token"/>
+			<xsd:element name="CascadableIndicator" type="xsd:boolean"/>
+			<xsd:element name="FieldName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FieldID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MessageXPath" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InternalCode" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="ErrorPhaseCode" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="ErrorTypeCode" type="xsd:token" minOccurs="0"/>
+			<xsd:element name="Trace" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

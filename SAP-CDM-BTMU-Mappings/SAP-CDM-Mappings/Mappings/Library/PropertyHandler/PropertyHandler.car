@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="PropertyHandler" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+		</summary>
+	</private>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<folder name="Setter" type="FunctionDefFolder">
+			<FormulaFunctionDef name="setDataObjProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>payLoadObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	carrierObj.setProperty (key, payLoadObj);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="setDataObjProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierRawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>payLoadObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	carrierRawMsg.setProperty (key, payLoadObj);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="setRawMsgProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierObj</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>rawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	carrierObj.setProperty (key, rawMsg);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="setRawMsgProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierRawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>payLoadRawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	carrierRawMsg.setProperty (key, payLoadRawMsg);
+</native-code>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="Getter" type="FunctionDefFolder">
+			<FormulaFunctionDef name="getDataObjProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierObj</name>
+						<type>DataObject</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	return (DataObject) carrierObj.getProperty (key);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getDataObjProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierRawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>DataObject</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	return (DataObject) carrierRawMsg.getProperty (key);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getRawMsgProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierObj</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>RawMessage</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	return (RawMessage) carrierObj.getProperty (key);
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getRawMsgProperty" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>carrierRawMsg</name>
+						<type>RawMessage</type>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>RawMessage</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	return (RawMessage) carrierRawMsg.getProperty (key);
+</native-code>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<resources type="Resources">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+			<resourcefield>
+				<name>PROPERTY_NAME__RAWMESSAGE</name>
+				<type>String</type>
+				<value>RawMessage</value>
+			</resourcefield>
+			<resourcefield>
+				<name>PROPERTY_NAME__EXCEPTION</name>
+				<type>String</type>
+				<value>Exceptions</value>
+			</resourcefield>
+			<resourcefield>
+				<name>PROPERTY_NAME__PARSEDOBJ</name>
+				<type>String</type>
+				<value>ParsedObj</value>
+			</resourcefield>
+			<resourcefield>
+				<name>PROPERTY_NAME__MAPPEDOBJ</name>
+				<type>String</type>
+				<value>MappedObj</value>
+			</resourcefield>
+			<resourcefield>
+				<name>PROPERTY_NAME__ORIGINALOBJ</name>
+				<type>String</type>
+				<value>OrigObj</value>
+			</resourcefield>
+		</resourcefields>
+	</resources>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Sep 16 11:32:44 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="PropertyHandler"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="164"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\PropertyHandler\PropertyHandler.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">PropertyHandler/Resources</selected-element>
+	</workspace>
+</cartridge>
+

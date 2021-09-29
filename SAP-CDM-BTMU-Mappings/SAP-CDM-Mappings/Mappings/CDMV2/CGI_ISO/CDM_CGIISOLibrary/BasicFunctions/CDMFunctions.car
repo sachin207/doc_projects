@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="CDMFunctions" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<function name="isoAmountToCDMAmount"/>
+			<function name="isoCodeToCDMCodeScheme"/>
+			<function name="isoCodeToCDMCodeList"/>
+			<function name="isoCdOrPrtryToCDMCodeList"/>
+			<function name="isoCdOrPrtryToCDMCodeScheme"/>
+			<function name="isoIDOrOthrToCDMCodeScheme"/>
+			<function name="CDMAmountToISOAmount"/>
+			<function name="CDMCodeSchemeToISOCode"/>
+			<function name="CDMCodeListToISOCode"/>
+			<function name="CDMCodeListToISOCode"/>
+			<function name="CDMCodeSchemeToISOCode"/>
+		</summary>
+	</private>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<folder name="isoToCDM" type="FunctionDefFolder">
+			<FormulaFunctionDef name="isoAmountToCDMAmount" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>isoAmount</name>
+						<type>Any</type>
+					</parameterfield>
+					<parameterfield>
+						<name>cdmAmount</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def amt = cdmAmount.SecAddElement();
+amt.Value = isoAmount.Value;
+amt.currencyCode = isoAmount.Ccy;
+	]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isoCodeToCDMCodeScheme" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Code</name>
+						<type>String</type>
+						<required>false</required>
+					</parameterfield>
+					<parameterfield>
+						<name>Section</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[if(isNotNull(Code))
+	Section.secAddElement().Value = Code;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isoCodeToCDMCodeList" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Code</name>
+						<type>String</type>
+						<required>false</required>
+					</parameterfield>
+					<parameterfield>
+						<name>Section</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[if(isNotNull(Code))
+Section.secAddElement().Value = Code;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isoCdOrPrtryToCDMCodeList" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>isoCdOrPrtryElm</name>
+						<type>Any</type>
+					</parameterfield>
+					<parameterfield>
+						<name>cdmSection</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def val;
+if (isoCdOrPrtryElm.Cd.IsNotNull())
+	val = isoCdOrPrtryElm.Cd;
+else if (isoCdOrPrtryElm.GetfieldType(1) == "Section") {
+	def prtrySec = isoCdOrPrtryElm.GetSection ("Prtry");
+	if (prtrySec.length() > 0)
+		val = prtrySec[0].GetString ("Id");
+}
+else
+	val = isoCdOrPrtryElm.GetString ("Prtry");
+
+isoCodeToCDMCodeList (val, cdmSection);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isoCdOrPrtryToCDMCodeScheme" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>isoCdOrPrtryElm</name>
+						<type>Any</type>
+					</parameterfield>
+					<parameterfield>
+						<name>cdmSection</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def val;
+if (isoCdOrPrtryElm.Cd.IsNotNull())
+	val = isoCdOrPrtryElm.Cd;
+else if (isoCdOrPrtryElm.GetfieldType(1) == "Section") {
+	def prtrySec = isoCdOrPrtryElm.GetSection ("Prtry");
+	if (prtrySec.length() > 0)
+		val = prtrySec[0].GetString ("Id");
+}
+else
+	val = isoCdOrPrtryElm.GetString ("Prtry");
+
+isoCodeToCDMCodeScheme (val, cdmSection);
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="isoIDOrOthrToCDMCodeScheme" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>isoIDOrOthrElm</name>
+						<type>Any</type>
+					</parameterfield>
+					<parameterfield>
+						<name>cdmSection</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def fieldType = isoIDOrOthrElm.GetFieldType (0);
+if (fieldType == "String") {
+	if (isoIDOrOthrElm.IsNotNull (0)) {
+		isoCodeToCDMCodeScheme (isoIDOrOthrElm.getString (0), cdmSection);
+		return;
+	}
+}
+
+if ((isoIDOrOthrElm.GetfieldType (1) == "String") && (isoIDOrOthrElm.getFieldName(1) == "Othr")) {
+	def othrSec = isoIDOrOthrElm.getSection (1);
+	if (othrSec.length() > 0)
+		isoCodeToCDMCodeScheme (othrSec[0].GetString (0), cdmSection);
+}]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<folder name="cdmToISO" type="FunctionDefFolder">
+			<FormulaFunctionDef name="CDMAmountToISOAmount" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>cdmAmount</name>
+						<type>Any</type>
+					</parameterfield>
+					<parameterfield>
+						<name>isoAmount</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[def isoAmtElm = isoAmount.SecAddElement();
+isoAmtElm.Value = cdmAmount.Value;
+isoAmtElm.Ccy = cdmAmount.currencyCode;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCodeSchemeToISOCode" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>section</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[if(section.$size > 0)
+  return section[0].Value;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCodeListToISOCode" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>section</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[if(section.$size > 0)
+return section[0].Value;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCodeListToISOCode" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>cdmElm</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return cdmElm.Value;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="CDMCodeSchemeToISOCode" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>cdmElm</name>
+						<type>Any</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return cdmElm.Value;]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Jul 17 16:20:05 IST 2013"/>
+						<property name="Author" value="krishnan"/>
+						<property name="Title" value="CDMFunctions"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:14 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="60"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV2\CGI_ISO\CDM_CGIISOLibrary\BasicFunctions\CDMFunctions.car"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">CDMFunctions/Function Definitions/isoToCDM/isoIDOrOthrToCDMCodeScheme</selected-element>
+	</workspace>
+</cartridge>
+

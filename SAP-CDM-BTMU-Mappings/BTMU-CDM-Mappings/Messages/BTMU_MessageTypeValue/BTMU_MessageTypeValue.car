@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="BTMU_MessageTypeValue" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</absolute-path>
+		</reference>
+	</references>
+	<resources type="Resources">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+			<resourcefield>
+				<name>FSNMSGTYPE</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>ZENGIN_FUNDS_TRANSFER</name>
+						<type>String</type>
+						<value>ZENGIN_FUNDS_TRANSFER</value>
+					</resourcefield>
+					<resourcefield>
+						<name>JDOME_PAIN_001_001_03</name>
+						<type>String</type>
+						<value>JDOME_PAIN.001.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>GCMS_PAIN_001_001_03</name>
+						<type>String</type>
+						<value>GCMS_PAIN.001.001.03</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+		</resourcefields>
+	</resources>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Jul 09 09:15:15 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="MessageTypeValue"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:49:59 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="242"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\BTMU-CDM-Mappings\Messages\BTMU_MessageTypeValue\BTMU_MessageTypeValue.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/BTMU-CDM-Mappings/Messages/BTMU_MessageTypeValue/BTMU_MessageTypeValue/Resources</selected-element>
+	</workspace>
+</cartridge>
+

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="SAPUtil" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="XMLMsgForUtilCart" version="1.0" type="External Message">
+			</service>
+			<service name="SAP_FW_Clone" version="1.0" type="Message Flow">
+			</service>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+		</summary>
+	</private>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="5.0" rulename="XMLMsgForUtilCart" formattype="XMLFormat" >
+		<standard>XML</standard>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<batch>false</batch>
+				<root-tag>XMLMsgForUtilCart</root-tag>
+				<record-tag>XMLMsgForUtilCart</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+			</entity-references>
+			<doc-type-decl>&lt;!DOCTYPE {0} SYSTEM "{1}"&gt;</doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.external.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar xmlrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="copyAny" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcAnySec</name>
+					<type>Section</type>
+				</parameterfield>
+				<parameterfield>
+					<name>destAnySec</name>
+					<type>Section</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[for (def i=0; i<srcAnySec.length(); i++) {
+	createXMLAnyElement (destAnySec);
+	copy (srcAnySec[i], destAnySec[i]);
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="createXMLAnyElement" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>sec</name>
+					<type>Section</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Native Code</function-type>
+			<native-code>	com.tplus.transform.runtime.xmlrt.XMLElement xmlElement = new com.tplus.transform.runtime.xmlrt.XMLElement(sec);
+	sec.addElement (xmlElement);
+</native-code>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="isObjectEmpty" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[for(def i = 0; i < obj.GetFieldCount(); ++i) {
+    if(obj.IsNull(i)) {
+        continue;
+    }
+    if(obj.GetFieldType(i) == "Section") {
+        def sec = obj.GetSection(i);
+        for(def j = 0; j < sec.$size; ++j) {
+            def subElm = sec[j];
+            if(!isObjectEmpty(subElm)) {
+                return false;
+            }
+        }
+        continue;
+    }
+    return false;
+}
+return true;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SecRemoveEmpty" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>elm</name>
+					<type>DataObject</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if(elm.isObjectEmpty()) {
+    SecRemoveElement(elm.GetParentSection(), elm);
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="IsValidBigDecimal" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>str</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Native Code</function-type>
+			<native-code>        if (str == null) return false;
+        
+        boolean valid = true;
+        try {
+            java.math.BigDecimal val = new java.math.BigDecimal (str);
+        }
+        catch (NumberFormatException exc) {
+            valid = false;
+        }
+
+        return valid;
+</native-code>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SecAddOrGetElement" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<Code><![CDATA[if(section.$size == 0) {
+	return section.secAddElement();
+}
+return section[0];]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SecAddOrGetElement" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>n</name>
+					<type>Integer</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[if (n >= 1) {
+	def sz = section.$size;
+	for (def i=0; i<(n - sz); i++)
+		def sec = section.secAddElement();
+	
+	return section[n-1];
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="isExceptionRunTime" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<message>TransformException</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[return isExceptionRunTime (exObj.Type);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="isExceptionRunTime" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>type</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[return (type == "TransformRuntimeException");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="containsRunTimeException" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<message>TransformException</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[if (exObj.IsNotNull()) {
+	def allExc = GetCascadedExceptions (exObj);
+	foreach (def exc in allExc)
+		if (isExceptionRunTime (exc.Type))
+			return true;
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="isPresent" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>str</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[(str != null) && (str.trim().length() != 0)]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="StripBrackets" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>str</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[if ((str.charAt(0) == '[') && (str.charAt (str.length() -1) == ']')) {
+	return str.substring (1, str.length()-2);
+}
+
+return str;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetNonNullFieldsFromDiffObj" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>diffObj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>fldList</name>
+					<type>StringList</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[foreach (def field in fldList) {
+	if (diffObj.IsNotNull (field))
+		obj.setVariant (field, diffObj.getVariant (field));
+}]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="CheckFieldExists" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>name</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>isLastNamePartField</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[def isRelName = (name.findFirst (".") != -1);
+def newName = name.leftStr (".");
+def index = obj.GetFieldIndex (newName);
+if (index == -1)
+	return false;
+
+def fldType = obj.GetFieldType (newName);
+
+if (!isRelName) {
+	if (isLastNamePartField != (fldType != "Section"))
+		return false;
+
+	if (isLastNamePartField)
+		return obj.IsNotNull (newName);
+	else {
+		return true;
+	}
+}
+
+if (fldType == "Section") {
+	def sec = obj.GetSection (newName);
+	if (sec.length() != 0) {
+		foreach (def elm in sec) {
+			def isExists = elm.CheckFieldExists (name.rightStr ("."), isLastNamePartField);
+			if (isExists)
+				return true;
+		}	
+	}
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="CheckFieldExists" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>name</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[return obj.CheckFieldExists (name, true);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messageflow name="SAP_FW_Clone" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>inputObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>outputObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>OUTPUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="93819390-9bc6-46c7-a923-677d00253716" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="415" y="59"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="73d33c23-6faa-4233-89dc-741d52fd2210" type="Custom" xsi:type="Custom" >
+			<label>Clone</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[outputObj = inputObj.clone();
+]]></code>
+			<visual>
+				<position x="418" y="136"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="9a2ce1c2-7f88-4983-aa6d-bb3d0c7e9ea7" type="Custom" xsi:type="Custom" >
+			<label>Handle Product Bug</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[//If input obj contains tags of type 'any', clone fails with RT Exc. Fixed in 5.0.2
+
+outputObj = inputObj;
+]]></code>
+			<visual>
+				<position x="502" y="208"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="17e3c722-4902-4fe2-901d-ab7114a2a906" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="416" y="298"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="93819390-9bc6-46c7-a923-677d00253716" portindex="0"/>
+			<inputport uid="73d33c23-6faa-4233-89dc-741d52fd2210" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="73d33c23-6faa-4233-89dc-741d52fd2210" portindex="2"/>
+			<inputport uid="9a2ce1c2-7f88-4983-aa6d-bb3d0c7e9ea7" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="73d33c23-6faa-4233-89dc-741d52fd2210" portindex="1"/>
+			<inputport uid="17e3c722-4902-4fe2-901d-ab7114a2a906" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="9a2ce1c2-7f88-4983-aa6d-bb3d0c7e9ea7" portindex="1"/>
+			<inputport uid="17e3c722-4902-4fe2-901d-ab7114a2a906" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="383" y="45" width="159" height="267"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Aug 13 13:00:07 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="Util"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="93"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAPUtil/XMLMsgForUtilCart/External Format</selected-element>
+	</workspace>
+</cartridge>
+

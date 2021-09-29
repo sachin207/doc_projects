@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="BTMU-CDM-Mappings" type="VolanteProject" id="4fe0a699-34a3-4f35-81ac-a6705adeedfd">
+	<version>1.0</version>
+	<folder-set root="." id="511a79ad-1c6c-4b81-8af6-000919e63832">
+	</folder-set>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Author" value="administrator"/>
+						<property name="Client Id" value="ramnath@volante.com"/>
+						<property name="Creation Time" value="Wed Oct 23 15:30:50 IST 2019"/>
+						<property name="Designer Build" value="2589"/>
+						<property name="Last Author" value="ramnath.r"/>
+						<property name="Last Save Time" value="Wed Sep 29 11:35:20 IST 2021"/>
+						<property name="Revision Number" value="23"/>
+						<property name="Title" value="BTMU-CDM-Mappings"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+</project>
+

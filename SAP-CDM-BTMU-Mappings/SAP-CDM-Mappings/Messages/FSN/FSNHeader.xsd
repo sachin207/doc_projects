@@ -1,0 +1,90 @@
+<xsd:schema targetNamespace="http://sapcd.com/fsnagt" xmlns="http://sapcd.com/fsnagt"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:element name="FSNMessageBulk" type="FSNMessageBulk"/>
+    <xsd:simpleType name="ReceiverId">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Receiver of this Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="MessageType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">FSN Connector specific MessageType</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="MessageId">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Message ID</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="NumberOfRecords">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Number of records inside the MessageContent</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:integer"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="MessageContent">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Content / Payload of the Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="FileName">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Filename (in file system)</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="RelatedMessageId">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Related Message ID</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:simpleType name="SenderId">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Sender of this Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+    <xsd:complexType name="FSNMessage">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Structure of FSN Message</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="SenderId" type="SenderId"/>
+            <xsd:element name="ReceiverId" type="ReceiverId"/>
+            <xsd:element name="MessageType" type="MessageType"/>
+            <xsd:element name="FileName" type="FileName"/>
+            <xsd:element name="NumberOfRecords" type="NumberOfRecords"/>
+            <xsd:element name="MessageId" type="MessageId"/>
+            <xsd:element name="RelatedMessageId" type="RelatedMessageId" minOccurs="0"/>
+            <xsd:element name="ExtendedHeader" type="ExtendedHeader" minOccurs="0"/>
+            <xsd:element name="MessageContent" type="MessageContent"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="FSNMessageBulk">
+        <xsd:sequence>
+            <xsd:element name="FSNMessage" type="FSNMessage" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ExtendedHeader">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Additional Header Information</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Parameter" maxOccurs="unbounded">
+                <xsd:complexType>
+                    <xsd:simpleContent>
+                        <xsd:extension base="xsd:string">
+                            <xsd:attribute name="name" type="xsd:string" use="required"/>
+                            <xsd:attribute name="type" type="xsd:string"/>
+                        </xsd:extension>
+                    </xsd:simpleContent>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

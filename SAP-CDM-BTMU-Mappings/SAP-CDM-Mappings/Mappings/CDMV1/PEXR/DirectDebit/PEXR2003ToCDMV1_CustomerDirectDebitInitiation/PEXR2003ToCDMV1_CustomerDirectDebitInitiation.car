@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="PEXR2003ToCDMV1_CustomerDirectDebitInitiation" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="PEXR2003ToCDMV1_CustomerDirectDebitInitiation" version="1.0" type="Mapping">
+			</service>
+			<service name="PEXR2003ToCDM_CstmrDirDbtInitn" version="1.1" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="PEXR2003ToCDM_CstmrDirDbtInitnFSN" version="1.1" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="PEXR2003ToCDMV1_CustomerDirectDebitInitiation_MapFlow" version="1.0" type="Message Flow">
+			</service>
+			<function name="ValidateRepeatingSection"/>
+			<function name="ValidateCodesInE2IDB02"/>
+			<function name="GetValidateCodesInE2IDB02ErrMsg"/>
+			<function name="VerifyDate"/>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="isInputFSNXML"/>
+			<function name="SetThresholdsOnFilteringSide"/>
+			<function name="mapToCDMExc"/>
+			<function name="setStackTrace"/>
+			<function name="RawMessageToBase64Binary"/>
+			<function name="Base64BinaryToRawMessage"/>
+			<function name="getPropFromExtHeader"/>
+			<function name="containsTechnicalException"/>
+			<function name="assignToContainer"/>
+			<function name="getAllMessageContents"/>
+			<function name="getPropertyFromExObj"/>
+			<function name="getErrorTrace"/>
+			<function name="getInternalCode"/>
+			<function name="getErrorType"/>
+			<function name="getErrorPhase"/>
+			<function name="setAllToValue"/>
+			<function name="ComputeRequestedDate"/>
+			<function name="getLookUpCode"/>
+			<function name="GetName"/>
+			<function name="GetNameFromObj"/>
+			<function name="GetPmtInfId"/>
+			<function name="getProprietaryCode"/>
+			<function name="GetE1EDKA1InstancesBasedOnQuals"/>
+			<function name="IDOCToCDMGroupHeader"/>
+			<function name="IsBranch8100To8300Or1306"/>
+			<function name="MapAccountExceptType"/>
+			<function name="MapAcctNatureCdWhenCtryIs_US_ZA_JP"/>
+			<function name="MapAcctNaturePrtry"/>
+			<function name="MapFinInstnId"/>
+			<function name="MapParty"/>
+			<function name="MapParty"/>
+			<function name="proprietaryPurposeCodesTable"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SetAccount"/>
+			<function name="SetBranchID"/>
+			<function name="SetBranchIDAndName"/>
+			<function name="SetChargeBearer"/>
+			<function name="SetChargesAcctAgtFinInstID"/>
+			<function name="SetDocuNum"/>
+			<function name="SetInstructedAmount"/>
+			<function name="SetPartyPvtOtherID"/>
+			<function name="SetPartyOrgOtherID"/>
+			<function name="SetPartyOtherID"/>
+			<function name="SetPstlAdr"/>
+			<function name="SetRfrdDocAmount"/>
+			<function name="SetRltdRmtInf"/>
+			<function name="SetStrd"/>
+			<function name="UpdateClrSysId"/>
+			<function name="GetPurpCdFromDesc"/>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="updateCtrlSumAndNbOfTxs"/>
+			<function name="updateISOCreditTransfer"/>
+			<function name="updateISODirectDebit"/>
+			<function name="updateCDMCreditTransfer"/>
+			<function name="updateCDMDirectDebit"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+			<function name="getValidationList"/>
+			<function name="getCallBacksOfGivenType"/>
+			<function name="computeAmount"/>
+			<function name="validateFiltering"/>
+			<function name="getThreshold"/>
+			<function name="ApplyDiffOnMapperParams"/>
+			<function name="AddElmsInSrcSecToDestSec"/>
+			<function name="ApplyFilteringSideDiff"/>
+			<function name="RemoveExcProperty"/>
+			<function name="getRecordCount"/>
+			<function name="mapPEXR200nToDirectDebitCDMV1"/>
+			<function name="mapPEXR2003SpecificToDirectDebitCDMV1"/>
+			<function name="mapPEXR2003SpecificToDirectDebitCDMV1Complete"/>
+			<function name="MapDirDebCrdtrAcctNature"/>
+			<function name="MapDirDebCdtrAcctNaturePrtry"/>
+			<function name="MapDirDebDbtrAcctNature"/>
+			<function name="MapDirDebDbtrAcct_AcctNaturePrtry"/>
+			<function name="MapDirDebAcctNature"/>
+			<function name="SetDirDebCdtrOtherID"/>
+			<function name="SetDirDebDbtrOtherID"/>
+			<function name="SetDirDebUltmtCdtrOtherID"/>
+			<function name="SetDirDebUltmtDbtrOtherID"/>
+			<function name="dirDebproprietaryPurposeCodesTable"/>
+			<function name="getDirDebProprietaryCode"/>
+			<function name="mapPEXR2003MandateRelatedInformation"/>
+			<function name="mapPEXR2003CreditorSchemeIdentification"/>
+			<function name="mapPEXR2003AmendmentInfoDets"/>
+			<function name="SetDirDebOtherIDInCdtrAndUltmtCdtr"/>
+			<function name="SetDirectDebitMapperParams"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\PEXR\PEXRMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\PEXR\PEXRMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\FSNProcessor\Mappings_FSNProcessor.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\..\Messages\MessageTypeValue\MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Library\DirectDebit_PEXRLibrary.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\PEXR\DirectDebit\Library\DirectDebit_PEXRLibrary.car</absolute-path>
+		</reference>
+	</references>
+	<messagemapping rulename="PEXR2003ToCDMV1_CustomerDirectDebitInitiation" type="MessageMapping">
+		<source>PEXR2003</source>
+		<destination>CDM_CustomerDirectDebitInitiationV1</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="formula">
+					<source-field><![CDATA[mapPEXR200nToDirectDebitCDMV1 ($this, $that);
+mapPEXR2003SpecificToDirectDebitCDMV1Complete ($this, $that);]]></source-field>
+					<destination-field>GroupHeader</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messageflow name="PEXR2003ToCDM_CstmrDirDbtInitn" type="MessageFlow">
+		<version>1.1</version>
+		<description><![CDATA[Converts PEXR-2003 to CDM V1 CustomerDirectDebitInitiation]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Stop1" uid="dde8b6d1-da7a-4679-a180-d42d4d085da6" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="174"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="41f1aa42-f0a2-4ebd-8afd-3976eacdbe73" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="422" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="a45b83ce-80c9-426e-9e99-9ae1b3babc8a" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Flow</label>
+			<description><![CDATA[]]></description>
+			<name>PEXR2003ToCDM_CstmrDirDbtInitnFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="422" y="106"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a45b83ce-80c9-426e-9e99-9ae1b3babc8a" portindex="1"/>
+			<inputport uid="dde8b6d1-da7a-4679-a180-d42d4d085da6" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="41f1aa42-f0a2-4ebd-8afd-3976eacdbe73" portindex="0"/>
+			<inputport uid="a45b83ce-80c9-426e-9e99-9ae1b3babc8a" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="388" y="25" width="73" height="163"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="PEXR2003ToCDM_CstmrDirDbtInitnFSN" type="MessageFlow">
+		<version>1.1</version>
+		<description><![CDATA[Converts PEXR-2003 wrapped in FSN to CDM V1 CustomerDirectDebitInitiation wrapped in FSN]]></description>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="8a97b191-7035-42a5-92c9-84914feb222a" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="372" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="86c534f2-7c64-4427-afe2-2a39959ac626" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Processor</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_FSNProcessor</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="371" y="199"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="a560ac71-12f6-45b0-be4a-ae5bf57f6b3e" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="371" y="267"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="e68d32c2-e4d9-4952-8ebc-688fa6769135" type="Create" xsi:type="Create" >
+			<label>Create Framework Params</label>
+			<description><![CDATA[]]></description>
+			<out>fsnParamsObj</out>
+			<message>FSNParams</message>
+			<init>fsnParamsObj.SetFSNMessageNames (
+	FSNMSGTYPE.PAYEXT_PEXR2003,
+	FSNMSGTYPE.CUST_DIRECT_DEBIT_INIT_1_0
+);
+
+fsnParamsObj.SetDirectDebitMapperParams ("PEXR2003");
+
+fsnParamsObj.SetCartridgeDetails (
+	"PEXR2003ToCDM_CstmrDirDbtInitnFSN", "1.1"
+);
+
+fsnParamsObj.SetMessageID ("IDOC.Control.DOCNUM", FILTERINGSIDE.INPUT);
+fsnParamsObj.SetMessageID ("GroupHeader.MessageIdentification", FILTERINGSIDE.OUTPUT);
+</init>
+			<visual>
+				<position x="372" y="112"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="86c534f2-7c64-4427-afe2-2a39959ac626" portindex="1"/>
+			<inputport uid="a560ac71-12f6-45b0-be4a-ae5bf57f6b3e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8a97b191-7035-42a5-92c9-84914feb222a" portindex="0"/>
+			<inputport uid="e68d32c2-e4d9-4952-8ebc-688fa6769135" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="e68d32c2-e4d9-4952-8ebc-688fa6769135" portindex="1"/>
+			<inputport uid="86c534f2-7c64-4427-afe2-2a39959ac626" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="337" y="25" width="73" height="256"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<folder name="MappingFlows" type="FolderElement">
+		<messageflow name="PEXR2003ToCDMV1_CustomerDirectDebitInitiation_MapFlow" type="MessageFlow">
+			<version>1.0</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>pexrOBJ</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>INPUT</variabletype>
+						<message>Undefined</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>cdmObj</name>
+						<type>DataObject</type>
+						<minoccurs>1</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>OUTPUT</variabletype>
+						<message>CDM_CustomerDirectDebitInitiationV1</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="false"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="394" y="152"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="394" y="287"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="6ae85b58-5df9-460b-a9fa-d94bc8db0bce" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke map flow base</label>
+				<description><![CDATA[]]></description>
+				<name>PEXR200nToCDMV1_CustomerDirectDebitInitiation_MapFlowBase</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>pexrOBJ</name>
+						<type>DataObject</type>
+						<value><![CDATA[pexrOBJ]]></value>
+						<notnull>true</notnull>
+					</field>
+					<field>
+						<name>inputType</name>
+						<type>String</type>
+						<value><![CDATA["PEXR2003"]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>cdmObj</name>
+						<type>DataObject</type>
+						<value><![CDATA[cdmObj]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="394" y="219"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+				<inputport uid="6ae85b58-5df9-460b-a9fa-d94bc8db0bce" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="6ae85b58-5df9-460b-a9fa-d94bc8db0bce" portindex="1"/>
+				<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="360" y="138" width="73" height="163"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Sep 17 16:30:25 EDT 2012"/>
+						<property name="Author" value="Uday Thakur"/>
+						<property name="Title" value="SAP_BOAML"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:13 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="1231"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\PEXR\DirectDebit\PEXR2003ToCDMV1_CustomerDirectDebitInitiation\PEXR2003ToCDMV1_CustomerDirectDebitInitiation.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/SAP_BTMU_DEV_INTERNAL-20thSept/SAP-CDM-Mappings/Mappings/CDMV1/PEXR/DirectDebit/PEXR2003ToCDMV1_CustomerDirectDebitInitiation/PEXR2003ToCDMV1_CustomerDirectDebitInitiation/PEXR2003ToCDM_CstmrDirDbtInitnFSN</selected-element>
+		<watches>
+			<watch>
+				<name>E2EDKA1_Qual[0].PSTL2</name>
+			</watch>
+		</watches>
+	</workspace>
+</cartridge>
+

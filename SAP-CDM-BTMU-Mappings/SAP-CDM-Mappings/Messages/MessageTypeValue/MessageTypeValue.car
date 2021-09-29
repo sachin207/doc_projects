@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="MessageTypeValue" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+		</summary>
+	</private>
+	<resources type="Resources">
+		<Locales active="">
+		</Locales>
+		<resourcefields>
+			<resourcefield>
+				<name>FSNMSGTYPE</name>
+				<type>Section</type>
+				<resourcefields>
+					<resourcefield>
+						<name>CAMT_052_001_02</name>
+						<type>String</type>
+						<value>CAMT.052.001.02</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CAMT_052_001_03</name>
+						<type>String</type>
+						<value>CAMT.052.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CAMT_053_001_02</name>
+						<type>String</type>
+						<value>CAMT.053.001.02</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CAMT_053_001_03</name>
+						<type>String</type>
+						<value>CAMT.053.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CAMT_054_001_02</name>
+						<type>String</type>
+						<value>CAMT.054.001.02</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_001_001_03</name>
+						<type>String</type>
+						<value>PAIN.001.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_001_001_04</name>
+						<type>String</type>
+						<value>PAIN.001.001.04</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_002_001_03</name>
+						<type>String</type>
+						<value>PAIN.002.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_002_001_04</name>
+						<type>String</type>
+						<value>PAIN.002.001.04</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_007_001_03</name>
+						<type>String</type>
+						<value>PAIN.007.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAIN_008_001_03</name>
+						<type>String</type>
+						<value>PAIN.008.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CGI_PAIN_001_001_03</name>
+						<type>String</type>
+						<value>CGI:PAIN.001.001.03</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CGI_PAIN_008_001_02</name>
+						<type>String</type>
+						<value>CGI:PAIN.008.001.02</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAYEXT_PEXR2001</name>
+						<type>String</type>
+						<value>PAYEXT.PEXR2001</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAYEXT_PEXR2002</name>
+						<type>String</type>
+						<value>PAYEXT.PEXR2002</value>
+					</resourcefield>
+					<resourcefield>
+						<name>PAYEXT_PEXR2003</name>
+						<type>String</type>
+						<value>PAYEXT.PEXR2003</value>
+					</resourcefield>
+					<resourcefield>
+						<name>MT940_SRG2013</name>
+						<type>String</type>
+						<value>MT940_SRG2013</value>
+					</resourcefield>
+					<resourcefield>
+						<name>MT942_SRG2013</name>
+						<type>String</type>
+						<value>MT942_SRG2013</value>
+					</resourcefield>
+					<resourcefield>
+						<name>BANK_TO_CUST_ACCOUNT_REP_1_0</name>
+						<type>String</type>
+						<value>BANK_TO_CUST_ACCOUNT_REP:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>BANK_TO_CUST_DEBT_CRDT_NOTIFICATION_1_0</name>
+						<type>String</type>
+						<value>BANK_TO_CUST_DEBT_CRDT_NOTIFICATION:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>BANK_TO_CUST_STATEMENT_1_0</name>
+						<type>String</type>
+						<value>BANK_TO_CUST_STATEMENT:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUST_CREDIT_TRANSFER_INIT_1_0</name>
+						<type>String</type>
+						<value>CUST_CREDIT_TRANSFER_INIT:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUST_DIRECT_DEBIT_INIT_1_0</name>
+						<type>String</type>
+						<value>CUST_DIRECT_DEBIT_INIT:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUST_PYMT_REVERSAL_1_0</name>
+						<type>String</type>
+						<value>CUST_PYMT_REVERSAL:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUST_PYMT_STATUS_REP_1_0</name>
+						<type>String</type>
+						<value>CUST_PYMT_STATUS_REP:1.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>CUST_CREDIT_TRANSFER_INIT_2_0</name>
+						<type>String</type>
+						<value>CUST_CREDIT_TRANSFER_INIT:2.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>BANK_TO_CUST_STATEMENT_2_0</name>
+						<type>String</type>
+						<value>BANK_TO_CUST_STATEMENT:2.0</value>
+					</resourcefield>
+					<resourcefield>
+						<name>ERR</name>
+						<type>String</type>
+						<value>ERROR_MESSAGE:1.0</value>
+					</resourcefield>
+				</resourcefields>
+			</resourcefield>
+		</resourcefields>
+	</resources>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Jul 09 09:15:15 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="MessageTypeValue"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="178"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/SAP-CDM-Mappings/Messages/MessageTypeValue/MessageTypeValue/Resources</selected-element>
+	</workspace>
+</cartridge>
+

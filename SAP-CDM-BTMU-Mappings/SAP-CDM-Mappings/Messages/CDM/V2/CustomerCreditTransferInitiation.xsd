@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--edited with XMLSpy v2013 (x64) (http://www.altova.com) by Global License Asset Management (SAP AG)-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns="urn:sap:messagetype:310:SAP_FSN_CDM:2.0:CustomerCreditTransferInitiation"
+    xmlns:ns1="http://sapcd.com/fsnagt"
+    xmlns:bdt="urn:sap:messagetype:310:FSN_CDM:2.0:BaseDataTypes"
+    targetNamespace="urn:sap:messagetype:310:SAP_FSN_CDM:2.0:CustomerCreditTransferInitiation"
+    elementFormDefault="qualified">
+  <xs:import namespace="urn:sap:messagetype:310:FSN_CDM:2.0:BaseDataTypes" schemaLocation="BaseDataTypes.xsd"/>
+  <xs:element name="CustomerCreditTransferInitiation" type="CustomerCreditTransferInitiationType"/>
+  <xs:complexType name="BranchAndFinancialInstitutionType">
+    <xs:sequence>
+      <xs:element name="FinancialInstitution" type="FinancialInstitutionType"/>
+      <xs:element name="Branch" type="BranchDataType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BranchDataType">
+    <xs:sequence>
+      <xs:element name="ID" type="bdt:BranchIDType" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalAddress" type="PostalAddressType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CashAccountType">
+    <xs:sequence>
+      <xs:element name="ID" type="bdt:AccountIDType"/>
+      <xs:element name="TypeCode" type="bdt:CashAccountTypeCodeType" minOccurs="0"/>
+      <xs:element name="CurrencyCode" type="bdt:CurrencyCodeType" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChequeDetails">
+    <xs:sequence>
+      <xs:element name="ChequeTypeCode" type="bdt:ChequeTypeCodeType" minOccurs="0"/>
+      <xs:element name="ChequeNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="ChequeFrom" type="NameAndAddressType" minOccurs="0"/>
+      <xs:element name="DeliveryMethod" type="bdt:ChequeDeliveryMethodCodeType" minOccurs="0"/>
+      <xs:element name="DeliverTo" type="NameAndAddressType" minOccurs="0"/>
+      <xs:element name="InstructionPriorityCode" type="bdt:PriorityCodeType" minOccurs="0"/>
+      <xs:element name="ChequeMaturityDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="FormsCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="MemoField" type="xs:string" minOccurs="0" maxOccurs="2"/>
+      <xs:element name="RegionalClearingZone" type="xs:string" minOccurs="0"/>
+      <xs:element name="PrintLocation" type="xs:string" minOccurs="0"/>
+      <xs:element name="Signature" type="xs:string" minOccurs="0" maxOccurs="5"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ClearingSystemMemberType">
+    <xs:sequence>
+      <xs:element name="ClearingSystemID" type="bdt:ClearingSystemCodeType" minOccurs="0"/>
+      <xs:element name="MemberID" type="bdt:MemberIDType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContactDetailsType">
+    <xs:sequence>
+      <xs:element name="NamePrefixCode" type="bdt:NamePrefixCodeType" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="PhoneNumber" type="xs:normalizedString" minOccurs="0"/>
+      <xs:element name="MobileNumber" type="xs:normalizedString" minOccurs="0"/>
+      <xs:element name="FaxNumber" type="xs:normalizedString" minOccurs="0"/>
+      <xs:element name="EmailAddress" type="xs:string" minOccurs="0"/>
+      <xs:element name="Other" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreditorReferenceInformationType">
+    <xs:sequence>
+      <xs:element name="TypeCode" type="bdt:CreditorReferenceTypeCodeType" minOccurs="0"/>
+      <xs:element name="Reference" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CreditTransferTransactionType">
+    <xs:sequence>
+      <xs:element name="PaymentIdentification" type="PaymentIdentificationType"/>
+      <xs:element name="PaymentTypeInformation" type="PaymentTypeInformationType" minOccurs="0"/>
+      <xs:element name="Amount" type="TransactionAmountType"/>
+      <xs:element name="ExchangeRateInformation" type="ExchangeRateType" minOccurs="0"/>
+      <xs:element name="ChargeBearerCode" type="bdt:ChargeBearerTypeCodeType" minOccurs="0"/>
+      <xs:element name="ChequeInstruction" type="ChequeDetails" minOccurs="0"/>
+      <xs:element name="UltimateDebtor" type="PartyType" minOccurs="0"/>
+      <xs:sequence>
+        <xs:element name="IntermediaryAgent" type="BranchAndFinancialInstitutionType" minOccurs="0"/>
+        <xs:element name="IntermediaryAgentAccount" type="CashAccountType" minOccurs="0"/>
+      </xs:sequence>
+      <xs:element name="CreditorAgent" type="BranchAndFinancialInstitutionType" minOccurs="0"/>
+      <xs:element name="CreditorAgentAccount" type="CashAccountType" minOccurs="0"/>
+      <xs:element name="Creditor" type="PartyType" minOccurs="0"/>
+      <xs:element name="CreditorAccount" type="CashAccountType" minOccurs="0"/>
+      <xs:element name="UltimateCreditor" type="PartyType" minOccurs="0"/>
+      <xs:element name="InstructionForCreditorAgent" type="InstructionForCreditorAgentType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="InstructionForDebtorAgent" type="xs:string" minOccurs="0"/>
+      <xs:element name="Purpose" type="bdt:PurposeCodeType" minOccurs="0"/>
+      <xs:element name="RegulatoryReporting" type="RegulatoryReportingType" minOccurs="0" maxOccurs="10"/>
+      <xs:element name="Tax" type="TaxInformationType" minOccurs="0"/>
+      <xs:element name="RelatedRemittanceInformation" type="RemittanceLocationType" minOccurs="0" maxOccurs="10"/>
+      <xs:element name="RemittanceInformation" type="RemittanceInformationType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustomerCreditTransferInitiationType">
+    <xs:sequence>
+      <xs:element name="GroupHeader" type="GroupHeaderType"/>
+      <xs:element name="PaymentInformation" type="PaymentInstructionType" maxOccurs="unbounded"/>
+      <xs:element name="SupplementaryData" type="SupplementaryDataType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DatePeriodDetailsType">
+    <xs:sequence>
+      <xs:element name="FromDate" type="xs:date"/>
+      <xs:element name="ToDate" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DiscountAmountAndTypeType">
+    <xs:sequence>
+      <xs:element name="TypeCode" type="bdt:DiscountAmountTypeCodeType" minOccurs="0"/>
+      <xs:element name="Amount" type="bdt:AmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DocumentAdjustmentType">
+    <xs:sequence>
+      <xs:element name="Amount" type="bdt:AmountType"/>
+      <xs:element name="CreditDebitIndicatorCode" type="bdt:CreditDebitCodeType" minOccurs="0"/>
+      <xs:element name="Reason" type="xs:string" minOccurs="0"/>
+      <xs:element name="AdditionalInformation" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquivalentAmountType">
+    <xs:sequence>
+      <xs:element name="Amount" type="bdt:AmountType"/>
+      <xs:element name="CurrencyOfTransferCode" type="bdt:CurrencyCodeType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExchangeRateType">
+    <xs:sequence>
+      <xs:element name="UnitCurrencyCode" type="bdt:CurrencyCodeType" minOccurs="0"/>
+      <xs:element name="ExchangeRate" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="RateTypeCode" type="bdt:ExchangeRateTypeCodeType" minOccurs="0"/>
+      <xs:element name="ContractID" type="bdt:ContractIDType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinancialInstitutionType">
+    <xs:sequence>
+      <xs:element name="ID" type="bdt:FinancialInstitutionIDType" minOccurs="0"/>
+      <xs:element name="ClearingSystemMember" type="ClearingSystemMemberType" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalAddress" type="PostalAddressType" minOccurs="0"/>
+      <xs:element name="OtherID" type="bdt:GenericFinancialIDType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="GroupHeaderType">
+    <xs:sequence>
+      <xs:element name="MessageID" type="bdt:MessageIDType"/>
+      <xs:element name="CreationDateTime" type="xs:dateTime"/>
+      <xs:element name="AuthorisationCode" type="bdt:AuthorisationCodeType" minOccurs="0" maxOccurs="2"/>
+      <xs:element name="NumberOfTransactions" type="xs:string"/>
+      <xs:element name="ControlSum" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="InitiatingParty" type="PartyType"/>
+      <xs:element name="ForwardingAgent" type="BranchAndFinancialInstitutionType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InstructionForCreditorAgentType">
+    <xs:sequence>
+      <xs:element name="Code" type="bdt:InstructionCodeType" minOccurs="0"/>
+      <xs:element name="InstructionInformation" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="NameAndAddressType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Address" type="PostalAddressType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartyType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostalAddress" type="PostalAddressType" minOccurs="0"/>
+      <xs:element name="ID" type="bdt:PartyIDType" minOccurs="0"/>
+      <xs:element name="CountryOfResidenceCode" type="bdt:CountryCodeType" minOccurs="0"/>
+      <xs:element name="ContactDetails" type="ContactDetailsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentIdentificationType">
+    <xs:sequence>
+      <xs:element name="InstructionID" type="bdt:PaymentInformationIDType" minOccurs="0"/>
+      <xs:element name="EndToEndID" type="bdt:EndToEndIDType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentInstructionType">
+    <xs:sequence>
+      <xs:element name="PaymentInformationID" type="bdt:PaymentInformationIDType"/>
+      <xs:element name="PaymentMethodCode" type="bdt:PaymentMethodCodeType"/>
+      <xs:element name="BatchBooking" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="NumberOfTransactions" type="xs:string" minOccurs="0"/>
+      <xs:element name="ControlSum" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="PaymentTypeInformation" type="PaymentTypeInformationType" minOccurs="0"/>
+      <xs:element name="RequestedExecutionDate" type="xs:date"/>
+      <xs:element name="PoolingAdjustmentDate" type="xs:date" minOccurs="0"/>
+      <xs:element name="Debtor" type="PartyType"/>
+      <xs:element name="DebtorAccount" type="CashAccountType"/>
+      <xs:element name="DebtorAgent" type="BranchAndFinancialInstitutionType"/>
+      <xs:element name="DebtorAgentAccount" type="CashAccountType" minOccurs="0"/>
+      <xs:element name="InstructionForDebtorAgent" type="xs:string" minOccurs="0"/>
+      <xs:element name="UltimateDebtor" type="PartyType" minOccurs="0"/>
+      <xs:element name="ChargeBearerCode" type="bdt:ChargeBearerTypeCodeType" minOccurs="0"/>
+      <xs:element name="ChargesAccount" type="CashAccountType" minOccurs="0"/>
+      <xs:element name="ChargesAccountAgent" type="BranchAndFinancialInstitutionType" minOccurs="0"/>
+      <xs:element name="CreditTransferTransactionInformation" type="CreditTransferTransactionType" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentTypeInformationType">
+    <xs:sequence>
+      <xs:element name="InstructionPriority" type="bdt:PriorityCodeType" minOccurs="0"/>
+      <xs:element name="ServiceLevelCode" type="bdt:ServiceLevelCodeType" minOccurs="0"/>
+      <xs:element name="LocalInstrumentCode" type="bdt:LocalInstrumentCodeType" minOccurs="0"/>
+      <xs:element name="SequenceTypeCode" type="bdt:SequenceTypeCodeType" minOccurs="0"/>
+      <xs:element name="CategoryPurposeCode" type="bdt:CategoryPurposeCodeType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PostalAddressType">
+    <xs:sequence>
+      <xs:element name="AddressTypeCode" type="bdt:AddressTypeCodeType" minOccurs="0"/>
+      <xs:element name="Department" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubDepartment" type="xs:string" minOccurs="0"/>
+      <xs:element name="StreetName" type="xs:string" minOccurs="0"/>
+      <xs:element name="BuildingNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="TownName" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountrySubDivision" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryCode" type="bdt:CountryCodeType" minOccurs="0"/>
+      <xs:element name="AddressLine" type="xs:string" minOccurs="0" maxOccurs="7"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ReferredDocumentInformationType">
+    <xs:sequence>
+      <xs:element name="TypeCode" type="bdt:ReferredDocumentTypeCodeType" minOccurs="0"/>
+      <xs:element name="Number" type="xs:string" minOccurs="0"/>
+      <xs:element name="RelatedDate" type="xs:date" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegulatoryAuthorityType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+      <xs:element name="CountryCode" type="bdt:CountryCodeType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RegulatoryReportingType">
+    <xs:sequence>
+      <xs:element name="DebitCreditReportingIndicator" type="bdt:RegulatoryReportingTypeCodeType" minOccurs="0"/>
+      <xs:element name="Authority" type="RegulatoryAuthorityType" minOccurs="0"/>
+      <xs:element name="Details" type="StructuredRegulatoryReportingType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RemittanceAmountType">
+    <xs:sequence>
+      <xs:element name="DuePayableAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="DiscountAppliedAmount" type="DiscountAmountAndTypeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="CreditNoteAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="TaxAmount" type="TaxAmountAndTypeType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AdjustmentAmountAndReason" type="DocumentAdjustmentType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="RemittedAmount" type="bdt:AmountType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RemittanceInformationType">
+    <xs:sequence>
+      <xs:element name="Unstructured" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Structured" type="StructuredRemittanceInformationType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RemittanceLocationType">
+    <xs:sequence>
+      <xs:element name="RemittanceID" type="bdt:RemittanceIDType" minOccurs="0"/>
+      <xs:element name="RemittanceLocationMethodCode" type="bdt:RemittanceLocationMethodCodeType" minOccurs="0"/>
+      <xs:element name="RemittanceLocationElectronicAddress" type="xs:string" minOccurs="0"/>
+      <xs:element name="RemittanceLocationPostalAddress" type="NameAndAddressType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StructuredRegulatoryReportingType">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:string" minOccurs="0"/>
+      <xs:element name="Date" type="xs:date" minOccurs="0"/>
+      <xs:element name="CountryCode" type="bdt:CountryCodeType" minOccurs="0"/>
+      <xs:element name="Code" type="xs:string" minOccurs="0"/>
+      <xs:element name="Amount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="Information" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StructuredRemittanceInformationType">
+    <xs:sequence>
+      <xs:element name="ReferredDocumentInformation" type="ReferredDocumentInformationType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ReferredDocumentAmount" type="RemittanceAmountType" minOccurs="0"/>
+      <xs:element name="CreditorReferenceInformation" type="CreditorReferenceInformationType" minOccurs="0"/>
+      <xs:element name="Invoicer" type="PartyType" minOccurs="0"/>
+      <xs:element name="Invoicee" type="PartyType" minOccurs="0"/>
+      <xs:element name="AdditionalRemittanceInformation" type="xs:string" minOccurs="0" maxOccurs="3"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SupplementaryDataEnvelopeType">
+    <xs:sequence>
+      <xs:any namespace="##any" processContents="lax"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SupplementaryDataType">
+    <xs:sequence>
+      <xs:element name="PlaceAndName" type="xs:string" minOccurs="0"/>
+      <xs:element name="Envelope" type="SupplementaryDataEnvelopeType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxAmountAndTypeType">
+    <xs:sequence>
+      <xs:element name="Type" type="bdt:TaxAmountTypeCodeType" minOccurs="0"/>
+      <xs:element name="Amount" type="bdt:AmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxAmountType">
+    <xs:sequence>
+      <xs:element name="Rate" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="TaxableBaseAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="TotalAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="Details" type="TaxRecordDetailsType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxAuthorisationType">
+    <xs:sequence>
+      <xs:element name="Title" type="xs:string" minOccurs="0"/>
+      <xs:element name="Name" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxInformationType">
+    <xs:sequence>
+      <xs:element name="Creditor" type="TaxPartyType" minOccurs="0"/>
+      <xs:element name="Debtor" type="TaxPartyType" minOccurs="0"/>
+      <xs:element name="AdministrationZone" type="xs:string" minOccurs="0"/>
+      <xs:element name="ReferenceNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="Method" type="xs:string" minOccurs="0"/>
+      <xs:element name="TotalTaxableBaseAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="TotalTaxAmount" type="bdt:AmountType" minOccurs="0"/>
+      <xs:element name="Date" type="xs:date" minOccurs="0"/>
+      <xs:element name="SequenceNumber" type="xs:decimal" minOccurs="0"/>
+      <xs:element name="Record" type="TaxRecordType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxPartyType">
+    <xs:sequence>
+      <xs:element name="TaxID" type="bdt:TaxIDType" minOccurs="0"/>
+      <xs:element name="RegistrationID" type="bdt:RegistrationIDType" minOccurs="0"/>
+      <xs:element name="TaxType" type="xs:string" minOccurs="0"/>
+      <xs:element name="Authorisation" type="TaxAuthorisationType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxPeriodType">
+    <xs:sequence>
+      <xs:element name="Year" type="xs:date" minOccurs="0"/>
+      <xs:element name="TypeCode" type="bdt:TaxRecordPeriodCodeType" minOccurs="0"/>
+      <xs:element name="FromToDate" type="DatePeriodDetailsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxRecordDetailsType">
+    <xs:sequence>
+      <xs:element name="Period" type="TaxPeriodType" minOccurs="0"/>
+      <xs:element name="Amount" type="bdt:AmountType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxRecordType">
+    <xs:sequence>
+      <xs:element name="Type" type="xs:string" minOccurs="0"/>
+      <xs:element name="Category" type="xs:string" minOccurs="0"/>
+      <xs:element name="CategoryDetails" type="xs:string" minOccurs="0"/>
+      <xs:element name="DebtorStatus" type="xs:string" minOccurs="0"/>
+      <xs:element name="CertificateID" type="bdt:CertificateIDType" minOccurs="0"/>
+      <xs:element name="FormsCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="Period" type="TaxPeriodType" minOccurs="0"/>
+      <xs:element name="TaxAmount" type="TaxAmountType" minOccurs="0"/>
+      <xs:element name="AdditionalInformation" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TransactionAmountType">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="InstructedAmount" type="bdt:AmountType"/>
+        <xs:element name="EquivalentAmount" type="EquivalentAmountType"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

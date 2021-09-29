@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="SWIFT_CDMLibrary" type="Cartridge">
+	<description><![CDATA[MT to MX Translation Rule Descriptions
+This section provides translation rule descriptions for the translation rules for MT to
+MX credit transfer messages. Descriptions are grouped as follows:
+• Customer Party Translation Rule Descriptions
+• Financial Institution Translation Rule Descriptions
+• Other Translation Rule Descriptions]]></description>
+	<version>1.0</version>
+	<private>
+		<summary>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="MTSWIFTAddress_To_MXBICOrBEI"/>
+			<function name="MT_To_MXPartyAccount"/>
+			<function name="MTSWIFTAddress_To_MXBIC"/>
+			<function name="MT_To_MXTimeStr"/>
+			<function name="MT_To_MXDateStr"/>
+			<function name="ToBigDecimalAmount"/>
+			<function name="MT_To_MXDate"/>
+			<function name="MT_To_MXTime"/>
+			<function name="MT_To_MXOffset"/>
+			<function name="MT_To_MXTimeOffset"/>
+			<function name="MT_To_MXDateTimeOffset"/>
+			<function name="MT_To_MXCurrencyAmount"/>
+			<function name="MTDate4_To_MXDate"/>
+			<function name="MT_To_MX_Sum"/>
+			<function name="GetSendersAddress"/>
+			<function name="GetReceiversAddress"/>
+			<function name="MT_MX_Copy"/>
+			<function name="StopTranslation"/>
+			<function name="IsBEI"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Library\SAPUtil\SAPUtil.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="MTSWIFTAddress_To_MXBICOrBEI" type="FormulaFunctionDef">
+			<description>The function translates an MT BIC or BEI party identification by checking whether it is
+a BIC or BEI and writing the code in the appropriate MX party identification element.
+
+Output
+MXBICBEI: the result of this function is immediately put into the correct MX element
+inside the target component typed PartyIdentification8.</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTBICBEI</name>
+					<type>String</type>
+					<description>BIC or BEI identifying a party in an MT message.</description>
+				</parameterfield>
+				<parameterfield>
+					<name>Id</name>
+					<type>Any</type>
+					<description>MX element in the target component typed PartyIdentification8</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def OrgId = Id.SecAddOrGetElement().OrganisationIdentification.SecAddOrGetElement();
+OrgId.AnyBIC = Delete(MTBICBEI, 8, 1);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXPartyAccount" type="FormulaFunctionDef">
+			<description>The function translates an MT party account to an MX account by deleting the slash
+&#8220;/&#8221;and writing the remainder in the appropriate MX account element after checking
+whether the account is an IBAN.
+
+Output
+MXAccount: the result of this function -an MX account- is immediately put into the
+correct MX element inside the target component typed CashAccount7.</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTAccount</name>
+					<type>String</type>
+					<description>party account in the MT format (/34x). Slash should be present</description>
+				</parameterfield>
+				<parameterfield>
+					<name>Identification</name>
+					<type>Any</type>
+					<description>the result of this function -an MX account- is immediately put into the
+correct MX element inside the target component typed CashAccount7.</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[/*Drop the slash. Account is a local variable*/
+// 0 because slash is not included in MTAccount
+if(SubString(MTAccount, 0, 4) == "//CH") {
+    Identification.Other.SecAddElement().SchemeName.SecAddElement().Code = "CUID";
+    Identification.Other.SecAddOrGetElement().Identification = SubString(MTAccount, 4);
+}
+else {
+    def Account = SubString(MTAccount, 1);
+    /*Check whether the account is an IBAN*/
+    /* make sure it does not have spaces - paper BBAN */
+    if(IsISOIBAN(Account) && Account.findFirst(' ') == -1) {
+        Identification.IBAN = Account;
+    }
+    else {
+        def Othr = Identification.Other.SecAddElement();
+        Othr.Identification = Account;
+    }
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MTSWIFTAddress_To_MXBIC" type="FormulaFunctionDef">
+			<description>The function translates an MT BIC or BEI party identification by checking whether it is
+a BIC or BEI and writing the code in the appropriate MX party identification element.
+
+Output
+MXBICBEI: the result of this function is immediately put into the correct MX element
+inside the target component typed PartyIdentification8.</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTBIC</name>
+					<type>String</type>
+					<description>BIC or BEI identifying a party in an MT message.</description>
+				</parameterfield>
+				<parameterfield>
+					<name>FinInstnId</name>
+					<type>Any</type>
+					<description>MX element in the target component typed PartyIdentification8</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def FinInstnIdElm = FinInstnId.SecAddOrGetElement();
+FinInstnIdElm.BICFI = Delete(MTBIC, 8, 1);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXTimeStr" type="FormulaFunctionDef">
+			<description>SS and fraction of seconds are optional) to an MX time expressed as
+&#8220;HH:MM:SS[.nnn...]&#8221; (where only the fraction of seconds are optional) by:
+&#8226; adding default seconds (&#8220;00&#8221;) to the MT time if absent
+&#8226; introducing the &#8220;:&#8220;pattern to the source time to separate hours, minutes and
+seconds
+&#8226; replacing the &#8220;,&#8221; fraction of seconds separator by &#8220;.&#8221;</description>
+			<Category>MT To MX Local</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>time</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def MXTime;
+if(Length(time) == 4) {
+    MXTime = Concat(Mid(time, 0, 2), ":", Mid(time, 2, 2), ":00");
+}
+else
+    if(Length(time) == 6) {
+        MXTime = Concat(Mid(time, 0, 2), ":", Mid(time, 2, 2), ":", 
+                        Mid(time, 4, 2));
+    }
+    else {
+        def ExtStr = Replace(Right(time, Length(time) - 6), ",", ".");
+        MXTime = Concat(Mid(time, 0, 2), ":", Mid(time, 2, 2), ":", 
+                        Mid(time, 4, 2), ExtStr);
+    }
+
+return MXTime;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXDateStr" type="FormulaFunctionDef">
+			<description>The function translates an MT date expressed as [YY]YYMMDD (with optional
+century[YY]) to an MX date &#8220;YYYY-MM-DD&#8221; by adding the century -if absent- and
+introducing the &#8220;-&#8220; separator between year, month and date.</description>
+			<Category>MT To MX Local</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>date</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def dtStr;
+if(Length(date) == 6 && ToInt(Mid(date, 0, 2)) > 79) {
+    dtStr = Concat("19", Mid(date, 0, 2), "-", Mid(date, 2, 2), "-", 
+                   Mid(date, 4, 2));
+}
+else 
+    if(Length(date) == 6) {
+        dtStr = Concat("20", Mid(date, 0, 2), "-", Mid(date, 2, 2), "-", 
+                       Mid(date, 4, 2));
+    }
+    else {
+        dtStr = Concat(Mid(date, 0, 4), "-", Mid(date, 4, 2), "-", 
+                       Mid(date, 6, 2));
+    }
+
+return dtStr;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="ToBigDecimalAmount" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>amount</name>
+					<type>Double</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>BigDecimal</ReturnType>
+			<Code><![CDATA[def amountStr = toText(amount);
+if(amountStr.endsWith(".0")) {
+	amountStr = amountStr.leftstr(".0");
+}
+ToBigDecimal(amountStr)]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXDate" type="FormulaFunctionDef">
+			<description>The function translates an MT date expressed as [YY]YYMMDD (with optional
+century[YY]) to an MX date &#8220;YYYY-MM-DD&#8221; by adding the century -if absent- and
+introducing the &#8220;-&#8220; separator between year, month and date.</description>
+			<Category>MT To MX</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>date</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISODate</ReturnType>
+			<Code><![CDATA[return ParseISODate(MT_To_MXDateStr(date), "%Y-%M-%D");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXTime" type="FormulaFunctionDef">
+			<description>SS and fraction of seconds are optional) to an MX time expressed as
+&#8220;HH:MM:SS[.nnn...]&#8221; (where only the fraction of seconds are optional) by:
+&#8226; adding default seconds (&#8220;00&#8221;) to the MT time if absent
+&#8226; introducing the &#8220;:&#8220;pattern to the source time to separate hours, minutes and
+seconds
+&#8226; replacing the &#8220;,&#8221; fraction of seconds separator by &#8220;.&#8221;</description>
+			<Category>MT To MX</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>time</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISOTime</ReturnType>
+			<Code><![CDATA[return ParseISODate(MT_To_MXTimeStr(time), "%h:%m:%s%z");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXOffset" type="FormulaFunctionDef">
+			<description></description>
+			<Category>MT To MX</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTOffset</name>
+					<type>String</type>
+					<description>offset against UTC time in the MT message expressed as &#8220;HH[MM]&#8221; where
+HH represents hours
+MM represents minutes (optional</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[if(Length(MTOffset) == 4) {
+    return Concat(Mid(MTOffset, 0, 2), ":", Mid(MTOffset, 2, 2));
+}
+else {
+    return Concat(MTOffset, ":00");
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXTimeOffset" type="FormulaFunctionDef">
+			<description>Business description
+The function translates an MT time with offset expressed as &#8220;HHMM+/-HHMM&#8221; to an
+MX time with offset expressed as &#8220;HH:MM:SS+/-HH:MM&#8221; by adding the seconds to the
+time and introducing the &#8220;:&#8220;pattern to both time and offset.
+
+MT_To_MXTimeOffset(MTTime, MTSign, MTOffset ; MXTimeOffset)
+Input
+MTTime: time in the MT message expressed as &#8220;HHMM&#8221; (hours and minutes)
+MTSign: offset sign in the MT message expressed as + or -
+MTOffset: offset time in the MT message expressed as &#8220;HHMM&#8221; (hours and minutes)
+
+Output
+MXTimeOffset: time and offset in the MX message type ISOTime, expressed as &#8220;HH:MM:SS+/-HH:MM&#8221; where
+HH:MM:SS is the time + or - is the offset sign HH:MM is the offset time
+
+/*The function calls sub-functions MT_To_MXTime and
+MT_To_MXOffset to translate the time formats. MXTime and
+MXOffset are local variables*/
+MXTime = MT_To_MXTime(MTTime)
+MXOffset = MT_To_MXOffset(MTOffset)
+/*Build output string*/
+MXTimeOffset = Concatenate(MXTime, MTSign, MXOffset)
+Example
+MT Source: 1355+0100
+MX Translation: 13:55:00+01:00</description>
+			<Category>MT To MX Local</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTTime</name>
+					<type>String</type>
+					<description>is the input/source local time expressed as &#8220;HHMM[SS[,3n]]&#8221;where the
+seconds and fractional seconds are optional</description>
+				</parameterfield>
+				<parameterfield>
+					<name>TimeOffset</name>
+					<type>String</type>
+					<description>The OffsetTime is the time offset to UTC. It is expressed as HH[MM] where MM is
+optional.</description>
+				</parameterfield>
+				<parameterfield>
+					<name>OffsetSign</name>
+					<type>String</type>
+					<description>The OffsetSign is the sign of the offset to UTC. The OffsetSign when negative is
+represented either by &#8220;-&#8220; or &#8220;N&#8221;. Positive value is expressed as &#8220;+&#8221; or not mentioned. In
+other words, default value of the OffsetSign is positive.</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISODateTime</ReturnType>
+			<Code><![CDATA[/*
+The function calls sub-functions MT_To_MXTime and
+MT_To_MXOffset to translate the time formats. MXTime and
+MXOffset are local variables
+
+MXTime = MT_To_MXTime(MTTime)
+MXOffset = MT_To_MXOffset(MTOffset)
+
+MXTimeOffset = Concatenate(MXTime, MTSign, MXOffset)
+
+Example
+MT Source: 1355+0100
+MX Translation: 13:55:00+01:00
+*/
+
+def MXTime = MT_To_MXTimeStr(MTTime);
+if(TimeOffset != "") {
+	def MXTimeOffset = MT_To_MXOffset (TimeOffset);
+	// MT_To_MXTimeOffset converts HH[MM] into HH:MM if the minutes are given otherwise into HH:00 
+	if(OffsetSign == "" || (OffsetSign == "+")) {
+		MXTime = Concat(MXTime, "+", MXTimeOffset);
+	}
+	else {
+		// OffsetSign is present and equal to "N" or "-" 
+		MXTime = Concat(MXTime, "-", MXTimeOffset);
+	}
+}
+//return MXTime;
+return ParseISODate(MXTime, "%h:%m:%s%z");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXDateTimeOffset" type="FormulaFunctionDef">
+			<description>The function translates an MT date expressed as [YY]YYMMDD and an MT time with
+offset expressed as &#8220;HHMM+/-HHMM&#8221; to an MX date and time with offset expressed
+as &#8220;YYYY-MM-DDTHH:MM:SS+/-HH:MM&#8221; by:
+&#8226; adding the century if absent and introducing the &#8220;-&#8220; separator between year, month
+and date
+&#8226; introducing the &#8220;T&#8221; separator between date and time with offset
+&#8226; adding the seconds to the time and introducing the &#8220;:&#8220;separator between hours,
+minutes and seconds
+&#8226; adding the separator &#8220;:&#8221; between hours and minutes to the source offset.
+
+Output
+MXDateTime: date and time in the MX message typed ISODateTime expressed as
+&#8220;YYYY-MM-DDTHH:MM:SS+/-HH:MM</description>
+			<Category>MT To MX Local</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTDate</name>
+					<type>String</type>
+					<description>date in the MT message expressed as &#8220;[YY]YYMMDD&#8221; where [YY]
+represents the optional centure and YYMMDD the year, month and day</description>
+				</parameterfield>
+				<parameterfield>
+					<name>MTTime</name>
+					<type>String</type>
+					<description>is the input/source local time expressed as &#8220;HHMM[SS[,3n]]&#8221;where the
+seconds and fractional seconds are optional</description>
+				</parameterfield>
+				<parameterfield>
+					<name>TimeOffset</name>
+					<type>String</type>
+					<description>The OffsetTime is the time offset to UTC. It is expressed as HH[MM] where MM is
+optional.</description>
+				</parameterfield>
+				<parameterfield>
+					<name>MTSign</name>
+					<type>String</type>
+					<description>The OffsetSign is the sign of the offset to UTC. The OffsetSign when negative is
+represented either by &#8220;-&#8220; or &#8220;N&#8221;. Positive value is expressed as &#8220;+&#8221; or not mentioned. In
+other words, default value of the OffsetSign is positive.</description>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISODateTime</ReturnType>
+			<Code><![CDATA[/*
+The function calls sub-functions MT_To_MXTime and
+MT_To_MXOffset to translate the time formats. MXTime and
+MXOffset are local variables
+
+MXTime = MT_To_MXTime(MTTime)
+MXOffset = MT_To_MXOffset(MTOffset)
+
+MXTimeOffset = Concatenate(MXTime, MTSign, MXOffset)
+
+Example
+MT Source: 1355+0100
+MX Translation: 13:55:00+01:00
+*/
+/*The function calls sub-functions MT_To_MXDate and
+MT_To_MXTimeOffset to translate the date and time with offset
+formats. MXDate and MXTimeOffset are local variables*/
+def MXDate = MT_To_MXDateStr(MTDate);
+def  MXTimeOffset = MT_To_MXTimeOffset(MTTime, TimeOffset, MTSign);
+/*Build output string*/
+def MXDateTime = Concat(MXDate, "T", FormatISODate(MXTimeOffset, "%h:%m:%s%z"));
+return ParseISODate(MXDateTime, "%Y-%M-%DT%h:%m:%s%z");
+
+
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MXCurrencyAmount" type="FormulaFunctionDef">
+			<description>The function translates an MT currency and MT amount to an MX amount with the
+currency embedded as an XML attribute. The decimal separator &#8220;,&#8221; is replaced by a &#8220;.&#8221;
+and a possible sign &#8220;N&#8221; indicating a negative MT amount is deleted.
+
+Output
+MXAmount: amount in the MX message typed CurrencyAndAmount expressed as a
+positive value (data type does not allow a sign) with maximum 18digits, maximum 5
+fraction digits. The decimal separator is represented by &#8220;.&#8221;. The currency is embedded
+as an XML attribute.</description>
+			<Category>MT To MX</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTCurrency</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>MTAmount</name>
+					<type>Double</type>
+					<description>MTAmount: amount in the MT message expressed as [N]3!a15d
+15d is the amount of up to 15 characters including the mandatory decimal separator &#8220;,&#8221;</description>
+				</parameterfield>
+				<parameterfield>
+					<name>mxAmount</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[mxAmount.Ccy =  MTCurrency;
+mxAmount.Value = ToBigDecimalAmount(MTAmount);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MTDate4_To_MXDate" type="FormulaFunctionDef">
+			<description>The function translates an MT date expressed as MMDD to an MX date &#8220;YYYY-MMDD&#8221;
+by:
+Copying the [YY]YY from the second MT date parameter
+adding the century if absent
+introducing the "-" separator between year, month and date.</description>
+			<Category>MT To MX</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTDate4</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>MTDate</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISODate</ReturnType>
+			<Code><![CDATA[/*Extract Month4 and Day4 from the first MT date parameter.
+Month4 and Day4 are both local variables. */
+def Month4 = Substring(MTDate4, 0, 2);
+def Day4 = Substring (MTDate4, 2, 2);
+/*Check whether the century is present and, if not, add it.
+Year is a local variable*/
+def Year;
+if(Length(MTDate) == 8) {
+/*Date is of YYYYMMDD format*/
+ Year = Substring(MTDate, 0, 4);
+}
+else {
+/*Date is of YYMMDD format*/
+ Year = Substring(MTDate, 0, 2);
+/*Add century to Year*/
+if(toInt(Year) > 79) {
+	Year = Concat("19", Year);
+}
+else { 
+	Year = Concat("20", Year);
+}
+}
+
+/*Introduction pattern*/
+def MXDate = Concat(Year, "-", Month4, "-", Day4);
+return ParseISODate(MXDate, "%Y-%M-%D");
+
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_To_MX_Sum" type="FormulaFunctionDef">
+			<description>The function translates an MT amount to an MX sum. The decimal separator &#8220;,&#8221; is replaced by a &#8220;.&#8221;. If the MT amount ends with a &#8220;,&#8221; then decimal separator is dropped and the translated MX amount will be an integer. Insignificant zeroes -if any- are deleted.
+
+The same level of validation on MT and MX is requested to check pairs of currency and amount in terms of allowed decimals number, although the currency is not written in the MX output.</description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>MTAmount</name>
+					<type>Double</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>BigDecimal</ReturnType>
+			<Code><![CDATA[ToBigDecimalAmount(MTAmount)]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetSendersAddress" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>swiftObj</name>
+					<type>DataObject</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def header = GetObject(swiftObj, "Header");
+def appHeader = header.GetSection("Application Header Output");
+
+// check whether it has SWIFT Input header
+if(appHeader.$size > 0) {
+	return Mid(appHeader[0].getString("Message_Input_Reference"), 6, 12);
+}
+else {
+	return header.getSection("Basic_Header")[0].getString("LT_Identifier");
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetReceiversAddress" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>swiftObj</name>
+					<type>DataObject</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def header = GetObject(swiftObj, "Header");
+def appHeader = header.GetSection("Application Header Input");
+
+// check whether it has SWIFT Input header
+if(appHeader.$size >0) {
+	return appHeader[0].getString("Receiver_s_Address");
+}
+else {
+	return header.getSection("Basic_Header")[0].getString("LT_Identifier");
+}
+
+
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MT_MX_Copy" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>mtStr</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def lines = Split("\r\n", mtStr);
+def toRet = "";
+foreach(def line in lines) {
+    if(toRet.Length() > 0) {
+        toRet += " ";
+    }
+    toRet += line;
+}
+return toRet;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<folder name="Basic Functions" type="FunctionDefFolder">
+			<FormulaFunctionDef name="StopTranslation" type="FormulaFunctionDef">
+				<description>Stops translation of the message.</description>
+				<Category>Certification</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>reason</name>
+						<type>String</type>
+					</parameterfield>
+					<parameterfield>
+						<name>location</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Void</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Class</function-type>
+				<native-class-ref>StopTranslation</native-class-ref>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="IsBEI" type="FormulaFunctionDef">
+				<description>Checks whether the source value is a valid BEI and returns a boolean value (True or False).
+Returns only if it can be confirmed that it is a BEI</description>
+				<Category>Certification</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>Str</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>Boolean</ReturnType>
+				<Code><![CDATA[//IsValidBEI(Str)
+if(IsValidBIC(Str)){
+   if(isBICNotBEI(Str)){
+      return false;
+   }
+   else{
+      return true;
+   }
+}
+return false;
+]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<file type="DirectoryFileElement" name="src"/>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Jun 03 10:58:54 GMT+05:30 2008"/>
+						<property name="Author" value="Dinesh"/>
+						<property name="Title" value="setr.012.001.03"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:14 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="958"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\SWIFT\SWIFT_CDMLibrary\SWIFT_CDMLibrary.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.cpp.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.externalsources">
+				<value>
+					<propertylist>
+						<value>
+							<propertymap>
+								<property name="filename" value="src"/>
+							</propertymap>
+						</value>
+					</propertylist>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+						<property name="StopTranslation" value="StopTranslation"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/SAP-CDM-Mappings/Mappings/CDMV1/SWIFT/SWIFT_CDMLibrary/SWIFT_CDMLibrary/Function Definitions/Basic Functions/StopTranslation</selected-element>
+	</workspace>
+</cartridge>
+

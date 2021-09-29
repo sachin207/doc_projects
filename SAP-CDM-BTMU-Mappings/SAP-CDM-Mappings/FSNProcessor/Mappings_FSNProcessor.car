@@ -1,0 +1,3013 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="Mappings_FSNProcessor" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="SAP_FW_FSNProcessor" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_ProcessMessageEmbeddedInFSN" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_GetEmbeddedMessage" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_SerializeMessageList" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_HandleMapperException" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_CombineRawMessages" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_HandleMapperOutput" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_SplitRawMessage" version="1.0" type="Message Flow">
+			</service>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="isInputFSNXML"/>
+			<function name="SetThresholdsOnFilteringSide"/>
+			<function name="mapToCDMExc"/>
+			<function name="setStackTrace"/>
+			<function name="RawMessageToBase64Binary"/>
+			<function name="Base64BinaryToRawMessage"/>
+			<function name="getPropFromExtHeader"/>
+			<function name="containsTechnicalException"/>
+			<function name="assignToContainer"/>
+			<function name="getAllMessageContents"/>
+			<function name="getPropertyFromExObj"/>
+			<function name="getErrorTrace"/>
+			<function name="getInternalCode"/>
+			<function name="getErrorType"/>
+			<function name="getErrorPhase"/>
+			<function name="setAllToValue"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Messages\FSN\Mappings_FSNMessage.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\FSN\Mappings_FSNMessage.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Messages\FSNException\FSNException.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNException\FSNException.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Mappings\Library\SAPUtil\SAPUtil.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Mappings\Library\FSNParamsHelper\FSNParamsHelper.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\FSNParamsHelper\FSNParamsHelper.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Messages\MultipleRawMessageContainer\MultipleRawMessageContainer.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MultipleRawMessageContainer\MultipleRawMessageContainer.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Messages\MessageTypeValue\MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\MessageTypeValue\MessageTypeValue.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\Mappings\Library\PropertyHandler\PropertyHandler.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\PropertyHandler\PropertyHandler.car</absolute-path>
+		</reference>
+	</references>
+	<messageflow name="SAP_FW_FSNProcessor" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="68e7003b-9420-4e78-9728-287970d91e71" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="490" y="80"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If1" uid="c8ff05de-7f4f-455d-a4cd-955e82c701fd" type="If" xsi:type="If" >
+			<label>Is Input FSN XML?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[isInputFSNXML (rawIn)]]></condition>
+			<visual>
+				<position x="496" y="434"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="9762780a-b3ed-4383-af6b-7999e5e4e36a" type="Invoke" xsi:type="Invoke" >
+			<label>Process Message Embedded in FSN</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_ProcessMessageEmbeddedInFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawFSNIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="392" y="510"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="5f4c4f7b-368f-423a-a036-ce42b268ec69" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Mapper</label>
+			<description><![CDATA[]]></description>
+			<name>=fsnParamsObj.EndToEndMapper</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>genericMapperParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj.MapperParams.SecAddOrGetElement()]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="605" y="509"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="71828d06-d6af-4fe6-871d-7019b8436d89" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="502" y="598"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="0b49eb23-0e8c-49eb-b9da-6ee567a42a83" type="Custom" xsi:type="Custom" >
+			<label>If Mapper missing, set to generic mapper</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[if (fsnParamsObj.EndToEndMapper.IsNull())
+	fsnParamsObj.EndToEndMapper = "SAP_FW_GenericMapper";
+
+Debug ("Mapping flow used:" + fsnParamsObj.EndToEndMapper);
+]]></code>
+			<visual>
+				<position x="495" y="330"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="eef24693-303b-43d2-8837-29d1b446e152" type="Custom" xsi:type="Custom" >
+			<label>Validate and Merge top level params</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[if (rawIn.HasProperty (MAPPER_RAWIN_PARAMS.DIFF)) {
+	def diffParams = TypeCastToMapperParams (rawIn.GetDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF));
+	Debug ("Diff params.\n:" + diffParams.toText());
+	def cartridgeDetailsField = ["FSNFlowName", "FSNFlowVersion"];
+	GetNonNullFieldsFromDiffObj (fsnParamsObj, diffParams, cartridgeDetailsField);
+}
+
+if (fsnParamsObj.FSNFlowName.IsNull() || fsnParamsObj.FSNFlowVersion.IsNull()) {
+	def exc = CreateException ("Cartridge details with FSNFlowName and FSNFlowVersion must be present.");
+	ThrowException (exc); 	
+}
+]]></code>
+			<visual>
+				<position x="494" y="230"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom3" uid="b5754fa7-b179-40bd-b8aa-dc19054a5a9e" type="Custom" xsi:type="Custom" >
+			<label>Log Input</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[Debug ("Basic config:\n" + fsnParamsObj.toText());
+]]></code>
+			<visual>
+				<position x="491" y="140"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c8ff05de-7f4f-455d-a4cd-955e82c701fd" portindex="1"/>
+			<inputport uid="9762780a-b3ed-4383-af6b-7999e5e4e36a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="9762780a-b3ed-4383-af6b-7999e5e4e36a" portindex="1"/>
+			<inputport uid="71828d06-d6af-4fe6-871d-7019b8436d89" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5f4c4f7b-368f-423a-a036-ce42b268ec69" portindex="1"/>
+			<inputport uid="71828d06-d6af-4fe6-871d-7019b8436d89" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c8ff05de-7f4f-455d-a4cd-955e82c701fd" portindex="2"/>
+			<inputport uid="5f4c4f7b-368f-423a-a036-ce42b268ec69" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="0b49eb23-0e8c-49eb-b9da-6ee567a42a83" portindex="1"/>
+			<inputport uid="c8ff05de-7f4f-455d-a4cd-955e82c701fd" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="eef24693-303b-43d2-8837-29d1b446e152" portindex="1"/>
+			<inputport uid="0b49eb23-0e8c-49eb-b9da-6ee567a42a83" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="68e7003b-9420-4e78-9728-287970d91e71" portindex="0"/>
+			<inputport uid="b5754fa7-b179-40bd-b8aa-dc19054a5a9e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b5754fa7-b179-40bd-b8aa-dc19054a5a9e" portindex="1"/>
+			<inputport uid="eef24693-303b-43d2-8837-29d1b446e152" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="355" y="66" width="289" height="546"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_ProcessMessageEmbeddedInFSN" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawFSNIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>embeddedMsg</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>embeddedRawMsgList</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>outputRawMsg</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exSerialized</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="5e680690-759c-4b59-8c9c-24caba4836a8" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="353" y="28"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="8f78062f-6515-4996-b952-94d6113d490e" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="450" y="592"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke2" uid="8fd50143-bfdc-4227-9c66-89ee5948c318" type="Invoke" xsi:type="Invoke" >
+			<label>Get Embedded Message</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_GetEmbeddedMessage</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawFSNIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawFSNIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawMsgList</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[embeddedRawMsgList]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnObj]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>rawMsgOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[embeddedMsg]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="353" y="96"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke4" uid="24de90a7-bdff-4565-92b2-b5288d9d8f8a" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Mapper</label>
+			<description><![CDATA[]]></description>
+			<name>=fsnParamsObj.EndToEndMapper</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[embeddedMsg]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>genericMapperParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj.MapperParams.SecAddOrGetElement()]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[outputRawMsg]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="452" y="411"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="70009bbb-ff9d-47eb-9081-628cbbd215bd" type="Custom" xsi:type="Custom" >
+			<label>Get iFlow Properties</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def fltParamsSec = fsnParamsObj.MapperParams[0].FilteringParams;
+if (fltParamsSec.length() != 0) {
+	def extHdr = fsnObj.Data.FSNMessage[0].ExtendedHeader;
+	def inputAmountthreshold = extHdr.getPropFromExtHeader (IFLOWPROPERTIES.INPUT_AMOUNT_THRESHOLD);
+	if (inputAmountthreshold.IsNotNull() && inputAmountthreshold.length() > 0)
+		Debug ("InputAmountthreshold:" + inputAmountthreshold);
+
+	def inputTransactionCountThreshold = extHdr.getPropFromExtHeader (IFLOWPROPERTIES.INPUT_TRANSACTION_COUNT_THRESHOLD);
+	if (inputTransactionCountThreshold.IsNotNull() && inputTransactionCountThreshold.length() > 0)
+		Debug ("InputTransactionCountThreshold:" + inputTransactionCountThreshold);
+	
+	def outputAmountthreshold = extHdr.getPropFromExtHeader (IFLOWPROPERTIES.OUTPUT_AMOUNT_THRESHOLD);
+	if (outputAmountthreshold.IsNotNull() && outputAmountthreshold.length() > 0)
+		Debug ("OutputAmountthreshold:" + outputAmountthreshold);
+
+	def outputTransactionCountThreshold = extHdr.getPropFromExtHeader (IFLOWPROPERTIES.OUTPUT_TRANSACTION_COUNT_THRESHOLD);
+	if (outputTransactionCountThreshold.IsNotNull() && outputTransactionCountThreshold.length() > 0)
+		Debug ("OutputTransactionCountThreshold:" + outputTransactionCountThreshold);
+
+	fltParamsSec.SetThresholdsOnFilteringSide (inputAmountthreshold, inputTransactionCountThreshold, FILTERINGSIDE.INPUT);
+	fltParamsSec.SetThresholdsOnFilteringSide (outputAmountthreshold, outputTransactionCountThreshold, FILTERINGSIDE.OUTPUT);
+}
+]]></code>
+			<visual>
+				<position x="240" y="247"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="c82aa343-8dc8-4b5d-b020-bf3151f109e8" type="Invoke" xsi:type="Invoke" >
+			<label>Handle Mapper Exception</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_HandleMapperException</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[exObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>exSerialized</name>
+					<type>RawMessage</type>
+					<value><![CDATA[exSerialized]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<value><![CDATA[typeCodeList]]></value>
+					<notnull>false</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="573" y="411"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="719bead7-36c9-4263-bfef-c8db5360cfba" type="Invoke" xsi:type="Invoke" >
+			<label>Handle Mapper Output</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_HandleMapperOutput</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>outputRawMsg</name>
+					<type>RawMessage</type>
+					<value><![CDATA[outputRawMsg]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>embeddedMsg</name>
+					<type>RawMessage</type>
+					<value><![CDATA[embeddedMsg]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>embeddedRawMsgList</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[embeddedRawMsgList]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>exSerialized</name>
+					<type>RawMessage</type>
+					<value><![CDATA[exSerialized]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnObj]]></value>
+					<notnull>false</notnull>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<value><![CDATA[typeCodeList]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawFSNOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="451" y="507"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="db94cd19-46ca-4841-920a-b888b51da599" type="Custom" xsi:type="Custom" >
+			<label>Add properties to Payload</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def paramName = MAPPER_RAWIN_PARAMS.DIFF;
+if (rawFSNIn.HasProperty (paramName))
+	embeddedMsg.SetDataObjProperty (paramName, rawFSNIn.GetDataObjProperty (paramName));
+
+paramName = MAPPER_RAWIN_PARAMS.CALLBACK;
+if (rawFSNIn.HasProperty (paramName))
+	embeddedMsg.SetProperty (paramName, rawFSNIn.GetProperty (paramName));
+
+embeddedMsg.SetRawMsgProperty (MAPPER_RAWIN_PARAMS.INPUTRAWFSN, rawFSNIn);
+embeddedMsg.SetDataObjProperty (MAPPER_RAWIN_PARAMS.FSNOBJ, fsnParamsObj);
+]]></code>
+			<visual>
+				<position x="241" y="338"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If1" uid="d29ff8f1-7aea-458d-a136-00175f5bc0ee" type="If" xsi:type="If" >
+			<label>FSN Obj and basic details available?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[def retVal = fsnObj.IsNotNull();
+if (retVal) {
+	foreach (def msg in fsnObj.Data.FSNMessage) {
+		retVal = msg.MessageType.IsNotNull() && msg.MessageContent.IsNotNull();
+		if (!retVal)
+			break;
+	}
+}
+
+return retVal;
+]]></condition>
+			<visual>
+				<position x="653" y="237"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="5c78840d-89f2-4d32-a8d9-e1791fe2a2c3" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="734" y="318"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If2" uid="76f8d675-2d43-4ce3-9825-170b311c3ab7" type="If" xsi:type="If" >
+			<label>Mapper Params Present?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnParamsObj.MapperParams.length() > 0]]></condition>
+			<visual>
+				<position x="354" y="178"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5e680690-759c-4b59-8c9c-24caba4836a8" portindex="0"/>
+			<inputport uid="8fd50143-bfdc-4227-9c66-89ee5948c318" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="24de90a7-bdff-4565-92b2-b5288d9d8f8a" portindex="2"/>
+			<inputport uid="c82aa343-8dc8-4b5d-b020-bf3151f109e8" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="719bead7-36c9-4263-bfef-c8db5360cfba" portindex="1"/>
+			<inputport uid="8f78062f-6515-4996-b952-94d6113d490e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c82aa343-8dc8-4b5d-b020-bf3151f109e8" portindex="1"/>
+			<inputport uid="719bead7-36c9-4263-bfef-c8db5360cfba" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="24de90a7-bdff-4565-92b2-b5288d9d8f8a" portindex="1"/>
+			<inputport uid="719bead7-36c9-4263-bfef-c8db5360cfba" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="70009bbb-ff9d-47eb-9081-628cbbd215bd" portindex="1"/>
+			<inputport uid="db94cd19-46ca-4841-920a-b888b51da599" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="8fd50143-bfdc-4227-9c66-89ee5948c318" portindex="2"/>
+			<inputport uid="d29ff8f1-7aea-458d-a136-00175f5bc0ee" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d29ff8f1-7aea-458d-a136-00175f5bc0ee" portindex="1"/>
+			<inputport uid="c82aa343-8dc8-4b5d-b020-bf3151f109e8" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d29ff8f1-7aea-458d-a136-00175f5bc0ee" portindex="2"/>
+			<inputport uid="5c78840d-89f2-4d32-a8d9-e1791fe2a2c3" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8fd50143-bfdc-4227-9c66-89ee5948c318" portindex="1"/>
+			<inputport uid="76f8d675-2d43-4ce3-9825-170b311c3ab7" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="76f8d675-2d43-4ce3-9825-170b311c3ab7" portindex="1"/>
+			<inputport uid="70009bbb-ff9d-47eb-9081-628cbbd215bd" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="db94cd19-46ca-4841-920a-b888b51da599" portindex="1"/>
+			<inputport uid="24de90a7-bdff-4565-92b2-b5288d9d8f8a" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="76f8d675-2d43-4ce3-9825-170b311c3ab7" portindex="2"/>
+			<inputport uid="24de90a7-bdff-4565-92b2-b5288d9d8f8a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<visual>
+			<bounds x="204" y="14" width="567" height="592"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_GetEmbeddedMessage" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawFSNIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawMsgList</name>
+					<type>RawMessageList</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>OUTPUT</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawMsgOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Parse1" uid="f870f398-f0ba-4ade-940b-e00713dc0dbb" type="Parse" xsi:type="Parse" >
+			<label>Parse FSN Message</label>
+			<description><![CDATA[]]></description>
+			<in>rawFSNIn</in>
+			<out>fsnObj</out>
+			<message>Mappings_FSNMessage</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="373" y="124"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="1ce15b0c-9e18-4870-9459-8cea91449469" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="371" y="48"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="b0e046b0-61b0-4f98-8c54-c754d6460db5" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="448" y="801"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom3" uid="a1423bcd-6dd0-44ef-b382-8cd329629974" type="Custom" xsi:type="Custom" >
+			<label>Get Embedded Message</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[rawMsgOut = getAllMessageContents (fsnObj)[0];
+
+]]></code>
+			<visual>
+				<position x="666" y="545"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="4da0b94b-1358-4077-b5c9-5e2c2a846b25" type="Create" xsi:type="Create" >
+			<label>Create</label>
+			<description><![CDATA[]]></description>
+			<out>exObj</out>
+			<message>TransformException</message>
+			<init>exObj.Message = "Expected input message type - " + fsnParamsObj.InputFSNMsgType +". Found  - " + fsnObj.Data.FSNMessage[0].MessageType;
+exObj.setTypeCode (EXCEPTION_TYPE_CODE.FSN_MESSAGE_MISMATCH);</init>
+			<visual>
+				<position x="623" y="738"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If1" uid="f4004102-1d79-4c47-9221-c41a0fc56716" type="If" xsi:type="If" >
+			<label>Is expected input msg type?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnObj.Data.FSNMessage[0].MessageType.trim() == 
+	fsnParamsObj.InputFSNMsgType.trim()]]></condition>
+			<visual>
+				<position x="535" y="680"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw2" uid="2f35bca5-dde3-48ac-945b-4f798f539ea3" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="624" y="805"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If2" uid="b8efb1c6-779b-4b3e-a245-55a921f0672e" type="If" xsi:type="If" >
+			<label>Multiple FSN in input?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnObj.Data.FSNMessage.length() > 1]]></condition>
+			<visual>
+				<position x="580" y="353"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If3" uid="1f646b20-c8cf-481d-8779-c5b081b9aede" type="If" xsi:type="If" >
+			<label>Allow Multiple?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnParamsObj.AllowMultipleInput.IsNotNull() && fsnParamsObj.AllowMultipleInput]]></condition>
+			<visual>
+				<position x="459" y="288"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="86e0aea8-9fe5-47b2-8546-737db9b086dc" type="Custom" xsi:type="Custom" >
+			<label>Get all raw msgs</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[rawMsgList = getAllMessageContents (fsnObj);
+]]></code>
+			<visual>
+				<position x="384" y="465"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="1f681a85-2010-4d00-9254-f57176cbd7e2" type="Invoke" xsi:type="Invoke" >
+			<label>Combine Raw Messages</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_CombineRawMessages</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawMsgListIn</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[rawMsgList]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawMsgOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawMsgOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="387" y="548"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="41c1fc8c-7354-4ff1-9ba9-87b6a2e35be0" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="496" y="550"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create2" uid="e5eb2df0-c7d8-4c32-9747-a1297cad4537" type="Create" xsi:type="Create" >
+			<label>Create</label>
+			<description><![CDATA[]]></description>
+			<out>exObj</out>
+			<message>TransformException</message>
+			<init>exObj.Message = "More than one FSN message found in Input";
+exObj.setTypeCode (EXCEPTION_TYPE_CODE.FSN_MESSAGE);</init>
+			<visual>
+				<position x="496" y="479"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="7829ea78-1bbd-4a69-8f59-916e8e189f2a" type="Custom" xsi:type="Custom" >
+			<label>Set type code</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[exObj.setTypeCode (EXCEPTION_TYPE_CODE.FSN_MESSAGE);
+if (fsnObj.IsNotNull()) {
+	def msgList = getAllMessageContents (fsnObj);
+	if (msgList.length() == 1)
+		rawMsgOut = msgList[0];
+	else if (msgList.length() > 1)
+		rawMsgList = msgList;
+}
+]]></code>
+			<visual>
+				<position x="559" y="124"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw3" uid="1acdf70a-8d9b-4306-8ce3-a6c19cb097d1" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="560" y="196"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If4" uid="6e0e077c-24cc-48ea-bc8b-5f3895fb54c1" type="If" xsi:type="If" >
+			<label>No FSN in input?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnObj.Data.FSNMessage.length() == 0]]></condition>
+			<visual>
+				<position x="371" y="213"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create3" uid="92b14606-07c2-4af4-a944-e5ae4fb5515c" type="Create" xsi:type="Create" >
+			<label>Create</label>
+			<description><![CDATA[]]></description>
+			<out>exObj</out>
+			<message>TransformException</message>
+			<init>exObj.Message = "No FSN message found in Input";
+exObj.setTypeCode (EXCEPTION_TYPE_CODE.TECHNICAL);</init>
+			<visual>
+				<position x="270" y="268"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw4" uid="50ceecdc-b705-4831-9096-2db0fd2c38d4" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="272" y="335"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom4" uid="d4b52039-0df2-471a-9991-dbbec3a6ed2a" type="Custom" xsi:type="Custom" >
+			<label>Get all raw msgs</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[rawMsgList = getAllMessageContents (fsnObj);
+]]></code>
+			<visual>
+				<position x="495" y="407"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1ce15b0c-9e18-4870-9459-8cea91449469" portindex="0"/>
+			<inputport uid="f870f398-f0ba-4ade-940b-e00713dc0dbb" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f4004102-1d79-4c47-9221-c41a0fc56716" portindex="2"/>
+			<inputport uid="4da0b94b-1358-4077-b5c9-5e2c2a846b25" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="4da0b94b-1358-4077-b5c9-5e2c2a846b25" portindex="1"/>
+			<inputport uid="2f35bca5-dde3-48ac-945b-4f798f539ea3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="e5eb2df0-c7d8-4c32-9747-a1297cad4537" portindex="1"/>
+			<inputport uid="41c1fc8c-7354-4ff1-9ba9-87b6a2e35be0" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="f870f398-f0ba-4ade-940b-e00713dc0dbb" portindex="2"/>
+			<inputport uid="7829ea78-1bbd-4a69-8f59-916e8e189f2a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="7829ea78-1bbd-4a69-8f59-916e8e189f2a" portindex="1"/>
+			<inputport uid="1acdf70a-8d9b-4306-8ce3-a6c19cb097d1" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a1423bcd-6dd0-44ef-b382-8cd329629974" portindex="1"/>
+			<inputport uid="f4004102-1d79-4c47-9221-c41a0fc56716" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f4004102-1d79-4c47-9221-c41a0fc56716" portindex="1"/>
+			<inputport uid="b0e046b0-61b0-4f98-8c54-c754d6460db5" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1f646b20-c8cf-481d-8779-c5b081b9aede" portindex="1"/>
+			<inputport uid="86e0aea8-9fe5-47b2-8546-737db9b086dc" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="86e0aea8-9fe5-47b2-8546-737db9b086dc" portindex="1"/>
+			<inputport uid="1f681a85-2010-4d00-9254-f57176cbd7e2" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1f646b20-c8cf-481d-8779-c5b081b9aede" portindex="2"/>
+			<inputport uid="b8efb1c6-779b-4b3e-a245-55a921f0672e" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b8efb1c6-779b-4b3e-a245-55a921f0672e" portindex="2"/>
+			<inputport uid="a1423bcd-6dd0-44ef-b382-8cd329629974" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f870f398-f0ba-4ade-940b-e00713dc0dbb" portindex="1"/>
+			<inputport uid="6e0e077c-24cc-48ea-bc8b-5f3895fb54c1" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6e0e077c-24cc-48ea-bc8b-5f3895fb54c1" portindex="1"/>
+			<inputport uid="92b14606-07c2-4af4-a944-e5ae4fb5515c" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="92b14606-07c2-4af4-a944-e5ae4fb5515c" portindex="1"/>
+			<inputport uid="50ceecdc-b705-4831-9096-2db0fd2c38d4" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6e0e077c-24cc-48ea-bc8b-5f3895fb54c1" portindex="2"/>
+			<inputport uid="1f646b20-c8cf-481d-8779-c5b081b9aede" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1f681a85-2010-4d00-9254-f57176cbd7e2" portindex="1"/>
+			<inputport uid="f4004102-1d79-4c47-9221-c41a0fc56716" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b8efb1c6-779b-4b3e-a245-55a921f0672e" portindex="1"/>
+			<inputport uid="d4b52039-0df2-471a-9991-dbbec3a6ed2a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d4b52039-0df2-471a-9991-dbbec3a6ed2a" portindex="1"/>
+			<inputport uid="e5eb2df0-c7d8-4c32-9747-a1297cad4537" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="235" y="34" width="477" height="785"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_SerializeMessageList" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>fsnRawMsgList</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>outputMsgTypeList</name>
+					<type>StringList</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>loopIndex</name>
+					<type>Integer</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>tempFSNObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>inputMessageID</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>inputMessageType</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>curOutputMessageType</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>curFSNMsg</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Mappings_FSNMessage.Data.FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>fsnObjOut</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="1ce15b0c-9e18-4870-9459-8cea91449469" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="502" y="44"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="b0e046b0-61b0-4f98-8c54-c754d6460db5" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="504" y="782"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Loop2591154" uid="f9b7bdea-8646-4123-baba-d942f0bbcd93" type="Loop" xsi:type="Loop" >
+			<label>Loop</label>
+			<description><![CDATA[]]></description>
+			<messageflow name="" type="MessageFlow">
+				<flowelement name="Custom4" uid="284d89dc-ea3c-4994-b4e8-1fb1df64bddb" type="Custom" xsi:type="Custom" >
+					<label>Copy first elm from input</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[def indexToClone = ((loopIndex >= tempFSNObj.Data.FSNMessage.length())? 0: loopIndex);
+fsnObjOut.Data.FSNMessage.SecAddElement(tempFSNObj.Data.FSNMessage[indexToClone].clone());
+
+curFSNMsg = fsnObjOut.Data.FSNMessage[loopIndex];
+curFSNMsg.MessageContent = RawMessageToBase64Binary (fsnRawMsgList.At (loopIndex));
+curOutputMessageType = outputMsgTypeList.At (loopIndex);
+curFSNMsg.MessageType = curOutputMessageType;
+]]></code>
+					<visual>
+						<position x="151" y="42"/>
+					</visual>
+				</flowelement>
+				<flowelement name="If1" uid="021f04a1-01ef-4d5d-a46f-0a1d0947ae11" type="If" xsi:type="If" >
+					<label>Is Current Elm err?</label>
+					<description><![CDATA[]]></description>
+					<condition><![CDATA[curOutputMessageType == FSNMSGTYPE.ERR]]></condition>
+					<visual>
+						<position x="151" y="130"/>
+					</visual>
+				</flowelement>
+				<flowelement name="If2" uid="bcd44899-28b3-40dc-9060-a43918d3da38" type="If" xsi:type="If" >
+					<label>Is Current Elm input?</label>
+					<description><![CDATA[]]></description>
+					<condition><![CDATA[inputMessageType.IsNotNull() && (inputMessageType == curOutputMessageType)]]></condition>
+					<visual>
+						<position x="234" y="199"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom2" uid="9000dc72-3074-4af8-8a6e-4ca2b7af8fa9" type="Custom" xsi:type="Custom" >
+					<label>Update Err</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[curFSNMsg.NumberOfRecords = 0n;
+curFSNMsg.RelatedMessageId = inputMessageID;
+curFSNMsg.MessageId = inputMessageID + "_3";
+
+if (typeCodeList.IsNotNull()) {
+	def extHdr = curFSNMsg.ExtendedHeader.SecAddOrGetElement();
+	foreach (def typeCode in typeCodeList) {
+		def param = extHdr.Parameter.SecAddElement();
+		param.name = TYPECODEINOUTPUT;
+		param.Value = typeCode;
+	}
+}
+]]></code>
+					<visual>
+						<position x="70" y="194"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom3" uid="d9e9a665-ef66-4b0c-af66-31cc12694e41" type="Custom" xsi:type="Custom" >
+					<label>Update Orig Msg</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[curFSNMsg.RelatedMessageId = inputMessageID;
+curFSNMsg.MessageId = inputMessageID + "_2";
+]]></code>
+					<visual>
+						<position x="161" y="279"/>
+					</visual>
+				</flowelement>
+				<flowelement name="Custom5" uid="2161981b-3028-412f-9fd1-2b7cbab4f5a5" type="Custom" xsi:type="Custom" >
+					<label>Update Transformed Msg</label>
+					<description><![CDATA[]]></description>
+					<code><![CDATA[curFSNMsg.RelatedMessageId = inputMessageID + "_2";
+curFSNMsg.MessageId = inputMessageID;
+if (fsnRawMsgList[loopIndex].HasProperty (MAPPER_RETURN_PARAMS.RECORD_COUNT)) {
+	def val = fsnRawMsgList[loopIndex].GetProperty (MAPPER_RETURN_PARAMS.RECORD_COUNT);
+	if (IsNum (val))
+		curFSNMsg.NumberOfRecords = ToBigInteger (val);
+}
+]]></code>
+					<visual>
+						<position x="313" y="280"/>
+					</visual>
+				</flowelement>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="284d89dc-ea3c-4994-b4e8-1fb1df64bddb" portindex="1"/>
+					<inputport uid="021f04a1-01ef-4d5d-a46f-0a1d0947ae11" portindex="0"/>
+					<edge-type>DIRECT</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="021f04a1-01ef-4d5d-a46f-0a1d0947ae11" portindex="1"/>
+					<inputport uid="9000dc72-3074-4af8-8a6e-4ca2b7af8fa9" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="021f04a1-01ef-4d5d-a46f-0a1d0947ae11" portindex="2"/>
+					<inputport uid="bcd44899-28b3-40dc-9060-a43918d3da38" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="bcd44899-28b3-40dc-9060-a43918d3da38" portindex="1"/>
+					<inputport uid="d9e9a665-ef66-4b0c-af66-31cc12694e41" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<link type="Default" xsi:type="Default">
+					<outputport uid="bcd44899-28b3-40dc-9060-a43918d3da38" portindex="2"/>
+					<inputport uid="2161981b-3028-412f-9fd1-2b7cbab4f5a5" portindex="0"/>
+					<edge-type>ELBOW</edge-type>
+				</link>
+				<visual>
+					<bounds x="38" y="11" width="316" height="306"/>
+				</visual>
+			</messageflow>
+			<condition><![CDATA[loopIndex < fsnRawMsgList.length();]]></condition>
+			<init><![CDATA[loopIndex = 0;
+]]></init>
+			<increment><![CDATA[loopIndex = loopIndex + 1;]]></increment>
+			<visual>
+				<position x="505" y="481"/>
+			</visual>
+			<property name="showbody" value="true"/>
+		</flowelement>
+		<flowelement name="Serialize2" uid="ad07d418-4342-41e2-876c-9c0311d775e3" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize FSN</label>
+			<description><![CDATA[]]></description>
+			<in>fsnObjOut</in>
+			<out>rawFSNOut</out>
+			<options>
+				<option name="xml.escape">minimal</option>
+			</options>
+			<message>Mappings_FSNMessage</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="504" y="720"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="1779401e-c1ff-48eb-9fc9-763fd9f0f1ba" type="Create" xsi:type="Create" >
+			<label>Create FSN Out</label>
+			<description><![CDATA[]]></description>
+			<out>fsnObjOut</out>
+			<message>Mappings_FSNMessage</message>
+			<visual>
+				<position x="503" y="112"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="51031e76-350b-4b99-871a-ab34c3988959" type="Custom" xsi:type="Custom" >
+			<label>Init</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def fsnMsg = tempFSNObj.Data.FSNMessage;
+if (fsnMsg.length() != 0) {
+	inputMessageID = fsnMsg[0].MessageId;
+	inputMessageType = fsnMsg[0].MessageType;
+}
+]]></code>
+			<visual>
+				<position x="505" y="262"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create2" uid="8a31be81-26b3-4db9-b869-345646782de3" type="Create" xsi:type="Create" >
+			<label>Create FSN local</label>
+			<description><![CDATA[]]></description>
+			<out>tempFSNObj</out>
+			<message>Mappings_FSNMessage</message>
+			<init>for (def i=0; i&lt;fsnObj.Data.FSNMessage.length(); i++) {
+	def indexToClone = ((i &gt;= fsnObj.Data.FSNMessage.length())? 0: i);
+	def elm = fsnObj.Data.FSNMessage[indexToClone].clone();
+	setAllToValue (elm, ["SenderId", "ReceiverId", "FileName", "MessageId"], "");
+	if (elm.NumberOfRecords.IsNull())
+		elm.NumberOfRecords = 1n;
+	
+	tempFSNObj.Data.FSNMessage.SecAddElement (elm);	
+}</init>
+			<visual>
+				<position x="505" y="190"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f9b7bdea-8646-4123-baba-d942f0bbcd93" portindex="1"/>
+			<inputport uid="ad07d418-4342-41e2-876c-9c0311d775e3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="ad07d418-4342-41e2-876c-9c0311d775e3" portindex="1"/>
+			<inputport uid="b0e046b0-61b0-4f98-8c54-c754d6460db5" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1ce15b0c-9e18-4870-9459-8cea91449469" portindex="0"/>
+			<inputport uid="1779401e-c1ff-48eb-9fc9-763fd9f0f1ba" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="51031e76-350b-4b99-871a-ab34c3988959" portindex="1"/>
+			<inputport uid="f9b7bdea-8646-4123-baba-d942f0bbcd93" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1779401e-c1ff-48eb-9fc9-763fd9f0f1ba" portindex="1"/>
+			<inputport uid="8a31be81-26b3-4db9-b869-345646782de3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8a31be81-26b3-4db9-b869-345646782de3" portindex="1"/>
+			<inputport uid="51031e76-350b-4b99-871a-ab34c3988959" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="322" y="30" width="370" height="766"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_HandleMapperException" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>cdmExc</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exSerialized</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Serialize1" uid="e3abb648-141a-4274-afc5-8e1254327c47" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize Ex</label>
+			<description><![CDATA[]]></description>
+			<in>cdmExc</in>
+			<out>exSerialized</out>
+			<message>FSNException</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="556" y="637"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If2" uid="2e38c56d-f392-4330-b75d-f5f76a0751dc" type="If" xsi:type="If" >
+			<label>Exc Handling disabled?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[!ENABLE_EXC_HANDLING]]></condition>
+			<visual>
+				<position x="465" y="340"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If1" uid="2011aaa7-01ae-4e15-925b-14bda6201496" type="If" xsi:type="If" >
+			<label>Contains run time exc?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[containsRunTimeException (exObj)]]></condition>
+			<visual>
+				<position x="293" y="195"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="b2d8c66b-89b4-41ef-81a2-7748a769123f" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="293" y="119"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="b7d84fbb-3482-4d99-aac3-c69ba8773f25" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="197" y="341"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="a9da1ef1-f0a0-4b44-987b-fed9888bd7c7" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="556" y="711"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="a0b08e01-2444-4aa1-b32d-2fe8d4c61f4c" type="Create" xsi:type="Create" >
+			<label>Create CDM Exc</label>
+			<description><![CDATA[]]></description>
+			<out>cdmExc</out>
+			<message>FSNException</message>
+			<init>def cdmExcData = cdmExc.Data;
+cdmExcData.ErrorGenerationDateTime = ToISODate (Now());
+
+cdmExcData.MappingName = fsnParamsObj.FSNFlowName;
+cdmExcData.MappingVersionID = fsnParamsObj.FSNFlowVersion;
+
+mapToCDMExc (cdmExc, exObj);
+</init>
+			<visual>
+				<position x="555" y="475"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If3" uid="fc647794-c12b-4144-b33d-60660c335e87" type="If" xsi:type="If" >
+			<label>Contains Technical Exception?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[exObj.containsTechnicalException()]]></condition>
+			<visual>
+				<position x="389" y="258"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="3b728aa3-3683-4ce1-98fb-926b7fdec4d1" type="Custom" xsi:type="Custom" >
+			<label>Log Exc</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[Debug ("End to end mapper returned exceptions.\n" + exObj.ToText());
+]]></code>
+			<visual>
+				<position x="554" y="390"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="4775fc60-f335-4e97-bede-e6038b2a67d5" type="Custom" xsi:type="Custom" >
+			<label>Update CDM Exc</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[typeCodeList = [typeof ("")];
+foreach (def ex in cdmExc.Data.TransformationException) {
+	if (findfirst (typeCodeList, ex.TypeCode) == -1)
+		typeCodeList.Add (ex.TypeCode);
+}
+]]></code>
+			<visual>
+				<position x="554" y="558"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="2011aaa7-01ae-4e15-925b-14bda6201496" portindex="1"/>
+			<inputport uid="b7d84fbb-3482-4d99-aac3-c69ba8773f25" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="2e38c56d-f392-4330-b75d-f5f76a0751dc" portindex="1"/>
+			<inputport uid="b7d84fbb-3482-4d99-aac3-c69ba8773f25" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b2d8c66b-89b4-41ef-81a2-7748a769123f" portindex="0"/>
+			<inputport uid="2011aaa7-01ae-4e15-925b-14bda6201496" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="e3abb648-141a-4274-afc5-8e1254327c47" portindex="1"/>
+			<inputport uid="a9da1ef1-f0a0-4b44-987b-fed9888bd7c7" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="2011aaa7-01ae-4e15-925b-14bda6201496" portindex="2"/>
+			<inputport uid="fc647794-c12b-4144-b33d-60660c335e87" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="fc647794-c12b-4144-b33d-60660c335e87" portindex="1"/>
+			<inputport uid="b7d84fbb-3482-4d99-aac3-c69ba8773f25" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="fc647794-c12b-4144-b33d-60660c335e87" portindex="2"/>
+			<inputport uid="2e38c56d-f392-4330-b75d-f5f76a0751dc" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="2e38c56d-f392-4330-b75d-f5f76a0751dc" portindex="2"/>
+			<inputport uid="3b728aa3-3683-4ce1-98fb-926b7fdec4d1" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="3b728aa3-3683-4ce1-98fb-926b7fdec4d1" portindex="1"/>
+			<inputport uid="a0b08e01-2444-4aa1-b32d-2fe8d4c61f4c" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a0b08e01-2444-4aa1-b32d-2fe8d4c61f4c" portindex="1"/>
+			<inputport uid="4775fc60-f335-4e97-bede-e6038b2a67d5" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="4775fc60-f335-4e97-bede-e6038b2a67d5" portindex="1"/>
+			<inputport uid="e3abb648-141a-4274-afc5-8e1254327c47" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="160" y="105" width="435" height="620"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_CombineRawMessages" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawMsgListIn</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>container</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>MultipleRawMessageContainer</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawMsgOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="c36946bf-71bb-4353-b77a-ca8e1636a3fe" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="510" y="131"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="758de47f-d6d5-45b7-bead-fd0d48be31d2" type="Create" xsi:type="Create" >
+			<label>Create multiple raw msg container</label>
+			<description><![CDATA[]]></description>
+			<out>container</out>
+			<message>MultipleRawMessageContainer</message>
+			<visual>
+				<position x="510" y="204"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="b8db22bd-250c-4ab0-8839-e581808e9abc" type="Custom" xsi:type="Custom" >
+			<label>Fill Container</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[assignToContainer (rawMsgListIn, container);
+]]></code>
+			<visual>
+				<position x="510" y="291"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Serialize1" uid="fb272893-30e0-46f8-8383-04287c99f870" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize container</label>
+			<description><![CDATA[]]></description>
+			<in>container</in>
+			<out>rawMsgOut</out>
+			<message>MultipleRawMessageContainer</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="510" y="373"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="ece2fad0-a8db-4d5e-a74b-73fd467748af" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="510" y="441"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom5" uid="cdeb526c-1d23-4966-9ac5-7aef00e64e8d" type="Custom" xsi:type="Custom" >
+			<label>Add type code</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[ex.setTypeCode (EXCEPTION_TYPE_CODE.TECHNICAL);]]></code>
+			<visual>
+				<position x="640" y="373"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="ae4024b4-0122-428b-b801-81ffcb89820e" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>ex</in>
+			<visual>
+				<position x="642" y="447"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c36946bf-71bb-4353-b77a-ca8e1636a3fe" portindex="0"/>
+			<inputport uid="758de47f-d6d5-45b7-bead-fd0d48be31d2" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="758de47f-d6d5-45b7-bead-fd0d48be31d2" portindex="1"/>
+			<inputport uid="b8db22bd-250c-4ab0-8839-e581808e9abc" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b8db22bd-250c-4ab0-8839-e581808e9abc" portindex="1"/>
+			<inputport uid="fb272893-30e0-46f8-8383-04287c99f870" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="fb272893-30e0-46f8-8383-04287c99f870" portindex="1"/>
+			<inputport uid="ece2fad0-a8db-4d5e-a74b-73fd467748af" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="cdeb526c-1d23-4966-9ac5-7aef00e64e8d" portindex="1"/>
+			<inputport uid="ae4024b4-0122-428b-b801-81ffcb89820e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>ex</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="fb272893-30e0-46f8-8383-04287c99f870" portindex="2"/>
+			<inputport uid="cdeb526c-1d23-4966-9ac5-7aef00e64e8d" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<visual>
+			<bounds x="470" y="117" width="215" height="344"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_HandleMapperOutput" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>outputRawMsg</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>embeddedMsg</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>embeddedRawMsgList</name>
+					<type>RawMessageList</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exSerialized</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>INPUT</variabletype>
+					<message>Mappings_FSNMessage</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>fsnRawMsgList</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>outputMsgTypeList</name>
+					<type>StringList</type>
+					<notnull>false</notnull>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Custom1" uid="8fc8b10e-6622-445b-8b51-f36526599bc5" type="Custom" xsi:type="Custom" >
+			<label>Update output list</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def outputMsgType;
+if (outputRawMsg.HasProperty (MAPPER_RETURN_PARAMS.FSN_OUTPUT_MSG_TYPE))
+	outputMsgType = outputRawMsg.GetProperty (MAPPER_RETURN_PARAMS.FSN_OUTPUT_MSG_TYPE);
+else
+	outputMsgType  = fsnParamsObj.OutputFSNMsgType;
+
+for (def i=0; i<fsnRawMsgList.length(); i++)
+	outputMsgTypeList.Add (outputMsgType);
+]]></code>
+			<visual>
+				<position x="326" y="489"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="25bdb94f-bdd3-4e83-89b1-f44f3c059c19" type="Create" xsi:type="Create" >
+			<label>Create</label>
+			<description><![CDATA[]]></description>
+			<out>exObj</out>
+			<message>TransformException</message>
+			<init>exObj.Message = "Neither output nor exception from mapper.";
+exObj.setTypeCode (EXCEPTION_TYPE_CODE.TECHNICAL);</init>
+			<visual>
+				<position x="740" y="358"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create2" uid="16db4c07-f3a2-4b7b-a89e-c40e9d4eaa43" type="Create" xsi:type="Create" >
+			<label>Create</label>
+			<description><![CDATA[]]></description>
+			<out>exObj</out>
+			<message>TransformException</message>
+			<init>exObj.Message = "Multiple output returned by mapper when not expected.";
+exObj.setTypeCode (EXCEPTION_TYPE_CODE.TECHNICAL);</init>
+			<visual>
+				<position x="136" y="384"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If5" uid="b9d61ed0-4be3-4412-a317-ffcf132d8884" type="If" xsi:type="If" >
+			<label>Single embedded input?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[embeddedRawMsgList.IsNull()]]></condition>
+			<visual>
+				<position x="560" y="669"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom4" uid="f6882eef-11cb-49d0-8193-425630b5b3f5" type="Custom" xsi:type="Custom" >
+			<label>Update output List</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[fsnRawMsgList.Add (outputRawMsg);
+
+if (outputRawMsg.HasProperty (MAPPER_RETURN_PARAMS.FSN_OUTPUT_MSG_TYPE))
+	outputMsgTypeList.Add (outputRawMsg.GetProperty (MAPPER_RETURN_PARAMS.FSN_OUTPUT_MSG_TYPE));
+else
+	outputMsgTypeList.Add (fsnParamsObj.OutputFSNMsgType);
+]]></code>
+			<visual>
+				<position x="447" y="462"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw2" uid="d5cef2df-4e35-4e49-ac2f-b14d5fc0c404" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="741" y="426"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom3" uid="63759c5f-d9a5-4f9d-a42d-77ebe315e72a" type="Custom" xsi:type="Custom" >
+			<label>Update err</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[fsnRawMsgList.Add (exSerialized);
+outputMsgTypeList = outputMsgTypeList.Add (FSNMSGTYPE.ERR);
+]]></code>
+			<visual>
+				<position x="559" y="580"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom6" uid="bc356318-150e-4694-a6a5-4331807fb9ad" type="Custom" xsi:type="Custom" >
+			<label>Update orig input</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[foreach (def msg in embeddedRawMsgList) {
+	fsnRawMsgList.Add (msg);
+	outputMsgTypeList.Add (fsnParamsObj.InputFSNMsgType);
+}
+]]></code>
+			<visual>
+				<position x="637" y="739"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If1" uid="5b2147d7-07b1-4369-870c-bc3e62a9d120" type="If" xsi:type="If" >
+			<label>Is Multiple Output Present?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[outputRawMsg.HasProperty (MAPPER_RETURN_PARAMS.MULTIPLE_OUTPUT_PRESENT)]]></condition>
+			<visual>
+				<position x="363" y="245"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke3" uid="5f9371a0-8e2d-4929-9fad-47113e658984" type="Invoke" xsi:type="Invoke" >
+			<label>Serialize output message list</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_SerializeMessageList</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>fsnRawMsgList</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[fsnRawMsgList]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnObj]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>outputMsgTypeList</name>
+					<type>StringList</type>
+					<value><![CDATA[outputMsgTypeList]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>typeCodeList</name>
+					<type>StringList</type>
+					<value><![CDATA[typeCodeList]]></value>
+					<notnull>false</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawFSNOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawFSNOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="316" y="827"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If4" uid="d16b4a24-cb0d-443a-9fd4-f28f83ac1196" type="If" xsi:type="If" >
+			<label>Ex Present?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[exSerialized.IsNotNull()]]></condition>
+			<visual>
+				<position x="653" y="297"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke5" uid="a3e5fd8e-0195-4a3e-95cb-e26c8c9f110d" type="Invoke" xsi:type="Invoke" >
+			<label>Split Raw Message</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_SplitRawMessage</name>
+			<cascade-exceptions>false</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawMsgIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[outputRawMsg]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawMsgListOut</name>
+					<type>RawMessageList</type>
+					<value><![CDATA[fsnRawMsgList]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="326" y="394"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="c82ab32b-209b-4c64-a289-b74730597a99" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="315" y="900"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If2" uid="1c961712-5bdf-4980-9c04-f1aa5c6b2de4" type="If" xsi:type="If" >
+			<label>Do not Accept Multiple Output?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[fsnParamsObj.AllowMultipleOutput.IsNull() || !fsnParamsObj.AllowMultipleOutput]]></condition>
+			<visual>
+				<position x="233" y="322"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="091f84b7-8cc1-48ec-a8a8-be15df91ac54" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="136" y="454"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If3" uid="25127e55-205d-4eb5-889d-19a83915922d" type="If" xsi:type="If" >
+			<label>Output present?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[outputRawMsg.IsNotNull()]]></condition>
+			<visual>
+				<position x="564" y="182"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start1" uid="fd5639b1-3d5f-4e59-9a1b-1533f4bc0383" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="560" y="33"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom5" uid="ed74512d-65dc-4b53-a0aa-75cb9f09f9b4" type="Custom" xsi:type="Custom" >
+			<label>Init lists</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[outputMsgTypeList = [typeof("")];
+fsnRawMsgList = [typeof(embeddedMsg)];]]></code>
+			<visual>
+				<position x="563" y="97"/>
+			</visual>
+		</flowelement>
+		<flowelement name="If6" uid="1f1b528d-4602-4756-9537-0d4f48cfa687" type="If" xsi:type="If" >
+			<label>Ex Absent?</label>
+			<description><![CDATA[]]></description>
+			<condition><![CDATA[exSerialized.IsNull()]]></condition>
+			<visual>
+				<position x="410" y="580"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom2" uid="0dcfbf65-5ac2-4d85-9f7f-1fc3fad0b174" type="Custom" xsi:type="Custom" >
+			<label>Update orig input</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[if (embeddedMsg.IsNotNull()) {
+	fsnRawMsgList.Add (embeddedMsg);
+	outputMsgTypeList.Add (fsnObj.Data.FSNMessage[0].MessageType);
+}
+]]></code>
+			<visual>
+				<position x="487" y="738"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5f9371a0-8e2d-4929-9fad-47113e658984" portindex="1"/>
+			<inputport uid="c82ab32b-209b-4c64-a289-b74730597a99" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a3e5fd8e-0195-4a3e-95cb-e26c8c9f110d" portindex="1"/>
+			<inputport uid="8fc8b10e-6622-445b-8b51-f36526599bc5" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5b2147d7-07b1-4369-870c-bc3e62a9d120" portindex="2"/>
+			<inputport uid="f6882eef-11cb-49d0-8193-425630b5b3f5" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5b2147d7-07b1-4369-870c-bc3e62a9d120" portindex="1"/>
+			<inputport uid="1c961712-5bdf-4980-9c04-f1aa5c6b2de4" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b9d61ed0-4be3-4412-a317-ffcf132d8884" portindex="2"/>
+			<inputport uid="bc356318-150e-4694-a6a5-4331807fb9ad" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25bdb94f-bdd3-4e83-89b1-f44f3c059c19" portindex="1"/>
+			<inputport uid="d5cef2df-4e35-4e49-ac2f-b14d5fc0c404" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1c961712-5bdf-4980-9c04-f1aa5c6b2de4" portindex="2"/>
+			<inputport uid="a3e5fd8e-0195-4a3e-95cb-e26c8c9f110d" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1c961712-5bdf-4980-9c04-f1aa5c6b2de4" portindex="1"/>
+			<inputport uid="16db4c07-f3a2-4b7b-a89e-c40e9d4eaa43" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="16db4c07-f3a2-4b7b-a89e-c40e9d4eaa43" portindex="1"/>
+			<inputport uid="091f84b7-8cc1-48ec-a8a8-be15df91ac54" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25127e55-205d-4eb5-889d-19a83915922d" portindex="1"/>
+			<inputport uid="5b2147d7-07b1-4369-870c-bc3e62a9d120" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25127e55-205d-4eb5-889d-19a83915922d" portindex="2"/>
+			<inputport uid="d16b4a24-cb0d-443a-9fd4-f28f83ac1196" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="fd5639b1-3d5f-4e59-9a1b-1533f4bc0383" portindex="0"/>
+			<inputport uid="ed74512d-65dc-4b53-a0aa-75cb9f09f9b4" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="ed74512d-65dc-4b53-a0aa-75cb9f09f9b4" portindex="1"/>
+			<inputport uid="25127e55-205d-4eb5-889d-19a83915922d" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="8fc8b10e-6622-445b-8b51-f36526599bc5" portindex="1"/>
+			<inputport uid="1f1b528d-4602-4756-9537-0d4f48cfa687" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="f6882eef-11cb-49d0-8193-425630b5b3f5" portindex="1"/>
+			<inputport uid="1f1b528d-4602-4756-9537-0d4f48cfa687" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1f1b528d-4602-4756-9537-0d4f48cfa687" portindex="1"/>
+			<inputport uid="5f9371a0-8e2d-4929-9fad-47113e658984" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b9d61ed0-4be3-4412-a317-ffcf132d8884" portindex="1"/>
+			<inputport uid="0dcfbf65-5ac2-4d85-9f7f-1fc3fad0b174" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1f1b528d-4602-4756-9537-0d4f48cfa687" portindex="2"/>
+			<inputport uid="63759c5f-d9a5-4f9d-a42d-77ebe315e72a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d16b4a24-cb0d-443a-9fd4-f28f83ac1196" portindex="1"/>
+			<inputport uid="63759c5f-d9a5-4f9d-a42d-77ebe315e72a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="63759c5f-d9a5-4f9d-a42d-77ebe315e72a" portindex="1"/>
+			<inputport uid="b9d61ed0-4be3-4412-a317-ffcf132d8884" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="0dcfbf65-5ac2-4d85-9f7f-1fc3fad0b174" portindex="1"/>
+			<inputport uid="5f9371a0-8e2d-4929-9fad-47113e658984" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="bc356318-150e-4694-a6a5-4331807fb9ad" portindex="1"/>
+			<inputport uid="5f9371a0-8e2d-4929-9fad-47113e658984" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d16b4a24-cb0d-443a-9fd4-f28f83ac1196" portindex="2"/>
+			<inputport uid="25bdb94f-bdd3-4e83-89b1-f44f3c059c19" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<visual>
+			<bounds x="99" y="19" width="679" height="895"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_SplitRawMessage" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawMsgIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>container</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>MultipleRawMessageContainer</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawMsgListOut</name>
+					<type>RawMessageList</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+				<field>
+					<name>ex</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="c36946bf-71bb-4353-b77a-ca8e1636a3fe" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="449" y="116"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="b8db22bd-250c-4ab0-8839-e581808e9abc" type="Custom" xsi:type="Custom" >
+			<label>Fill Container</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[rawMsgListOut = [typeof(rawMsgIn)];
+foreach (def entry in container.Data.container) {
+	rawMsgListOut.Add (ToRawMessage (entry.val));
+}
+]]></code>
+			<visual>
+				<position x="449" y="265"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="ece2fad0-a8db-4d5e-a74b-73fd467748af" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="449" y="333"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="6b828768-bd10-43d4-a2a9-70abbedeed4e" type="Parse" xsi:type="Parse" >
+			<label>Parse Container</label>
+			<description><![CDATA[]]></description>
+			<in>rawMsgIn</in>
+			<out>container</out>
+			<message>MultipleRawMessageContainer</message>
+			<cascade-exceptions>false</cascade-exceptions>
+			<visual>
+				<position x="449" y="183"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom5" uid="7ae59189-0764-415b-bec1-a2ac9012750a" type="Custom" xsi:type="Custom" >
+			<label>Add type code</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[ex.setTypeCode (EXCEPTION_TYPE_CODE.TECHNICAL);]]></code>
+			<visual>
+				<position x="578" y="183"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="a08d8e3a-d632-4a30-b316-93bbc270d545" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>ex</in>
+			<visual>
+				<position x="580" y="257"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c36946bf-71bb-4353-b77a-ca8e1636a3fe" portindex="0"/>
+			<inputport uid="6b828768-bd10-43d4-a2a9-70abbedeed4e" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="6b828768-bd10-43d4-a2a9-70abbedeed4e" portindex="1"/>
+			<inputport uid="b8db22bd-250c-4ab0-8839-e581808e9abc" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b8db22bd-250c-4ab0-8839-e581808e9abc" portindex="1"/>
+			<inputport uid="ece2fad0-a8db-4d5e-a74b-73fd467748af" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>ex</out>
+			<cascade-exceptions>false</cascade-exceptions>
+			<runtime-exceptions>true</runtime-exceptions>
+			<outputport uid="6b828768-bd10-43d4-a2a9-70abbedeed4e" portindex="2"/>
+			<inputport uid="7ae59189-0764-415b-bec1-a2ac9012750a" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="7ae59189-0764-415b-bec1-a2ac9012750a" portindex="1"/>
+			<inputport uid="a08d8e3a-d632-4a30-b316-93bbc270d545" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="417" y="102" width="206" height="245"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="isInputFSNXML" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[def fsnMsgBulkStr = "FSNMessageBulk";
+def fsnMsgBulkPos = rawIn.findFirst (fsnMsgBulkStr);
+def containsFSNMessageBulk = (fsnMsgBulkPos != -1);
+if (containsFSNMessageBulk) {
+	def containsFSNMessage = (rawIn.findFirst ("FSNMessage", fsnMsgBulkPos + Length (fsnMsgBulkStr)) != -1);
+	if (containsFSNMessage)
+		return true;
+	else {
+		fsnMsgBulkStr = "FSNMessageBulk>";
+		fsnMsgBulkPos = rawIn.findFirst (fsnMsgBulkStr);
+		containsFSNMessageBulk = (fsnMsgBulkPos != -1);
+		if (containsFSNMessageBulk)
+			return true;
+	}
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetThresholdsOnFilteringSide" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fltParamsSec</name>
+					<type>Section</type>
+					<message>FSNParams.MapperParams.FilteringParams</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>amtThreshold</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>transacCountThreshold</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>side</name>
+					<type>Integer</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if ((amtThreshold.length() > 0) || (transacCountThreshold.length() > 0)) {
+	def fltParamObj;
+	foreach (def elm in fltParamsSec)
+		if (elm.FilteringSide == side) {
+			fltParamObj = elm;
+			break;
+		}
+
+	if (fltParamObj.IsNotNull()) {
+		if (amtThreshold.length() > 0) {
+			def amtThresholdSec = fltParamObj.Thresholds.SecFilter ("$filterObj.Name == THRESHOLDNAMES.AMOUNT");
+			if (amtThresholdSec.length() > 0)
+				amtThresholdSec[0].Value = amtThreshold;
+		}
+
+		if (transacCountThreshold.length() > 0) {
+			def transacCountThresholdSec = fltParamObj.Thresholds.SecFilter ("$filterObj.Name == THRESHOLDNAMES.TRANSACTIONCOUNT");
+			if (transacCountThresholdSec.length() > 0)
+				transacCountThresholdSec[0].Value = transacCountThreshold;
+		}
+	}
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="mapToCDMExc" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>cdmExc</name>
+					<type>DataObject</type>
+					<message>FSNException</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>exc</name>
+					<type>DataObject</type>
+					<message>TransformException</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def allExc = GetCascadedExceptions (exc);
+
+for (def i=0; i<allExc.length(); i++) {
+	def cmdExcElm = cdmExc.Data.TransformationException.secAddElement();
+
+	def IDs = allExc[i].GetExceptionProperty (EXCEPTION_PROP.TRANSACTIONIDLIST);
+	if (IDs.IsNotNull() && (IDs.length() > 0)) {
+		def refSec = cmdExcElm.Reference;
+		def IDList = Split (",", IDs);
+		for (def j=0; j<IDList.length(); j++)
+			refSec.SecAddElement().ID = IDList.At (j).trim();
+	}
+
+	def typeCodeProp = allExc[i].GetExceptionProperty (EXCEPTION_PROP.TYPECODE);
+	if (typeCodeProp.IsNotNull() && (typeCodeProp.length() > 0))
+		cmdExcElm.TypeCode = allExc[i].GetExceptionProperty (EXCEPTION_PROP.TYPECODE);
+	else
+		cmdExcElm.TypeCode = "Generic Exception"; // This is an application bug
+
+	cmdExcElm.Message = allExc[i].Message;
+	cmdExcElm.ErrorCode = allExc[i].ErrorCode.IsNotNull()? allExc[i].ErrorCode: "SRT999"; // Product bug - EXC with no error code
+	cmdExcElm.SeverityCode = allExc[i].Severity.IsNotNull()? allExc[i].Severity: "Error"; // Product bug - EXC with no severity
+	cmdExcElm.CascadableIndicator = allExc[i].Cascadable;
+	cmdExcElm.FieldName = allExc[i].FieldName;
+	cmdExcElm.FieldID = allExc[i].FieldID;
+
+	def xpathProp = allExc[i].GetExceptionProperty (EXCEPTION_PROP.XPATH);
+	if (xpathProp.IsNotNull() && (xpathProp.length() > 0))
+		cmdExcElm.MessageXPath = allExc[i].GetExceptionProperty (EXCEPTION_PROP.XPATH);
+	else
+		cmdExcElm.MessageXPath = "NOT AVAILABLE";
+
+	cmdExcElm.Trace.setStackTrace (allExc[i]);
+	cmdExcElm.InternalCode = allExc[i].getInternalCode();
+	cmdExcElm.ErrorPhaseCode = allExc[i].getErrorPhase();
+	cmdExcElm.ErrorTypeCode = allExc[i].getErrorType();
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="setStackTrace" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>trace</name>
+					<type>Section</type>
+					<message>FSNException.Data.TransformationException.Trace</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>ex</name>
+					<type>DataObject</type>
+					<message>Undefined</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def errTrace = ex.getErrorTrace();
+if (errTrace.IsNotNull() && (errTrace.trim().length() != 0)) {
+	def traceParts = split ("\n", errTrace);
+	for (def i=0; i<traceParts.length(); i++) {
+		trace.SecAddElement().Value = traceParts[i].trim();
+	}
+}]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="RawMessageToBase64Binary" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[return ToBase64String (ToBinary (rawIn));]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="Base64BinaryToRawMessage" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>base64Binary</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>RawMessage</ReturnType>
+			<Code><![CDATA[return ToRawMessage (ToBase64Binary (base64Binary));]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getPropFromExtHeader" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>extHdr</name>
+					<type>Section</type>
+					<message>Mappings_FSNMessage.Data.FSNMessage.ExtendedHeader</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>prop</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[if (extHdr.length() != 0) {
+	def params = extHdr[0].Parameter;
+	def found = false;
+	def i=0;
+	for (; !found && (i<params.length()); i++)
+		found = (params[i].name == prop);
+
+	if (found)
+		return params[i-1].Value;
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="containsTechnicalException" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<message>TransformException</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[if (exObj.IsNotNull()) {
+	def allExc = GetCascadedExceptions (exObj);
+	foreach (def exc in allExc) {
+		def typeCode = exc.GetExceptionProperty(EXCEPTION_PROP.TYPECODE);
+		if (typeCode.IsNotNull() && (typeCode == EXCEPTION_TYPE_CODE.TECHNICAL))
+			return true;
+	}
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="assignToContainer" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>rawMsglist</name>
+					<type>RawMessageList</type>
+				</parameterfield>
+				<parameterfield>
+					<name>container</name>
+					<type>DataObject</type>
+					<message>MultipleRawMessageContainer</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[foreach (def msg in rawMsglist) {
+	def elm = container.Data.container.SecAddElement();
+	elm.val = ToBinary (msg);
+	elm.len = elm.val.length();
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getAllMessageContents" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>fsnObj</name>
+					<type>DataObject</type>
+					<message>Mappings_FSNMessage</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>RawMessageList</ReturnType>
+			<Code><![CDATA[def rawMsgList = [typeof (ToRawMessage (""))];
+def fsnMsg = fsnObj.Data.FSNMessage;
+foreach (def msg in fsnMsg) {
+	if (msg.MessageContent.IsNotNull())
+		rawMsgList.Add (Base64BinaryToRawMessage (msg.MessageContent.replace ("\r\n", "").replace ("\n", "")));
+}
+
+return rawMsgList;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<folder name="ExceptionProperties" type="FunctionDefFolder">
+			<FormulaFunctionDef name="getPropertyFromExObj" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ex</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+					<parameterfield>
+						<name>key</name>
+						<type>String</type>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<Code><![CDATA[]]></Code>
+				<function-type>Native Code</function-type>
+				<native-code>	if (ex instanceof ExceptionDataObject)
+		return (String) (((ExceptionDataObject) ex).getContextProperty(key));
+	else if (ex instanceof TransformException)
+		return (String) (((TransformException) ex).getContextProperty(key));
+
+	return "";
+</native-code>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getErrorTrace" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ex</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<Code><![CDATA[return ex.getPropertyFromExObj ("Trace");]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getInternalCode" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ex</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<Code><![CDATA[return ex.getPropertyFromExObj ("Internal-Code");]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getErrorType" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ex</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return ex.getPropertyFromExObj ("Error-Type");]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<FormulaFunctionDef name="getErrorPhase" type="FormulaFunctionDef">
+				<description></description>
+				<Category>User Defined</Category>
+				<parameterfields>
+					<parameterfield>
+						<name>ex</name>
+						<type>DataObject</type>
+						<message>Undefined</message>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+					</parameterfield>
+				</parameterfields>
+				<ReturnType>String</ReturnType>
+				<ReturnOptional>true</ReturnOptional>
+				<Code><![CDATA[return ex.getPropertyFromExObj ("Error-Phase");]]></Code>
+				<function-type>Formula</function-type>
+			</FormulaFunctionDef>
+			<elementproperties>
+				<propertymap>
+				</propertymap>
+			</elementproperties>
+		</folder>
+		<FormulaFunctionDef name="setAllToValue" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+				</parameterfield>
+				<parameterfield>
+					<name>fieldList</name>
+					<type>StringList</type>
+				</parameterfield>
+				<parameterfield>
+					<name>valToSet</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[for (def i=0; i<fieldList.length(); i++) {
+	if (obj.IsNull (fieldList[i])) {
+		obj.setString (fieldList[i], valToSet);
+	}
+}]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Fri Feb 01 16:40:51 IST 2013"/>
+						<property name="Author" value="krishnan"/>
+						<property name="Title" value="FSNMessage"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:49:59 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="967"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="WebServiceDefs">
+				<value>
+					<propertymap>
+						<property name="webservices">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">Mappings_FSNProcessor/SAP_FW_ProcessMessageEmbeddedInFSN</selected-element>
+	</workspace>
+</cartridge>
+

@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="PopulateComputableFields" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="SAP_FW_UpdateISOCreditTransferFlow" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_UpdateISODirectDebitFlow" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_UpdateCDMCreditTransferFlow" version="1.0" type="Message Flow">
+			</service>
+			<service name="SAP_FW_UpdateCDMDirectDebitFlow" version="1.0" type="Message Flow">
+			</service>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="updateCtrlSumAndNbOfTxs"/>
+			<function name="updateISOCreditTransfer"/>
+			<function name="updateISODirectDebit"/>
+			<function name="updateCDMCreditTransfer"/>
+			<function name="updateCDMDirectDebit"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\CGI\CGIMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CGI\CGIMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="updateCtrlSumAndNbOfTxs" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>root</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>CGI_CustomerCreditTransferInitiationV03</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$GRPHDR_TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$PMTINF__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$TRANS__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$NBOFTXS__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$CTRLSUM__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>amtFieldList</name>
+					<type>StringList</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def totNbOfTxs = 0;
+def totCtrlSum = 0m;
+
+foreach (def pmtInf in root.$PMTINF__TOKEN) {
+	def nbofTxs = SecCount (pmtInf, "$TRANS__TOKEN");
+	if (pmtInf.$NBOFTXS__TOKEN.IsNotNull())
+		pmtInf.$NBOFTXS__TOKEN = ToText (nbofTxs);
+
+	totNbOfTxs = totNbOfTxs + nbofTxs;
+
+	def ctrlSum = 0m;
+	foreach (def amtFld in amtFieldList) {
+		def amtValues = GetBigDecimals (pmtInf, amtFld);
+		foreach (def value in amtValues)
+			ctrlSum = ctrlSum + value;
+	}
+
+	if (pmtInf.$CTRLSUM__TOKEN.IsNotNull())
+		pmtInf.$CTRLSUM__TOKEN = ctrlSum;
+	
+	totCtrlSum = totCtrlSum + ctrlSum;
+}
+
+def grHdr = root.$GRPHDR_TOKEN[0];
+grHdr.$NBOFTXS__TOKEN = ToText (totNbOfTxs); // This is mandatory - Compute always.
+
+if (forceComputeHeaderControlSum || grHdr.$CTRLSUM__TOKEN.IsNotNull()) 
+	grHdr.$CTRLSUM__TOKEN = totCtrlSum;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="updateISOCreditTransfer" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>CGI_CustomerCreditTransferInitiationV03</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[updateCtrlSumAndNbOfTxs (obj.Data.CstmrCdtTrfInitn[0], forceComputeHeaderControlSum, "GrpHdr", "PmtInf", "CdtTrfTxInf", "NbOfTxs", 
+		"CtrlSum", ["CdtTrfTxInf.Amt.InstdAmt.Value", "CdtTrfTxInf.Amt.EqvtAmt.Amt.Value"]);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="updateISODirectDebit" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>CGI_CustomerDirectDebitInitiationV02</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[updateCtrlSumAndNbOfTxs (obj.Data.CstmrDrctDbtInitn[0], forceComputeHeaderControlSum, "GrpHdr", "PmtInf", "DrctDbtTxInf", "NbOfTxs", 
+		"CtrlSum", ["DrctDbtTxInf.InstdAmt.Value"]);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="updateCDMCreditTransfer" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>CDM_CustomerCreditTransferInitiationV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[updateCtrlSumAndNbOfTxs (obj.Data, forceComputeHeaderControlSum, "GroupHeader", "PaymentInformation", "CreditTransferTransactionInformation", "NumberOfTransactions", "ControlSum", 
+	["CreditTransferTransactionInformation.Amount.InstructedAmount.Value",
+		"CreditTransferTransactionInformation.Amount.EqvtAmt.Amount.Value"]);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="updateCDMDirectDebit" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>obj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<allow-untyped>true</allow-untyped>
+					<message>CDM_CustomerDirectDebitInitiationV1</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[updateCtrlSumAndNbOfTxs (obj.Data, forceComputeHeaderControlSum, "GroupHeader", "PaymentInformation", "DirectDebitTransactionInformation", "NumberOfTransactions", 
+		"ControlSum", ["DirectDebitTransactionInformation.InstructedAmount.Value"]);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messageflow name="SAP_FW_UpdateISOCreditTransferFlow" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>IN/OUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="391" y="115"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="25be2152-07c5-4e30-b8dd-5c30059b2562" type="Custom" xsi:type="Custom" >
+			<label>Call update Func</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[updateISOCreditTransfer (obj, forceComputeHeaderControlSum);
+]]></code>
+			<visual>
+				<position x="391" y="182"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="391" y="249"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="1"/>
+			<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+			<inputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="358" y="101" width="71" height="162"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_UpdateISODirectDebitFlow" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>IN/OUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="391" y="115"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="25be2152-07c5-4e30-b8dd-5c30059b2562" type="Custom" xsi:type="Custom" >
+			<label>Call update Func</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[updateISODirectDebit (obj, forceComputeHeaderControlSum);
+]]></code>
+			<visual>
+				<position x="391" y="182"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="391" y="249"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="1"/>
+			<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+			<inputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="358" y="101" width="71" height="162"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_UpdateCDMCreditTransferFlow" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>IN/OUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="391" y="115"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="25be2152-07c5-4e30-b8dd-5c30059b2562" type="Custom" xsi:type="Custom" >
+			<label>Call update Func</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[updateCDMCreditTransfer (obj, forceComputeHeaderControlSum);
+]]></code>
+			<visual>
+				<position x="391" y="182"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="391" y="249"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="1"/>
+			<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+			<inputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="358" y="101" width="71" height="162"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="SAP_FW_UpdateCDMDirectDebitFlow" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>obj</name>
+					<type>DataObject</type>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>IN/OUT</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>forceComputeHeaderControlSum</name>
+					<type>Boolean</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="391" y="115"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="25be2152-07c5-4e30-b8dd-5c30059b2562" type="Custom" xsi:type="Custom" >
+			<label>Call update Func</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[updateCDMDirectDebit (obj, forceComputeHeaderControlSum);
+]]></code>
+			<visual>
+				<position x="391" y="182"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="95601344-9d30-450e-b8a8-65a9ee67ad64" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="391" y="249"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="1"/>
+			<inputport uid="95601344-9d30-450e-b8a8-65a9ee67ad64" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="82ce6baa-6b68-4ae5-aa8c-48d6988adbcf" portindex="0"/>
+			<inputport uid="25be2152-07c5-4e30-b8dd-5c30059b2562" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="358" y="101" width="71" height="162"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Aug 19 15:00:27 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="PopulateComputableFields"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="113"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\PopulateComputableFields\PopulateComputableFields.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/SAP-CDM-Mappings/Mappings/CDMV1/CGI_ISO/CGI_ISOLibrary/CGI_ISOLibrary.car</selected-element>
+	</workspace>
+</cartridge>
+

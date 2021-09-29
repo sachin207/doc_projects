@@ -1,0 +1,1489 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="WrapperFlows" type="Cartridge">
+	<description><![CDATA[Some of the maps that are in the base cartridge right now were once present in the BTMU project. This cartridge retains the flow names of those maps when they were in the BTMU project for the sake of backward compatibility. This cartridge may eventually be deprecated.
+]]></description>
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="BTMU_ISOToCDM_BankToCustAcctRpt" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_ISOToCDM_BankToCustAcctRptFSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_ISOToCDM_BankToCustStmt" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_ISOToCDM_BankToCustStmtFSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_MT940ToMXCAMT053" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_MT940ToMXCAMT053FSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_MultipleMT940ToMXCAMT053FSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_MT942ToMXCAMT052" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_MT942ToMXCAMT052FSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_JDOMEToCDM_CstmrCdtTrfInitn" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_JDOMEToCDM_CstmrCdtTrfInitnFSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\SAP-CDM-Mappings\Mappings\Library\FSNParamsHelper\FSNParamsHelper.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\FSNParamsHelper\FSNParamsHelper.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\SAP-CDM-Mappings\Mappings\Library\PropertyHandler\PropertyHandler.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\PropertyHandler\PropertyHandler.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="CGIISOToCDM_BankToCustAcctRpt" type="FolderElement">
+		<messageflow name="BTMU_ISOToCDM_BankToCustAcctRpt" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="360" y="101"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="359" y="247"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke FSN flow</label>
+				<description><![CDATA[]]></description>
+				<name>BTMU_ISOToCDM_BankToCustAcctRptFSN</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="360" y="173"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="326" y="87" width="73" height="174"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_ISOToCDM_BankToCustAcctRptFSN" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="365" y="123"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="362" y="444"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke base map version of this flow</label>
+				<description><![CDATA[]]></description>
+				<name>="CGIISOV02ToCDM_BankToCustAcctRptFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawFSNIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawFSNOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="363" y="371"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="b33cbece-e3bb-48d8-98b3-fc55587fbbba" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_ISOToCDM_CstmrCdtTrfInitnFSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="365" y="196"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="747deba2-589b-44e7-8ffa-0f79beb13d30" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="364" y="283"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="b33cbece-e3bb-48d8-98b3-fc55587fbbba" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="b33cbece-e3bb-48d8-98b3-fc55587fbbba" portindex="1"/>
+				<inputport uid="747deba2-589b-44e7-8ffa-0f79beb13d30" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="747deba2-589b-44e7-8ffa-0f79beb13d30" portindex="1"/>
+				<inputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="327" y="109" width="76" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="CGIISOToCDM_BankToCustStmt" type="FolderElement">
+		<messageflow name="BTMU_ISOToCDM_BankToCustStmt" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="360" y="101"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="359" y="247"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke FSN flow</label>
+				<description><![CDATA[]]></description>
+				<name>BTMU_ISOToCDM_BankToCustStmtFSN</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="360" y="174"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="326" y="87" width="73" height="174"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_ISOToCDM_BankToCustStmtFSN" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="414" y="167"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="411" y="488"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke base map version of this flow</label>
+				<description><![CDATA[]]></description>
+				<name>="CGIISOV02ToCDM_BankToCustStmtFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawFSNIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawFSNOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="412" y="415"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="e070ba5f-5bdf-43a5-82b2-fcf406832cfa" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_ISOToCDM_BankToCustStmtFSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="414" y="240"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="ccea99fb-0047-40f4-976d-821029df61e9" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="413" y="327"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="e070ba5f-5bdf-43a5-82b2-fcf406832cfa" portindex="1"/>
+				<inputport uid="ccea99fb-0047-40f4-976d-821029df61e9" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="e070ba5f-5bdf-43a5-82b2-fcf406832cfa" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ccea99fb-0047-40f4-976d-821029df61e9" portindex="1"/>
+				<inputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="376" y="153" width="76" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="MT940ToCDM_BankToCustStmt" type="FolderElement">
+		<messageflow name="BTMU_MT940ToMXCAMT053" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="360" y="101"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="359" y="247"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke FSN Flow</label>
+				<description><![CDATA[]]></description>
+				<name>BTMU_MT940ToMXCAMT053FSN</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="360" y="174"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="326" y="87" width="73" height="174"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_MT940ToMXCAMT053FSN" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="345" y="87"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="342" y="408"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke base map version of this flow</label>
+				<description><![CDATA[]]></description>
+				<name>="MT940ToCDM_BankToCustStmtFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawFSNIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawFSNOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="343" y="335"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="2f34bf8d-eb55-4240-8136-703349124405" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="344" y="247"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="8ee7dc4f-a13c-436c-805a-17d3020b3d7a" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_MT940ToMXCAMT053FSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="345" y="160"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="8ee7dc4f-a13c-436c-805a-17d3020b3d7a" portindex="1"/>
+				<inputport uid="2f34bf8d-eb55-4240-8136-703349124405" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="8ee7dc4f-a13c-436c-805a-17d3020b3d7a" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="2f34bf8d-eb55-4240-8136-703349124405" portindex="1"/>
+				<inputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="307" y="73" width="76" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_MultipleMT940ToMXCAMT053FSN" type="MessageFlow">
+			<version>1.2</version>
+			<description><![CDATA[Converts ISO camt.052.001.03 wrapped in FSN to CDM BankToCustomerAccountReport message wrapped in FSN]]></description>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<description><![CDATA[FSN input message]]></description>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<description><![CDATA[FSN output message]]></description>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="8452d60e-5297-4ef6-bbb4-a82f1bcd7bf3" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="310" y="103"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="8ed7c076-94a7-4094-aff0-3b85b4df961b" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="307" y="424"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="4571dfb5-e533-420b-87ac-b1673bcbdadb" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke base map version of this flow</label>
+				<description><![CDATA[]]></description>
+				<name>="MultipleMT940ToCDM_BankToCustStmtFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawFSNIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawFSNOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="308" y="351"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="c8145efa-667c-4997-8d29-88e1793e7494" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="309" y="262"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="1d5915dc-b362-4ef3-99bc-b1ad6c3624bd" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_MultipleMT940ToMXCAMT053FSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="310" y="176"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="4571dfb5-e533-420b-87ac-b1673bcbdadb" portindex="1"/>
+				<inputport uid="8ed7c076-94a7-4094-aff0-3b85b4df961b" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="1d5915dc-b362-4ef3-99bc-b1ad6c3624bd" portindex="1"/>
+				<inputport uid="c8145efa-667c-4997-8d29-88e1793e7494" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="8452d60e-5297-4ef6-bbb4-a82f1bcd7bf3" portindex="0"/>
+				<inputport uid="1d5915dc-b362-4ef3-99bc-b1ad6c3624bd" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="c8145efa-667c-4997-8d29-88e1793e7494" portindex="1"/>
+				<inputport uid="4571dfb5-e533-420b-87ac-b1673bcbdadb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="272" y="89" width="76" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="MT942ToCDM_BankToCustAcctRpt" type="FolderElement">
+		<messageflow name="BTMU_MT942ToMXCAMT052" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="360" y="101"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="359" y="247"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke FSN Flow</label>
+				<description><![CDATA[]]></description>
+				<name>BTMU_MT942ToMXCAMT052FSN</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="360" y="174"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="ac3805aa-6d8d-4d42-8a46-2b30ea989365" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="326" y="87" width="73" height="174"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_MT942ToMXCAMT052FSN" type="MessageFlow">
+			<version>1.2</version>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="295" y="118"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="292" y="439"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke base map version of this flow</label>
+				<description><![CDATA[]]></description>
+				<name>="MT942ToCDM_BkToCstmrAcctRptFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawFSNIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawFSNOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="293" y="366"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="4a8422d3-2318-446c-97c7-8c88a5714b5b" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_MT942ToMXCAMT052FSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="295" y="191"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="4c3a3681-57f9-4630-92a4-6a1577bd1fc7" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="294" y="278"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="4a8422d3-2318-446c-97c7-8c88a5714b5b" portindex="1"/>
+				<inputport uid="4c3a3681-57f9-4630-92a4-6a1577bd1fc7" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="4a8422d3-2318-446c-97c7-8c88a5714b5b" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="4c3a3681-57f9-4630-92a4-6a1577bd1fc7" portindex="1"/>
+				<inputport uid="0fc1fbce-5bc2-425c-8469-2e83b86c89cb" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="257" y="104" width="76" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<folder name="JDOME to CustomerPaymentStatusReport" type="FolderElement">
+		<description><![CDATA[These flows were named wrongly in an earlier release. In order to maintain compatibility, the older flows are kept here. They just invoke the flows that have been named correctly.]]></description>
+		<messageflow name="BTMU_JDOMEToCDM_CstmrCdtTrfInitn" type="MessageFlow">
+			<version>1.2</version>
+			<description><![CDATA[These flows were named wrongly in an earlier release. In order to maintain compatibility, the older flows are kept here. They just invoke the flows that have been named correctly.]]></description>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Stop2" uid="c83f54d8-66a5-474d-8fd4-4dc0a3313bda" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="293" y="383"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Start2" uid="0eb3bebf-0ce0-4b08-aa6c-6721ef9bee45" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="293" y="237"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke2" uid="db87695f-bdb9-4ef3-a781-9916b50f6b8b" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke FSN Flow</label>
+				<description><![CDATA[]]></description>
+				<name>BTMU_JDOMEToCDM_CstmrCdtTrfInitnFSN</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="293" y="310"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="0eb3bebf-0ce0-4b08-aa6c-6721ef9bee45" portindex="0"/>
+				<inputport uid="db87695f-bdb9-4ef3-a781-9916b50f6b8b" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="db87695f-bdb9-4ef3-a781-9916b50f6b8b" portindex="1"/>
+				<inputport uid="c83f54d8-66a5-474d-8fd4-4dc0a3313bda" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="259" y="223" width="73" height="174"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<messageflow name="BTMU_JDOMEToCDM_CstmrCdtTrfInitnFSN" type="MessageFlow">
+			<version>1.2</version>
+			<description><![CDATA[These flows were named wrongly in an earlier release. In order to maintain compatibility, the older flows are kept here. They just invoke the flows that have been named correctly.]]></description>
+			<transaction>NotRequired</transaction>
+			<variables>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>INPUT</variabletype>
+					</field>
+					<field>
+						<name>fsnParamsObj</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<variabletype>LOCAL</variabletype>
+						<message>FSNParams</message>
+						<fields>
+						</fields>
+					</field>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<notnull>true</notnull>
+						<variabletype>OUTPUT</variabletype>
+					</field>
+				</fields>
+			</variables>
+			<additional-properties>
+				<property name="main-flow" value="true"/>
+			</additional-properties>
+			<flowelement name="Start1" uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" type="Start" xsi:type="Start" >
+				<label>Start</label>
+				<visual>
+					<position x="253" y="118"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Stop1" uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" type="Stop" xsi:type="Stop" >
+				<label>Stop</label>
+				<visual>
+					<position x="251" y="439"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Invoke1" uid="55b511d3-8e53-4f12-8815-7876424b5f9e" type="Invoke" xsi:type="Invoke" >
+				<label>Invoke correctly named flow</label>
+				<description><![CDATA[]]></description>
+				<name>="BTMU_JDOMEToCDM_CstmrPmtStsRptFSN"</name>
+				<cascade-exceptions>false</cascade-exceptions>
+				<input>
+					<field>
+						<name>rawIn</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawIn]]></value>
+						<notnull>true</notnull>
+					</field>
+				</input>
+				<output>
+					<field>
+						<name>rawOut</name>
+						<type>RawMessage</type>
+						<value><![CDATA[rawOut]]></value>
+						<notnull>true</notnull>
+					</field>
+				</output>
+				<visual>
+					<position x="251" y="366"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Custom1" uid="3fe2d074-a280-4bc4-8a37-edc6161609ee" type="Custom" xsi:type="Custom" >
+				<label>Set Diff Properties</label>
+				<description><![CDATA[]]></description>
+				<code><![CDATA[rawIn.setDataObjProperty (MAPPER_RAWIN_PARAMS.DIFF, fsnParamsObj.MapperParams[0]);
+]]></code>
+				<visual>
+					<position x="252" y="278"/>
+				</visual>
+			</flowelement>
+			<flowelement name="Create1" uid="9c61179b-0066-4520-a186-bb533c362e8b" type="Create" xsi:type="Create" >
+				<label>Create Framework Params</label>
+				<description><![CDATA[]]></description>
+				<out>fsnParamsObj</out>
+				<message>FSNParams</message>
+				<init>fsnParamsObj.SetCartridgeDetails (
+	"BTMU_JDOMEToCDM_CstmrCdtTrfInitnFSN", "1.2"
+);
+</init>
+				<visual>
+					<position x="253" y="191"/>
+				</visual>
+			</flowelement>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="55b511d3-8e53-4f12-8815-7876424b5f9e" portindex="1"/>
+				<inputport uid="d67bb36b-aea0-401a-a6e8-32e305b3d42f" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="9c61179b-0066-4520-a186-bb533c362e8b" portindex="1"/>
+				<inputport uid="3fe2d074-a280-4bc4-8a37-edc6161609ee" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="16614e39-33b4-41f4-aace-bc7f4c5fe1ce" portindex="0"/>
+				<inputport uid="9c61179b-0066-4520-a186-bb533c362e8b" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<link type="Default" xsi:type="Default">
+				<outputport uid="3fe2d074-a280-4bc4-8a37-edc6161609ee" portindex="1"/>
+				<inputport uid="55b511d3-8e53-4f12-8815-7876424b5f9e" portindex="0"/>
+				<edge-type>DIRECT</edge-type>
+			</link>
+			<visual>
+				<bounds x="219" y="104" width="70" height="349"/>
+			</visual>
+			<elementproperties>
+				<propertymap>
+					<property name="codegen.java.properties">
+						<value>
+							<propertymap type="com.tplus.transform.design.PropertiesDef">
+								<property name="Java Package Name" value="com.transform.flow.%e"/>
+								<property name="Jar Name" value="%c.jar"/>
+								<property name="Manifest Entries" value="transformrt.jar"/>
+								<property name="Data Source" value=""/>
+								<property name="Generate MDB" value="false"/>
+							</propertymap>
+						</value>
+					</property>
+				</propertymap>
+			</elementproperties>
+		</messageflow>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Thu Aug 22 13:28:22 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="AllWrapperFlows"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:49:58 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="142"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\BTMU-CDM-Mappings\Mappings\Wrappers\WrapperFlows.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">WrapperFlows/JDOME to CustomerPaymentStatusReport/BTMU_JDOMEToCDM_CstmrCdtTrfInitnFSN</selected-element>
+	</workspace>
+</cartridge>
+

@@ -1,0 +1,2388 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="Common_PEXRLibrary" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="PEXR200nToCDMV1" version="1.0" type="Message Flow">
+			</service>
+			<function name="ValidateRepeatingSection"/>
+			<function name="ValidateCodesInE2IDB02"/>
+			<function name="GetValidateCodesInE2IDB02ErrMsg"/>
+			<function name="VerifyDate"/>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="ComputeRequestedDate"/>
+			<function name="getLookUpCode"/>
+			<function name="GetName"/>
+			<function name="GetNameFromObj"/>
+			<function name="GetPmtInfId"/>
+			<function name="getProprietaryCode"/>
+			<function name="GetE1EDKA1InstancesBasedOnQuals"/>
+			<function name="IDOCToCDMGroupHeader"/>
+			<function name="IsBranch8100To8300Or1306"/>
+			<function name="MapAccountExceptType"/>
+			<function name="MapAcctNatureCdWhenCtryIs_US_ZA_JP"/>
+			<function name="MapAcctNaturePrtry"/>
+			<function name="MapFinInstnId"/>
+			<function name="MapParty"/>
+			<function name="MapParty"/>
+			<function name="proprietaryPurposeCodesTable"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SetAccount"/>
+			<function name="SetBranchID"/>
+			<function name="SetBranchIDAndName"/>
+			<function name="SetChargeBearer"/>
+			<function name="SetChargesAcctAgtFinInstID"/>
+			<function name="SetDocuNum"/>
+			<function name="SetInstructedAmount"/>
+			<function name="SetPartyPvtOtherID"/>
+			<function name="SetPartyOrgOtherID"/>
+			<function name="SetPartyOtherID"/>
+			<function name="SetPstlAdr"/>
+			<function name="SetRfrdDocAmount"/>
+			<function name="SetRltdRmtInf"/>
+			<function name="SetStrd"/>
+			<function name="UpdateClrSysId"/>
+			<function name="GetPurpCdFromDesc"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\Messages\PEXR\PEXRMessages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\PEXR\PEXRMessages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Library\SAPUtil\SAPUtil.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\SAPUtil\SAPUtil.car</absolute-path>
+		</reference>
+	</references>
+	<folder name="Function Definitions" type="FunctionDefFolder">
+		<FormulaFunctionDef name="ComputeRequestedDate" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDK03</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDK03</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$IDDATVAL__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>ISODate</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def selectedSec = SecFilter (E2EDK03, "$filterObj.IDDAT.IsNotNull() && ($filterObj.IDDAT == \"$IDDATVAL__TOKEN\")");
+
+if (selectedSec.length() > 0)
+	return (ParseISODate (selectedSec[0].DATUM, "yyyyMMdd"));
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getLookUpCode" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>table</name>
+					<type>Section</type>
+				</parameterfield>
+				<parameterfield>
+					<name>FIIBLAND</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>PAIRZAWE</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>EXTPAYM</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[for (def i=0; i<table.length(); i++) {
+	if ((table[i].getString ("FIIBLAND") == FIIBLAND) &&
+			(table[i].getString ("PAIRZAWE") == PAIRZAWE) &&
+				(table[i].getString ("EXTPAYM") == EXTPAYM))
+		return table[i].getString ("Code");
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetName" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$QualFLD__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def E2EDKA1_Qual = E2EDKA1.Secfilter ("$filterObj.$$QualFLD__TOKEN == \"$$Qual__TOKEN\"");
+def str = null;
+// Spec reference - XML000113
+if (E2EDKA1_Qual.length() != 0)
+	str = GetNameFromObj (E2EDKA1_Qual[0], "$$NAME1__TOKEN", "$$NAME2__TOKEN");
+
+return str;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetNameFromObj" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1_Qual</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def str = null;
+if (E2EDKA1_Qual.$$NAME1__TOKEN.IsNotNull()) {
+	if (E2EDKA1_Qual.$$NAME2__TOKEN.IsNull())
+		str = E2EDKA1_Qual.$$NAME1__TOKEN;
+	else
+		str = E2EDKA1_Qual.$$NAME1__TOKEN + " " + E2EDKA1_Qual.$$NAME2__TOKEN;
+}
+
+return str;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetPmtInfId" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def val;
+
+if ((E2IDKU3.length() > 0) && E2IDKU3[0].RELNUM.IsNotNull())
+	val = E2IDKU3[0].RELNUM;
+else {
+	def E2IDB02_Qual = E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"BA\"");
+	if ((E2IDB02_Qual.length() != 0) && IsBranch8100To8300Or1306 (E2IDB02_Qual[0].FIIBRANCH) &&
+				(E2IDB02_Qual[0].FIIBLAND != "AR")) {
+		def E2EDKA1_Qual1 = E2EDKA1.Secfilter ("$filterObj.PARVW == \"ZE\"");
+		if ((E2EDKA1_Qual1.length() != 0) && E2EDKA1_Qual1[0].LIFNR.IsNotNull())
+			val = E2EDKA1_Qual1[0].LIFNR;
+		else {
+			def E2EDKA1_Qual2 = E2EDKA1.Secfilter ("$filterObj.PARVW == \"BE\"");
+			if ((E2EDKA1_Qual2.length() != 0) && E2EDKA1_Qual2[0].LIFNR.IsNotNull())
+				val = E2EDKA1_Qual2[0].LIFNR;
+		}
+	}
+}
+
+return val;
+
+// Spec reference - XML000094
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="getProprietaryCode" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>FIIBLAND</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>FIIBRANCH</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>PAIRZAWE</name>
+					<type>String</type>
+					<required>false</required>
+				</parameterfield>
+				<parameterfield>
+					<name>EXTPAYM</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[if (EXTPAYM == "NKW")
+	return "NKW"; // row 193 of sheet 'IDKU3.EXTPAYM lookup'
+else if ((FIIBRANCH.startsWith ("96") || FIIBRANCH.startsWith ("97") ||
+			FIIBRANCH.startsWith ("98") || FIIBRANCH.startsWith ("99")) && In (PAIRZAWE, "A", "I", "P", "W") && 
+				In (EXTPAYM, "DOM", "INL", "MCQ", "MDU", "MFX", "MIC", "MEB", "MGP", "ORD", "RGI", "URG"))
+	return EXTPAYM; // row 181-191 of sheet 'IDKU3.EXTPAYM lookup'
+
+def codesSec = proprietaryPurposeCodesTable().getSection ("Codes");
+return getLookUpCode (codesSec, FIIBLAND, PAIRZAWE, EXTPAYM);
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetE1EDKA1InstancesBasedOnQuals" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Fld__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$e2edka1Qual1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$e2edka1Qual2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<Code><![CDATA[def sec_qual1 = E2EDKA1.SecFilter ("($filterObj.PARVW == \"$e2edka1Qual1__TOKEN\") && ($filterObj.$$Fld__TOKEN.IsNotNull())");
+def sec_qual2 = E2EDKA1.SecFilter ("($filterObj.PARVW == \"$e2edka1Qual2__TOKEN\") && ($filterObj.$$Fld__TOKEN.IsNotNull())");
+def retSec = NewSection (sec_qual1);
+foreach (def elm in sec_qual1)
+	retSec.SecAddElement (elm);
+foreach (def elm in sec_qual2)
+	retSec.SecAddElement (elm);
+
+return retSec;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="IDOCToCDMGroupHeader" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>GroupHeader</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<output>true</output>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Control</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.Control</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[]]></Code>
+			<function-type>Mapping</function-type>
+			<source-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>Control</name>
+						<type>DataObject</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>1</maxoccurs>
+						<message>PEXR2002.Data.IDOC.Control</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</source-format>
+			<destination-format>
+				<xpath-namespaces>
+					<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+					<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+					<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+				</xpath-namespaces>
+				<fields>
+					<field>
+						<name>GroupHeader</name>
+						<type>Section</type>
+						<minoccurs>0</minoccurs>
+						<maxoccurs>-1</maxoccurs>
+						<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader</message>
+						<fields>
+						</fields>
+					</field>
+				</fields>
+			</destination-format>
+			<mappingrules>
+				<mappings>
+					<mapping type="formula">
+						<source-field><![CDATA[Control.DOCNUM
+
+// Spec reference - XML000003]]></source-field>
+						<destination-field>GroupHeader.MessageIdentification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (Control.CREDAT.IsNotNull() && Control.CRETIM.IsNotNull())
+	Set (ParseISODate (Control.CREDAT + Control.CRETIM, "yyyyMMddHHmmss"));
+
+// Spec Reference - XML000004]]></source-field>
+						<destination-field>GroupHeader.CreationDateTime</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (IsNotNull (Control.SNDPOR))
+	Set (Control.SNDPOR);
+else if (IsNotNull (Control.SNDPRN))
+	Set (Control.SNDPRN);
+else if (IsNotNull (Control.RCVPRN))
+	Set (Control.RCVPRN);
+
+// Spec reference - XML000027]]></source-field>
+						<destination-field>GroupHeader.InitiatingParty.Identification.OrganisationIdentification.Other.Identification</destination-field>
+					</mapping>
+					<mapping type="formula">
+						<source-field><![CDATA[if (IsNotNull (Control.SNDPOR) || IsNotNull (Control.SNDPRN))
+	Set ("CUST");
+else if (IsNotNull (Control.RCVPRN))
+	Set ("BANK");
+
+// Spec reference - XML000029]]></source-field>
+						<destination-field>GroupHeader.InitiatingParty.Identification.OrganisationIdentification.Other.SchemeName.Code</destination-field>
+					</mapping>
+				</mappings>
+			</mappingrules>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="IsBranch8100To8300Or1306" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>branch</name>
+					<type>String</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[if (IsNotNull (branch) && IsInt (branch)) {
+	def branchInt = ToInt (branch);
+	return (Between (branchInt, 8100, 8300) || (branchInt == 1306));
+}
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapAccountExceptType" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>IDOC</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DbtrAccount</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$QUAL__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[SetAccount (IDOC, DbtrAccount, "$QUAL__TOKEN");
+
+def E2IDB02_Qual = IDOC[0].E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"$QUAL__TOKEN\"");
+if (E2IDB02_Qual.length() != 0) {
+	def dbtrAcctSec = DbtrAccount.SecAddOrGetElement();
+	dbtrAcctSec.Currency = E2IDB02_Qual[0].FIIKWAER; // Spec reference  - XML000167
+	dbtrAcctSec.Name = E2IDB02_Qual[0].FIIKNAME; // Spec reference - XML000168
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapAcctNatureCdWhenCtryIs_US_ZA_JP" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02_Qual</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DbtrAcct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def val;
+
+if (In (E2IDB02_Qual.FIIBLAND, "US", "ZA")) {
+	if (E2IDB02_Qual.FIIBKONT.IsNull() || (E2IDB02_Qual.FIIBKONT == "01"))
+		val = "CACC";
+	else if (E2IDB02_Qual.FIIBKONT == "02")
+		val = "SVGS";
+}
+else if (E2IDB02_Qual.FIIBLAND == "JP") {
+	if (E2IDB02_Qual.FIIBKONT.IsNull() || (E2IDB02_Qual.FIIBKONT == "02"))
+		val = "CACC";		
+	else if (E2IDB02_Qual.FIIBKONT == "01")
+		val = "SVGS";
+}
+
+if (val != null)
+	DbtrAcct.SecAddOrGetElement().Type.SecAddOrGetElement().Code = val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapAcctNaturePrtry" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02_Qual</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>DbtrAcct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[// Spec reference - XML000478
+def val;
+if ((In (E2IDB02_Qual.FIIBLAND, "ES", "FR", "IT", "PT") && E2IDB02_Qual.FIIBKONT.IsNotNull()) ||
+		((E2IDB02_Qual.FIIBLAND == "ZA") && In (E2IDB02_Qual.FIIBKONT, "03", "04", "06")) ||
+			((E2IDB02_Qual.FIIBLAND == "MX") && In (E2IDB02_Qual.FIIBKONT, "CI", "CM"))) {
+	val = E2IDB02_Qual.FIIBKONT ;
+}
+else if (E2IDB02_Qual.FIIBLAND == "JP") {
+	if (E2IDB02_Qual.FIIBKONT == "04")
+		val = "MOMA";
+	else if (E2IDB02_Qual.FIIBKONT == "09")
+		val = "OTHER";
+}
+
+if (val != null)
+	DbtrAcct.SecAddOrGetElement().Type.SecAddOrGetElement().Proprietary = val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapFinInstnId" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>FinInstnId</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.ForwardingAgent.FinancialInstitutionIdentification</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"$$Qual__TOKEN\"");
+def codeVals = ["001", "003", "005", "006", "007", "008", "013", "014", "016", "017", "004", "009", "010", "011", "012", "015", "999"];
+
+if (E2IDB02_Qual.length() != 0) {
+	def sec = FinInstnId.SecAddElement();
+	//sec.BICFI = (E2IDB02_Qual[0].FIIBKENN.IsNotNull()? E2IDB02_Qual[0].FIIBKENN: E2IDB02_Qual[0].FIIBKUKN); // Spec reference - XML000169 / XML000589
+	
+	if (E2IDB02_Qual[0].FIIBKCDE == "002") 	// Spec reference - XML000171
+		sec.BICFI = E2IDB02_Qual[0].FIIBKENN;
+
+	if ((E2IDB02_Qual[0].FIIBKCDE != "002") && E2IDB02_Qual[0].FIIBKENN.IsNotNull()) { 
+		// Spec reference - XML000176
+		sec.ClearingSystemMemberIdentification.SecAddOrGetElement().MemberIdentification = E2IDB02_Qual[0].FIIBKENN;
+		
+		// Spec reference - XML000174, XML000175
+		if (E2IDB02_Qual[0].FIIBKCDE.IsNotNull() && In (E2IDB02_Qual[0].FIIBKCDE, codeVals)) {
+			def clrSysId = sec.ClearingSystemMemberIdentification.SecAddOrGetElement().ClearingSystemIdentification.SecAddOrGetElement();
+			UpdateClrSysId (E2IDB02_Qual[0].FIIBKCDE, E2IDB02_Qual[0].FIIBLAND, clrSysId); 
+		}
+	}
+	else if ((E2IDB02_Qual[0].FIIBKUCD != "002") && E2IDB02_Qual[0].FIIBKUKN.IsNotNull()) {
+		sec.ClearingSystemMemberIdentification.SecAddOrGetElement().MemberIdentification = E2IDB02_Qual[0].FIIBKUKN; // Spec reference - XML000176
+		
+		if (E2IDB02_Qual[0].FIIBKUCD.IsNotNull() && In (E2IDB02_Qual[0].FIIBKUCD, codeVals)) {
+			def clrSysId = sec.ClearingSystemMemberIdentification.SecAddOrGetElement().ClearingSystemIdentification.SecAddOrGetElement();
+			UpdateClrSysId (E2IDB02_Qual[0].FIIBKUCD, E2IDB02_Qual[0].FIIBLAND, clrSysId); 
+		}
+	}
+
+	sec.Name = E2IDB02_Qual[0].FIIBKNAM; // Spec reference - XML000177
+
+	// Spec reference - XML000185 / XML000187
+	def pstlAdr = sec.PostalAddress.SecAddElement();
+	pstlAdr.TownName = E2IDB02_Qual[0].FIIBKORT;
+	pstlAdr.Country = E2IDB02_Qual[0].FIIBLAND;
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapParty" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Dbtr</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.Debtor</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$QualFLD__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$NAME2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$ADRLINE1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$ADRLINE2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$TOWN_NAME_PFACH_PRESENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$TOWN_NAME_PFACH_ABSENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$POST_CODE_PFACH_PRESENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$POST_CODE_PFACH_ABSENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$CNTRY_SUB_DIV__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$CNTRY__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def name = GetName (E2EDKA1, "$$QualFLD__TOKEN", "$$Qual__TOKEN", "$$NAME1__TOKEN", "$$NAME2__TOKEN");
+if (name != null)
+	Dbtr.SecAddOrGetElement().Name = name;
+
+SetPstlAdr (E2EDKA1, Dbtr, "$$QualFLD__TOKEN", "$$Qual__TOKEN", "$$ADRLINE1__TOKEN", "$$ADRLINE2__TOKEN", 
+					"$$TOWN_NAME_PFACH_PRESENT__TOKEN", "$$TOWN_NAME_PFACH_ABSENT__TOKEN", "$$POST_CODE_PFACH_PRESENT__TOKEN", 
+							"$$POST_CODE_PFACH_ABSENT__TOKEN", "$$CNTRY_SUB_DIV__TOKEN", "$$CNTRY__TOKEN");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="MapParty" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Dbtr</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.Debtor</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[MapParty (E2EDKA1, Dbtr, "PARVW", "$$Qual__TOKEN", "NAME1", "NAME2", "STRAS", "STRS2", "PFORT", "ORT01", "PSTL2", "PSTLZ", "REGIO", "ISOAL");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="proprietaryPurposeCodesTable" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+			</parameterfields>
+			<ReturnType>DataObject</ReturnType>
+			<Code><![CDATA[def proprietaryCodes = 
+{
+	Codes: [
+		{FIIBLAND: "AU", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "CN", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "FJ", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "HK", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "ID", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},		
+		{FIIBLAND: "IN", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "JP", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},	
+		{FIIBLAND: "KH", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "KR", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "MO", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "MY", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "NZ", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "PH", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "SG", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "TH", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},
+		{FIIBLAND: "VN", PAIRZAWE: "P", EXTPAYM: "SSE", Code: "SSE"},		
+		{FIIBLAND: "CN", PAIRZAWE: "P", EXTPAYM: "HGH", Code: "HGH"},
+		{FIIBLAND: "CN", PAIRZAWE: "P", EXTPAYM: "LOW", Code: "LOW"},		
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "ACS", Code: "ACS"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "BSX", Code: "BSX"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "CNR", Code: "CNR"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "ODR", Code: "ODR"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OEM", Code: "OEM"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OPF", Code: "OPF"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OTF", Code: "OTF"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OTI", Code: "OTI"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OTR", Code: "OTR"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "OTX", Code: "OTX"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "PBP", Code: "PBP"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "PVF", Code: "PVF"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "TBC", Code: "TBC"},
+		{FIIBLAND: "TW", PAIRZAWE: "P", EXTPAYM: "TRB", Code: "OTLC"},		
+		{FIIBLAND: "ID", PAIRZAWE: "P", EXTPAYM: "PBP", Code: "PBP"},		
+		{FIIBLAND: "ID", PAIRZAWE: "P", EXTPAYM: "CSH", Code: "CSH"},		
+		{FIIBLAND: "PH", PAIRZAWE: "P", EXTPAYM: "PBP", Code: "PBP"},
+		{FIIBLAND: "PH", PAIRZAWE: "P", EXTPAYM: "CSH", Code: "CSH"},
+		{FIIBLAND: "PH", PAIRZAWE: "P", EXTPAYM: "PMC", Code: "PMC"},		
+		{FIIBLAND: "TH", PAIRZAWE: "P", EXTPAYM: "PBC", Code: "PBC"},
+		{FIIBLAND: "TH", PAIRZAWE: "P", EXTPAYM: "CSH", Code: "CSH"},
+		{FIIBLAND: "TH", PAIRZAWE: "P", EXTPAYM: "PMC", Code: "PMC"},
+		{FIIBLAND: "TH", PAIRZAWE: "P", EXTPAYM: "PSL", Code: "PSL"},		
+		{FIIBLAND: "NZ", PAIRZAWE: "W", EXTPAYM: "URG", Code: "URG"},				
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "AT", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "AT", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "AT", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "BE", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "BE", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "BE", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "BG", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "BG", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "BG", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "CH", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "CH", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "CH", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},						
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "CY", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "CY", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "CY", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "CZ", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "CZ", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "CZ", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},						
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "DE", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "DE", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "DE", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},			
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "DK", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "DK", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "DK", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},					
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "EE", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "EE", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "EE", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},					
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "ES", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "ES", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "ES", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},						
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "FI", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "FI", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "FI", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "FR", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "FR", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "FR", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},								
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "GB", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},	
+		{FIIBLAND: "GB", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "GB", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "GR", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "GR", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "GR", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "HR", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "HR", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "HR", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "HU", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "HU", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "HU", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "IE", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "IE", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "IE", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "IS", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "IS", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "IS", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "IT", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "IT", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "IT", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "LT", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "LT", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "LT", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "LU", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "LU", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "LU", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "LV", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "LV", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "LV", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "NL", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "NL", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "NL", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},				
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "NO", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "NO", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "NO", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "PL", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "PL", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "PL", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "PT", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "PT", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "PT", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "RO", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "RO", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "RO", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "SE", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "SE", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "SE", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "SI", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "SI", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "SI", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},		
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "EBA", Code: "EBA"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "EXP", Code: "EXP"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "ICO", Code: "INTC"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "FEF", Code: "FEF"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "RES", Code: "RES"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "RIC", Code: "RIC"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "RGI", Code: "RGI"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "SPT", Code: "SPT"},
+		{FIIBLAND: "SK", PAIRZAWE: "P", EXTPAYM: "TGT", Code: "TGT"},
+		{FIIBLAND: "SK", PAIRZAWE: "U", EXTPAYM: "EFT", Code: "EFT"},
+		{FIIBLAND: "SK", PAIRZAWE: "U", EXTPAYM: "SWT", Code: "SWT"},						
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I03", Code: "I03"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I04", Code: "I04"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I05", Code: "I05"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I06", Code: "I06"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I07", Code: "I07"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I08", Code: "I08"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I09", Code: "I09"},
+		{FIIBLAND: "AR", PAIRZAWE: "C", EXTPAYM: "I10", Code: "I10"},		
+		{FIIBLAND: "BR", PAIRZAWE: "A", EXTPAYM: "P41", Code: "P41"},
+		{FIIBLAND: "BR", PAIRZAWE: "A", EXTPAYM: "P43", Code: "P43"},		
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I73", Code: "I73"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I74", Code: "I74"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I75", Code: "I75"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I76", Code: "I76"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I77", Code: "I77"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I78", Code: "I78"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I79", Code: "I79"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I80", Code: "I80"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I81", Code: "I81"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I82", Code: "I82"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I83", Code: "I83"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I84", Code: "I84"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I85", Code: "I85"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I86", Code: "I86"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I87", Code: "I87"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I88", Code: "I88"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I89", Code: "I89"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I90", Code: "I90"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I91", Code: "I91"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I92", Code: "I92"},
+		{FIIBLAND: "MX", PAIRZAWE: "W", EXTPAYM: "I93", Code: "I93"}
+	]
+
+};
+
+return proprietaryCodes;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SecAddOrGetElement" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<Code><![CDATA[if(section.$size == 0) {
+	return section.secAddElement();
+}
+return section[0];]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SecAddOrGetElement" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>section</name>
+					<type>Any</type>
+				</parameterfield>
+				<parameterfield>
+					<name>n</name>
+					<type>Integer</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Any</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[if (n >= 1) {
+	def sz = section.$size;
+	for (def i=0; i<(n - sz); i++)
+		def sec = section.secAddElement();
+	
+	return section[n-1];
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetAccount" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>IDOC</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>acct</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.DebtorAccount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$QUAL__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def e2idibaIndex = IDOC[0].GetFieldIndex ("E2IDIBA");
+
+// Spec reference - XML000157, XML000690
+if (e2idibaIndex != -1) {
+	def E2IDIBA_Qual = IDOC[0].getSection ("E2IDIBA").Secfilter ("$filterObj.getString (\"FIIQUALI\") == \"$QUAL__TOKEN\"");
+	if ((E2IDIBA_Qual.length() > 0) && E2IDIBA_Qual[0].IsNotNull ("IBAN")) {
+		acct.SecAddOrGetElement().Identification.SecAddOrGetElement().IBAN = E2IDIBA_Qual[0].getString ("IBAN");
+		return;
+	}
+}
+
+def E2IDB02_Qual = IDOC[0].E2IDB02.Secfilter ("$filterObj.FIIQUALI == \"$QUAL__TOKEN\"");
+if ((E2IDB02_Qual.length() > 0) && E2IDB02_Qual[0].FIIKONTO.IsNotNull())
+	acct.SecAddOrGetElement().Identification.SecAddOrGetElement().Other.SecAddOrGetElement().Identification = E2IDB02_Qual[0].FIIKONTO;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetBranchID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>BrnchID</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.ForwardingAgent.BranchIdentification</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"$$Qual__TOKEN\"");
+
+if ((E2IDB02_Qual.length() != 0) && E2IDB02_Qual[0].FIIBRANCH.IsNotNull()) {
+	BrnchID.SecAddElement().Identification = E2IDB02_Qual[0].FIIBRANCH; // Spec reference - XML000196
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetBranchIDAndName" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDB02</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDB02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>BrnchID</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.ForwardingAgent.BranchIdentification</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2IDB02_Qual = E2IDB02.SecFilter ("$filterObj.FIIQUALI == \"$$Qual__TOKEN\"");
+
+if ((E2IDB02_Qual.length() != 0) && E2IDB02_Qual[0].FIIBRANCH.IsNotNull()) {
+	if (E2IDB02_Qual[0].FIIBLAND != "JP")
+		BrnchID.SecAddElement().Identification = E2IDB02_Qual[0].FIIBRANCH; // Spec reference - XML000616
+	else
+		BrnchID.SecAddElement().Name = E2IDB02_Qual[0].FIIBRANCH; // Spec reference - XML000617
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetChargeBearer" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDKU4</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDKU4</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def val = "SHAR";
+// Spec reference - XML000345
+if (E2IDKU4.length() != 0) {
+	if (E2IDKU4[0].FCAREGUL == "001")
+		val = "CRED";
+	else if (E2IDKU4[0].FCAREGUL == "002")
+		val = "SHAR";
+	else if (E2IDKU4[0].FCAREGUL == "003")
+		val = "DEBT";
+}
+
+return val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetChargesAcctAgtFinInstID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDKU4</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDKU4</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>FinInstID</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.ForwardingAgent.FinancialInstitutionIdentification</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if (E2IDKU4.length() > 0) {
+	def finInstID = FinInstID.SecAddElement();
+	if (E2IDKU4[0].FCAGBNNR == "002")
+		finInstID.BICFI = E2IDKU4[0].FCAGIDBN; // Spec reference - XML000283
+	else
+		finInstID.ClearingSystemMemberIdentification.SecAddElement().MemberIdentification = E2IDKU4[0].FCAGIDBN; // XML000288
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetDocuNum" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKnn</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDK02</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>allowedValues</name>
+					<type>Any</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<Code><![CDATA[def str = null;
+def found = false;
+def i=0;
+for (i=0; i<E2EDKnn.length(); i++) {
+	def sec = E2EDKnn[i];
+	if (sec.IsNotNull("QUALF") && In (sec.GetString ("QUALF"), allowedValues)) {
+		found = true;
+		break;
+	}
+}
+
+if (found && E2EDKnn[i].IsNotNull("BELNR"))
+	str = E2EDKnn[i].GetString ("BELNR");
+
+return str;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetInstructedAmount" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDKU5</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003.Data.IDOC.E2IDKU5.E2IDKU5</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>InstructedAmount</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def instructedAmount = InstructedAmount.SecAddElement();
+instructedAmount.Ccy = E2IDKU5[0].CUXWAERZ; // Spec reference - XML000337
+
+if ((E2IDKU5[0].MOAQUAL == "002") && E2IDKU5[0].MOABETR.IsNotNull() && IsValidBigDecimal (E2IDKU5[0].MOABETR)) {
+	instructedAmount.Value = ToBigDecimal (E2IDKU5[0].MOABETR); // Spec reference - XML000337
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetPartyPvtOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>id</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>val</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>isCode</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[SetPartyOtherID (party, id, val, isCode, "PrivateIdentification");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetPartyOrgOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>id</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>val</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>isCode</name>
+					<type>Boolean</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[SetPartyOtherID (party, id, val, isCode, "OrganisationIdentification");
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetPartyOtherID" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>id</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>val</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>isCode</name>
+					<type>Boolean</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$orgOrPrivate__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def othr = party.SecAddOrGetElement().Identification.SecAddOrGetElement().$$orgOrPrivate__TOKEN.SecAddOrGetElement().Other.SecAddElement();
+def scheme = othr.SchemeName.SecAddOrGetElement();
+
+othr.Identification = id;
+if (isCode)
+	scheme.Code = val;
+else
+	scheme.Proprietary = val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetPstlAdr" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2EDKA1</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2EDKA1</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>party</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.InitiatingParty</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$$QualFLD__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$Qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$ADRLINE1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$ADRLINE2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$TOWN_NAME_PFACH_PRESENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$TOWN_NAME_PFACH_ABSENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$POST_CODE_PFACH_PRESENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$POST_CODE_PFACH_ABSENT__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$CNTRY_SUB_DIV__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$CNTRY__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def E2EDKA1_Qual = E2EDKA1.Secfilter ("$filterObj.$$QualFLD__TOKEN == \"$$Qual__TOKEN\"");
+
+if (E2EDKA1_Qual.length() != 0) {
+	def townName;
+	def postCode;
+	def cntrySubDiv;
+	def cntry;
+
+	if (E2EDKA1_Qual[0].PFACH.IsNull()) {
+		if (E2EDKA1_Qual[0].$$TOWN_NAME_PFACH_ABSENT__TOKEN.IsNotNull())
+			townName = E2EDKA1_Qual[0].$$TOWN_NAME_PFACH_ABSENT__TOKEN; // // Spec reference - XML000121
+		if (E2EDKA1_Qual[0].$$POST_CODE_PFACH_ABSENT__TOKEN.IsNotNull())
+			postCode = E2EDKA1_Qual[0].$$POST_CODE_PFACH_ABSENT__TOKEN; // Spec reference - XML000120
+	}
+	else {
+		if (E2EDKA1_Qual[0].$$TOWN_NAME_PFACH_PRESENT__TOKEN.IsNotNull())
+			townName = E2EDKA1_Qual[0].$$TOWN_NAME_PFACH_PRESENT__TOKEN; // // Spec reference - XML000121
+		if (E2EDKA1_Qual[0].$$POST_CODE_PFACH_PRESENT__TOKEN.IsNotNull())
+			postCode = E2EDKA1_Qual[0].$$POST_CODE_PFACH_PRESENT__TOKEN; // Spec reference - XML000120
+	}
+
+	// Spec reference - XML000124
+	def adrList = [typeof("")];
+	if (E2EDKA1_Qual[0].PFACH.IsNotNull())
+		adrList.add ("PO Box " + E2EDKA1_Qual[0].PFACH);
+	if (E2EDKA1_Qual[0].$$ADRLINE1__TOKEN.IsNotNull())
+		adrList.add (E2EDKA1_Qual[0].$$ADRLINE1__TOKEN);
+	if (E2EDKA1_Qual[0].$$ADRLINE2__TOKEN.IsNotNull())
+		adrList.add (E2EDKA1_Qual[0].$$ADRLINE2__TOKEN);
+
+	if (E2EDKA1_Qual[0].$$CNTRY_SUB_DIV__TOKEN.IsNotNull())
+		cntrySubDiv = E2EDKA1_Qual[0].$$CNTRY_SUB_DIV__TOKEN; // Spec reference - XML000122
+
+	if (E2EDKA1_Qual[0].$$CNTRY__TOKEN.IsNotNull())
+		cntry = E2EDKA1_Qual[0].$$CNTRY__TOKEN; // Spec reference - XML000123
+
+	if ((townName != null) || (postCode != null) || (cntrySubDiv != null) || (cntry != null) || (adrList.length() > 0)) {
+		def pstlAddr = party.SecAddOrGetElement().PostalAddress.SecAddOrGetElement();
+
+		pstlAddr.TownName = townName;
+		pstlAddr.PostCode = postCode;
+		pstlAddr.CountrySubDivision = cntrySubDiv;
+		pstlAddr.Country = cntry;
+
+		if (adrList.length() > 0) {
+			def adrLine = pstlAddr.AddressLine;
+			for (def i=0; i<adrList.length(); i++)
+				adrLine.SecAddOrGetElement (i+1).Value = adrList.At (i);
+		}
+	}
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetRfrdDocAmount" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>grp</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC.E2IDPU1.E2IDPU5</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Strd</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>i</name>
+					<type>Integer</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$qual__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$$amtSec__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Boolean</ReturnType>
+			<Code><![CDATA[def qual = grp.SecFilter ("$filterObj.E2IDPU5[0].MOAQUAL == \"$$qual__TOKEN\"");
+if (qual.length() != 0) {
+	def sec = Strd.SecAddOrGetElement(i).ReferredDocumentAmount.SecAddOrGetElement().$$amtSec__TOKEN.SecAddOrGetElement();
+	if (sec.GetFieldIndex ("Value") != -1) {
+		sec.SetBigDecimal ("Value", ToBigDecimal (qual[0].E2IDPU5[0].MOABETR));
+		sec.SetString ("Ccy", qual[0].E2IDPU5[0].CUXWAERZ);
+	}
+	else {
+		def amtSec = sec.GetSection ("Amount").SecAddOrGetElement();
+		amtSec.SetBigDecimal ("Value", ToBigDecimal (qual[0].E2IDPU5[0].MOABETR));
+		amtSec.SetString ("Ccy", qual[0].E2IDPU5[0].CUXWAERZ);
+	}
+
+	return true;
+}
+
+return false;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetRltdRmtInf" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>RltdRmtInf</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.CreditTransferTransactionInformation.RelatedRemittanceInformation</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>$e2edka1Qual1__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+				<parameterfield>
+					<name>$e2edka1Qual2__TOKEN</name>
+					<type>Token</type>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def E2idku3 = srcObj.E2IDKU3;
+if (E2idku3.length() > 0) {
+	if (E2idku3[0].PAIUZAWE.IsNotNull()) {
+		def paiuzawe = E2idku3[0].PAIUZAWE;
+		// Spec reference - XML000809
+		if (paiuzawe == "U1")
+			RltdRmtInf.SecAddOrGetElement().RemittanceLocationMethod = "FAXI";
+		else if (paiuzawe == "U2")
+			RltdRmtInf.SecAddOrGetElement().RemittanceLocationMethod = "POST";
+		else if (paiuzawe == "U3") {
+			RltdRmtInf.SecAddOrGetElement().RemittanceLocationMethod = "URID";
+		
+			// Spec Reference - XML000810
+			def E1EDKA1_Qual = GetE1EDKA1InstancesBasedOnQuals (srcObj.E2EDKA1, "LIFNR", "ZE", "BE");
+			if ((E1EDKA1_Qual.length() != 0) && E1EDKA1_Qual[0].LIFNR.IsNotNull())
+				RltdRmtInf.SecAddOrGetElement().RemittanceLocationElectronicAddress = E1EDKA1_Qual[0].LIFNR;
+		}
+		else if (paiuzawe == "U4")
+			RltdRmtInf.SecAddOrGetElement().RemittanceLocationMethod = "EDIC";
+	}
+	
+	// Spec reference - XML000808
+	if (E2idku3[0].INSTEXT1.IsNotNull())
+		RltdRmtInf.SecAddOrGetElement().RemittanceIdentification = E2idku3[0].INSTEXT1;
+	else if (E2idku3[0].INSTEXT2.IsNotNull())
+		RltdRmtInf.SecAddOrGetElement().RemittanceIdentification = E2idku3[0].INSTEXT2;
+	else if (E2idku3[0].INSTEXT3.IsNotNull())
+		RltdRmtInf.SecAddOrGetElement().RemittanceIdentification = E2idku3[0].INSTEXT3;
+	else if (E2idku3[0].INSTEXT4.IsNotNull())
+		RltdRmtInf.SecAddOrGetElement().RemittanceIdentification = E2idku3[0].INSTEXT4;
+}
+
+def E1EDKA1_Qual = GetE1EDKA1InstancesBasedOnQuals (srcObj.E2EDKA1, "TELFX", "$e2edka1Qual1__TOKEN", "$e2edka1Qual2__TOKEN");
+foreach (def E1EDKA1Instance in E1EDKA1_Qual)
+	RltdRmtInf.SecAddElement().RemittanceLocationElectronicAddress = E1EDKA1Instance.TELFX; // Spec reference - XML000810
+
+
+def fldIndex = GetFieldIndex (srcObj, "E2EDK12");
+if (fldIndex != -1) {
+	def docuNum = SetDocuNum (srcObj.GetSection (fldIndex), ["037"]);;
+	if (docuNum != null)
+		RltdRmtInf.SecAddElement().RemittanceIdentification = docuNum; // Spec reference - XML000808
+}]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="SetStrd" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>srcObj</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2002.Data.IDOC</message>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+				<parameterfield>
+					<name>Strd</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.PaymentInformation.CreditTransferTransactionInformation.RemittanceInformation.Structured</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[def i = 1;
+foreach (def grp in srcObj.E2IDPU1) {
+	def secAdded = false;
+	def sec = grp.E2IDPU1[0];
+	// Spec reference - XML000826, XML000830
+	if (sec.DOCNAME.IsNotNull() || sec.DOCNUMMR.IsNotNull()) {
+		def topLevelSec = Strd.SecAddOrGetElement(i).ReferredDocumentInformation.SecAddElement();
+		secAdded = true;
+		if (sec.DOCNAME.IsNotNull()) {
+			def destSec = topLevelSec.Type.SecAddOrGetElement().CodeOrProprietary.SecAddOrGetElement();
+			if (sec.DOCNAME == "INV")
+				destSec.Code = "CINV";
+			else if (sec.DOCNAME == "CRM")
+				destSec.Code = "CREN";
+			else
+				destSec.Code = "CINV";
+		}
+		if (sec.DOCNUMMR.IsNotNull()) {
+			topLevelSec.Number = sec.DOCNUMMR;
+		}
+	}
+
+	secAdded = SetRfrdDocAmount (grp.E2IDPU5, Strd, 1, "003", "DiscountAppliedAmount") || secAdded; // Spec reference - XML000837
+	secAdded = SetRfrdDocAmount (grp.E2IDPU5, Strd, 1, "004", "DuePayableAmount") || secAdded; // Spec reference - XML000836
+	secAdded = SetRfrdDocAmount (grp.E2IDPU5, Strd, 1, "005", "TaxAmount") || secAdded; // Spec reference - XML000839
+	secAdded = SetRfrdDocAmount (grp.E2IDPU5, Strd, 1, "006", "RemittedAmount") || secAdded; // Spec reference - XML000845
+	secAdded = SetRfrdDocAmount (grp.E2IDPU5, Strd, 1, "016", "CreditNoteAmount") || secAdded; // Spec reference - XML000838
+
+ 	def E2EDP03_qual = grp.E2EDP03.SecFilter ("$filterObj.IDDAT == \"016\"");
+	if (E2EDP03_qual.length() != 0) {
+		Strd.SecAddOrGetElement(i).ReferredDocumentInformation.SecAddOrGetElement().RelatedDate = 
+			ParseISODate (E2EDP03_qual[0].DATUM, "yyyyMMdd"); // Spec reference = XML000834
+		secAdded = true;
+	}
+
+	def E2EDP02_qual1 = grp.E2EDP02.SecFilter ("In ($filterObj.QUALF, \"001\", \"011\", \"018\", \"029\", \"070\", \"071\") && $filterObj.BELNR.IsNotNull()");
+	if (E2EDP02_qual1.length() != 0) {
+		def cdtrRefInf = Strd.SecAddOrGetElement(i).CreditorReferenceInformation.SecAddOrGetElement();
+		def cdOrPrtry = cdtrRefInf.Type.SecAddOrGetElement().CodeOrProprietary.SecAddOrGetElement();
+		// Spec reference - XML000849
+		if (In (E2EDP02_qual1[0].QUALF, "001", "018"))
+			cdOrPrtry.Code = "PUOR";
+		else if (In (E2EDP02_qual1[0].QUALF, "011", "070"))
+			cdOrPrtry.Code = "SCOR";
+		else if (In (E2EDP02_qual1[0].QUALF, "029"))
+			cdOrPrtry.Code = "RADM";
+		else if (In (E2EDP02_qual1[0].QUALF, "071")) // Spec reference - XML000850
+			cdOrPrtry.Proprietary = E2EDP02_qual1[0].QUALF;
+
+		cdtrRefInf.Reference = E2EDP02_qual1[0].BELNR; // Spec reference - XML000852
+	}
+
+	def E2EDP02_qual2 = grp.E2EDP02.SecFilter ("In ($filterObj.QUALF, \"019\", \"037\") && $filterObj.BELNR.IsNotNull()");
+	if (E2EDP02_qual2.length() != 0) {
+		def rfrdDocInf = Strd.SecAddOrGetElement(i).ReferredDocumentInformation.SecAddElement();
+		def cdOrPrtry = rfrdDocInf.Type.SecAddOrGetElement().CodeOrProprietary.SecAddOrGetElement();
+		// Spec reference - XML000830
+		if (In (E2EDP02_qual2[0].QUALF, "019"))
+			cdOrPrtry.Code = "CINV";
+		else if (In (E2EDP02_qual2[0].QUALF, "037"))
+			cdOrPrtry.Code = "SOAC";
+		
+		rfrdDocInf.Number = E2EDP02_qual2[0].BELNR; // Spec reference - XML000833
+	}
+
+	if (secAdded)
+		i = i + 1;
+}
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="UpdateClrSysId" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>Code</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>FIIBLAND</name>
+					<type>String</type>
+				</parameterfield>
+				<parameterfield>
+					<name>ClrSysId</name>
+					<type>DataObject</type>
+					<allow-any>true</allow-any>
+					<message>CDM_CustomerCreditTransferInitiationV1.Data.GroupHeader.ForwardingAgent.FinancialInstitutionIdentification.ClearingSystemMemberIdentification.ClearingSystemIdentification</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>Void</ReturnType>
+			<Code><![CDATA[if (Code == "001") {
+	if (FIIBLAND == "US") 
+		ClrSysId.Code = "USABA";
+	else if (FIIBLAND == "DE")
+		ClrSysId.Code = "DEBLZ";
+}
+else if (Code == "003")
+	ClrSysId.Code = "USABA";
+else if (Code == "005")
+	ClrSysId.Code = "SESBA";
+else if (Code == "006")
+	ClrSysId.Code = "INFSC";
+else if (Code == "007")
+	ClrSysId.Code = "CHBCC";
+else if (Code == "008")
+	ClrSysId.Code = "CHSIC";
+else if (Code == "013")
+	ClrSysId.Code = "GBDSC";
+else if (Code == "014")
+	ClrSysId.Code = "ATBLZ";
+else if (Code == "016")
+	ClrSysId.Code = "USPID";
+else if (Code == "017")
+	ClrSysId.Code = "ESNCC";
+else if (In (Code, "004", "009", "010", "011", "012", "015", "999"))
+	ClrSysId.Proprietary = Code;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<FormulaFunctionDef name="GetPurpCdFromDesc" type="FormulaFunctionDef">
+			<description></description>
+			<Category>User Defined</Category>
+			<parameterfields>
+				<parameterfield>
+					<name>E2IDKU3</name>
+					<type>Section</type>
+					<allow-any>true</allow-any>
+					<message>PEXR2003Plain.Data.IDOC.E2IDKU3</message>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+				</parameterfield>
+			</parameterfields>
+			<ReturnType>String</ReturnType>
+			<ReturnOptional>true</ReturnOptional>
+			<Code><![CDATA[def val;
+
+if ((E2IDKU3.length() > 0) && (E2IDKU3[0].PAIRZAWE == "Q") && (E2IDKU3[0].EXTPAYM.IsNotNull() && (E2IDKU3[0].EXTPAYM.trim() == "")) && E2IDKU3[0].EXTDESC.IsNotNull()) {
+	def extDesc = E2IDKU3[0].EXTDESC;
+	if (extDesc == "ANN")
+		val = "ANNI";
+	else if (extDesc == "BUS")
+		val = "COMC";
+	else if (extDesc == "DEP")
+		val = "DEPT";
+	else if (extDesc == "LOA")
+		val = "LOAN";
+	else if (extDesc == "MIS")
+		val = "OTHR";
+	else if (extDesc == "MOR")
+		val = "HLRP";
+	else if (extDesc == "PEN")
+		val = "PENS";
+	else if (extDesc == "SAL")
+		val = "SALA";
+	else if (extDesc == "RLS")
+		val = "RENT";
+	else if (extDesc == "TAX")
+		val = "TAXS";
+	else if (extDesc == "TEL")
+		val = "TELI";
+	else if (extDesc == "WEB")
+		val = "WEBI";
+}
+
+return val;
+]]></Code>
+			<function-type>Formula</function-type>
+		</FormulaFunctionDef>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</folder>
+	<messageflow name="PEXR200nToCDMV1" type="MessageFlow">
+		<version>1.0</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>inputType</name>
+					<type>String</type>
+					<notnull>false</notnull>
+					<length>-1</length>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>cdmName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>outputType</name>
+					<type>String</type>
+					<notnull>false</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>mapName</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+					<variabletype>LOCAL</variabletype>
+				</field>
+				<field>
+					<name>cdmObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>pexrObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>Undefined</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>exObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>TransformException</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>false</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="false"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="1baf5f84-c53c-4df4-a677-f342412252ba" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="533" y="76"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Parse1" uid="a7e169f8-b0d8-44f8-90d8-85237cc744b3" type="Parse" xsi:type="Parse" >
+			<label>Parse PEXR200n</label>
+			<description><![CDATA[]]></description>
+			<in>rawIn</in>
+			<out>pexrObj</out>
+			<message>=inputType</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="538" y="234"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Mapping1" uid="d1a9f8f0-267d-4ea8-a0f8-dfaa8ceb7cfa" type="Mapping" xsi:type="Mapping" >
+			<label>Map PEXR to CDM</label>
+			<description><![CDATA[]]></description>
+			<in>pexrObj</in>
+			<out>cdmObj</out>
+			<multi-source-input>
+				<field>
+					<name>New Section</name>
+					<type>Section</type>
+					<value><![CDATA[pexrObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</multi-source-input>
+			<multi-source-output>
+				<field>
+					<name>New Section</name>
+					<type>DataObject</type>
+					<value><![CDATA[cdmObj]]></value>
+					<notnull>false</notnull>
+				</field>
+			</multi-source-output>
+			<messagemapping>=mapName
+</messagemapping>
+			<create-destination>true</create-destination>
+			<visual>
+				<position x="537" y="406"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="b8952f6c-4eea-40de-9d78-5549df75d20d" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="540" y="725"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Serialize1" uid="150cc900-a2d4-4d6b-b290-373529e23bbb" type="Serialize" xsi:type="Serialize" >
+			<label>Serialize CDM</label>
+			<description><![CDATA[]]></description>
+			<in>cdmObj</in>
+			<out>rawOut</out>
+			<message>=outputType</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="539" y="650"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom1" uid="860940bf-9775-4b33-bf88-eefc9452d928" type="Custom" xsi:type="Custom" >
+			<label>Update NbOfTxs &amp; CtrlSum</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[def transacSec = "PaymentInformation." +
+	((cdmName == "CustomerCreditTransferInitiation")? 
+		"CreditTransferTransactionInformation": "DirectDebitTransactionInformation");
+
+def data = cdmObj.GetObject ("Data");
+def grHdr = data.GetSection ("GroupHeader")[0];
+grHdr.SetString ("NumberOfTransactions", ToText (SecCount (data, transacSec)));
+
+def values = GetBigDecimals (data, transacSec + ".Amount.InstructedAmount.Value");
+def totValue = 0m;
+foreach (def value in values)
+	totValue = totValue + value;
+grHdr.SetBigDecimal ("ControlSum", totValue);
+]]></code>
+			<visual>
+				<position x="537" y="493"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Validate1" uid="ad690bd7-64ef-4f48-a1c2-bc7256020d16" type="Validate" xsi:type="Validate" >
+			<label>Validate CDM</label>
+			<description><![CDATA[]]></description>
+			<in>cdmObj</in>
+			<message>=outputType</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<visual>
+				<position x="539" y="578"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Custom4" uid="eca777aa-7ad6-4cdb-b690-95393bff652c" type="Custom" xsi:type="Custom" >
+			<label>Construct names</label>
+			<description><![CDATA[]]></description>
+			<code><![CDATA[mapName = inputType + "ToCDMV1_" + cdmName;
+outputType = "CDM_" + cdmName + "V1";
+]]></code>
+			<visual>
+				<position x="536" y="149"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Validate2" uid="c1bd840a-9aaf-4cd2-b2dc-e6400b771cdb" type="Validate" xsi:type="Validate" >
+			<label>MIG Validation for PEXR</label>
+			<description><![CDATA[]]></description>
+			<in>pexrObj</in>
+			<message>=inputType</message>
+			<cascade-exceptions>true</cascade-exceptions>
+			<validation-name>="Default"
+//((cdmName == "CustomerCreditTransferInitiation")? "CreditTransfer": "DirectDebit")</validation-name>
+			<visual>
+				<position x="535" y="327"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Resume1" uid="8bf2824c-dcc5-4a8a-bdad-5d6e555e51e1" type="Resume" xsi:type="Resume" >
+			<label>Resume</label>
+			<visual>
+				<position x="683" y="578"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Throw1" uid="87770e9b-d507-459a-ae5d-bd8ba12f537e" type="Throw" xsi:type="Throw" >
+			<label>Throw</label>
+			<description><![CDATA[]]></description>
+			<in>exObj</in>
+			<visual>
+				<position x="672" y="650"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="d1a9f8f0-267d-4ea8-a0f8-dfaa8ceb7cfa" portindex="1"/>
+			<inputport uid="860940bf-9775-4b33-bf88-eefc9452d928" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="860940bf-9775-4b33-bf88-eefc9452d928" portindex="1"/>
+			<inputport uid="ad690bd7-64ef-4f48-a1c2-bc7256020d16" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="ad690bd7-64ef-4f48-a1c2-bc7256020d16" portindex="1"/>
+			<inputport uid="150cc900-a2d4-4d6b-b290-373529e23bbb" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="150cc900-a2d4-4d6b-b290-373529e23bbb" portindex="1"/>
+			<inputport uid="b8952f6c-4eea-40de-9d78-5549df75d20d" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="eca777aa-7ad6-4cdb-b690-95393bff652c" portindex="1"/>
+			<inputport uid="a7e169f8-b0d8-44f8-90d8-85237cc744b3" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="1baf5f84-c53c-4df4-a677-f342412252ba" portindex="0"/>
+			<inputport uid="eca777aa-7ad6-4cdb-b690-95393bff652c" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="a7e169f8-b0d8-44f8-90d8-85237cc744b3" portindex="1"/>
+			<inputport uid="c1bd840a-9aaf-4cd2-b2dc-e6400b771cdb" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="c1bd840a-9aaf-4cd2-b2dc-e6400b771cdb" portindex="1"/>
+			<inputport uid="d1a9f8f0-267d-4ea8-a0f8-dfaa8ceb7cfa" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>true</cascade-exceptions>
+			<outputport uid="ad690bd7-64ef-4f48-a1c2-bc7256020d16" portindex="2"/>
+			<inputport uid="8bf2824c-dcc5-4a8a-bdad-5d6e555e51e1" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<link type="Exception" xsi:type="Exception">
+			<message>TransformException</message>
+			<out>exObj</out>
+			<cascade-exceptions>true</cascade-exceptions>
+			<outputport uid="150cc900-a2d4-4d6b-b290-373529e23bbb" portindex="2"/>
+			<inputport uid="87770e9b-d507-459a-ae5d-bd8ba12f537e" portindex="0"/>
+			<edge-type>ELBOW</edge-type>
+		</link>
+		<visual>
+			<bounds x="499" y="62" width="226" height="677"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Tue Aug 13 13:47:11 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="Additional_CGI_ISOLibrary"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:13 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="298"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Mappings\CDMV1\PEXR\PEXRLibrary\Common_PEXRLibrary.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+						<property name="additionalClasspath" value=""/>
+						<property name="debugInfo" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">Common_PEXRLibrary</selected-element>
+	</workspace>
+</cartridge>
+

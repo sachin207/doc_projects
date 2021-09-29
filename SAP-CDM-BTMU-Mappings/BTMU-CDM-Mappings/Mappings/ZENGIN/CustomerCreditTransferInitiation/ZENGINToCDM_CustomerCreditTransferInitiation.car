@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="ZENGINToCDM_CustomerCreditTransferInitiation" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="ZenginFundTransferToCDM_CustomerCreditTransferInitiation" version="1.0" type="Mapping">
+			</service>
+			<service name="BTMU_ZENGINToCDM_CstmrCdtTrfInitn" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<service name="BTMU_ZENGINToCDM_CstmrCdtTrfInitnFSN" version="1.2" type="Message Flow">
+				<entry-point>true</entry-point>
+			</service>
+			<function name="copyAny"/>
+			<function name="createXMLAnyElement"/>
+			<function name="isObjectEmpty"/>
+			<function name="SecRemoveEmpty"/>
+			<function name="IsValidBigDecimal"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="SecAddOrGetElement"/>
+			<function name="isExceptionRunTime"/>
+			<function name="isExceptionRunTime"/>
+			<function name="containsRunTimeException"/>
+			<function name="isPresent"/>
+			<function name="StripBrackets"/>
+			<function name="GetNonNullFieldsFromDiffObj"/>
+			<function name="CheckFieldExists"/>
+			<function name="CheckFieldExists"/>
+			<function name="SetBasicParams"/>
+			<function name="SetFSNMessageNames"/>
+			<function name="AddCallBack"/>
+			<function name="SetFilteringParams"/>
+			<function name="setTypeCode"/>
+			<function name="SetCartridgeDetails"/>
+			<function name="SetValidationList"/>
+			<function name="SetAllowMultipleInput"/>
+			<function name="SetParserFlow"/>
+			<function name="SetMapperName"/>
+			<function name="TypeCastToMapperParams"/>
+			<function name="SetMessageID"/>
+			<function name="setDataObjProperty"/>
+			<function name="setDataObjProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="setRawMsgProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getDataObjProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="getRawMsgProperty"/>
+			<function name="isInputFSNXML"/>
+			<function name="SetThresholdsOnFilteringSide"/>
+			<function name="mapToCDMExc"/>
+			<function name="setStackTrace"/>
+			<function name="RawMessageToBase64Binary"/>
+			<function name="Base64BinaryToRawMessage"/>
+			<function name="getPropFromExtHeader"/>
+			<function name="containsTechnicalException"/>
+			<function name="assignToContainer"/>
+			<function name="getAllMessageContents"/>
+			<function name="getPropertyFromExObj"/>
+			<function name="getErrorTrace"/>
+			<function name="getInternalCode"/>
+			<function name="getErrorType"/>
+			<function name="getErrorPhase"/>
+			<function name="setAllToValue"/>
+			<function name="GetLFLen"/>
+			<function name="removePadChar"/>
+			<function name="addPadchar"/>
+			<function name="IsValidName"/>
+			<function name="StructuredLength"/>
+			<function name="BICBEIorOthr"/>
+			<function name="DPBorOthr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BIC_ClrSysMmbId_Or_Nm"/>
+			<function name="BIC_ClrSysMmbId_Or_Othr"/>
+			<function name="IsUnique"/>
+			<function name="BICBEIorOthr"/>
+			<function name="getIndexInErrList"/>
+			<function name="getPaymentSection"/>
+			<function name="getSectionUsingQualName"/>
+			<function name="reverseObjectsInSection"/>
+			<function name="getTransacIDsWithinGroup"/>
+			<function name="getAllTransacIDsInMsg"/>
+			<function name="setIDsOnExc"/>
+			<function name="getTransacIDWithinTransac"/>
+			<function name="getSecIndexFromExcFldID"/>
+			<function name="setXPATH"/>
+			<function name="getValidationList"/>
+			<function name="getCallBacksOfGivenType"/>
+			<function name="computeAmount"/>
+			<function name="validateFiltering"/>
+			<function name="getThreshold"/>
+			<function name="ApplyDiffOnMapperParams"/>
+			<function name="AddElmsInSrcSecToDestSec"/>
+			<function name="ApplyFilteringSideDiff"/>
+			<function name="RemoveExcProperty"/>
+			<function name="getRecordCount"/>
+		</summary>
+	</private>
+	<references type="References">
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Messages\CDM\V1\CDMV1Messages.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\FSNProcessor\Mappings_FSNProcessor.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\BTMU_ZENGIN\BTMU_ZENGIN.car</relative-path>
+			<absolute-path>E:\Testing\Search\BTMU-CDM-Mappings\Messages\BTMU_ZENGIN\BTMU_ZENGIN.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\..\SAP-CDM-Mappings\Mappings\Library\GenericMapper\GenericMapper.car</relative-path>
+			<absolute-path>E:\Testing\Search\SAP-CDM-Mappings\Mappings\Library\GenericMapper\GenericMapper.car</absolute-path>
+		</reference>
+		<reference>
+			<type>Cartridge</type>
+			<relative-path>..\..\..\Messages\BTMU_MessageTypeValue\BTMU_MessageTypeValue.car</relative-path>
+			<absolute-path>E:\Testing\Search\BTMU-CDM-Mappings\Messages\BTMU_MessageTypeValue\BTMU_MessageTypeValue.car</absolute-path>
+		</reference>
+	</references>
+	<messagemapping rulename="ZenginFundTransferToCDM_CustomerCreditTransferInitiation" type="MessageMapping">
+		<source>ZenginFundTransfer</source>
+		<destination>CDM_CustomerCreditTransferInitiationV1</destination>
+		<mappingrules>
+			<mappings>
+				<mapping type="formula">
+					<source-field><![CDATA[Account_Number + Remitting_Branch_Code + Remitting_Bank_Code + FormatDate (Execution_date, "yyMMdd");]]></source-field>
+					<destination-field>GroupHeader.MessageIdentification</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[ToISODate(now(), 0)]]></source-field>
+					<destination-field>GroupHeader.CreationDateTime</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[toText(Record.$size)]]></source-field>
+					<destination-field>GroupHeader.NumberOfTransactions</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Name of Ordering Customer</source-field>
+					<destination-field>GroupHeader.InitiatingParty.Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[self.GroupHeader.MessageIdentification + "/TRN"]]></source-field>
+					<destination-field>PaymentInformation.PaymentInformationIdentification</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA["TRF"]]></source-field>
+					<destination-field>PaymentInformation.PaymentMethod</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[toText(Record.$size)]]></source-field>
+					<destination-field>PaymentInformation.NumberOfTransactions</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[Record.SecSum("Amount_of_Transfer").ToBigDecimal()]]></source-field>
+					<destination-field>PaymentInformation.ControlSum</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[def dt = Date(today().year(), Execution_date.month(), Execution_date.day());
+ToISODate(dt, 0)]]></source-field>
+					<destination-field>PaymentInformation.RequestedExecutionDate</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Name of Ordering Customer</source-field>
+					<destination-field>PaymentInformation.Debtor.Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[Remitting_Bank_Code + Remitting_Branch_Code + val(Account_Type) + Account_Number]]></source-field>
+					<destination-field>PaymentInformation.DebtorAccount.Identification.Other.Identification</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[def val;
+if (Account_Type == "1")
+	val = "CASH";
+else if (Account_Type == "2")
+	val = "SACC";
+else if (Account_Type == "4")
+	val = "SVGS";
+else if (Account_Type == "9")
+	val = "CACC";
+
+Set (val);]]></source-field>
+					<destination-field>PaymentInformation.DebtorAccount.Type.Code</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Name of Remitting Bank</source-field>
+					<destination-field>PaymentInformation.DebtorAgent.FinancialInstitutionIdentification.Name</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Remitting Bank Code</source-field>
+					<destination-field>PaymentInformation.DebtorAgent.FinancialInstitutionIdentification.Other.Identification</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Remitting Branch Code</source-field>
+					<destination-field>PaymentInformation.DebtorAgent.BranchIdentification.Identification</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Name of Remitting Branch</source-field>
+					<destination-field>PaymentInformation.DebtorAgent.BranchIdentification.Name</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[self.PaymentInformation.PaymentInformationIdentification + "/" + self.PaymentInformation.CreditTransferTransactionInformation.$size]]></source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.PaymentIdentification.EndToEndIdentification</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA["JPY"]]></source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount.Ccy</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[Record.Amount_of_Transfer.ToBigDecimal()]]></source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.Amount.InstructedAmount.Value</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record.Beneficiary Bank Name</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.CreditorAgent.FinancialInstitutionIdentification.Name</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record.Beneficiary Bank Code</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.CreditorAgent.FinancialInstitutionIdentification.Other.Identification</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record.Beneficiary Branch Code</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.CreditorAgent.BranchIdentification.Identification</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record.Beneficiary Branch Name</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.CreditorAgent.BranchIdentification.Name</destination-field>
+				</mapping>
+				<mapping type="one2one">
+					<source-field>Record.Name of Beneficiary</source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.Creditor.Name</destination-field>
+				</mapping>
+				<mapping type="formula">
+					<source-field><![CDATA[Record.Beneficiary_Bank_Code + Record.Beneficiary_Branch_Code + 
+  Val(Record.Account_Type) + Record.Account_Number]]></source-field>
+					<destination-field>PaymentInformation.CreditTransferTransactionInformation.CreditorAccount.Identification.Other.Identification</destination-field>
+				</mapping>
+			</mappings>
+		</mappingrules>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.mapping.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messagemapping>
+	<messageflow name="BTMU_ZENGINToCDM_CstmrCdtTrfInitn" type="MessageFlow">
+		<version>1.2</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Start1" uid="7b4900f1-99d9-473a-b3aa-f160641020ff" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="422" y="39"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Invoke1" uid="b2642e41-cf04-40c1-9cef-2561b5ad4371" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Flow</label>
+			<description><![CDATA[]]></description>
+			<name>BTMU_ZENGINToCDM_CstmrCdtTrfInitnFSN</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="422" y="106"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop1" uid="50036daf-1155-4248-b145-57fdd28cb9b8" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="174"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="b2642e41-cf04-40c1-9cef-2561b5ad4371" portindex="1"/>
+			<inputport uid="50036daf-1155-4248-b145-57fdd28cb9b8" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="7b4900f1-99d9-473a-b3aa-f160641020ff" portindex="0"/>
+			<inputport uid="b2642e41-cf04-40c1-9cef-2561b5ad4371" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="388" y="25" width="73" height="163"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<messageflow name="BTMU_ZENGINToCDM_CstmrCdtTrfInitnFSN" type="MessageFlow">
+		<version>1.2</version>
+		<transaction>NotRequired</transaction>
+		<variables>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<fields>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>INPUT</variabletype>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<minoccurs>0</minoccurs>
+					<maxoccurs>1</maxoccurs>
+					<variabletype>LOCAL</variabletype>
+					<message>FSNParams</message>
+					<fields>
+					</fields>
+				</field>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<notnull>true</notnull>
+					<variabletype>OUTPUT</variabletype>
+				</field>
+			</fields>
+		</variables>
+		<additional-properties>
+			<property name="main-flow" value="true"/>
+		</additional-properties>
+		<flowelement name="Invoke2" uid="919056a3-b079-41fe-9929-afae938684d6" type="Invoke" xsi:type="Invoke" >
+			<label>Invoke FSN Processor</label>
+			<description><![CDATA[]]></description>
+			<name>SAP_FW_FSNProcessor</name>
+			<cascade-exceptions>true</cascade-exceptions>
+			<input>
+				<field>
+					<name>rawIn</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawIn]]></value>
+					<notnull>true</notnull>
+				</field>
+				<field>
+					<name>fsnParamsObj</name>
+					<type>DataObject</type>
+					<value><![CDATA[fsnParamsObj]]></value>
+					<notnull>true</notnull>
+				</field>
+			</input>
+			<output>
+				<field>
+					<name>rawOut</name>
+					<type>RawMessage</type>
+					<value><![CDATA[rawOut]]></value>
+					<notnull>true</notnull>
+				</field>
+			</output>
+			<visual>
+				<position x="422" y="199"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Create1" uid="5c4a93c7-9c8a-4ceb-a4bd-0f35b520e293" type="Create" xsi:type="Create" >
+			<label>Create Framework Params</label>
+			<description><![CDATA[]]></description>
+			<out>fsnParamsObj</out>
+			<message>FSNParams</message>
+			<init>fsnParamsObj.SetFSNMessageNames (
+	FSNMSGTYPE.ZENGIN_FUNDS_TRANSFER,
+		FSNMSGTYPE.CUST_CREDIT_TRANSFER_INIT_1_0
+);
+
+fsnParamsObj.SetBasicParams(
+	"ZenginFundTransfer",
+		"ZenginFundTransferToCDM_CustomerCreditTransferInitiation",
+			"CDM_CustomerCreditTransferInitiationV1"
+);
+
+fsnParamsObj.SetCartridgeDetails (
+	"BTMU_ZENGINToCDM_CstmrCdtTrfInitnFSN", "1.2"
+);
+</init>
+			<visual>
+				<position x="423" y="112"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Stop2" uid="f683ee0d-e029-484f-9903-090e6ccf8e8b" type="Stop" xsi:type="Stop" >
+			<label>Stop</label>
+			<visual>
+				<position x="422" y="267"/>
+			</visual>
+		</flowelement>
+		<flowelement name="Start2" uid="aa124dd8-7f43-4312-ac7e-f3617613ffd7" type="Start" xsi:type="Start" >
+			<label>Start</label>
+			<visual>
+				<position x="423" y="39"/>
+			</visual>
+		</flowelement>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="aa124dd8-7f43-4312-ac7e-f3617613ffd7" portindex="0"/>
+			<inputport uid="5c4a93c7-9c8a-4ceb-a4bd-0f35b520e293" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="919056a3-b079-41fe-9929-afae938684d6" portindex="1"/>
+			<inputport uid="f683ee0d-e029-484f-9903-090e6ccf8e8b" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<link type="Default" xsi:type="Default">
+			<outputport uid="5c4a93c7-9c8a-4ceb-a4bd-0f35b520e293" portindex="1"/>
+			<inputport uid="919056a3-b079-41fe-9929-afae938684d6" portindex="0"/>
+			<edge-type>DIRECT</edge-type>
+		</link>
+		<visual>
+			<bounds x="388" y="25" width="73" height="256"/>
+		</visual>
+		<elementproperties>
+			<propertymap>
+				<property name="codegen.java.properties">
+					<value>
+						<propertymap type="com.tplus.transform.design.PropertiesDef">
+							<property name="Java Package Name" value="com.transform.flow.%e"/>
+							<property name="Jar Name" value="%c.jar"/>
+							<property name="Manifest Entries" value="transformrt.jar"/>
+							<property name="Data Source" value=""/>
+							<property name="Generate MDB" value="false"/>
+						</propertymap>
+					</value>
+				</property>
+			</propertymap>
+		</elementproperties>
+	</messageflow>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Mon Jun 24 10:34:15 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="ZENGINToCDM_CustomerCreditTransferInitiation"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:49:59 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="185"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\BTMU-CDM-Mappings\Mappings\ZENGIN\CustomerCreditTransferInitiation\ZENGINToCDM_CustomerCreditTransferInitiation.car"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="isJBoss" value="true"/>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+						<property name="isOSGI" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="include-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="isOrion" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isGeronimo" value="true"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.bindings">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.general">
+				<value>
+					<propertymap>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">SAP-CDM-BTMU-Mappings/Current/BTMU-CDM-Mappings/Mappings/ZENGIN/CustomerCreditTransferInitiation/ZENGINToCDM_CustomerCreditTransferInitiation/BTMU_ZENGINToCDM_CstmrCdtTrfInitnFSN</selected-element>
+	</workspace>
+</cartridge>
+

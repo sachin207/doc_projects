@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.2" name="FSNException" type="Cartridge">
+	<version>1.0</version>
+	<private>
+		<summary>
+			<service name="FSNException" version="1.0" type="External Message">
+			</service>
+		</summary>
+	</private>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="5.0" rulename="FSNException" formattype="XMLFormat" >
+		<standard>XML</standard>
+		<standard-name>http://sapcd.com/fsnagt</standard-name>
+		<version>1.0</version>
+		<xmlfields>
+			<xml-options>
+				<xsd><![CDATA[ErrorMessage_v0p2.xsd]]></xsd>
+				<batch>false</batch>
+				<root-tag namespace="http://sapcd.com/fsnagt">ErrorMessage</root-tag>
+				<record-tag namespace="http://sapcd.com/fsnagt">ErrorMessage</record-tag>
+				<ignore-fixed-attributes>false</ignore-fixed-attributes>
+				<ignore-fixed-elements>false</ignore-fixed-elements>
+				<validate>false</validate>
+				<validate-with-schema>false</validate-with-schema>
+				<namespace-aware>true</namespace-aware>
+				<allow-type-substitution>ALWAYS</allow-type-substitution>
+				<model-flattener-options>
+					<flatten-choice>false</flatten-choice>
+					<flatten-optional-group>false</flatten-optional-group>
+				</model-flattener-options>
+			</xml-options>
+			<entity-references>
+				<entity-reference>ErrorMessage_v0p2.xsd</entity-reference>
+			</entity-references>
+			<doc-type-decl></doc-type-decl>
+			<xml-attributes>
+				<xml-attribute name="version" value="1.0"/>
+				<xml-attribute name="encoding" value="UTF-8"/>
+			</xml-attributes>
+			<namespaces>
+				<namespace value="http://sapcd.com/fsnagt" prefix="targetnamespace" root="true"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema-instance" prefix="xsi" root="true"/>
+			</namespaces>
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<headerfields>
+				<model>sequence</model>
+			</headerfields>
+			<datafields>
+				<model>sequence</model>
+				<field xsi:type="XMLFieldType">
+					<name>ErrorGenerationDateTime</name>
+					<datatype>ISODateTime</datatype>
+					<required>true</required>
+					<dateformat>%Y-%M-%DT%h:%m:%s%z</dateformat>
+					<xmltype>dateTime</xmltype>
+					<node-type>element</node-type>
+					<field-attributes>
+						<field-attribute name="xmlType">dateTime</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLFieldType">
+					<name>MappingName</name>
+					<datatype>String</datatype>
+					<required>false</required>
+					<xmltype>string</xmltype>
+					<node-type>element</node-type>
+					<field-attributes>
+						<field-attribute name="xmlType">string</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLFieldType">
+					<name>MappingVersionID</name>
+					<datatype>String</datatype>
+					<required>false</required>
+					<xmltype>token</xmltype>
+					<node-type>element</node-type>
+					<field-attributes>
+						<field-attribute name="xmlType">token</field-attribute>
+					</field-attributes>
+				</field>
+				<field xsi:type="XMLSectionType">
+					<name>TransformationException</name>
+					<datatype>Section</datatype>
+					<minoccurs>1</minoccurs>
+					<maxoccurs>-1</maxoccurs>
+					<node-type>element</node-type>
+					<fields>
+						<model>sequence</model>
+						<field xsi:type="XMLSectionType">
+							<name>Reference</name>
+							<datatype>Section</datatype>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>-1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<model>sequence</model>
+								<field xsi:type="XMLFieldType">
+									<name>ID</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xmltype>token</xmltype>
+									<node-type>element</node-type>
+									<field-attributes>
+										<field-attribute name="xmlType">token</field-attribute>
+									</field-attributes>
+								</field>
+							</fields>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>TypeCode</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>Message</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>ErrorCode</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>SeverityCode</name>
+							<datatype>String</datatype>
+							<required>true</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>CascadableIndicator</name>
+							<datatype>Boolean</datatype>
+							<required>true</required>
+							<xmltype>boolean</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">boolean</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>FieldName</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>FieldID</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>MessageXPath</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>string</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>InternalCode</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>ErrorPhaseCode</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLFieldType">
+							<name>ErrorTypeCode</name>
+							<datatype>String</datatype>
+							<required>false</required>
+							<xmltype>token</xmltype>
+							<node-type>element</node-type>
+							<field-attributes>
+								<field-attribute name="xmlType">token</field-attribute>
+							</field-attributes>
+						</field>
+						<field xsi:type="XMLSectionType">
+							<name>Trace</name>
+							<datatype>Section</datatype>
+							<minoccurs>0</minoccurs>
+							<maxoccurs>-1</maxoccurs>
+							<node-type>element</node-type>
+							<fields>
+								<model>sequence</model>
+								<field xsi:type="XMLFieldType">
+									<name>Value</name>
+									<datatype>String</datatype>
+									<required>true</required>
+									<xmltype>string</xmltype>
+									<node-type>value</node-type>
+								</field>
+							</fields>
+							<field-attributes>
+								<field-attribute name="xmlType">string</field-attribute>
+							</field-attributes>
+						</field>
+					</fields>
+					<field-attributes>
+						<field-attribute name="xmlType">TransformationExceptionType</field-attribute>
+					</field-attributes>
+				</field>
+			</datafields>
+			<trailerfields>
+				<model>sequence</model>
+			</trailerfields>
+		</xmlfields>
+		<validationrules name="Default">
+			<hdrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</hdrvalidationrules>
+			<datavalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</datavalidationrules>
+			<tlrvalidationrules>
+				<fieldvalidations>
+				</fieldvalidations>
+			</tlrvalidationrules>
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</externalmessage>
+	<elementproperties>
+		<propertymap>
+			<property name="DOCUMENT_PROPERTIES">
+				<value>
+					<propertymap>
+						<property name="Creation Time" value="Wed Sep 18 10:43:25 IST 2013"/>
+						<property name="Author" value="Partha"/>
+						<property name="Title" value="FSNException"/>
+						<property name="Client Id" value="Kanmani_08Oct13Win@Volante.com"/>
+						<property name="Last Author" value="HOME"/>
+						<property name="Last Save Time" value="Wed Oct 09 11:50:15 IST 2013"/>
+						<property name="Designer Build" value="1432"/>
+						<property name="Revision Number" value="8"/>
+					</propertymap>
+				</value>
+			</property>
+			<property name="CARTRIDGE_INFO">
+				<value>
+					<propertymap type="com.tplus.transform.design.CartridgeInfo">
+						<property name="GeneratedFiles">
+							<value>
+								<propertymap>
+								</propertymap>
+							</value>
+						</property>
+						<property name="cartridgefilename" value="E:\Testing\Search\SAP-CDM-Mappings\Messages\FSNException\FSNException.car"/>
+					</propertymap>
+				</value>
+			</property>
+		</propertymap>
+	</elementproperties>
+	<workspace>
+		<selected-element root="">FSNException/FSNException/External Format</selected-element>
+	</workspace>
+</cartridge>
+
