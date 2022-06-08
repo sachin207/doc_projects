@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0.0" name="EJB" type="Cartridge">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1-SNAPSHOT" name="EJB" type="Cartridge" id="9f9c8d7d-1426-460a-83f5-4c45897590c1">
 	<description><![CDATA[This cartridge illustrates an XML Batched DTD message.
 
 To run,
@@ -11,10 +11,19 @@ To run,
 The consolidated output will be displayed in the Output pane. 
 ]]></description>
 	<version>1.0</version>
-	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="5.0" rulename="EJBDTDExternal" formattype="XMLFormat" >
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="EJBDTDExternal" version="1.0" type="Batch Message">
+			</service>
+			<service name="IM" version="1.0" type="Internal Message">
+			</service>
+		</summary>
+	</private>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.1-SNAPSHOT" rulename="EJBDTDExternal" formattype="XMLFormat" id="ea6e22c4-578c-40e4-92c1-6548f62fdf76" >
 		<standard>XML</standard>
 		<version>1.0</version>
-		<xmlfields>
+		<xmlfields id="668af8b0-4b6f-4ce3-aa1b-56c668b0b4aa">
 			<xml-options>
 				<dtd><![CDATA[ejb-jar.dtd]]></dtd>
 				<batch>true</batch>
@@ -26,10 +35,12 @@ The consolidated output will be displayed in the Output pane.
 				<validate>false</validate>
 				<validate-with-schema>false</validate-with-schema>
 				<namespace-aware>false</namespace-aware>
+				<enable-external-entities>false</enable-external-entities>
 				<allow-type-substitution>ALWAYS</allow-type-substitution>
 				<model-flattener-options>
 					<flatten-choice>false</flatten-choice>
 					<flatten-optional-group>false</flatten-optional-group>
+					<flatten-named-group>true</flatten-named-group>
 				</model-flattener-options>
 			</xml-options>
 			<entity-references>
@@ -674,7 +685,7 @@ The consolidated output will be displayed in the Output pane.
 				<model>sequence</model>
 			</trailerfields>
 		</xmlfields>
-		<validationrules name="Default">
+		<validationrules name="Default" type="FieldsValidationRules" id="c363e364-ce00-4870-9e3b-7dbc0397daf9">
 			<hdrvalidationrules>
 				<fieldvalidations>
 				</fieldvalidations>
@@ -703,95 +714,32 @@ The consolidated output will be displayed in the Output pane.
 			</propertymap>
 		</elementproperties>
 	</externalmessage>
+	<internalmessage name="IM" type="InternalMessage" id="d97faaa1-27c1-415e-977e-82d8d6377279">
+		<version>1.0</version>
+		<normalizedformat id="969eeeef-a22e-4a6e-bb9d-c92208a00e49">
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<formatOptions>
+			<feature-secure-processing>true</feature-secure-processing>
+			</formatOptions>
+			<fields>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules" id="6b6ad7a0-714a-4eb2-b550-d7278948013a">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
 	<elementproperties>
 		<propertymap>
 			<property name="CARTRIDGE_INFO">
 				<value>
 					<propertymap type="com.tplus.transform.design.CartridgeInfo">
-						<property name="GeneratedFiles">
-							<value>
-								<propertymap>
-									<property name="Java/EJB">
-										<value>
-											<propertymap>
-												<property name="assembly">
-													<value>
-														<propertylist>
-															<value>
-																<propertymap type="com.tplus.transform.design.AssemblyInfo">
-																	<property name="groupId" value="com.volantetech.volante.cartridge"/>
-																	<property name="name" value="D:\ExternalMessages\XML\DTD\Batched\java\EJB.jar"/>
-																	<property name="artifactId" value="cartridge-EJB"/>
-																	<property name="type" value="assembly"/>
-																	<property name="version" value="1.0"/>
-																</propertymap>
-															</value>
-														</propertylist>
-													</value>
-												</property>
-												<property name="DEPENDENCY">
-													<value>
-														<propertylist>
-															<value>
-																<propertymap type="com.tplus.transform.design.ModuleInfo">
-																	<property name="groupId" value="com.volantetech.volante"/>
-																	<property name="name" value="C:\Program Files (x86)\Releases\Volante-May24-Outbox-Prog-Split\lib\runtime\xmlrt.jar"/>
-																	<property name="artifactId" value="volante-xml"/>
-																	<property name="type" value="DEPENDENCY"/>
-																	<property name="version" value="5.0.0"/>
-																</propertymap>
-															</value>
-															<value>
-																<propertymap type="com.tplus.transform.design.ModuleInfo">
-																	<property name="groupId" value="com.volantetech.volante"/>
-																	<property name="name" value="C:\Program Files (x86)\Releases\Volante-May24-Outbox-Prog-Split\lib\runtime\transformrt.jar"/>
-																	<property name="artifactId" value="volante-core"/>
-																	<property name="type" value="DEPENDENCY"/>
-																	<property name="version" value="5.0.0"/>
-																</propertymap>
-															</value>
-														</propertylist>
-													</value>
-												</property>
-											</propertymap>
-										</value>
-									</property>
-								</propertymap>
-							</value>
-						</property>
-						<property name="cartridgefilename" value="D:\ExternalMessages\XML\DTD\Batched\ejb.car"/>
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.cpp.bindings">
-				<value>
-					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.java.options">
-				<value>
-					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
-						<property name="isJBoss" value="true"/>
-						<property name="resource-references">
-							<value>
-								<propertylist>
-								</propertylist>
-							</value>
-						</property>
-						<property name="isOSGI" value="true"/>
-						<property name="isGenerateALSB" value="false"/>
-						<property name="isEJB" value="true"/>
-						<property name="isOrion" value="true"/>
-						<property name="isWebSphere" value="true"/>
-						<property name="isVolante" value="true"/>
-						<property name="isRemote" value="true"/>
-						<property name="isLocal" value="true"/>
-						<property name="isWebLogic" value="true"/>
-						<property name="isGeronimo" value="true"/>
-						<property name="isGenerateJNDILinks" value="true"/>
-						<property name="isWLEVS" value="false"/>
-						<property name="isGenerateEAR" value="false"/>
 					</propertymap>
 				</value>
 			</property>
@@ -800,19 +748,16 @@ The consolidated output will be displayed in the Output pane.
 					<propertymap>
 						<property name="Author" value="Ajay"/>
 						<property name="Creation Time" value="Thu Dec 09 09:37:52 IST 2004"/>
-						<property name="Client Id" value="swarna@volantetech.com"/>
-						<property name="Last Author" value="user"/>
-						<property name="Last Save Time" value="Mon Jun 03 09:48:06 IST 2013"/>
-						<property name="Designer Build" value="1320"/>
-						<property name="Revision Number" value="13"/>
+						<property name="Designer Build" value="2780"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Wed Jun 08 05:50:54 UTC 2022"/>
+						<property name="Revision Number" value="15"/>
 					</propertymap>
 				</value>
 			</property>
-			<property name="codegen.java.properties">
+			<property name="codegen.cpp.bindings">
 				<value>
-					<propertymap type="com.tplus.transform.design.PropertiesDef">
-						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
-						<property name="Max Class Length" value="150"/>
+					<propertymap type="com.tplus.transform.design.codegen.DefaultLanguageMapping">
 					</propertymap>
 				</value>
 			</property>
@@ -828,10 +773,54 @@ The consolidated output will be displayed in the Output pane.
 					</propertymap>
 				</value>
 			</property>
+			<property name="codegen.java.options">
+				<value>
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="false"/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="false"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
+							<value>
+								<propertylist>
+								</propertylist>
+							</value>
+						</property>
+					</propertymap>
+				</value>
+			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+						<property name="Max Class Length" value="150"/>
+					</propertymap>
+				</value>
+			</property>
 		</propertymap>
 	</elementproperties>
-	<workspace>
-		<selected-element>EJB</selected-element>
-	</workspace>
 </cartridge>
 
