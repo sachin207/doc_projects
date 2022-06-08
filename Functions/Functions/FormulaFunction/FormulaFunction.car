@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.0-SNAPSHOT" name="FormulaFunction" type="Cartridge" id="d8ad6c39-8bcc-4446-bae6-9d79dbe73e93">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1-SNAPSHOT" name="FormulaFunction" type="Cartridge" id="d8ad6c39-8bcc-4446-bae6-9d79dbe73e93">
 	<description><![CDATA[This Cartridge illustrates user-defined functions that use the formula language for implementation of the function operation.
 
 It defines functions min(), secSumDouble1() and secSumDouble2() and uses them in the 'Validation Rules' node of the external message 'TestMessage'.
@@ -34,6 +34,7 @@ The message will be parsed and validated. Validation errors will be displayed in
 		</resourcefields>
 	</resources>
 	<folder name="Function Definitions" type="FunctionDefFolder" id="d7af164e-0332-435f-9376-43879138005d">
+		<description><![CDATA[To test the Function Def]]></description>
 		<FormulaFunctionDef name="min" type="FormulaFunctionDef" id="fba26955-4659-47b8-8142-5e7073f796e0">
 			<description>min of value</description>
 			<Category>User Defined</Category>
@@ -105,7 +106,7 @@ return sum;
 			</propertymap>
 		</elementproperties>
 	</folder>
-	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.0-SNAPSHOT" rulename="OrderMessage" formattype="XMLFormat" id="48106587-b3db-4938-ae72-e483d5f75cfb" >
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.1-SNAPSHOT" rulename="OrderMessage" formattype="XMLFormat" id="48106587-b3db-4938-ae72-e483d5f75cfb" >
 		<standard>XML</standard>
 		<version>1.0</version>
 		<xmlfields id="fbcabd7d-12c4-4a90-b529-e3afd716d684">
@@ -245,12 +246,11 @@ return sum;
 				<value>
 					<propertymap>
 						<property name="Author" value="Krish"/>
-						<property name="Client Id" value="sachin.jaiswal@volantetech.com"/>
 						<property name="Creation Time" value="Sat Apr 22 11:15:41 IST 2006"/>
-						<property name="Designer Build" value="2025"/>
-						<property name="Last Author" value="sachin.jaiswal"/>
-						<property name="Last Save Time" value="Wed Sep 15 19:51:55 IST 2021"/>
-						<property name="Revision Number" value="80"/>
+						<property name="Designer Build" value="2780"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Wed Jun 08 06:16:22 UTC 2022"/>
+						<property name="Revision Number" value="82"/>
 						<property name="Title" value="testfuns"/>
 					</propertymap>
 				</value>
