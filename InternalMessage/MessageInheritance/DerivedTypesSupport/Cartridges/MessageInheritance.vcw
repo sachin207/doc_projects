@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="DerivedTypes" type="Cartridge">
+	<cartridgefilename>/projects/gitrepo1/doc_projects-2/InternalMessage/MessageInheritance/DerivedTypesSupport/Cartridges/MessageInheritance.car</cartridgefilename>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>
