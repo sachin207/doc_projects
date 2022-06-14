@@ -59,8 +59,13 @@ The complete object data will be serialized in the 'rawOut']]></description>
 					<notnull>true</notnull>
 				</field>
 				<field xsi:type="InternalMessageFieldType">
+<<<<<<< HEAD
 					<name>DateModified</name>
 					<type>DateTime</type>
+=======
+					<name>Date</name>
+					<type>String</type>
+>>>>>>> a524a446e4874203688da20181b9870b41c5ef32
 					<notnull>true</notnull>
 				</field>
 				<field xsi:type="InternalMessageFieldType">
@@ -416,7 +421,11 @@ The complete object data will be serialized in the 'rawOut']]></description>
 						<property name="Creation Time" value="Wed Sep 20 14:35:41 IST 2017"/>
 						<property name="Designer Build" value="2780"/>
 						<property name="Last Author" value="root"/>
+<<<<<<< HEAD
 						<property name="Last Save Time" value="Tue Jun 14 09:00:24 UTC 2022"/>
+=======
+						<property name="Last Save Time" value="Tue Jun 14 08:59:19 UTC 2022"/>
+>>>>>>> a524a446e4874203688da20181b9870b41c5ef32
 						<property name="Revision Number" value="128"/>
 						<property name="Title" value="DemoCart-2"/>
 					</propertymap>
