@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <order>
 	<Records>
-		<Fld2>Fld2</Fld2>
+		<Fld2>Fld1</Fld2>
 		<Fld3>Fld3</Fld3>
 		<IntFld>100</IntFld>
 	</Records>
