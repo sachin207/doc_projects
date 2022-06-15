@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1-SNAPSHOT" name="FormulaFunction" type="Cartridge" id="d8ad6c39-8bcc-4446-bae6-9d79dbe73e93">
-	<description><![CDATA[This Cartridge illustrates user-defined functions that use the formula language for implementation of the function operation.
+	<description><![CDATA[This Cartridge is to verify the function
 
 It defines functions min(), secSumDouble1() and secSumDouble2() and uses them in the 'Validation Rules' node of the external message 'TestMessage'.
 
@@ -249,8 +249,8 @@ return sum;
 						<property name="Creation Time" value="Sat Apr 22 11:15:41 IST 2006"/>
 						<property name="Designer Build" value="2780"/>
 						<property name="Last Author" value="root"/>
-						<property name="Last Save Time" value="Thu Jun 09 08:37:00 UTC 2022"/>
-						<property name="Revision Number" value="82"/>
+						<property name="Last Save Time" value="Wed Jun 15 09:03:00 UTC 2022"/>
+						<property name="Revision Number" value="84"/>
 						<property name="Title" value="testfuns"/>
 					</propertymap>
 				</value>
