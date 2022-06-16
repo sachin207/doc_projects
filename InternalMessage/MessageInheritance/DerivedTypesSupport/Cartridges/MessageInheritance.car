@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.2.2" name="DerivedTypes" type="Cartridge">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1-SNAPSHOT" name="DerivedTypes" type="Cartridge" id="6401f4f9-4438-4769-8641-93a97c3d1be8">
 	<description><![CDATA[This cartridge illustrates how to use 'Derived Types Support' message flow.
 
 
@@ -34,9 +34,9 @@ The complete object data will be serialized in the 'rawOut']]></description>
 			</service>
 		</summary>
 	</private>
-	<internalmessage name="BaseMessage" type="InternalMessage">
+	<internalmessage name="BaseMessage" type="InternalMessage" id="75a69004-ece4-4f43-bd80-c46062e8556b">
 		<version>1.0</version>
-		<normalizedformat>
+		<normalizedformat id="b3ccbd48-b9e5-43f5-968c-0fb3455d004d">
 			<target-namespace></target-namespace>
 			<xpath-namespaces>
 				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
@@ -59,7 +59,7 @@ The complete object data will be serialized in the 'rawOut']]></description>
 					<notnull>true</notnull>
 				</field>
 				<field xsi:type="InternalMessageFieldType">
-					<name>type</name>
+					<name>type1</name>
 					<type>String</type>
 					<notnull>true</notnull>
 					<length>-1</length>
@@ -82,7 +82,7 @@ The complete object data will be serialized in the 'rawOut']]></description>
 				</field>
 			</fields>
 		</normalizedformat>
-		<validationrules name="Default" type="ValidationRules">
+		<validationrules name="Default" type="ValidationRules" id="92f26643-c1d1-437e-90c6-0f60054c58f5">
 			<fieldvalidation>
 				<name>E1</name>
 				<fieldname>Trade Date</fieldname>
@@ -108,9 +108,9 @@ The complete object data will be serialized in the 'rawOut']]></description>
 			</propertymap>
 		</elementproperties>
 	</internalmessage>
-	<internalmessage name="OrderIM" type="InternalMessage">
+	<internalmessage name="OrderIM" type="InternalMessage" id="63454e1f-1129-4d9d-8b20-907a4e4785be">
 		<version>1.0</version>
-		<normalizedformat>
+		<normalizedformat id="cb240a90-b984-4268-bdad-311b33dcf729">
 			<baseMessage>BaseMessage</baseMessage>
 			<xpath-namespaces>
 				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
@@ -132,7 +132,7 @@ The complete object data will be serialized in the 'rawOut']]></description>
 				</field>
 			</fields>
 		</normalizedformat>
-		<validationrules name="Default" type="ValidationRules">
+		<validationrules name="Default" type="ValidationRules" id="171aecd3-d7a9-49b5-b605-8b2321d6a763">
 		</validationrules>
 		<elementproperties>
 			<propertymap>
@@ -149,10 +149,10 @@ The complete object data will be serialized in the 'rawOut']]></description>
 			</propertymap>
 		</elementproperties>
 	</internalmessage>
-	<messageflow name="ParseFlow" type="MessageFlow">
+	<messageflow name="ParseFlow" type="MessageFlow" id="94ad8fa0-b098-4af4-ace1-5c5eacff2b72">
 		<version>1.0</version>
 		<transaction>Required</transaction>
-		<variables>
+		<variables id="954c18f2-be8d-4abc-a041-1ea8372b9bcf">
 			<xpath-namespaces>
 				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
 				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
@@ -240,22 +240,22 @@ The complete object data will be serialized in the 'rawOut']]></description>
 				<position x="680" y="271"/>
 			</visual>
 		</flowelement>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="9729be6d-c075-4e1a-8c79-9c03708833d5">
 			<outputport uid="a3fbf35b-b24b-4c00-bb16-c4713a99f585" portindex="0"/>
 			<inputport uid="6ca9563b-87e2-4dea-ab6a-f18bbaa6dd4c" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="75cd1210-cc95-4320-b825-648ad3a8f4a5">
 			<outputport uid="6ca9563b-87e2-4dea-ab6a-f18bbaa6dd4c" portindex="1"/>
 			<inputport uid="d44d8490-6a0e-494f-a1cf-08084107b721" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="d0576442-08bc-4fbd-98f9-3dfb9a2b034a">
 			<outputport uid="d44d8490-6a0e-494f-a1cf-08084107b721" portindex="1"/>
 			<inputport uid="cdeb9ed0-e349-4c3c-9bef-7a95d05fbdec" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="70cfb123-35f7-4087-b5dd-8aa7f6d3d361">
 			<outputport uid="cdeb9ed0-e349-4c3c-9bef-7a95d05fbdec" portindex="1"/>
 			<inputport uid="e52873a4-f8b7-4bbb-8690-560d2987d8e7" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -279,10 +279,10 @@ The complete object data will be serialized in the 'rawOut']]></description>
 			</propertymap>
 		</elementproperties>
 	</messageflow>
-	<messageflow name="SerializationFlow" type="MessageFlow">
+	<messageflow name="SerializationFlow" type="MessageFlow" id="b9bc796a-e2e5-43ae-a01e-b6950ee7758d">
 		<version>1.0</version>
 		<transaction>Required</transaction>
-		<variables>
+		<variables id="b4a11083-c126-4731-ad8b-b28e7bf6d38c">
 			<xpath-namespaces>
 				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
 				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
@@ -362,17 +362,17 @@ The complete object data will be serialized in the 'rawOut']]></description>
 				<position x="680" y="188"/>
 			</visual>
 		</flowelement>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="6b6736df-66ba-44d9-ac9a-08374e053f62">
 			<outputport uid="a3fbf35b-b24b-4c00-bb16-c4713a99f585" portindex="0"/>
 			<inputport uid="6ca9563b-87e2-4dea-ab6a-f18bbaa6dd4c" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="4ee767fd-19d4-40ff-ad2b-df908a2e2d38">
 			<outputport uid="6ca9563b-87e2-4dea-ab6a-f18bbaa6dd4c" portindex="1"/>
 			<inputport uid="382bd24d-9701-4a4e-a981-4988054d76b1" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="a94acb32-4c59-474f-bd8f-b3d34bc3c5c5">
 			<outputport uid="382bd24d-9701-4a4e-a981-4988054d76b1" portindex="1"/>
 			<inputport uid="e52873a4-f8b7-4bbb-8690-560d2987d8e7" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -408,12 +408,11 @@ The complete object data will be serialized in the 'rawOut']]></description>
 				<value>
 					<propertymap>
 						<property name="Author" value="lekha"/>
-						<property name="Client Id" value="lekha.l@volantetech.com"/>
 						<property name="Creation Time" value="Wed Sep 20 14:35:41 IST 2017"/>
-						<property name="Designer Build" value="2025"/>
-						<property name="Last Author" value="volante"/>
-						<property name="Last Save Time" value="Wed Feb 05 17:48:23 IST 2020"/>
-						<property name="Revision Number" value="122"/>
+						<property name="Designer Build" value="2780"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Thu Jun 16 10:22:36 UTC 2022"/>
+						<property name="Revision Number" value="124"/>
 						<property name="Title" value="DemoCart-2"/>
 					</propertymap>
 				</value>
