@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="FormulaFunction" type="Cartridge">
+	<cartridgefilename>/projects/gitrepo1/doc_projects-2/Functions/Functions/FormulaFunction/FormulaFunction.car</cartridgefilename>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>
