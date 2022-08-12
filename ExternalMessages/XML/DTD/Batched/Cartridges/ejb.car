@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1-SNAPSHOT" name="EJB" type="Cartridge" id="9f9c8d7d-1426-460a-83f5-4c45897590c1">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.1" name="EJB" type="Cartridge" id="9f9c8d7d-1426-460a-83f5-4c45897590c1">
 	<description><![CDATA[This cartridge illustrates an XML Batched DTD message.
 
 To run,
@@ -16,11 +16,11 @@ The consolidated output will be displayed in the Output pane.
 		<summary>
 			<service name="EJBDTDExternal" version="1.0" type="Batch Message">
 			</service>
-			<service name="IM" version="1.0" type="Internal Message">
+			<service name="IM1" version="1.0" type="Internal Message">
 			</service>
 		</summary>
 	</private>
-	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.1-SNAPSHOT" rulename="EJBDTDExternal" formattype="XMLFormat" id="ea6e22c4-578c-40e4-92c1-6548f62fdf76" >
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.1" rulename="EJBDTDExternal" formattype="XMLFormat" id="ea6e22c4-578c-40e4-92c1-6548f62fdf76" >
 		<standard>XML</standard>
 		<version>1.0</version>
 		<xmlfields id="668af8b0-4b6f-4ce3-aa1b-56c668b0b4aa">
@@ -714,7 +714,7 @@ The consolidated output will be displayed in the Output pane.
 			</propertymap>
 		</elementproperties>
 	</externalmessage>
-	<internalmessage name="IM" type="InternalMessage" id="d97faaa1-27c1-415e-977e-82d8d6377279">
+	<internalmessage name="IM1" type="InternalMessage" id="d97faaa1-27c1-415e-977e-82d8d6377279">
 		<version>1.0</version>
 		<normalizedformat id="969eeeef-a22e-4a6e-bb9d-c92208a00e49">
 			<xpath-namespaces>
@@ -748,10 +748,10 @@ The consolidated output will be displayed in the Output pane.
 					<propertymap>
 						<property name="Author" value="Ajay"/>
 						<property name="Creation Time" value="Thu Dec 09 09:37:52 IST 2004"/>
-						<property name="Designer Build" value="2780"/>
+						<property name="Designer Build" value="2819"/>
 						<property name="Last Author" value="root"/>
-						<property name="Last Save Time" value="Wed Jun 08 05:50:54 UTC 2022"/>
-						<property name="Revision Number" value="15"/>
+						<property name="Last Save Time" value="Fri Aug 12 08:13:17 UTC 2022"/>
+						<property name="Revision Number" value="16"/>
 					</propertymap>
 				</value>
 			</property>
