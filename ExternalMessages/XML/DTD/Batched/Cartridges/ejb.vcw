@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="EJB" type="Cartridge">
+	<cartridgefilename>/projects/GITrepo/doc_projects-3/ExternalMessages/XML/DTD/Batched/Cartridges/ejb.car</cartridgefilename>
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>
