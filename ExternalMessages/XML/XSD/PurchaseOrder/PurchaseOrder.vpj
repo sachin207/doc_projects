@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PurchaseOrder" type="VolanteProject" id="0ab07fe1-512c-431d-bff0-0e8b00c5542c">
+	<description><![CDATA[test]]></description>
 	<version>1.0</version>
 	<folder-set root="." id="b7832df7-9eef-47f3-8b78-68d6ad38fe4b">
 	</folder-set>
@@ -9,12 +10,11 @@
 				<value>
 					<propertymap>
 						<property name="Author" value="swarnalatha"/>
-						<property name="Client Id" value="swarnalatha@volantetech.net"/>
 						<property name="Creation Time" value="Tue Sep 14 11:16:24 IST 2021"/>
-						<property name="Designer Build" value="2570"/>
-						<property name="Last Author" value="swarnalatha"/>
-						<property name="Last Save Time" value="Tue Sep 14 11:17:03 IST 2021"/>
-						<property name="Revision Number" value="4"/>
+						<property name="Designer Build" value="2819"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Wed Aug 24 09:03:50 UTC 2022"/>
+						<property name="Revision Number" value="5"/>
 						<property name="Title" value="PurchaseOrder"/>
 					</propertymap>
 				</value>

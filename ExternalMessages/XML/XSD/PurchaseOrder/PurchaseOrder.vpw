@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<workspace name="PurchaseOrder" type="VolanteProject">
+	<additionalTestClasspaths>
+	</additionalTestClasspaths>
+	<additional-properties>
+		<propertymap>
+		</propertymap>
+	</additional-properties>
+</workspace>
