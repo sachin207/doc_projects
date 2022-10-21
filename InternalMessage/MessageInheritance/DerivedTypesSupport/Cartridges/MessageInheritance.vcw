@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <workspace name="DerivedTypes" type="Cartridge">
-	<cartridgefilename>/projects/doc_projects/doc_projects-1/InternalMessage/MessageInheritance/DerivedTypesSupport/Cartridges/MessageInheritance.car</cartridgefilename>
+	<cartridgefilename>/projects/Gitrepo/doc_projects-1/InternalMessage/MessageInheritance/DerivedTypesSupport/Cartridges/MessageInheritance.car</cartridgefilename>
 	<additionalTestClasspaths>
 	</additionalTestClasspaths>
 	<additional-properties>
