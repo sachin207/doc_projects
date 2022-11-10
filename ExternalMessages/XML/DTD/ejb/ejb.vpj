@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="ejb" type="VolanteProject" id="58109d64-021b-4b21-9fc1-577ab340d4b4">
+	<description><![CDATA[test]]></description>
 	<version>1.0</version>
 	<folder-set root="." id="bfb6826f-5ffb-4af5-b54c-203c485ab40d">
 	</folder-set>
@@ -10,10 +11,10 @@
 					<propertymap>
 						<property name="Author" value="swarnalatha"/>
 						<property name="Creation Time" value="Tue Sep 14 11:14:32 IST 2021"/>
-						<property name="Designer Build" value="2813"/>
+						<property name="Designer Build" value="2872"/>
 						<property name="Last Author" value="root"/>
-						<property name="Last Save Time" value="Tue Jul 19 08:34:59 UTC 2022"/>
-						<property name="Revision Number" value="5"/>
+						<property name="Last Save Time" value="Thu Nov 10 11:33:15 UTC 2022"/>
+						<property name="Revision Number" value="6"/>
 						<property name="Title" value="ejb"/>
 					</propertymap>
 				</value>
