@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="4.1" name="PurchaseOrder" type="Cartridge">
+<cartridge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="6.5.2-SNAPSHOT" name="PurchaseOrder" type="Cartridge" id="4e917b63-9f9f-4546-a808-99d923ffd3fc">
 	<version>1.0</version>
-	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="4.1" rulename="PurchaseOrder" formattype="XMLFormat" >
+	<read-only>false</read-only>
+	<private>
+		<summary>
+			<service name="PurchaseOrder" version="1.0" type="External Message">
+			</service>
+			<service name="test" version="1.0" type="Message Flow">
+			</service>
+			<service name="aaa" version="1.0" type="Internal Message">
+			</service>
+		</summary>
+	</private>
+	<externalmessage xsi:type="XMLFormat" type="XMLFormat" version="6.5.2-SNAPSHOT" rulename="PurchaseOrder" formattype="XMLFormat" id="f2207997-203e-4200-b559-f2ace75a6dcd" >
 		<standard>XML</standard>
 		<version>1.0</version>
-		<xmlfields>
+		<xmlfields id="dc0ed54d-cdc5-4237-8fa4-aa36d881e832">
 			<xml-options>
 				<xsd><![CDATA[PurchaseOrder.xsd]]></xsd>
 				<batch>false</batch>
@@ -15,10 +26,12 @@
 				<validate>false</validate>
 				<validate-with-schema>false</validate-with-schema>
 				<namespace-aware>true</namespace-aware>
+				<enable-external-entities>false</enable-external-entities>
 				<allow-type-substitution>ALWAYS</allow-type-substitution>
 				<model-flattener-options>
 					<flatten-choice>false</flatten-choice>
 					<flatten-optional-group>false</flatten-optional-group>
+					<flatten-named-group>true</flatten-named-group>
 				</model-flattener-options>
 			</xml-options>
 			<entity-references>
@@ -46,7 +59,7 @@
 					<xmltype>date</xmltype>
 					<node-type>attribute</node-type>
 					<field-attributes>
-						<field-attribute name="xmlType">date</field-attribute>
+						<field-attribute name="xmlType" runtime="false">date</field-attribute>
 					</field-attributes>
 				</field>
 				<field xsi:type="XMLSectionType">
@@ -66,7 +79,7 @@
 							<node-type>attribute</node-type>
 							<fixed-value>true</fixed-value>
 							<field-attributes>
-								<field-attribute name="xmlType">NMTOKEN</field-attribute>
+								<field-attribute name="xmlType" runtime="false">NMTOKEN</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -76,7 +89,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -86,7 +99,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -96,7 +109,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -106,7 +119,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -116,12 +129,12 @@
 							<xmltype>decimal</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">decimal</field-attribute>
+								<field-attribute name="xmlType" runtime="false">decimal</field-attribute>
 							</field-attributes>
 						</field>
 					</fields>
 					<field-attributes>
-						<field-attribute name="xmlType">USAddress</field-attribute>
+						<field-attribute name="xmlType" runtime="false">USAddress</field-attribute>
 					</field-attributes>
 				</field>
 				<field xsi:type="XMLSectionType">
@@ -141,7 +154,7 @@
 							<node-type>attribute</node-type>
 							<fixed-value>true</fixed-value>
 							<field-attributes>
-								<field-attribute name="xmlType">NMTOKEN</field-attribute>
+								<field-attribute name="xmlType" runtime="false">NMTOKEN</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -151,7 +164,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -161,7 +174,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -171,7 +184,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -181,7 +194,7 @@
 							<xmltype>string</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">string</field-attribute>
+								<field-attribute name="xmlType" runtime="false">string</field-attribute>
 							</field-attributes>
 						</field>
 						<field xsi:type="XMLFieldType">
@@ -191,12 +204,12 @@
 							<xmltype>decimal</xmltype>
 							<node-type>element</node-type>
 							<field-attributes>
-								<field-attribute name="xmlType">decimal</field-attribute>
+								<field-attribute name="xmlType" runtime="false">decimal</field-attribute>
 							</field-attributes>
 						</field>
 					</fields>
 					<field-attributes>
-						<field-attribute name="xmlType">USAddress</field-attribute>
+						<field-attribute name="xmlType" runtime="false">USAddress</field-attribute>
 					</field-attributes>
 				</field>
 				<field xsi:type="XMLFieldType">
@@ -206,7 +219,7 @@
 					<xmltype>string</xmltype>
 					<node-type>element</node-type>
 					<field-attributes>
-						<field-attribute name="xmlType">string</field-attribute>
+						<field-attribute name="xmlType" runtime="false">string</field-attribute>
 					</field-attributes>
 				</field>
 				<field xsi:type="XMLSectionType">
@@ -235,7 +248,7 @@
 										<pattern value="\d{3}-[A-Z]{2}"/>
 									</facets>
 									<field-attributes>
-										<field-attribute name="xmlType">SKU</field-attribute>
+										<field-attribute name="xmlType" runtime="false">SKU</field-attribute>
 									</field-attributes>
 								</field>
 								<field xsi:type="XMLFieldType">
@@ -245,7 +258,7 @@
 									<xmltype>string</xmltype>
 									<node-type>element</node-type>
 									<field-attributes>
-										<field-attribute name="xmlType">string</field-attribute>
+										<field-attribute name="xmlType" runtime="false">string</field-attribute>
 									</field-attributes>
 								</field>
 								<field xsi:type="XMLFieldType">
@@ -258,7 +271,7 @@
 										<maxExclusive value="100"/>
 									</facets>
 									<field-attributes>
-										<field-attribute name="xmlType"></field-attribute>
+										<field-attribute name="xmlType" runtime="false"></field-attribute>
 									</field-attributes>
 								</field>
 								<field xsi:type="XMLFieldType">
@@ -268,7 +281,7 @@
 									<xmltype>decimal</xmltype>
 									<node-type>element</node-type>
 									<field-attributes>
-										<field-attribute name="xmlType">decimal</field-attribute>
+										<field-attribute name="xmlType" runtime="false">decimal</field-attribute>
 									</field-attributes>
 								</field>
 								<field xsi:type="XMLFieldType">
@@ -278,7 +291,7 @@
 									<xmltype>string</xmltype>
 									<node-type>element</node-type>
 									<field-attributes>
-										<field-attribute name="xmlType">string</field-attribute>
+										<field-attribute name="xmlType" runtime="false">string</field-attribute>
 									</field-attributes>
 								</field>
 								<field xsi:type="XMLFieldType">
@@ -289,14 +302,14 @@
 									<xmltype>date</xmltype>
 									<node-type>element</node-type>
 									<field-attributes>
-										<field-attribute name="xmlType">date</field-attribute>
+										<field-attribute name="xmlType" runtime="false">date</field-attribute>
 									</field-attributes>
 								</field>
 							</fields>
 						</field>
 					</fields>
 					<field-attributes>
-						<field-attribute name="xmlType">Items</field-attribute>
+						<field-attribute name="xmlType" runtime="false">Items</field-attribute>
 					</field-attributes>
 				</field>
 			</datafields>
@@ -304,7 +317,7 @@
 				<model>sequence</model>
 			</trailerfields>
 		</xmlfields>
-		<validationrules name="Default">
+		<validationrules name="Default" type="FieldsValidationRules" id="386a92c2-8b7c-4f22-a342-a03b6f31efd7">
 			<hdrvalidationrules>
 				<fieldvalidations>
 				</fieldvalidations>
@@ -333,10 +346,10 @@
 			</propertymap>
 		</elementproperties>
 	</externalmessage>
-	<messageflow name="test" type="MessageFlow">
+	<messageflow name="test" type="MessageFlow" id="858960db-bee4-44a3-a15e-86e8c090371e">
 		<version>1.0</version>
 		<transaction>NotRequired</transaction>
-		<variables>
+		<variables id="e5d5d146-5f86-4fef-82a0-4b24d6af2cbe">
 			<xpath-namespaces>
 				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
 				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
@@ -404,17 +417,17 @@
 				<position x="399" y="191"/>
 			</visual>
 		</flowelement>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="41719d0a-00a9-485f-89b6-532ccc653e3a">
 			<outputport uid="b8b2299e-faba-4eb8-acd6-f10f8da99a50" portindex="1"/>
 			<inputport uid="f72f9332-b6a4-43bb-8fe6-93003b42fd55" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="cd4f7ae9-2ac8-41db-b3f4-fb72aacc2939">
 			<outputport uid="f72f9332-b6a4-43bb-8fe6-93003b42fd55" portindex="1"/>
 			<inputport uid="667afee6-25e5-4d51-b0ca-ae74a62f1470" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
 		</link>
-		<link type="Default" xsi:type="Default">
+		<link type="Default" xsi:type="Default" uid="7463ca50-8ab2-42f9-b18f-618c2a94b4d8">
 			<outputport uid="31eadd55-693a-4ae1-a7af-bfad532a99e8" portindex="0"/>
 			<inputport uid="b8b2299e-faba-4eb8-acd6-f10f8da99a50" portindex="0"/>
 			<edge-type>DIRECT</edge-type>
@@ -438,67 +451,57 @@
 			</propertymap>
 		</elementproperties>
 	</messageflow>
+	<internalmessage name="aaa" type="InternalMessage" id="7a1d28ea-ff6f-47f4-a9b1-8c30b69b9d00">
+		<version>1.0</version>
+		<normalizedformat id="fd2a7602-428f-47f8-b9bc-b9156e7d41f2">
+			<xpath-namespaces>
+				<namespace value="http://www.w3.org/2005/xpath-functions" prefix="fn"/>
+				<namespace value="http://www.w3.org/2001/XMLSchema" prefix="xs"/>
+				<namespace value="java:com.tplus.transform.runtime.swift.SwiftXPathFunctions" prefix="swift"/>
+			</xpath-namespaces>
+			<formatOptions>
+			<feature-secure-processing>true</feature-secure-processing>
+			</formatOptions>
+			<fields>
+			</fields>
+		</normalizedformat>
+		<validationrules name="Default" type="ValidationRules" id="64f1b54d-b7fd-4ad3-807d-5554c02c6c5f">
+		</validationrules>
+		<elementproperties>
+			<propertymap>
+			</propertymap>
+		</elementproperties>
+	</internalmessage>
 	<elementproperties>
 		<propertymap>
 			<property name="CARTRIDGE_INFO">
 				<value>
 					<propertymap type="com.tplus.transform.design.CartridgeInfo">
-						<property name="GeneratedFiles">
-							<value>
-								<propertymap>
-								</propertymap>
-							</value>
-						</property>
-						<property name="cartridgefilename" value="F:\Volante\Cartridges\ExternalMessages\XML\XSD\PurchaseOrder\PurchaseOrder.car"/>
 					</propertymap>
 				</value>
 			</property>
 			<property name="DOCUMENT_PROPERTIES">
 				<value>
 					<propertymap>
-						<property name="Creation Time" value="Fri Jul 29 16:34:38 GMT+05:30 2005"/>
 						<property name="Author" value="Krishnan"/>
+						<property name="Creation Time" value="Fri Jul 29 16:34:38 GMT+05:30 2005"/>
+						<property name="Designer Build" value="2872"/>
+						<property name="Last Author" value="root"/>
+						<property name="Last Save Time" value="Mon Nov 14 09:41:35 UTC 2022"/>
 						<property name="LastAuthor" value="Krish"/>
-						<property name="Client Id" value="volante"/>
-						<property name="Last Author" value="krishnan"/>
-						<property name="Last Save Time" value="Thu Jan 17 17:12:35 IST 2013"/>
-						<property name="Designer Build" value="1256"/>
-						<property name="Revision Number" value="63"/>
+						<property name="Revision Number" value="64"/>
 					</propertymap>
 				</value>
 			</property>
-			<property name="codegen.java.options">
+			<property name="WebServiceDefs">
 				<value>
-					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
-						<property name="isJBoss" value="true"/>
-						<property name="isOSGI" value="true"/>
-						<property name="isEJB" value="true"/>
-						<property name="isWebSphere" value="true"/>
-						<property name="isVolante" value="true"/>
-						<property name="isRemote" value="true"/>
-						<property name="isWebLogic" value="true"/>
-						<property name="isWLEVS" value="false"/>
-						<property name="resource-references">
+					<propertymap>
+						<property name="webservices">
 							<value>
 								<propertylist>
 								</propertylist>
 							</value>
 						</property>
-						<property name="isGenerateALSB" value="false"/>
-						<property name="isOrion" value="true"/>
-						<property name="isLocal" value="true"/>
-						<property name="isGenerateJNDILinks" value="true"/>
-						<property name="isGeronimo" value="false"/>
-						<property name="isGenerateEAR" value="false"/>
-						<property name="ejb-jndi-prefix" value=""/>
-					</propertymap>
-				</value>
-			</property>
-			<property name="codegen.java.properties">
-				<value>
-					<propertymap type="com.tplus.transform.design.PropertiesDef">
-						<property name="Max Class Length" value="150"/>
-						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
 					</propertymap>
 				</value>
 			</property>
@@ -516,10 +519,38 @@
 					</propertymap>
 				</value>
 			</property>
-			<property name="WebServiceDefs">
+			<property name="codegen.java.options">
 				<value>
-					<propertymap>
-						<property name="webservices">
+					<propertymap type="com.tplus.transform.design.codegen.java.JavaCodeGeneratorOptions">
+						<property name="WebSphere.VARIANT.Liberty Profile" value="false"/>
+						<property name="WebSphere.VARIANT.WebSphere Full Profile" value="false"/>
+						<property name="ejb-jndi-prefix" value=""/>
+						<property name="isEJB" value="true"/>
+						<property name="isGenerateALSB" value="false"/>
+						<property name="isGenerateEAR" value="false"/>
+						<property name="isGenerateJNDILinks" value="true"/>
+						<property name="isJBoss" value="true"/>
+						<property name="isLocal" value="true"/>
+						<property name="isOSGI" value="true"/>
+						<property name="isRemote" value="true"/>
+						<property name="isVolante" value="true"/>
+						<property name="isWAR" value="false"/>
+						<property name="isWLEVS" value="false"/>
+						<property name="isWebLogic" value="true"/>
+						<property name="isWebSphere" value="true"/>
+						<property name="isWildFly" value="false"/>
+						<property name="osgi-options">
+							<value>
+								<propertymap>
+									<property name="exclude-locked-cartridge-jars" value="false"/>
+									<property name="exclude-thirdparty-dependency" value="false"/>
+									<property name="exclude-volante-dependencies" value="false"/>
+									<property name="include-dependencies" value="false"/>
+									<property name="include-test-dependencies" value="false"/>
+								</propertymap>
+							</value>
+						</property>
+						<property name="resource-references">
 							<value>
 								<propertylist>
 								</propertylist>
@@ -528,10 +559,15 @@
 					</propertymap>
 				</value>
 			</property>
+			<property name="codegen.java.properties">
+				<value>
+					<propertymap type="com.tplus.transform.design.PropertiesDef">
+						<property name="Max Class Length" value="150"/>
+						<property name="Java Package Name" value="com.transform.cartridge.%c"/>
+					</propertymap>
+				</value>
+			</property>
 		</propertymap>
 	</elementproperties>
-	<workspace>
-		<selected-element>PurchaseOrder/test</selected-element>
-	</workspace>
 </cartridge>
 
