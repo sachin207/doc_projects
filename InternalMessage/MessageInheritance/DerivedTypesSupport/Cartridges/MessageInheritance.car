@@ -59,7 +59,13 @@ The complete object data will be serialized in the 'rawOut']]></description>
 					<notnull>true</notnull>
 				</field>
 				<field xsi:type="InternalMessageFieldType">
-					<name>New Field</name>
+					<name>f1</name>
+					<type>String</type>
+					<notnull>true</notnull>
+					<length>-1</length>
+				</field>
+				<field xsi:type="InternalMessageFieldType">
+					<name>f2</name>
 					<type>String</type>
 					<notnull>true</notnull>
 					<length>-1</length>
@@ -421,8 +427,8 @@ The complete object data will be serialized in the 'rawOut']]></description>
 						<property name="Creation Time" value="Wed Sep 20 14:35:41 IST 2017"/>
 						<property name="Designer Build" value="3128"/>
 						<property name="Last Author" value="sachin.jaiswal+c"/>
-						<property name="Last Save Time" value="Tue Aug 08 10:30:43 UTC 2023"/>
-						<property name="Revision Number" value="133"/>
+						<property name="Last Save Time" value="Tue Aug 08 10:39:52 UTC 2023"/>
+						<property name="Revision Number" value="134"/>
 						<property name="Title" value="DemoCart-2"/>
 					</propertymap>
 				</value>
